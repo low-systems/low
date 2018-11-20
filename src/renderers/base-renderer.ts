@@ -3,16 +3,12 @@ import { BaseModule } from '../base-module';
 import { Environment, Job } from '../environment';
 import dot = require('dot-object');
 
-export class BaseRenderer extends BaseModule {
-  constructor(env: Environment, name: string, ...args: any[]) { 
-    super(env, name, ...args); 
+export abstract class BaseRenderer extends BaseModule {
+  constructor(name: string, ...args: any[]) { 
+    super(name, ...args); 
   }
 
   async render(config: RenderConfig, job: Job): Promise<any> {
-    if (config.parser && !this.env.parsers.hasOwnProperty(config.parser)) {
-      throw new Error(`No parser called "${config.parser}" registered`);
-    } 
-
     const context = this.buildContext(config, job);
     const template = this.getTemplate(config, job);
     const rendered = await this.core(template, context);
@@ -54,7 +50,7 @@ export class BaseRenderer extends BaseModule {
 
   async parseRendered(rendered: any, config: RenderConfig): Promise<any> {
     if (config.parser) {
-      const parser = this.env.parsers[config.parser];
+      const parser = this.env.getParser(config.parser);
       rendered = await parser.parse(rendered, config.parserConfig || {});
     }
     return rendered;

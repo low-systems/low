@@ -11,14 +11,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_module_1 = require("../base-module");
 const dot = require("dot-object");
 class BaseRenderer extends base_module_1.BaseModule {
-    constructor(env, name, ...args) {
-        super(env, name, ...args);
+    constructor(name, ...args) {
+        super(name, ...args);
     }
     render(config, job) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (config.parser && !this.env.parsers.hasOwnProperty(config.parser)) {
-                throw new Error(`No parser called "${config.parser}" registered`);
-            }
             const context = this.buildContext(config, job);
             const template = this.getTemplate(config, job);
             const rendered = yield this.core(template, context);
@@ -55,7 +52,7 @@ class BaseRenderer extends base_module_1.BaseModule {
     parseRendered(rendered, config) {
         return __awaiter(this, void 0, void 0, function* () {
             if (config.parser) {
-                const parser = this.env.parsers[config.parser];
+                const parser = this.env.getParser(config.parser);
                 rendered = yield parser.parse(rendered, config.parserConfig || {});
             }
             return rendered;

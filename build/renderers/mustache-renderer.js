@@ -18,8 +18,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_renderer_1 = require("./base-renderer");
 const mustache = __importStar(require("mustache"));
 class MustacheRenderer extends base_renderer_1.BaseRenderer {
-    constructor(env, name, partials = {}) {
-        super(env, name);
+    constructor(name, partials = {}) {
+        super(name);
         this.partials = partials;
     }
     core(template, context) {

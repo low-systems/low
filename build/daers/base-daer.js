@@ -11,15 +11,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_module_1 = require("../base-module");
 const dot = require("dot-object");
 class BaseDaer extends base_module_1.BaseModule {
-    constructor(env, name, ...args) {
-        super(env, name, ...args);
+    constructor(name, ...args) {
+        super(name, ...args);
     }
     execute(job, taskConfig, path) {
         return __awaiter(this, void 0, void 0, function* () {
             let cacheManager;
             let cacheKey;
             if (taskConfig.cacheConfig) {
-                cacheManager = this.env.cacheManagers[taskConfig.cacheConfig.cacheManager];
+                cacheManager = this.env.getCacheManager(taskConfig.cacheConfig.cacheManager);
                 cacheKey = yield cacheManager.makeKey(taskConfig.cacheConfig, job);
                 const cachedItem = yield cacheManager.getItem(cacheKey);
                 if (cachedItem) {
@@ -105,10 +105,7 @@ class BaseDaer extends base_module_1.BaseModule {
     applyRenderProperty(property, job) {
         return __awaiter(this, void 0, void 0, function* () {
             const renderConfig = property;
-            if (!this.env.renderers.hasOwnProperty(renderConfig.renderer)) {
-                throw new Error(`The task ${this.debugPath} has a special property which is attempting to use an unknown renderer called "${renderConfig.renderer}"`);
-            }
-            const renderer = this.env.renderers[renderConfig.renderer];
+            const renderer = this.env.getRenderer(renderConfig.renderer);
             const rendered = renderer.render(renderConfig, job);
             return rendered;
         });

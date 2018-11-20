@@ -5,8 +5,8 @@ import { Environment } from '../environment';
 import * as mustache from 'mustache';
 
 export class MustacheRenderer extends BaseRenderer {
-  constructor(env: Environment, name: string, private partials: Map<string> = {}) {
-    super(env, name);
+  constructor(name: string, private partials: Map<string> = {}) {
+    super(name);
   }
 
   async core(template: any, context: RenderContext): Promise<string> {

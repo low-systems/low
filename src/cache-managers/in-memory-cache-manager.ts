@@ -4,8 +4,8 @@ import { BaseCacheManager, CacheKey } from './base-cache-manager';
 const CACHE: MemoryCache = {};
 
 export class InMemoryCacheManager extends BaseCacheManager {
-  constructor(env: Environment, name: string) {
-    super(env, name);
+  constructor(name: string) {
+    super(name);
   }
 
   async getItem(cacheKey: CacheKey): Promise<any> {

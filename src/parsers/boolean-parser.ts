@@ -2,7 +2,7 @@ import { Environment } from '../environment';
 import { BaseParser, ParserConfig } from './base-parser';
 
 export class BooleanParser extends BaseParser<boolean> {
-  constructor(env: Environment, name: string) { super(env, name); }
+  constructor(name: string) { super(name); }
 
   async parse(input: any, config: ParserConfig<boolean>): Promise<boolean> {
     try {

@@ -6,8 +6,8 @@ import { Environment, Job } from '../environment';
 import dot = require('dot-object');
 
 export class BaseCacheManager extends BaseModule {
-  constructor(env: Environment, name: string, ...args: any[]) {
-    super(env, name, args);
+  constructor(name: string, ...args: any[]) {
+    super(name, args);
   }
 
   async getItem(cacheKey: CacheKey): Promise<any> {

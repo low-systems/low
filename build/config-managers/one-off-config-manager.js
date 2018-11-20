@@ -8,29 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const base_parser_1 = require("./base-parser");
-class JsonParser extends base_parser_1.BaseParser {
-    constructor(name) { super(name); }
-    parse(input, config) {
+const base_config_manager_1 = require("./base-config-manager");
+class OneOffConfigManager extends base_config_manager_1.BaseConfigManager {
+    constructor(config) {
+        super();
+    }
+    setupListener(callback, config) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                if (typeof input === 'string') {
-                    return JSON.parse(input);
-                }
-                else {
-                    return input;
-                }
-            }
-            catch (err) {
-                if (config.defaultValue) {
-                    return config.defaultValue;
-                }
-                else {
-                    throw err;
-                }
-            }
+            yield callback(config);
+        });
+    }
+    saveConfiguration(config, updateVersion) {
+        return __awaiter(this, void 0, void 0, function* () {
+            throw new Error("Saving is not allowed when using the One Off Config Manager");
         });
     }
 }
-exports.JsonParser = JsonParser;
-//# sourceMappingURL=json-parser.js.map
+exports.OneOffConfigManager = OneOffConfigManager;
+//# sourceMappingURL=one-off-config-manager.js.map

@@ -1,5 +1,7 @@
 import { Map, TaskConfig } from './interfaces';
 
+import { BaseConfigManager } from './config-managers/base-config-manager';
+
 import { BaseModule } from './base-module';
 import { BaseRenderer } from './renderers/base-renderer';
 import { BaseParser } from './parsers/base-parser';
@@ -25,36 +27,44 @@ import { InMemoryCacheManager } from './cache-managers/in-memory-cache-manager';
  * configurations, modules, tests, etc. 
  * @class
  */
-export class Environment {
+export class Environment extends NodeJS.EventEmitter {
+  private ready: boolean = false;
+
   /**
    * Holds the state of whether Profiling is on or off. 
    * @member {boolean} 
    */
   private profiling: boolean = false;
 
-  /**
-   * A Map that stores all instances of registered Daer Modules
-   * @member {BaseDaer}
-   */
-  daers: Map<BaseDaer> = {};
+  metaData: any = {};
+  moduleConfigs: any = {};
 
-  /**
-   * A Map that stores all instances of registered Renderer Modules
-   * @member {BaseRenderer}
-   */
-  renderers: Map<BaseRenderer> = {};
-
-  /**
-   * A Map that stores all instances of registered Parser Modules
-   * @member {BaseParser}
-   */
-  parsers: Map<BaseParser<any>> = {};
-
-  /**
-   * A Map that stores all instances of registered Cache Manager Modules
-   * @member {BaseCacheManager}
-   */
-  cacheManagers: Map<BaseCacheManager> = {};
+  private tasks: Map<TaskConfig> = {};
+  private modules: ModuleMaps = {
+    renderers: {},
+    parsers: {},
+    daers: {},
+    cacheManagers: {}
+  };
+  
+  private builtIn: Modules = {
+    daers: [
+      new BasicDaer('basic')
+    ],
+    renderers: [
+      new MustacheRenderer('mustache')
+    ],
+    parsers: [
+      new BooleanParser('boolean'),
+      new JsonParser('json'),
+      new NumberParser('number'),
+      new StringifyParser('stringify'),
+      new UrlParser('url')
+    ],
+    cacheManagers: [
+      new InMemoryCacheManager('in-memory')
+    ]
+  };
 
   /**
    * @constructs Environment
@@ -62,60 +72,113 @@ export class Environment {
    * @param {any} - An object containing metadata that might be needed by your system
    * @param {any} - An object containing configuration information for any registered modules
    */
-  constructor(public readonly taskConfigs: Map<TaskConfig>, public readonly metaData: any, public readonly moduleConfig: any) {
-    this.registerBuiltInModules();
+  constructor(modules: Modules, private configManager: BaseConfigManager) {
+    super();
+
+    for (const mod of [...this.builtIn.renderers, ...modules.renderers]) {
+      this.modules.renderers[mod.name] = mod;
+    }
+
+    for (const mod of [...this.builtIn.parsers, ...modules.parsers]) {
+      this.modules.parsers[mod.name] = mod;
+    }
+
+    for (const mod of [...this.builtIn.daers, ...modules.daers]) {
+      this.modules.daers[mod.name] = mod;
+    }
+
+    for (const mod of [...this.builtIn.cacheManagers, ...modules.cacheManagers]) {
+      this.modules.cacheManagers[mod.name] = mod;
+    }
+
+    configManager.setup();
   }
 
-  /**
-   * Register all built-in modules into this Environment. These modules will help you get started
-   * @function registerBuiltInModules
-   * @private
-   */
-  private registerBuiltInModules(): void {
-    // Register built-in Daers
-    this.registerModule('basic', BasicDaer);
-
-    // Register built-in Renderers
-    this.registerModule('mustache', MustacheRenderer);
-
-    // Register built-in Parsers
-    this.registerModule('boolean', BooleanParser);
-    this.registerModule('json', JsonParser);
-    this.registerModule('number', NumberParser);
-    this.registerModule('stringify', StringifyParser);
-    this.registerModule('url', UrlParser);
-
-    // Register built-in Cache Managers
-    this.registerModule('in-memory', InMemoryCacheManager);
+  async loadConfig(config: EnvironmentConfig): Promise<void> {
+    this.tasks = config.tasks; 
+    this.metaData = config.metaData;
+    this.moduleConfigs = config.moduleConfigs;
+    await this.setupModules();
+    this.ready = true;
+    this.emit('setup');
   }
 
-  registerModule(name: string, moduleType: typeof BaseModule, ...args: any[]): BaseModule {
-    let newModule = new moduleType(this, name, ...args);
-
-    if (!newModule.moduleType) {
-      const moduleType = newModule && newModule.constructor && newModule.constructor.name || '[unknown]';
-      throw new Error(`Module type ${moduleType} does not inherit one of the proper base modules`);
+  async setupModules(): Promise<void> {
+    if (!this.ready) {
+      throw new Error('Environment is not ready');
+    }
+    
+    for (const mod of Object.values(this.modules.renderers)) {
+      await mod.triggerSetup(this);
+    }
+    
+    for (const mod of Object.values(this.modules.parsers)) {
+      await mod.triggerSetup(this);
     }
 
-    const map: Map<BaseModule> | null = 
-        moduleType instanceof BaseParser ? this.parsers :
-        moduleType instanceof BaseRenderer ? this.renderers :
-        moduleType instanceof BaseDaer ? this.daers :
-        moduleType instanceof BaseCacheManager ? this.cacheManagers :
-        null;
-
-    if (!map) {
-      throw new Error(`Module type ${newModule.moduleType} is neither a Renderer, Parser, Task Module, or CacheManager`);
+    for (const mod of Object.values(this.modules.daers)) {
+      await mod.triggerSetup(this);
     }
 
-    if (map.hasOwnProperty(name)) {
-      throw new Error(`There already exists a ${newModule.moduleType} called "${name}"`);
+    for (const mod of Object.values(this.modules.cacheManagers)) {
+      await mod.triggerSetup(this);
     }
-
-    map[name] = newModule;
-
-    return newModule;
   } 
+
+  getRenderer(name: string): BaseRenderer {
+    if (!this.modules.renderers.hasOwnProperty(name)) {
+      throw new Error(`No Renderer called ${name} loaded`);
+    }
+    return this.modules.renderers[name];
+  }
+
+  getParser(name: string): BaseParser<any> {
+    if (!this.modules.parsers.hasOwnProperty(name)) {
+      throw new Error(`No Parsers called ${name} loaded`);
+    }
+    return this.modules.parsers[name];
+  }
+
+  getDaer(name: string): BaseDaer {
+    if (!this.modules.daers.hasOwnProperty(name)) {
+      throw new Error(`No Daer called ${name} loaded`);
+    }
+    return this.modules.daers[name];
+  }
+
+  getCacheManager(name: string): BaseCacheManager {
+    if (!this.modules.cacheManagers.hasOwnProperty(name)) {
+      throw new Error(`No Cache Manager called ${name} loaded`);
+    }
+    return this.modules.cacheManagers[name];
+  }
+
+  getTask(name: string): TaskConfig {
+    if (!this.tasks.hasOwnProperty(name)) {
+      throw new Error(`No Task called ${name} loaded`);
+    }
+    return this.tasks[name];
+  }
+}
+
+export interface Modules {
+  renderers: BaseRenderer[];
+  daers: BaseDaer[];
+  parsers: BaseParser<any>[];
+  cacheManagers: BaseCacheManager[];
+}
+
+export interface ModuleMaps {
+  renderers: { [name: string]: BaseRenderer };
+  daers: { [name: string]: BaseDaer };
+  parsers: { [name: string]: BaseParser<any> };
+  cacheManagers: { [name: string]: BaseCacheManager };
+}
+
+export interface EnvironmentConfig {
+  tasks: Map<TaskConfig>;
+  metaData: any;
+  moduleConfigs: any;
 }
 
 export interface Job {

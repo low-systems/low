@@ -1,14 +1,12 @@
 import { Environment } from '../environment';
 import { BaseModule } from '../base-module';
 
-export class BaseParser<T> extends BaseModule {
-  constructor(env: Environment, name: string, ...args: any[]) { 
-    super(env, name, ...args); 
+export abstract class BaseParser<T> extends BaseModule {
+  constructor(name: string, ...args: any[]) { 
+    super(name, ...args); 
   }
-  
-  async parse(input: any, config: ParserConfig<T>): Promise<T> {
-    throw new Error(`${this.debugPath} has not implemented parse(any, ParserConfig<any>)`);  
-  }  
+
+  abstract async parse(input: any, config: ParserConfig<T>): Promise<T>;
 }
 
 export interface ParserConfig<T> {

@@ -11,8 +11,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_cache_manager_1 = require("./base-cache-manager");
 const CACHE = {};
 class InMemoryCacheManager extends base_cache_manager_1.BaseCacheManager {
-    constructor(env, name) {
-        super(env, name);
+    constructor(name) {
+        super(name);
     }
     getItem(cacheKey) {
         return __awaiter(this, void 0, void 0, function* () {

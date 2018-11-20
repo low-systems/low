@@ -6,9 +6,9 @@ import { BaseCacheManager, CacheConfig, CacheKey } from '../cache-managers/base-
 
 import dot = require('dot-object');
 
-export class BaseDaer extends BaseModule {
-  constructor(env: Environment, name: string, ...args: any[]) { 
-    super(env, name, ...args);
+export abstract class BaseDaer extends BaseModule {
+  constructor(name: string, ...args: any[]) { 
+    super(name, ...args);
   }
 
   async execute(job: Job, taskConfig: TaskConfig, path: string[]): Promise<void> {
@@ -16,7 +16,7 @@ export class BaseDaer extends BaseModule {
     let cacheKey: CacheKey | undefined;
 
     if (taskConfig.cacheConfig) {
-      cacheManager = this.env.cacheManagers[taskConfig.cacheConfig.cacheManager];  
+      cacheManager = this.env.getCacheManager(taskConfig.cacheConfig.cacheManager);  
       cacheKey = await cacheManager.makeKey(taskConfig.cacheConfig, job);
       const cachedItem = await cacheManager.getItem(cacheKey);
       if (cachedItem) {
@@ -102,10 +102,7 @@ export class BaseDaer extends BaseModule {
 
   async applyRenderProperty(property: any, job: Job): Promise<any> {
     const renderConfig = property as RenderConfig;
-    if (!this.env.renderers.hasOwnProperty(renderConfig.renderer)) {
-      throw new Error(`The task ${this.debugPath} has a special property which is attempting to use an unknown renderer called "${renderConfig.renderer}"`);
-    }
-    const renderer = this.env.renderers[renderConfig.renderer];
+    const renderer = this.env.getRenderer(renderConfig.renderer);
     const rendered = renderer.render(renderConfig, job);
     return rendered;
   }

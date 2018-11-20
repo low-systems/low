@@ -1,7 +1,6 @@
-import { Environment } from '../environment';
 import { BaseCacheManager, CacheKey } from './base-cache-manager';
 export declare class InMemoryCacheManager extends BaseCacheManager {
-    constructor(env: Environment, name: string);
+    constructor(name: string);
     getItem(cacheKey: CacheKey): Promise<any>;
     setItem(cacheKey: CacheKey, item: any, ttl: number): Promise<void>;
     bust(partition: string): Promise<void>;
