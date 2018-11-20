@@ -2,6 +2,7 @@ import { TaskConfig, TaskResponse } from '../interfaces';
 import { BaseModule } from '../base-module';
 import { BaseRenderer, RenderConfig } from '../renderers/base-renderer';
 import { Environment, Job } from '../environment';
+import { BaseCacheManager, CacheConfig, CacheKey } from '../cache-managers/base-cache-manager';
 
 import dot = require('dot-object');
 
@@ -11,13 +12,27 @@ export class BaseDaer extends BaseModule {
   }
 
   async execute(job: Job, taskConfig: TaskConfig, path: string[]): Promise<void> {
-    //TODO: Check cache;
+    let cacheManager: BaseCacheManager | undefined;
+    let cacheKey: CacheKey | undefined;
+
+    if (taskConfig.cacheConfig) {
+      cacheManager = this.env.cacheManagers[taskConfig.cacheConfig.cacheManager];  
+      cacheKey = await cacheManager.makeKey(taskConfig.cacheConfig, job);
+      const cachedItem = await cacheManager.getItem(cacheKey);
+      if (cachedItem) {
+        return cachedItem;
+      }
+    }
     
     const coreConfig = await this.getCoreConfig(job, taskConfig);
     const response = await this.core(job, taskConfig, coreConfig);
 
     const dataPath = 'data.' + path.join('.');
     dot.set(dataPath, response.data, job);
+
+    if (cacheManager && cacheKey) {
+      await cacheManager.setItem(cacheKey, response.data, (taskConfig.cacheConfig as CacheConfig).ttl);
+    }
   }
   
   async getCoreConfig(job: Job, taskConfig: TaskConfig): Promise<void> {

@@ -3,7 +3,7 @@ import { BaseCacheManager, CacheKey } from './base-cache-manager';
 
 const CACHE: MemoryCache = {};
 
-export class MemoryCacheManager extends BaseCacheManager {
+export class InMemoryCacheManager extends BaseCacheManager {
   constructor(env: Environment, name: string) {
     super(env, name);
   }

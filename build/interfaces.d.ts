@@ -1,16 +1,6 @@
+import { CacheConfig } from './cache-managers/base-cache-manager';
 export interface Map<T> {
     [key: string]: T;
-}
-export interface CacheManager {
-    getItem: (partition: string, keyParts: any[]) => Promise<any>;
-    setItem: (partition: string, keyParts: any[], value: any) => Promise<void>;
-    bust: (partition: string) => Promise<void>;
-}
-export interface CacheConfig {
-    cacheManager: string;
-    keyFields: string[];
-    partition: string;
-    ttl: number;
 }
 export interface TaskConfig {
     name: string;
