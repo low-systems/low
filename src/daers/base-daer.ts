@@ -1,4 +1,4 @@
-import { TaskConfig, TaskResponse } from '../interfaces';
+import { TaskConfig, TaskResponse, SpecialProperties } from '../interfaces';
 import { BaseModule } from '../base-module';
 import { BaseRenderer, RenderConfig } from '../renderers/base-renderer';
 import { Environment, Job } from '../environment';
@@ -7,11 +7,9 @@ import { BaseCacheManager, CacheConfig, CacheKey } from '../cache-managers/base-
 import dot = require('dot-object');
 
 export abstract class BaseDaer extends BaseModule {
-  constructor(name: string, ...args: any[]) { 
-    super(name, ...args);
-  }
+  async execute(job: Job, taskConfig: TaskConfig, path: string[] = []): Promise<void> {
+    path.push(taskConfig.name);
 
-  async execute(job: Job, taskConfig: TaskConfig, path: string[]): Promise<void> {
     let cacheManager: BaseCacheManager | undefined;
     let cacheKey: CacheKey | undefined;
 
@@ -45,29 +43,30 @@ export abstract class BaseDaer extends BaseModule {
       return coreConfig;
     }
 
-    if (Array.isArray(taskConfig.specialProperties)) {
-      const coreConfig = JSON.parse(JSON.stringify(taskConfig.config));
-      for (const path of taskConfig.specialProperties) {
-        const initial = dot.pick(path, coreConfig);
-        const applied = await this.applySpecialProperties(initial, job);
-        dot.set(path, applied, coreConfig, false);
-      }
-      return coreConfig;
+    const include = (taskConfig.specialProperties as SpecialProperties).include || taskConfig.specialProperties || [];
+    const exclude = (taskConfig.specialProperties as SpecialProperties).exclude || [];
+
+    const coreConfig = JSON.parse(JSON.stringify(taskConfig.config));
+    for (const path of include) {
+      const initial = dot.pick(path, coreConfig);
+      const applied = await this.applySpecialProperties(initial, job, exclude, path.split('.'));
+      dot.set(path, applied, coreConfig, false);
     }
+    return coreConfig;
   }
 
   async core(job: Job, taskConfig: TaskConfig, coreConfig: any): Promise<TaskResponse> {
     throw new Error(`Daer ${this.debugPath} has not yet implemented core(Job, TaskConfig)`);
   }
 
-  async applySpecialProperties(property: any, job: Job): Promise<any> {
+  async applySpecialProperties(property: any, job: Job, exclude: string[] = [], path: string[] = []): Promise<any> {
     const propertyType = this.getPropertyType(property);
 
     switch (propertyType) {
       case (PropertyType.BORING):
-        return await this.applyBoringProperty(property, job);
+        return await this.applyBoringProperty(property, job, exclude, path);
       case(PropertyType.POINTER):
-        return await this.applyPointerProperty(property, job);
+        return await this.applyPointerProperty(property, job, exclude, path);
       case(PropertyType.RENDERER):
         return await this.applyRenderProperty(property, job);
     }
@@ -75,28 +74,38 @@ export abstract class BaseDaer extends BaseModule {
     return property;
   }
 
-  async applyBoringProperty(property: any, job: Job): Promise<any> {
+  async applyBoringProperty(property: any, job: Job, exclude: string[], path: string[]): Promise<any> {
+    // QUESTION: Do I roll this into one statement and do the isArray then push else [key]= inside the for loop?
+    // Probably slower to do that way but the code would be cleaner.
     if (Array.isArray(property)) {
       const applied: any[] = [];
-      for (const item of property) {
-        const itemApplied = await this.applySpecialProperties(item, job);
-        applied.push(itemApplied);
+      for (const [index, item] of Object.entries(property)) {
+        const newPath = [...path, index];
+        const newPathString = newPath.join('.');
+        if (exclude.indexOf(newPathString) === -1) {
+          const itemApplied = await this.applySpecialProperties(item, job, exclude, [...path, index]);
+          applied.push(itemApplied);
+        }
       }
       return applied;
     } else if (typeof property === 'object') {
       const applied: any = {};
       for (const [key, value] of Object.entries(property)) {
-        const valueApplied = await this.applySpecialProperties(value, job);
-        applied[key] = value;
+        const newPath = [...path, key];
+        const newPathString = newPath.join('.');
+        if (exclude.indexOf(newPathString) === -1) {
+          const valueApplied = await this.applySpecialProperties(value, job, exclude, newPath);
+          applied[key] = value;
+        }
       }
       return applied;
     }
     return property;
   }
 
-  async applyPointerProperty(property: any, job: Job): Promise<any> {
+  async applyPointerProperty(property: any, job: Job, exclude: string[], path: string[]): Promise<any> {
     const resolved = this.resolvePointer(property, this.env, job);
-    const applied = await this.applySpecialProperties(resolved, job);
+    const applied = await this.applySpecialProperties(resolved, job, exclude, path);
     return applied;
   }
 

@@ -4,10 +4,6 @@ import { Environment, Job } from '../environment';
 import dot = require('dot-object');
 
 export abstract class BaseRenderer extends BaseModule {
-  constructor(name: string, ...args: any[]) { 
-    super(name, ...args); 
-  }
-
   async render(config: RenderConfig, job: Job): Promise<any> {
     const context = this.buildContext(config, job);
     const template = this.getTemplate(config, job);

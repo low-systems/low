@@ -2,8 +2,6 @@ import { Environment } from '../environment';
 import { BaseParser, ParserConfig } from './base-parser';
 
 export class NumberParser extends BaseParser<number> {
-  constructor(name: string) { super(name); }
-  
   async parse(input: any, config: ParserConfig<number>): Promise<number> {
     try {
       return Number(input);

@@ -2,8 +2,6 @@ import { Environment } from '../environment';
 import { BaseParser, ParserConfig } from './base-parser';
 
 export class JsonParser extends BaseParser<object> {
-  constructor(name: string) { super(name); }
-
   async parse(input: any, config: ParserConfig<object>): Promise<object> {
     try {
       if (typeof input === 'string') {

@@ -6,10 +6,6 @@ import { Environment, Job } from '../environment';
 import dot = require('dot-object');
 
 export class BaseCacheManager extends BaseModule {
-  constructor(name: string, ...args: any[]) {
-    super(name, args);
-  }
-
   async getItem(cacheKey: CacheKey): Promise<any> {
     throw new Error(`Cache manager ${this.moduleType} has not yet implemented getItem(CacheKey)`);
   }

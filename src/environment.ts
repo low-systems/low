@@ -157,7 +157,22 @@ export class Environment extends NodeJS.EventEmitter {
     if (!this.tasks.hasOwnProperty(name)) {
       throw new Error(`No Task called ${name} loaded`);
     }
+
     return this.tasks[name];
+  }
+
+  createJob(base: any, taskName: string, debug: boolean = false): Job {
+    base.data = typeof base.data === 'object' ? base.data : {};
+    base.debug = typeof base.debug === 'boolean' ? base.debug : debug;
+    base.entryTask = taskName;
+    return base as Job;
+  }
+
+  async runJob(job: Job): Promise<Job> {
+    const task = this.getTask(job.entryTask);
+    const daer = this.getDaer(task.daer);
+    daer.execute(job, task, []);
+    return job;
   }
 }
 
@@ -182,6 +197,7 @@ export interface EnvironmentConfig {
 }
 
 export interface Job {
+  entryTask: string;
   data: any[];
   debug: boolean;
   [key: string]: any;

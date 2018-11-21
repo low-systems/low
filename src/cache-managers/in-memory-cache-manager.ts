@@ -4,10 +4,6 @@ import { BaseCacheManager, CacheKey } from './base-cache-manager';
 const CACHE: MemoryCache = {};
 
 export class InMemoryCacheManager extends BaseCacheManager {
-  constructor(name: string) {
-    super(name);
-  }
-
   async getItem(cacheKey: CacheKey): Promise<any> {
     if (!CACHE.hasOwnProperty(cacheKey.partition)) {
       CACHE[cacheKey.partition] = {};

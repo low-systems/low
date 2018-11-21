@@ -11,9 +11,14 @@ export interface TaskConfig {
   config: any;
   metaData: any;
   cacheConfig?: CacheConfig;
-  specialProperties?: string | string[];
+  specialProperties?: string | string[] | SpecialProperties;
   tests?: TaskTestConfig[];
   sanityCheck?: TaskPropertyTest[];
+}
+
+export interface SpecialProperties {
+  include: string[];
+  exclude: string[];
 }
 
 export interface TaskResponse {
