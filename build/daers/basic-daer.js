@@ -10,9 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_daer_1 = require("./base-daer");
 class BasicDaer extends base_daer_1.BaseDaer {
-    constructor(name, ...args) {
-        super(name, ...args);
-    }
     core(job, taskConfig, coreConfig) {
         return __awaiter(this, void 0, void 0, function* () {
             return {

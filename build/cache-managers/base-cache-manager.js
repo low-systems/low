@@ -12,9 +12,6 @@ const crypto_1 = require("crypto");
 const base_module_1 = require("../base-module");
 const dot = require("dot-object");
 class BaseCacheManager extends base_module_1.BaseModule {
-    constructor(name, ...args) {
-        super(name, args);
-    }
     getItem(cacheKey) {
         return __awaiter(this, void 0, void 0, function* () {
             throw new Error(`Cache manager ${this.moduleType} has not yet implemented getItem(CacheKey)`);

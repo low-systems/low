@@ -2,7 +2,6 @@ import { ParserConfig } from '../parsers/base-parser';
 import { BaseModule } from '../base-module';
 import { Environment, Job } from '../environment';
 export declare abstract class BaseRenderer extends BaseModule {
-    constructor(name: string, ...args: any[]);
     render(config: RenderConfig, job: Job): Promise<any>;
     buildContext(config: RenderConfig, job: Job): RenderContext;
     getTemplate(config: RenderConfig, job: Job): any;

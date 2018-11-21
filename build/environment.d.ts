@@ -1,4 +1,5 @@
 /// <reference types="node" />
+import * as events from 'events';
 import { Map, TaskConfig } from './interfaces';
 import { BaseConfigManager } from './config-managers/base-config-manager';
 import { BaseRenderer } from './renderers/base-renderer';
@@ -10,7 +11,7 @@ import { BaseCacheManager } from './cache-managers/base-cache-manager';
  * configurations, modules, tests, etc.
  * @class
  */
-export declare class Environment extends NodeJS.EventEmitter {
+export declare class Environment extends events.EventEmitter {
     private configManager;
     private ready;
     /**
@@ -30,6 +31,7 @@ export declare class Environment extends NodeJS.EventEmitter {
      * @param {any} - An object containing configuration information for any registered modules
      */
     constructor(modules: Modules, configManager: BaseConfigManager);
+    init(): Promise<void>;
     loadConfig(config: EnvironmentConfig): Promise<void>;
     setupModules(): Promise<void>;
     getRenderer(name: string): BaseRenderer;
@@ -37,6 +39,8 @@ export declare class Environment extends NodeJS.EventEmitter {
     getDaer(name: string): BaseDaer;
     getCacheManager(name: string): BaseCacheManager;
     getTask(name: string): TaskConfig;
+    createJob(base: any, taskName: string, debug?: boolean): Job;
+    runJob(job: Job): Promise<Job>;
 }
 export interface Modules {
     renderers: BaseRenderer[];
@@ -64,6 +68,7 @@ export interface EnvironmentConfig {
     moduleConfigs: any;
 }
 export interface Job {
+    entryTask: string;
     data: any[];
     debug: boolean;
     [key: string]: any;

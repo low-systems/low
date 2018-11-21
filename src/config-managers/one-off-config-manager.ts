@@ -2,8 +2,12 @@ import { BaseConfigManager } from './base-config-manager';
 import { Environment, EnvironmentConfig } from '../environment';
 
 export class OneOffConfigManager extends BaseConfigManager {
+  constructor(private environmentConfig: EnvironmentConfig) {
+    super();
+  }
+
   async setupListener(config: EnvironmentConfig): Promise<void> {
-    await this.env.loadConfig(config);
+    await this.env.loadConfig(this.environmentConfig);
   }
   
   async saveConfiguration(config: EnvironmentConfig, updateVersion?: boolean | undefined): Promise<void> {

@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "dot-object": "^1.7.1",
-    "mustache": "^3.0.1"
+    "mustache": "^3.0.1",
+    "source-map-support": "^0.5.9"
   }
 }

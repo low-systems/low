@@ -7,7 +7,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+require('source-map-support').install();
+const events = __importStar(require("events"));
 // Built-in Modules
 // Daers
 const basic_daer_1 = require("./daers/basic-daer");
@@ -26,7 +35,7 @@ const in_memory_cache_manager_1 = require("./cache-managers/in-memory-cache-mana
  * configurations, modules, tests, etc.
  * @class
  */
-class Environment extends NodeJS.EventEmitter {
+class Environment extends events.EventEmitter {
     /**
      * @constructs Environment
      * @param {Map<TaskConfig>} - A Map of all task configurations that make up this Environment
@@ -81,15 +90,19 @@ class Environment extends NodeJS.EventEmitter {
         for (const mod of [...this.builtIn.cacheManagers, ...modules.cacheManagers]) {
             this.modules.cacheManagers[mod.name] = mod;
         }
-        configManager.setup();
+    }
+    init() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.configManager.triggerSetup(this);
+        });
     }
     loadConfig(config) {
         return __awaiter(this, void 0, void 0, function* () {
             this.tasks = config.tasks;
             this.metaData = config.metaData;
             this.moduleConfigs = config.moduleConfigs;
-            yield this.setupModules();
             this.ready = true;
+            yield this.setupModules();
             this.emit('setup');
         });
     }
@@ -141,6 +154,20 @@ class Environment extends NodeJS.EventEmitter {
             throw new Error(`No Task called ${name} loaded`);
         }
         return this.tasks[name];
+    }
+    createJob(base, taskName, debug = false) {
+        base.data = typeof base.data === 'object' ? base.data : {};
+        base.debug = typeof base.debug === 'boolean' ? base.debug : debug;
+        base.entryTask = taskName;
+        return base;
+    }
+    runJob(job) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const task = this.getTask(job.entryTask);
+            const daer = this.getDaer(task.daer);
+            daer.execute(job, task, []);
+            return job;
+        });
     }
 }
 exports.Environment = Environment;

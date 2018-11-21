@@ -1,3 +1,7 @@
+require('source-map-support').install();
+
+import * as events from 'events';
+
 import { Map, TaskConfig } from './interfaces';
 
 import { BaseConfigManager } from './config-managers/base-config-manager';
@@ -27,7 +31,7 @@ import { InMemoryCacheManager } from './cache-managers/in-memory-cache-manager';
  * configurations, modules, tests, etc. 
  * @class
  */
-export class Environment extends NodeJS.EventEmitter {
+export class Environment extends events.EventEmitter {
   private ready: boolean = false;
 
   /**
@@ -90,16 +94,18 @@ export class Environment extends NodeJS.EventEmitter {
     for (const mod of [...this.builtIn.cacheManagers, ...modules.cacheManagers]) {
       this.modules.cacheManagers[mod.name] = mod;
     }
+  }
 
-    configManager.setup();
+  async init() {
+    await this.configManager.triggerSetup(this);
   }
 
   async loadConfig(config: EnvironmentConfig): Promise<void> {
     this.tasks = config.tasks; 
     this.metaData = config.metaData;
     this.moduleConfigs = config.moduleConfigs;
-    await this.setupModules();
     this.ready = true;
+    await this.setupModules();
     this.emit('setup');
   }
 

@@ -11,9 +11,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_module_1 = require("../base-module");
 const dot = require("dot-object");
 class BaseRenderer extends base_module_1.BaseModule {
-    constructor(name, ...args) {
-        super(name, ...args);
-    }
     render(config, job) {
         return __awaiter(this, void 0, void 0, function* () {
             const context = this.buildContext(config, job);

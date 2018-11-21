@@ -11,11 +11,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_module_1 = require("../base-module");
 const dot = require("dot-object");
 class BaseDaer extends base_module_1.BaseModule {
-    constructor(name, ...args) {
-        super(name, ...args);
-    }
-    execute(job, taskConfig, path) {
+    execute(job, taskConfig, path = []) {
         return __awaiter(this, void 0, void 0, function* () {
+            path.push(taskConfig.name);
             let cacheManager;
             let cacheKey;
             if (taskConfig.cacheConfig) {
@@ -44,15 +42,15 @@ class BaseDaer extends base_module_1.BaseModule {
                 const coreConfig = yield this.applySpecialProperties(taskConfig.config, job);
                 return coreConfig;
             }
-            if (Array.isArray(taskConfig.specialProperties)) {
-                const coreConfig = JSON.parse(JSON.stringify(taskConfig.config));
-                for (const path of taskConfig.specialProperties) {
-                    const initial = dot.pick(path, coreConfig);
-                    const applied = yield this.applySpecialProperties(initial, job);
-                    dot.set(path, applied, coreConfig, false);
-                }
-                return coreConfig;
+            const include = taskConfig.specialProperties.include || taskConfig.specialProperties || [];
+            const exclude = taskConfig.specialProperties.exclude || [];
+            const coreConfig = JSON.parse(JSON.stringify(taskConfig.config));
+            for (const path of include) {
+                const initial = dot.pick(path, coreConfig);
+                const applied = yield this.applySpecialProperties(initial, job, exclude, path.split('.'));
+                dot.set(path, applied, coreConfig, false);
             }
+            return coreConfig;
         });
     }
     core(job, taskConfig, coreConfig) {
@@ -60,45 +58,55 @@ class BaseDaer extends base_module_1.BaseModule {
             throw new Error(`Daer ${this.debugPath} has not yet implemented core(Job, TaskConfig)`);
         });
     }
-    applySpecialProperties(property, job) {
+    applySpecialProperties(property, job, exclude = [], path = []) {
         return __awaiter(this, void 0, void 0, function* () {
             const propertyType = this.getPropertyType(property);
             switch (propertyType) {
                 case (PropertyType.BORING):
-                    return yield this.applyBoringProperty(property, job);
+                    return yield this.applyBoringProperty(property, job, exclude, path);
                 case (PropertyType.POINTER):
-                    return yield this.applyPointerProperty(property, job);
+                    return yield this.applyPointerProperty(property, job, exclude, path);
                 case (PropertyType.RENDERER):
                     return yield this.applyRenderProperty(property, job);
             }
             return property;
         });
     }
-    applyBoringProperty(property, job) {
+    applyBoringProperty(property, job, exclude, path) {
         return __awaiter(this, void 0, void 0, function* () {
+            // QUESTION: Do I roll this into one statement and do the isArray then push else [key]= inside the for loop?
+            // Probably slower to do that way but the code would be cleaner.
             if (Array.isArray(property)) {
                 const applied = [];
-                for (const item of property) {
-                    const itemApplied = yield this.applySpecialProperties(item, job);
-                    applied.push(itemApplied);
+                for (const [index, item] of Object.entries(property)) {
+                    const newPath = [...path, index];
+                    const newPathString = newPath.join('.');
+                    if (exclude.indexOf(newPathString) === -1) {
+                        const itemApplied = yield this.applySpecialProperties(item, job, exclude, [...path, index]);
+                        applied.push(itemApplied);
+                    }
                 }
                 return applied;
             }
             else if (typeof property === 'object') {
                 const applied = {};
                 for (const [key, value] of Object.entries(property)) {
-                    const valueApplied = yield this.applySpecialProperties(value, job);
-                    applied[key] = value;
+                    const newPath = [...path, key];
+                    const newPathString = newPath.join('.');
+                    if (exclude.indexOf(newPathString) === -1) {
+                        const valueApplied = yield this.applySpecialProperties(value, job, exclude, newPath);
+                        applied[key] = value;
+                    }
                 }
                 return applied;
             }
             return property;
         });
     }
-    applyPointerProperty(property, job) {
+    applyPointerProperty(property, job, exclude, path) {
         return __awaiter(this, void 0, void 0, function* () {
             const resolved = this.resolvePointer(property, this.env, job);
-            const applied = yield this.applySpecialProperties(resolved, job);
+            const applied = yield this.applySpecialProperties(resolved, job, exclude, path);
             return applied;
         });
     }

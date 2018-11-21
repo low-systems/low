@@ -11,7 +11,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const url_1 = require("url");
 const base_parser_1 = require("./base-parser");
 class UrlParser extends base_parser_1.BaseParser {
-    constructor(name) { super(name); }
     parse(input, config) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
