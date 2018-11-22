@@ -20,6 +20,7 @@ const events = __importStar(require("events"));
 // Built-in Modules
 // Daers
 const basic_daer_1 = require("./daers/basic-daer");
+const multiplexer_daer_1 = require("./daers/multiplexer-daer");
 // Parsers
 const boolean_parser_1 = require("./parsers/boolean-parser");
 const json_parser_1 = require("./parsers/json-parser");
@@ -62,7 +63,8 @@ class Environment extends events.EventEmitter {
         };
         this.builtIn = {
             daers: [
-                new basic_daer_1.BasicDaer('basic')
+                new basic_daer_1.BasicDaer('basic'),
+                new multiplexer_daer_1.MultiplexerDaer('multiplexer')
             ],
             renderers: [
                 new mustache_renderer_1.MustacheRenderer('mustache')

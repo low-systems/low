@@ -12,20 +12,92 @@ const environment_1 = require("./environment");
 const one_off_config_manager_1 = require("./config-managers/one-off-config-manager");
 const in_memory_cache_manager_1 = require("./cache-managers/in-memory-cache-manager");
 const tasks = {
-    basic: {
-        name: 'basic',
+    pointee: {
+        name: 'pointee',
         daer: 'basic',
+        metaData: {},
         specialProperties: '*',
         config: {
             renderer: 'mustache',
-            template: 'Just some output. {{job.test}}'
-        },
+            template: 'I have been pointed too. {{job.test}}'
+        }
+    },
+    multiplexed: {
+        name: 'multiplexed',
+        daer: 'multiplexer',
         metaData: {},
-        cacheConfig: {
-            cacheManager: 'default',
-            keyProperties: ['test'],
-            partition: 'basic',
-            ttl: 1000 * 60 * 60
+        config: {
+            tasks: [
+                {
+                    name: 'basic',
+                    daer: 'basic',
+                    specialProperties: '*',
+                    config: {
+                        renderer: 'mustache',
+                        template: 'Just some output. {{job.test}}'
+                    },
+                    metaData: {},
+                    cacheConfig: {
+                        cacheManager: 'default',
+                        keyProperties: ['test'],
+                        partition: 'basic',
+                        ttl: 1000 * 60 * 60
+                    }
+                },
+                ">tasks.pointee",
+                {
+                    name: 'another_basic',
+                    daer: 'basic',
+                    specialProperties: ['subfield'],
+                    config: {
+                        data: 'this should have some nested property that has been templated',
+                        subfield: {
+                            renderer: 'mustache',
+                            template: 'Just some output. {{job.test}}'
+                        }
+                    },
+                    metaData: {}
+                },
+                {
+                    name: 'multiplexed',
+                    daer: 'multiplexer',
+                    metaData: {},
+                    config: {
+                        tasks: [
+                            {
+                                name: 'basic',
+                                daer: 'basic',
+                                specialProperties: '*',
+                                config: {
+                                    renderer: 'mustache',
+                                    template: 'Just some output. {{job.test}}'
+                                },
+                                metaData: {},
+                                cacheConfig: {
+                                    cacheManager: 'default',
+                                    keyProperties: ['test'],
+                                    partition: 'basic',
+                                    ttl: 1000 * 60 * 60
+                                }
+                            },
+                            ">tasks.pointee",
+                            {
+                                name: 'another_basic',
+                                daer: 'basic',
+                                specialProperties: ['subfield'],
+                                config: {
+                                    data: 'this should have some nested property that has been templated',
+                                    subfield: {
+                                        renderer: 'mustache',
+                                        template: 'Just some output. {{job.test}}'
+                                    }
+                                },
+                                metaData: {}
+                            }
+                        ]
+                    }
+                }
+            ]
         }
     }
 };
@@ -45,14 +117,8 @@ const modules = {
 (() => __awaiter(this, void 0, void 0, function* () {
     const env = new environment_1.Environment(modules, configManager);
     yield env.init();
-    const job1 = env.createJob({ test: 'I test' }, 'basic');
+    const job1 = env.createJob({ test: 'I test' }, 'multiplexed');
     yield env.runJob(job1);
-    console.log('JOB after: ', job1);
-    const job2 = env.createJob({ test: 'I test' }, 'basic');
-    yield env.runJob(job2);
-    console.log('JOB after: ', job2);
-    const job3 = env.createJob({ test: 'I tested' }, 'basic');
-    yield env.runJob(job3);
-    console.log('JOB after: ', job3);
+    console.log('JOB after: ', JSON.stringify(job1.data, null, 4));
 }))();
 //# sourceMappingURL=test-data.js.map

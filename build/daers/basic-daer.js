@@ -13,7 +13,6 @@ class BasicDaer extends base_daer_1.BaseDaer {
     core(job, taskConfig, coreConfig) {
         return __awaiter(this, void 0, void 0, function* () {
             return {
-                command: 'CONTINUE',
                 data: coreConfig
             };
         });

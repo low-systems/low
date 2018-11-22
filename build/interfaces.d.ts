@@ -17,7 +17,7 @@ export interface SpecialProperties {
     exclude: string[];
 }
 export interface TaskResponse {
-    command: 'CONTINUE' | 'HALT' | 'REROUTE';
+    metaData?: any;
     data: any;
     reroute?: string;
 }

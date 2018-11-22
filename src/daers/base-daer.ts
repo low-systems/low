@@ -19,15 +19,17 @@ export abstract class BaseDaer extends BaseModule {
       cacheKey = await cacheManager.makeKey(taskConfig.cacheConfig, job);
       const cachedItem = await cacheManager.getItem(cacheKey);
       if (cachedItem) {
-        dot.set(dataPath, cachedItem, job);
+        //console.log('Setting data from cache for:', this.debugPath, '(\n', cachedItem, '\n)');
+        dot.set(dataPath, cachedItem, job, true);
         return;
       }
     }
     
     const coreConfig = await this.getCoreConfig(job, taskConfig);
-    const response = await this.core(job, taskConfig, coreConfig);
+    const response = await this.core(job, taskConfig, coreConfig, path);
 
-    dot.set(dataPath, response.data, job);
+    //console.log('Setting data for:', this.debugPath, '(\n', response.data, '\n)');
+    dot.set(dataPath, response.data, job, true);
 
     if (cacheManager && cacheKey) {
       await cacheManager.setItem(cacheKey, response.data, (taskConfig.cacheConfig as CacheConfig).ttl);
@@ -56,9 +58,7 @@ export abstract class BaseDaer extends BaseModule {
     return coreConfig;
   }
 
-  async core(job: Job, taskConfig: TaskConfig, coreConfig: any): Promise<TaskResponse> {
-    throw new Error(`Daer ${this.debugPath} has not yet implemented core(Job, TaskConfig)`);
-  }
+  abstract async core(job: Job, taskConfig: TaskConfig, coreConfig: any, path: string[]): Promise<TaskResponse>; 
 
   async applySpecialProperties(property: any, job: Job, exclude: string[] = [], path: string[] = []): Promise<any> {
     const propertyType = this.getPropertyType(property);

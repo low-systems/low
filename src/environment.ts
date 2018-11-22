@@ -15,6 +15,7 @@ import { BaseCacheManager } from './cache-managers/base-cache-manager';
 // Built-in Modules
 // Daers
 import { BasicDaer } from './daers/basic-daer';
+import { MultiplexerDaer } from './daers/multiplexer-daer';
 // Parsers
 import { BooleanParser } from './parsers/boolean-parser';
 import { JsonParser } from './parsers/json-parser';
@@ -53,7 +54,8 @@ export class Environment extends events.EventEmitter {
   
   private builtIn: Modules = {
     daers: [
-      new BasicDaer('basic')
+      new BasicDaer('basic'),
+      new MultiplexerDaer('multiplexer')
     ],
     renderers: [
       new MustacheRenderer('mustache')

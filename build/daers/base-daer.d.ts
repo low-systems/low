@@ -4,7 +4,7 @@ import { Job } from '../environment';
 export declare abstract class BaseDaer extends BaseModule {
     execute(job: Job, taskConfig: TaskConfig, path?: string[]): Promise<void>;
     getCoreConfig(job: Job, taskConfig: TaskConfig): Promise<void>;
-    core(job: Job, taskConfig: TaskConfig, coreConfig: any): Promise<TaskResponse>;
+    abstract core(job: Job, taskConfig: TaskConfig, coreConfig: any, path: string[]): Promise<TaskResponse>;
     applySpecialProperties(property: any, job: Job, exclude?: string[], path?: string[]): Promise<any>;
     applyBoringProperty(property: any, job: Job, exclude: string[], path: string[]): Promise<any>;
     applyPointerProperty(property: any, job: Job, exclude: string[], path: string[]): Promise<any>;

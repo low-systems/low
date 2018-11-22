@@ -22,13 +22,15 @@ class BaseDaer extends base_module_1.BaseModule {
                 cacheKey = yield cacheManager.makeKey(taskConfig.cacheConfig, job);
                 const cachedItem = yield cacheManager.getItem(cacheKey);
                 if (cachedItem) {
-                    dot.set(dataPath, cachedItem, job);
+                    //console.log('Setting data from cache for:', this.debugPath, '(\n', cachedItem, '\n)');
+                    dot.set(dataPath, cachedItem, job, true);
                     return;
                 }
             }
             const coreConfig = yield this.getCoreConfig(job, taskConfig);
-            const response = yield this.core(job, taskConfig, coreConfig);
-            dot.set(dataPath, response.data, job);
+            const response = yield this.core(job, taskConfig, coreConfig, path);
+            //console.log('Setting data for:', this.debugPath, '(\n', response.data, '\n)');
+            dot.set(dataPath, response.data, job, true);
             if (cacheManager && cacheKey) {
                 yield cacheManager.setItem(cacheKey, response.data, taskConfig.cacheConfig.ttl);
             }
@@ -52,11 +54,6 @@ class BaseDaer extends base_module_1.BaseModule {
                 dot.set(path, applied, coreConfig, false);
             }
             return coreConfig;
-        });
-    }
-    core(job, taskConfig, coreConfig) {
-        return __awaiter(this, void 0, void 0, function* () {
-            throw new Error(`Daer ${this.debugPath} has not yet implemented core(Job, TaskConfig)`);
         });
     }
     applySpecialProperties(property, job, exclude = [], path = []) {
