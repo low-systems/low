@@ -9,7 +9,8 @@ import dot = require('dot-object');
 export abstract class BaseDaer extends BaseModule {
   async execute(job: Job, taskConfig: TaskConfig, path: string[] = []): Promise<void> {
     path.push(taskConfig.name);
-
+    const dataPath = 'data.' + path.join('.');
+    
     let cacheManager: BaseCacheManager | undefined;
     let cacheKey: CacheKey | undefined;
 
@@ -18,14 +19,14 @@ export abstract class BaseDaer extends BaseModule {
       cacheKey = await cacheManager.makeKey(taskConfig.cacheConfig, job);
       const cachedItem = await cacheManager.getItem(cacheKey);
       if (cachedItem) {
-        return cachedItem;
+        dot.set(dataPath, cachedItem, job);
+        return;
       }
     }
     
     const coreConfig = await this.getCoreConfig(job, taskConfig);
     const response = await this.core(job, taskConfig, coreConfig);
 
-    const dataPath = 'data.' + path.join('.');
     dot.set(dataPath, response.data, job);
 
     if (cacheManager && cacheKey) {

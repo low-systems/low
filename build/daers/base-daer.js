@@ -14,6 +14,7 @@ class BaseDaer extends base_module_1.BaseModule {
     execute(job, taskConfig, path = []) {
         return __awaiter(this, void 0, void 0, function* () {
             path.push(taskConfig.name);
+            const dataPath = 'data.' + path.join('.');
             let cacheManager;
             let cacheKey;
             if (taskConfig.cacheConfig) {
@@ -21,12 +22,12 @@ class BaseDaer extends base_module_1.BaseModule {
                 cacheKey = yield cacheManager.makeKey(taskConfig.cacheConfig, job);
                 const cachedItem = yield cacheManager.getItem(cacheKey);
                 if (cachedItem) {
-                    return cachedItem;
+                    dot.set(dataPath, cachedItem, job);
+                    return;
                 }
             }
             const coreConfig = yield this.getCoreConfig(job, taskConfig);
             const response = yield this.core(job, taskConfig, coreConfig);
-            const dataPath = 'data.' + path.join('.');
             dot.set(dataPath, response.data, job);
             if (cacheManager && cacheKey) {
                 yield cacheManager.setItem(cacheKey, response.data, taskConfig.cacheConfig.ttl);
