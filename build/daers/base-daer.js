@@ -111,7 +111,7 @@ class BaseDaer extends base_module_1.BaseModule {
     applyRenderProperty(property, job) {
         return __awaiter(this, void 0, void 0, function* () {
             const renderConfig = property;
-            const renderer = this.env.getRenderer(renderConfig.renderer);
+            const renderer = this.env.getRenderer(renderConfig._renderer);
             const rendered = renderer.render(renderConfig, job);
             return rendered;
         });
@@ -123,9 +123,9 @@ class BaseDaer extends base_module_1.BaseModule {
             return PropertyType.POINTER;
         }
         else if (typeof property === 'object' &&
-            property.hasOwnProperty('renderer') &&
-            (property.hasOwnProperty('template') ||
-                property.hasOwnProperty('templatePath'))) {
+            property.hasOwnProperty('_renderer') &&
+            (property.hasOwnProperty('_template') ||
+                property.hasOwnProperty('_templatePath'))) {
             return PropertyType.RENDERER;
         }
         return PropertyType.BORING;

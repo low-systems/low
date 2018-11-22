@@ -112,7 +112,7 @@ export abstract class BaseDaer extends BaseModule {
 
   async applyRenderProperty(property: any, job: Job): Promise<any> {
     const renderConfig = property as RenderConfig;
-    const renderer = this.env.getRenderer(renderConfig.renderer);
+    const renderer = this.env.getRenderer(renderConfig._renderer);
     const rendered = renderer.render(renderConfig, job);
     return rendered;
   }
@@ -123,10 +123,10 @@ export abstract class BaseDaer extends BaseModule {
         (property as string).indexOf('\n') === -1) {
       return PropertyType.POINTER;      
     } else if (typeof property === 'object' &&
-        property.hasOwnProperty('renderer') &&
+        property.hasOwnProperty('_renderer') &&
         (
-          property.hasOwnProperty('template') ||
-          property.hasOwnProperty('templatePath')
+          property.hasOwnProperty('_template') ||
+          property.hasOwnProperty('_templatePath')
         )){ 
       return PropertyType.RENDERER;
     }

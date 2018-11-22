@@ -9,12 +9,12 @@ export declare abstract class BaseRenderer extends BaseModule {
     core(template: any, context: RenderContext): Promise<any>;
 }
 export interface RenderConfig {
-    renderer: string;
-    template?: any;
-    templatePath?: string;
-    parser?: string;
-    parserConfig?: ParserConfig<any>;
-    metaData?: any;
+    _renderer: string;
+    _template?: any;
+    _templatePath?: string;
+    _parser?: string;
+    _parserConfig?: ParserConfig<any>;
+    _metaData?: any;
 }
 export interface RenderContext {
     env: Environment;

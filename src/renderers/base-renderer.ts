@@ -17,23 +17,23 @@ export abstract class BaseRenderer extends BaseModule {
     return {
       env: this.env,
       job, 
-      metaData: config.metaData || {}
+      metaData: config._metaData || {}
     };
   }
 
   getTemplate(config: RenderConfig, job: Job): any {
-    if (!config.template && !config.templatePath) {
+    if (!config._template && !config._templatePath) {
       throw new Error('No template or path provided');
     }
 
-    let template: any = config.template || null;
-    if (config.templatePath) {
-      template = dot.pick(config.templatePath, this.config);
+    let template: any = config._template || null;
+    if (config._templatePath) {
+      template = dot.pick(config._templatePath, this.config);
       if (!template) {
-        template = dot.pick(config.templatePath, this.env);
+        template = dot.pick(config._templatePath, this.env);
       }
       if (!template) {
-        template = dot.pick(config.templatePath, job);
+        template = dot.pick(config._templatePath, job);
       }
     }
 
@@ -45,9 +45,9 @@ export abstract class BaseRenderer extends BaseModule {
   }
 
   async parseRendered(rendered: any, config: RenderConfig): Promise<any> {
-    if (config.parser) {
-      const parser = this.env.getParser(config.parser);
-      rendered = await parser.parse(rendered, config.parserConfig || {});
+    if (config._parser) {
+      const parser = this.env.getParser(config._parser);
+      rendered = await parser.parse(rendered, config._parserConfig || {});
     }
     return rendered;
   }
@@ -58,12 +58,12 @@ export abstract class BaseRenderer extends BaseModule {
 }
 
 export interface RenderConfig {
-  renderer: string;
-  template?: any;
-  templatePath?: string;
-  parser?: string;
-  parserConfig?: ParserConfig<any>;
-  metaData?: any;
+  _renderer: string;
+  _template?: any;
+  _templatePath?: string;
+  _parser?: string;
+  _parserConfig?: ParserConfig<any>;
+  _metaData?: any;
 }
 
 export interface RenderContext {

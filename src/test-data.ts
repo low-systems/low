@@ -10,8 +10,8 @@ const tasks: Map<TaskConfig> = {
     metaData: {},
     specialProperties: '*',
     config: {
-      renderer: 'mustache',
-      template: 'I have been pointed too. {{job.test}}'
+      _renderer: 'mustache',
+      _template: 'I have been pointed too. {{job.test}}'
     }
   },
   multiplexed: {
@@ -25,8 +25,8 @@ const tasks: Map<TaskConfig> = {
           daer: 'basic',
           specialProperties: '*',
           config: {
-            renderer: 'mustache',
-            template: 'Just some output. {{job.test}}'
+            _renderer: 'mustache',
+            _template: 'Just some output. {{job.test}}'
           },
           metaData: {},
           cacheConfig: {

@@ -24,21 +24,21 @@ class BaseRenderer extends base_module_1.BaseModule {
         return {
             env: this.env,
             job,
-            metaData: config.metaData || {}
+            metaData: config._metaData || {}
         };
     }
     getTemplate(config, job) {
-        if (!config.template && !config.templatePath) {
+        if (!config._template && !config._templatePath) {
             throw new Error('No template or path provided');
         }
-        let template = config.template || null;
-        if (config.templatePath) {
-            template = dot.pick(config.templatePath, this.config);
+        let template = config._template || null;
+        if (config._templatePath) {
+            template = dot.pick(config._templatePath, this.config);
             if (!template) {
-                template = dot.pick(config.templatePath, this.env);
+                template = dot.pick(config._templatePath, this.env);
             }
             if (!template) {
-                template = dot.pick(config.templatePath, job);
+                template = dot.pick(config._templatePath, job);
             }
         }
         if (!template) {
@@ -48,9 +48,9 @@ class BaseRenderer extends base_module_1.BaseModule {
     }
     parseRendered(rendered, config) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (config.parser) {
-                const parser = this.env.getParser(config.parser);
-                rendered = yield parser.parse(rendered, config.parserConfig || {});
+            if (config._parser) {
+                const parser = this.env.getParser(config._parser);
+                rendered = yield parser.parse(rendered, config._parserConfig || {});
             }
             return rendered;
         });
