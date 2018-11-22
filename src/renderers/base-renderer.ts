@@ -22,7 +22,7 @@ export abstract class BaseRenderer extends BaseModule {
   }
 
   getTemplate(config: RenderConfig, job: Job): any {
-    if (!config.template || !config.templatePath) {
+    if (!config.template && !config.templatePath) {
       throw new Error('No template or path provided');
     }
 

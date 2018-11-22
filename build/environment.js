@@ -163,9 +163,16 @@ class Environment extends events.EventEmitter {
     }
     runJob(job) {
         return __awaiter(this, void 0, void 0, function* () {
-            const task = this.getTask(job.entryTask);
-            const daer = this.getDaer(task.daer);
-            daer.execute(job, task, []);
+            try {
+                debugger;
+                const task = this.getTask(job.entryTask);
+                const daer = this.getDaer(task.daer);
+                debugger;
+                const output = yield daer.execute(job, task, []);
+            }
+            catch (err) {
+                console.error('Failed to run job', err);
+            }
             return job;
         });
     }

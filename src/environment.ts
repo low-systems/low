@@ -175,9 +175,13 @@ export class Environment extends events.EventEmitter {
   }
 
   async runJob(job: Job): Promise<Job> {
-    const task = this.getTask(job.entryTask);
-    const daer = this.getDaer(task.daer);
-    daer.execute(job, task, []);
+    try {
+      const task = this.getTask(job.entryTask);
+      const daer = this.getDaer(task.daer);
+      const output = await daer.execute(job, task, []);
+    } catch(err) {
+      console.error('Failed to run job', err);
+    }
     return job;
   }
 }

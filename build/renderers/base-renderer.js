@@ -28,7 +28,7 @@ class BaseRenderer extends base_module_1.BaseModule {
         };
     }
     getTemplate(config, job) {
-        if (!config.template || !config.templatePath) {
+        if (!config.template && !config.templatePath) {
             throw new Error('No template or path provided');
         }
         let template = config.template || null;
