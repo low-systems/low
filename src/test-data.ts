@@ -11,7 +11,7 @@ const tasks: Map<TaskConfig> = {
     specialProperties: '*',
     config: {
       _renderer: 'mustache',
-      _template: 'I have been pointed too. {{job.test}}'
+      _template: 'I have been pointed to. {{job.test}}'
     }
   },
   multiplexed: {

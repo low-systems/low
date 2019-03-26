@@ -28,7 +28,7 @@ import { MustacheRenderer } from './renderers/mustache-renderer';
 import { InMemoryCacheManager } from './cache-managers/in-memory-cache-manager';
 
 /** 
- * Class to encapsulate the entire working daer environment. It managers all task 
+ * Class to encapsulate the entire working daer environment. It manages all task 
  * configurations, modules, tests, etc. 
  * @class
  */
@@ -82,19 +82,19 @@ export class Environment extends events.EventEmitter {
     super();
 
     for (const mod of [...this.builtIn.renderers, ...modules.renderers]) {
-      this.modules.renderers[mod.name] = mod;
+      this.modules.renderers[mod.moduleType] = mod;
     }
 
     for (const mod of [...this.builtIn.parsers, ...modules.parsers]) {
-      this.modules.parsers[mod.name] = mod;
+      this.modules.parsers[mod.moduleType] = mod;
     }
 
     for (const mod of [...this.builtIn.daers, ...modules.daers]) {
-      this.modules.daers[mod.name] = mod;
+      this.modules.daers[mod.moduleType] = mod;
     }
 
     for (const mod of [...this.builtIn.cacheManagers, ...modules.cacheManagers]) {
-      this.modules.cacheManagers[mod.name] = mod;
+      this.modules.cacheManagers[mod.moduleType] = mod;
     }
   }
 
@@ -196,10 +196,10 @@ export interface Modules {
 }
 
 export interface ModuleMaps {
-  renderers: { [name: string]: BaseRenderer };
-  daers: { [name: string]: BaseDaer };
-  parsers: { [name: string]: BaseParser<any> };
-  cacheManagers: { [name: string]: BaseCacheManager };
+  renderers: Map<BaseRenderer>;
+  daers: Map<BaseDaer>;
+  parsers: Map<BaseParser<any>>;
+  cacheManagers: Map<BaseCacheManager>;
 }
 
 export interface EnvironmentConfig {

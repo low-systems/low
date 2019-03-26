@@ -4,9 +4,8 @@ import { TaskConfig, TaskResponse } from '../interfaces';
 import { Exception } from '../exception';
 
 export class MultiplexerDaer extends BaseDaer {
-  async core(job: Job, taskConfig: TaskConfig, coreConfig: MultiplexerConfig, path: string[]): Promise<TaskResponse> {
+  async main(job: Job, taskConfig: TaskConfig, coreConfig: MultiplexerConfig, path: string[]): Promise<TaskResponse> {
     const results: MultiplexerTaskResult[] = [];
-
     for (let [index, subConfig] of Object.entries(coreConfig.tasks)) {
       try {
         if (typeof subConfig === 'string') {

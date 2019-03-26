@@ -3,7 +3,7 @@ import { Environment, Job } from '../environment';
 import { TaskConfig, TaskResponse } from '../interfaces';
 
 export class BasicDaer extends BaseDaer {
-  async core(job: Job, taskConfig: TaskConfig, coreConfig: any): Promise<TaskResponse> {
+  async main(job: Job, taskConfig: TaskConfig, coreConfig: any): Promise<TaskResponse> {
     return {
       data: coreConfig
     };

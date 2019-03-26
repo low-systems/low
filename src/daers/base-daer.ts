@@ -26,7 +26,7 @@ export abstract class BaseDaer extends BaseModule {
     }
     
     const coreConfig = await this.getCoreConfig(job, taskConfig);
-    const response = await this.core(job, taskConfig, coreConfig, path);
+    const response = await this.main(job, taskConfig, coreConfig, path);
 
     //console.log('Setting data for:', this.debugPath, '(\n', response.data, '\n)');
     dot.set(dataPath, response.data, job, true);
@@ -58,7 +58,7 @@ export abstract class BaseDaer extends BaseModule {
     return coreConfig;
   }
 
-  abstract async core(job: Job, taskConfig: TaskConfig, coreConfig: any, path: string[]): Promise<TaskResponse>; 
+  abstract async main(job: Job, taskConfig: TaskConfig, coreConfig: any, path: string[]): Promise<TaskResponse>; 
 
   async applySpecialProperties(property: any, job: Job, exclude: string[] = [], path: string[] = []): Promise<any> {
     const propertyType = this.getPropertyType(property);

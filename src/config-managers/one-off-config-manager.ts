@@ -7,7 +7,7 @@ export class OneOffConfigManager extends BaseConfigManager {
   }
 
   async setupListener(config: EnvironmentConfig): Promise<void> {
-    await this.env.loadConfig(this.environmentConfig);
+    await this.env.loadConfig(config || this.environmentConfig);
   }
   
   async saveConfiguration(config: EnvironmentConfig, updateVersion?: boolean | undefined): Promise<void> {
