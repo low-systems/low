@@ -7,7 +7,7 @@ export interface Map<T> {
 
 export interface TaskConfig {
   name: string;
-  daer: string;
+  doer: string;
   config: any;
   metaData: any;
   cacheConfig?: CacheConfig;
@@ -33,7 +33,7 @@ export interface TaskTestResult {
 }
 
 export interface TaskTestConfig {
-  mockEnvironment: any; 
+  mockEnvironment: any;
   mockJob: any;
 }
 

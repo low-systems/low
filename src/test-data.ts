@@ -6,7 +6,7 @@ import { InMemoryCacheManager } from './cache-managers/in-memory-cache-manager';
 const tasks: Map<TaskConfig> = {
   pointee: {
     name: 'pointee',
-    daer: 'basic',
+    doer: 'basic',
     metaData: {},
     specialProperties: '*',
     config: {
@@ -16,13 +16,13 @@ const tasks: Map<TaskConfig> = {
   },
   multiplexed: {
     name: 'multiplexed',
-    daer: 'multiplexer',
+    doer: 'multiplexer',
     metaData: {},
     config: {
       tasks: [
         {
           name: 'basic',
-          daer: 'basic',
+          doer: 'basic',
           specialProperties: '*',
           config: {
             _renderer: 'mustache',
@@ -39,7 +39,7 @@ const tasks: Map<TaskConfig> = {
         ">tasks.pointee",
         {
           name: 'another_basic',
-          daer: 'basic',
+          doer: 'basic',
           specialProperties: ['subfield'],
           config: {
             data: 'this should have some nested property that has been templated',
@@ -52,13 +52,13 @@ const tasks: Map<TaskConfig> = {
         },
         {
           name: 'multiplexed',
-          daer: 'multiplexer',
+          doer: 'multiplexer',
           metaData: {},
           config: {
             tasks: [
               {
                 name: 'basic',
-                daer: 'basic',
+                doer: 'basic',
                 specialProperties: '*',
                 config: {
                   renderer: 'mustache',
@@ -75,7 +75,7 @@ const tasks: Map<TaskConfig> = {
               ">tasks.pointee",
               {
                 name: 'another_basic',
-                daer: 'basic',
+                doer: 'basic',
                 specialProperties: ['subfield'],
                 config: {
                   data: 'this should have some nested property that has been templated',
@@ -97,13 +97,13 @@ const tasks: Map<TaskConfig> = {
 const configManager = new OneOffConfigManager({
   tasks: tasks,
   metaData: {},
-  moduleConfigs: {} 
+  moduleConfigs: {}
 });
 
 const modules = {
   renderers: [],
   parsers: [],
-  daers: [],
+  doers: [],
   cacheManagers: [
     new InMemoryCacheManager('default')
   ]

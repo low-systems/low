@@ -4,7 +4,7 @@ const {OneOffConfigManager} = require('../build/config-managers/one-off-config-m
 const tasks = {
   basic: {
     name: 'basic',
-    daer: 'basic',
+    doer: 'basic',
     config: {
       output: 'just some output'
     },
@@ -15,13 +15,13 @@ const tasks = {
 const configManager = new OneOffConfigManager({
   tasks: tasks,
   metaData: {},
-  moduleConfigs: {} 
+  moduleConfigs: {}
 });
 
 const modules = {
   renderers: [],
   parsers: [],
-  daers: [],
+  doers: [],
   cacheManagers: []
 };
 

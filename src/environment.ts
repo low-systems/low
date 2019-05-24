@@ -9,13 +9,13 @@ import { BaseConfigManager } from './config-managers/base-config-manager';
 import { BaseModule } from './base-module';
 import { BaseRenderer } from './renderers/base-renderer';
 import { BaseParser } from './parsers/base-parser';
-import { BaseDaer } from './daers/base-daer';
+import { BaseDoer } from './doers/base-doer';
 import { BaseCacheManager } from './cache-managers/base-cache-manager';
 
 // Built-in Modules
-// Daers
-import { BasicDaer } from './daers/basic-daer';
-import { MultiplexerDaer } from './daers/multiplexer-daer';
+// Doers
+import { BasicDoer } from './doers/basic-doer';
+import { MultiplexerDoer } from './doers/multiplexer-doer';
 // Parsers
 import { BooleanParser } from './parsers/boolean-parser';
 import { JsonParser } from './parsers/json-parser';
@@ -27,17 +27,17 @@ import { MustacheRenderer } from './renderers/mustache-renderer';
 // Cache Managers
 import { InMemoryCacheManager } from './cache-managers/in-memory-cache-manager';
 
-/** 
- * Class to encapsulate the entire working daer environment. It manages all task 
- * configurations, modules, tests, etc. 
+/**
+ * Class to encapsulate the entire working doer environment. It manages all task
+ * configurations, modules, tests, etc.
  * @class
  */
 export class Environment extends events.EventEmitter {
   private ready: boolean = false;
 
   /**
-   * Holds the state of whether Profiling is on or off. 
-   * @member {boolean} 
+   * Holds the state of whether Profiling is on or off.
+   * @member {boolean}
    */
   private profiling: boolean = false;
 
@@ -48,14 +48,14 @@ export class Environment extends events.EventEmitter {
   private modules: ModuleMaps = {
     renderers: {},
     parsers: {},
-    daers: {},
+    doers: {},
     cacheManagers: {}
   };
-  
+
   private builtIn: Modules = {
-    daers: [
-      new BasicDaer('basic'),
-      new MultiplexerDaer('multiplexer')
+    doers: [
+      new BasicDoer('basic'),
+      new MultiplexerDoer('multiplexer')
     ],
     renderers: [
       new MustacheRenderer('mustache')
@@ -89,8 +89,8 @@ export class Environment extends events.EventEmitter {
       this.modules.parsers[mod.moduleType] = mod;
     }
 
-    for (const mod of [...this.builtIn.daers, ...modules.daers]) {
-      this.modules.daers[mod.moduleType] = mod;
+    for (const mod of [...this.builtIn.doers, ...modules.doers]) {
+      this.modules.doers[mod.moduleType] = mod;
     }
 
     for (const mod of [...this.builtIn.cacheManagers, ...modules.cacheManagers]) {
@@ -103,7 +103,7 @@ export class Environment extends events.EventEmitter {
   }
 
   async loadConfig(config: EnvironmentConfig): Promise<void> {
-    this.tasks = config.tasks; 
+    this.tasks = config.tasks;
     this.metaData = config.metaData;
     this.moduleConfigs = config.moduleConfigs;
     this.ready = true;
@@ -115,23 +115,23 @@ export class Environment extends events.EventEmitter {
     if (!this.ready) {
       throw new Error('Environment is not ready');
     }
-    
+
     for (const mod of Object.values(this.modules.renderers)) {
       await mod.triggerSetup(this);
     }
-    
+
     for (const mod of Object.values(this.modules.parsers)) {
       await mod.triggerSetup(this);
     }
 
-    for (const mod of Object.values(this.modules.daers)) {
+    for (const mod of Object.values(this.modules.doers)) {
       await mod.triggerSetup(this);
     }
 
     for (const mod of Object.values(this.modules.cacheManagers)) {
       await mod.triggerSetup(this);
     }
-  } 
+  }
 
   getRenderer(name: string): BaseRenderer {
     if (!this.modules.renderers.hasOwnProperty(name)) {
@@ -147,11 +147,11 @@ export class Environment extends events.EventEmitter {
     return this.modules.parsers[name];
   }
 
-  getDaer(name: string): BaseDaer {
-    if (!this.modules.daers.hasOwnProperty(name)) {
-      throw new Error(`No Daer called ${name} loaded`);
+  getDoer(name: string): BaseDoer {
+    if (!this.modules.doers.hasOwnProperty(name)) {
+      throw new Error(`No Doer called ${name} loaded`);
     }
-    return this.modules.daers[name];
+    return this.modules.doers[name];
   }
 
   getCacheManager(name: string): BaseCacheManager {
@@ -179,8 +179,8 @@ export class Environment extends events.EventEmitter {
   async runJob(job: Job): Promise<Job> {
     try {
       const task = this.getTask(job.entryTask);
-      const daer = this.getDaer(task.daer);
-      const output = await daer.execute(job, task, []);
+      const doer = this.getDoer(task.doer);
+      const output = await doer.execute(job, task, []);
     } catch(err) {
       console.error('Failed to run job', err);
     }
@@ -190,14 +190,14 @@ export class Environment extends events.EventEmitter {
 
 export interface Modules {
   renderers: BaseRenderer[];
-  daers: BaseDaer[];
+  doers: BaseDoer[];
   parsers: BaseParser<any>[];
   cacheManagers: BaseCacheManager[];
 }
 
 export interface ModuleMaps {
   renderers: Map<BaseRenderer>;
-  daers: Map<BaseDaer>;
+  doers: Map<BaseDoer>;
   parsers: Map<BaseParser<any>>;
   cacheManagers: Map<BaseCacheManager>;
 }

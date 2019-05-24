@@ -1,18 +1,18 @@
-import { BaseDaer } from './base-daer';
+import { BaseDoer } from './base-doer';
 import { Environment, Job } from '../environment';
 import { TaskConfig, TaskResponse } from '../interfaces';
 import { Exception } from '../exception';
 
-export class MultiplexerDaer extends BaseDaer {
+export class MultiplexerDoer extends BaseDoer {
   async main(job: Job, taskConfig: TaskConfig, coreConfig: MultiplexerConfig, path: string[]): Promise<TaskResponse> {
     const results: MultiplexerTaskResult[] = [];
     for (let [index, subConfig] of Object.entries(coreConfig.tasks)) {
       try {
         if (typeof subConfig === 'string') {
-          subConfig = this.resolvePointer(subConfig, this.env, job) as TaskConfig;  
+          subConfig = this.resolvePointer(subConfig, this.env, job) as TaskConfig;
         }
-        const daer = this.env.getDaer(subConfig.daer);
-        await daer.execute(job, subConfig, [...path]);
+        const doer = this.env.getDoer(subConfig.doer);
+        await doer.execute(job, subConfig, [...path]);
         const result = this.createResult(Number(index), subConfig, undefined, undefined);
         results.push(result);
       } catch(err) {
@@ -27,7 +27,7 @@ export class MultiplexerDaer extends BaseDaer {
     return {
       data: {
         _results: results
-      } 
+      }
     }
   }
 
@@ -35,7 +35,7 @@ export class MultiplexerDaer extends BaseDaer {
     return {
       error,
       taskName: config && config.name,
-      daer: config && config.daer,
+      doer: config && config.doer,
       index: index,
       success: !error,
       duration: duration
@@ -51,7 +51,7 @@ export interface MultiplexerConfig {
 
 export interface MultiplexerTaskResult {
   taskName?: string;
-  daer?: string;
+  doer?: string;
   index: number;
   success: boolean;
   duration?: number;
