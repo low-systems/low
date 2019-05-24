@@ -19,16 +19,16 @@ export abstract class BaseModule {
     return this.constructor.name;
   }
   get debugPath(): string {
-    return this.moduleType + '.' + this.name;
+    return this.moduleType;
   }
 
-  constructor(public readonly name: string, ...args: any[]) { 
+  constructor(...args: any[]) {
     this.loadGlobalSecrets();
   }
 
   private loadGlobalSecrets(): void {
     const globalSecrets = process.env.SECRETS && JSON.parse(process.env.SECRETS) || {};
-    this.secrets = globalSecrets && globalSecrets[this.moduleType] && globalSecrets[this.moduleType][this.name] || {};
+    this.secrets = globalSecrets && globalSecrets[this.moduleType] || {};
   }
 
   async triggerSetup(env: Environment): Promise<void> {
@@ -37,8 +37,8 @@ export abstract class BaseModule {
       this.ready = false;
     }
     this.loadGlobalSecrets();
-    this._env = env; 
-    this.config = env.moduleConfigs && env.moduleConfigs[this.moduleType] && env.moduleConfigs[this.moduleType][this.name] || {};
+    this._env = env;
+    this.config = env.moduleConfigs && env.moduleConfigs[this.moduleType] || {};
     await this.setup();
     this.ready = true;
   }
