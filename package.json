@@ -1,9 +1,9 @@
 {
-  "name": "@tonicblue/daer",
+  "name": "@public/low",
   "version": "0.0.1",
   "description": "A templatable, configuration driven, modular, task running platform",
   "main": "build/index.js",
-  "repository": "https://github.com/tonicblue/daer",
+  "repository": "https://github.com/tonicblue/low",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

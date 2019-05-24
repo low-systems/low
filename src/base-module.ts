@@ -6,7 +6,7 @@ export abstract class BaseModule {
 
   public get env(): Environment {
     if (!this._env) {
-      throw new Error('No Environment has been set. Has this Module been setup correctly?');
+      throw new Error('No Environment has been set. Has this Module been setup correctly');
     }
     return this._env;
   }
@@ -18,14 +18,17 @@ export abstract class BaseModule {
   get moduleType(): string {
     return this.constructor.name;
   }
+  get debugPath(): string {
+    return this.moduleType + '.' + this.name;
+  }
 
-  constructor(...args: any[]) { 
+  constructor(public readonly name: string, ...args: any[]) { 
     this.loadGlobalSecrets();
   }
 
   private loadGlobalSecrets(): void {
     const globalSecrets = process.env.SECRETS && JSON.parse(process.env.SECRETS) || {};
-    this.secrets = globalSecrets && globalSecrets[this.moduleType] || {};
+    this.secrets = globalSecrets && globalSecrets[this.moduleType] && globalSecrets[this.moduleType][this.name] || {};
   }
 
   async triggerSetup(env: Environment): Promise<void> {
@@ -35,7 +38,7 @@ export abstract class BaseModule {
     }
     this.loadGlobalSecrets();
     this._env = env; 
-    this.config = env.moduleConfigs && env.moduleConfigs[this.moduleType] || {};
+    this.config = env.moduleConfigs && env.moduleConfigs[this.moduleType] && env.moduleConfigs[this.moduleType][this.name] || {};
     await this.setup();
     this.ready = true;
   }
