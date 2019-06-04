@@ -1,6 +1,6 @@
 {
-  "name": "@public/low",
-  "version": "0.0.1",
+  "name": "low",
+  "version": "1.0.0",
   "description": "A templatable, configuration driven, modular, task running platform",
   "main": "build/index.js",
   "repository": "https://github.com/tonicblue/low",
