@@ -1,5 +1,5 @@
 {
-  "name": "@public/low",
+  "name": "low",
   "version": "1.0.1",
   "description": "A low code system framework",
   "main": "lib/index.js",
