@@ -6,15 +6,15 @@
 ## :information_source: About
 `low` is a framework for building systems without having to do too much programming. It's aim isn't to be an _App Builder&trade;_ that require zero development experience, often systems that claim to be that have to make compromises and suffer as a result. Here are the goals:
 
-* :wrench: **Configuration driven** - everything is stored as a big JSON blob (don't worry, it comes with tools to manage this and some day a UI!)
-* :ballot_box_with_check: **Task driven** - all functions and bits of work are broken down into simple tasks that are executed by single purpose modules called `Doers`
-* :triangular_ruler: **Templateable** - any bit of a task's configuration can be represented by a template which is compiled given an execution context
-* :symbols: **Modular** - everything is modules! We will provide a number of common modules that can be dropped into an system and you can very easily write your own using Typescript
-* :repeat: **Cachable** - outputs for each task and templated bits of task configurations can be cached given whatever parameters from the current context you want
-* :recycle: **Reusable** - there might be certain common tasks that are interacted with in a number of ways (web applications, task queue processors, system messages) and you might want to re-use them no matter the source of execution
-* :package: **Scalable and portable** - have as many nodes running your system as you like
-* :fast_forward: **Rapid development** - most of the above points lead to much quicker development times
-* :baby_bottle: **Easy to use** - once you get your head around the basic concepts, developing complex systems gets really quite simple
+| :wrench: | **Configuration driven** | everything is stored as a big JSON blob (don't worry, it comes with tools to manage this and some day a UI!) |
+| :ballot_box_with_check: | **Task driven** | all functions and bits of work are broken down into simple tasks that are executed by single purpose modules called `Doers` |
+| :triangular_ruler: | **Templateable** | any bit of a task's configuration can be represented by a template which is compiled given an execution context |
+| :symbols: | **Modular** | everything is modules! We will provide a number of common modules that can be dropped into an system and you can very easily write your own using Typescript |
+| :repeat: | **Cachable** | outputs for each task and templated bits of task configurations can be cached given whatever parameters from the current context you want |
+| :recycle: | **Reusable** | there might be certain common tasks that are interacted with in a number of ways (web applications, task queue processors, system messages) and you might want to re-use them no matter the source of execution |
+| :package: | **Scalable and portable** | have as many nodes running your system as you like |
+| :fast_forward: | **Rapid development** | most of the above points lead to much quicker development times |
+| :baby_bottle: | **Easy to use** | once you get your head around the basic concepts, developing complex systems gets really quite simple |
 
 ## :bulb: Key concepts
 There are a few concepts to help you get your head around how all of this works. The `Environment`, `TaskConfiguration`, `ObjectCompiler`, and the 5 types of `Module`. Each are explained below.
