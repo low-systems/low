@@ -1,8 +1,13 @@
 {
   "name": "low",
   "version": "1.0.1",
-  "description": "A low code system framework",
-  "main": "lib/index.js",
+  "description": "a templating driven low-code framework for rapid application developmnet",
+  "main": "lib/environment.js",
+  "homepage": "https://github.com/tonicblue/low#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tonicblue/low"
+  },
   "scripts": {
     "test": "SECRETS=\"secrets.json\" jest"
   },
@@ -12,7 +17,10 @@
     "low",
     "code"
   ],
-  "author": "Matthew Wilkes",
+  "author": {
+    "name": "Matthew Parry-Wilkes",
+    "url": "https://tonicblue.co.uk"
+  },
   "license": "GPL-3.0",
   "jest": {
     "roots": [
