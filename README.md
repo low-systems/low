@@ -13,6 +13,8 @@
 * :repeat: **Cachable** - outputs for each task and templated bits of task configurations can be cached given whatever parameters from the current context you want
 * :recycle: **Reusable** - there might be certain common tasks that are interacted with in a number of ways (web applications, task queue processors, system messages) and you might want to re-use them no matter the source of execution
 * :package: **Scalable and portable** - have as many nodes running your system as you like
+* :fast_forward: **Rapid development** - most of the above points lead to much quicker development times
+* :baby_bottle: **Easy to use** - once you get your head around the basic concepts, developing complex systems gets really quite simple
 
 ## :bulb: Key concepts
 There are a few concepts to help you get your head around how all of this works. The `Environment`, `TaskConfiguration`, `ObjectCompiler`, and the 5 types of `Module`. Each are explained below.
