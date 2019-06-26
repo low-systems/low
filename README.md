@@ -6,6 +6,8 @@
 ## :information_source: About
 `low` is a framework for building systems without having to do too much programming. It's aim isn't to be an _App Builder&trade;_ that require zero development experience, often systems that claim to be that have to make compromises and suffer as a result. Here are the goals:
 
+| | Goal | Description |
+| --- | --- | --- |
 | :wrench: | **Configuration driven** | everything is stored as a big JSON blob (don't worry, it comes with tools to manage this and some day a UI!) |
 | :ballot_box_with_check: | **Task driven** | all functions and bits of work are broken down into simple tasks that are executed by single purpose modules called `Doers` |
 | :triangular_ruler: | **Templateable** | any bit of a task's configuration can be represented by a template which is compiled given an execution context |
