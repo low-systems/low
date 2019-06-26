@@ -1,7 +1,7 @@
 # low
 > a templating driven low-code framework for rapid application developmnet
 
-**Proper readme coming soon... All of this is a work in progress**
+:construction: **Proper readme coming soon... All of this is a work in progress**
 
 ## :information_source: About
 `low` is a framework for building systems without having to do too much programming. It's aim isn't to be an _App Builder&trade;_ that require zero development experience, often systems that claim to be that have to make compromises and suffer as a result. Here are the goals:
@@ -35,3 +35,39 @@ In `low` each of these steps can be represented as a simple configuration and gr
 
 ### :hammer: The `ObjectCompiler`
 There are certain bits of JSON - such as your task configurations - which may need to change depending on what is being run.
+
+> TODO: Finish writing key concepts!
+
+## :construction: Development roadmap
+None of this is ready for use yet! Here is a high level list of things that need to be done.
+
+* :white_medium_square: Finish writing core package
+  * :white_medium_square: Add "run next" pointer to task output (need to work out how this will work)
+  * :white_medium_square: Implement template/renderer caching
+  * :white_medium_square: Implement optional type checking of inputs and outputs to `Doers`
+  * :white_medium_square: _...not sure what else is left_
+* :white_medium_square: Finish writing unit tests and make sure core package is fit for purpose
+* :white_medium_square: Write some basic modules to make the system usable
+  * :white_medium_square: HTTP `Boundary`
+  * :white_medium_square: Cron `Boundary`
+  * :white_medium_square: RabbitMQ `Boundary`
+  * :white_medium_square: Redis `Cache Manager`
+  * :white_medium_square: Memcached `Cache Manager`
+  * :white_medium_square: Branching `Doer`
+  * :white_medium_square: HTTP Request `Doer`
+  * :white_medium_square: SQL Query `Doer`
+  * :white_medium_square: Mustache `Renderer`
+  * :white_medium_square: Handlebars `Renderer`
+  * :white_medium_square: JSON-e `Renderer`
+* :white_medium_square: Improve development and deployment process
+  * :white_medium_square: Setup proper branching
+  * :white_medium_square: Setup proper versioning with Git tags
+  * :white_medium_square: Setup Travis-CI to test and deploy `master` to NPM
+* :white_medium_square: Write a configuration builder (a command line tool that pieces together one big JSON file from lots of JSON files)
+* :white_medium_square: Comment all code and implement Typedoc
+* :white_medium_square: Write basic implementation examples and recipies
+* :white_medium_square: Finish README.md
+* :white_medium_square: Build a website explaining everything in a less rambly-technical way
+* :white_medium_square: Create a browser based playground
+
+Not all of this is completely necessary to start using the system. I will be working through the tasks loosely from top to bottom. Hopefully I'll soon start to use Github Issues and Projects to manage all this. I'm a lone developer with a full time job and a wife and toddler so finding the time to get through all this isn't super easy.
