@@ -1,6 +1,8 @@
 
 import { Context } from './environment';
 
+//TODO: Should this be a Module or is that going to far?
+//I'm leaning on No because this is a bit fundamental and secret-sauce
 export class ObjectCompiler {
   static isPointer(property: any): boolean {
     return property && property.hasOwnProperty('__pointer');
