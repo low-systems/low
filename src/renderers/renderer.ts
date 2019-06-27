@@ -1,6 +1,6 @@
 import { Module } from '../module';
 import { ParserConfig } from '../parsers/parser';
-import { Context, } from '../environment';
+import { Context } from '../environment';
 
 export class Renderer extends Module {
   async render(config: RenderConfig, context: Context): Promise<any> {

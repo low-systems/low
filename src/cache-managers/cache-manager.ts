@@ -4,9 +4,12 @@ import { Module } from '../module';
 import { Context } from '../environment';
 import { ObjectCompiler } from '../object-compiler';
 
-const CACHE: MemoryCache = {};
-
 export class CacheManager extends Module {
+  private _CACHE: MemoryCache = {};
+  get CACHE(): MemoryCache {
+    return this._CACHE;
+  }
+
   async makeKey(config: CacheConfig, context: Context): Promise<CacheKey> {
     let data = '';
     for (const path of config.keyProperties) {
@@ -15,7 +18,7 @@ export class CacheManager extends Module {
     }
     const hash = createHash('sha1')
       .update(data)
-      .digest('base64');
+      .digest('hex');
     return {
       partition: config.partition,
       key: hash
@@ -23,31 +26,31 @@ export class CacheManager extends Module {
   }
 
   async getItem(cacheKey: CacheKey): Promise<any> {
-    if (!CACHE.hasOwnProperty(cacheKey.partition)) {
-      CACHE[cacheKey.partition] = {};
+    if (!this.CACHE.hasOwnProperty(cacheKey.partition)) {
+      this.CACHE[cacheKey.partition] = {};
       return null;
     }
-    if (!CACHE[cacheKey.partition].hasOwnProperty(cacheKey.key)) {
+    if (!this.CACHE[cacheKey.partition].hasOwnProperty(cacheKey.key)) {
       return null;
     }
-    const expires = CACHE[cacheKey.partition][cacheKey.key].expires;
+    const expires = this.CACHE[cacheKey.partition][cacheKey.key].expires;
     const now = new Date();
     if (expires < now) {
-      delete CACHE[cacheKey.partition][cacheKey.key];
+      delete this.CACHE[cacheKey.partition][cacheKey.key];
       return null;
     }
-    CACHE[cacheKey.partition][cacheKey.key].touched = now;
-    return CACHE[cacheKey.partition][cacheKey.key].data;
+    this.CACHE[cacheKey.partition][cacheKey.key].touched = now;
+    return this.CACHE[cacheKey.partition][cacheKey.key].data;
   }
 
   async setItem(cacheKey: CacheKey, item: any, ttl: number): Promise<void> {
-    if (!CACHE.hasOwnProperty(cacheKey.partition)) {
-      CACHE[cacheKey.partition] = {};
+    if (!this.CACHE.hasOwnProperty(cacheKey.partition)) {
+      this.CACHE[cacheKey.partition] = {};
     }
     const now = new Date();
     const expires = new Date(+new Date() + ttl);
-    if (!CACHE[cacheKey.partition].hasOwnProperty(cacheKey.key)) {
-      CACHE[cacheKey.partition][cacheKey.key] = {
+    if (!this.CACHE[cacheKey.partition].hasOwnProperty(cacheKey.key)) {
+      this.CACHE[cacheKey.partition][cacheKey.key] = {
         data: item,
         created: now,
         updated: now,
@@ -55,15 +58,15 @@ export class CacheManager extends Module {
         touched: new Date(0)
       };
     } else {
-      CACHE[cacheKey.partition][cacheKey.key].data = item;
-      CACHE[cacheKey.partition][cacheKey.key].updated = now;
-      CACHE[cacheKey.partition][cacheKey.key].expires = expires;
+      this.CACHE[cacheKey.partition][cacheKey.key].data = item;
+      this.CACHE[cacheKey.partition][cacheKey.key].updated = now;
+      this.CACHE[cacheKey.partition][cacheKey.key].expires = expires;
     }
   }
 
   async bust(partition: string): Promise<void> {
-    if (CACHE.hasOwnProperty(partition)) {
-      delete CACHE[partition];
+    if (this.CACHE.hasOwnProperty(partition)) {
+      delete this.CACHE[partition];
     }
   }
 }
