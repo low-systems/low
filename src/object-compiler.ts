@@ -41,9 +41,12 @@ export class ObjectCompiler {
     }
 
     if (Array.isArray(property)) {
-      return property.map(async (prop) => {
-        return await ObjectCompiler.compileProperty(prop, context);
-      });
+      const compiled = [];
+      for (const item of property) {
+        const resolved = await ObjectCompiler.compileProperty(item, context);
+        compiled.push(resolved);
+      }
+      return compiled;
     }
 
     if (typeof property === 'object') {

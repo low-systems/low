@@ -20,7 +20,7 @@ export class Doer extends Module {
         }
       }
 
-      const coreConfig = await ObjectCompiler.compile(task, context);
+      const coreConfig = await ObjectCompiler.compile(task.config, context);
       const output = await this.main(context, task, coreConfig);
       context.data[task.name] = output;
 
