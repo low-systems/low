@@ -1,8 +1,6 @@
 import { CacheConfig } from './cache-manager';
 import { Context, Environment } from '../environment';
 
-//TODO: Complete cache tests for getItem, items expiring, etc
-
 test('should be able to create a valid key', async () => {
   const env = new Environment({}, [], {
     metadata: {
