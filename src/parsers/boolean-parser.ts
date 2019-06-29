@@ -4,6 +4,7 @@ export class BooleanParser extends Parser<boolean> {
   async parse(input: any, config: BooleanParserConfig): Promise<boolean> {
     try {
       if (config.interperateStrings && typeof input === 'string') {
+        //TODO: Implement RegularExpression string interpretation
         return TrueStrings.includes(input.toLowerCase());
       } else if (config.emptyObjectsAsFalse && typeof input === 'object') {
         if (Array.isArray(input)) {
@@ -33,9 +34,14 @@ export class BooleanParser extends Parser<boolean> {
 }
 
 export interface BooleanParserConfig extends ParserConfig<boolean> {
-  interperateStrings?: boolean;
+  interperateStrings?: boolean|RegularExpression;
   emptyObjectsAsFalse?: boolean;
   removeObjectNullValues?: boolean;
+}
+
+export interface RegularExpression {
+  regex: string;
+  options?: string;
 }
 
 //Translations of the words "True" and "Yes" in 89 languages
