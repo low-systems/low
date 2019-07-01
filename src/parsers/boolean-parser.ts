@@ -4,8 +4,14 @@ export class BooleanParser extends Parser<boolean> {
   async parse(input: any, config: BooleanParserConfig): Promise<boolean> {
     try {
       if (config.interperateStrings && typeof input === 'string') {
-        //TODO: Implement RegularExpression string interpretation
-        return TrueStrings.includes(input.toLowerCase());
+        if (Array.isArray(config.interperateStrings)) {
+          return config.interperateStrings.includes(input.toLowerCase());
+        } else if (config.interperateStrings.hasOwnProperty('regex')) {
+          const regex = new RegExp((config.interperateStrings as RegularExpression).regex, (config.interperateStrings as RegularExpression).options || 'ig');
+          return regex.test(input);
+        } else {
+          return TrueStrings.includes(input.toLowerCase());
+        }
       } else if (config.emptyObjectsAsFalse && typeof input === 'object') {
         if (Array.isArray(input)) {
           if (config.removeObjectNullValues) {
@@ -34,7 +40,7 @@ export class BooleanParser extends Parser<boolean> {
 }
 
 export interface BooleanParserConfig extends ParserConfig<boolean> {
-  interperateStrings?: boolean|RegularExpression;
+  interperateStrings?: boolean|RegularExpression|string[];
   emptyObjectsAsFalse?: boolean;
   removeObjectNullValues?: boolean;
 }

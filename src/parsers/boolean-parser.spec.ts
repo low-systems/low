@@ -22,6 +22,18 @@ test('should parse strings as booleans correctly', async () => {
   expect(await parser.parse('YES', { interperateStrings: true })).toBe(true);
   expect(await parser.parse('false', { interperateStrings: true })).toBe(false);
   expect(await parser.parse('gobbledygook', { interperateStrings: true })).toBe(false);
+  expect(await parser.parse('probably true yeah?', { interperateStrings: {
+    regex: 'true',
+    options: 'ig'
+  }})).toBe(true);
+  expect(await parser.parse('probably false yeah?', { interperateStrings: {
+    regex: 'true',
+    options: 'ig'
+  }})).toBe(false);
+  expect(await parser.parse('probably not false yeah?', { interperateStrings: {
+    regex: 'true|not false',
+    options: 'ig'
+  }})).toBe(true);
 });
 
 test('should parse booleans as booleans correctly', async () => {
