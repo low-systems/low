@@ -3,7 +3,7 @@ import { CacheManager, CacheConfig } from './cache-managers/cache-manager';
 import { Doer } from './doers/doer';
 import { Parser } from './parsers/parser';
 import { BooleanParser } from './parsers/boolean-parser';
-import { NumberParser } from './parsers/number-parser';
+import { IntegerParser } from './parsers/integer-parser';
 import { ObjectParser } from './parsers/object-parser';
 import { StringifyParser } from './parsers/stringify-parser';
 import { StringParser } from './parsers/string-parser';
@@ -38,7 +38,7 @@ export class Environment {
     ],
     parsers: [
       new BooleanParser(),
-      new NumberParser(),
+      new IntegerParser(),
       new ObjectParser(),
       new StringifyParser(),
       new StringParser(),
