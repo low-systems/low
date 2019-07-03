@@ -9,7 +9,8 @@
     "url": "https://github.com/tonicblue/low"
   },
   "scripts": {
-    "test": "SECRETS=\"secrets.json\" jest"
+    "test": "SECRETS=\"secrets.json\" jest",
+    "coverage": "jest --coverage"
   },
   "keywords": [
     "lowcode",

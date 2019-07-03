@@ -6,7 +6,7 @@ export class StringifyParser extends Parser<string> {
       const spaces = config.hasOwnProperty('spaces') ? config.spaces : 4;
       return JSON.stringify(input, null, spaces);
     } catch(err) {
-      if (config.defaultValue) {
+      if (typeof config.defaultValue === 'string') {
         return config.defaultValue;
       } else {
         throw err;

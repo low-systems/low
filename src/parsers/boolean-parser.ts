@@ -30,7 +30,7 @@ export class BooleanParser extends Parser<boolean> {
         return Boolean(input);
       }
     } catch(err) {
-      if (config.defaultValue) {
+      if (typeof config.defaultValue === 'boolean') {
         return config.defaultValue;
       } else {
         throw err;

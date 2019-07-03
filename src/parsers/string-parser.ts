@@ -5,7 +5,7 @@ export class StringParser extends Parser<string> {
     try {
       return ['null', 'undefined'].indexOf(input) ? '' : input.toString();
     } catch(err) {
-      if (config.defaultValue) {
+      if (typeof config.defaultValue === 'string') {
         return config.defaultValue;
       } else {
         throw err;

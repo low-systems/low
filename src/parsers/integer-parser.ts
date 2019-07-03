@@ -10,7 +10,7 @@ export class IntegerParser extends Parser<number> {
         return output;
       }
     } catch(err) {
-      if (config.defaultValue) {
+      if (typeof config.defaultValue === 'number') {
         return config.defaultValue;
       } else {
         throw err;

@@ -1,7 +1,7 @@
 import { Parser, ParserConfig } from './parser';
 
-export class ObjectParser extends Parser<object> {
-  async parse(input: any, config: ParserConfig<object>): Promise<object> {
+export class JsonParser extends Parser<any> {
+  async parse(input: any, config: ParserConfig<any>): Promise<any> {
     try {
       if (typeof input === 'string') {
         return JSON.parse(input);
@@ -9,7 +9,7 @@ export class ObjectParser extends Parser<object> {
         return input;
       }
     } catch(err) {
-      if (config.defaultValue) {
+      if (config.hasOwnProperty('defaultValue')) {
         return config.defaultValue;
       } else {
         throw err;

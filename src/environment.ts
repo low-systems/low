@@ -4,7 +4,8 @@ import { Doer } from './doers/doer';
 import { Parser } from './parsers/parser';
 import { BooleanParser } from './parsers/boolean-parser';
 import { IntegerParser } from './parsers/integer-parser';
-import { ObjectParser } from './parsers/object-parser';
+import { FloatParser } from './parsers/float-parser';
+import { JsonParser } from './parsers/json-parser';
 import { StringifyParser } from './parsers/stringify-parser';
 import { StringParser } from './parsers/string-parser';
 import { UrlParser } from './parsers/url-parser';
@@ -39,7 +40,8 @@ export class Environment {
     parsers: [
       new BooleanParser(),
       new IntegerParser(),
-      new ObjectParser(),
+      new FloatParser(),
+      new JsonParser(),
       new StringifyParser(),
       new StringParser(),
       new UrlParser()

@@ -16,8 +16,9 @@ test('should be able to initialise built-in modules in new low environment', asy
   expect(() => { env.getDoer('Doer').isReady }).toThrow(`The Doer called 'Doer' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getDoer('MultiDoer').isReady }).toThrow(`The Doer called 'MultiDoer' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getParser('BooleanParser').isReady }).toThrow(`The Parser called 'BooleanParser' is loaded but not ready. Has the environment been initialised?`);
-  expect(() => { env.getParser('NumberParser').isReady }).toThrow(`The Parser called 'NumberParser' is loaded but not ready. Has the environment been initialised?`);
-  expect(() => { env.getParser('ObjectParser').isReady }).toThrow(`The Parser called 'ObjectParser' is loaded but not ready. Has the environment been initialised?`);
+  expect(() => { env.getParser('IntegerParser').isReady }).toThrow(`The Parser called 'IntegerParser' is loaded but not ready. Has the environment been initialised?`);
+  expect(() => { env.getParser('FloatParser').isReady }).toThrow(`The Parser called 'FloatParser' is loaded but not ready. Has the environment been initialised?`);
+  expect(() => { env.getParser('JsonParser').isReady }).toThrow(`The Parser called 'JsonParser' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getParser('StringifyParser').isReady }).toThrow(`The Parser called 'StringifyParser' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getParser('StringParser').isReady }).toThrow(`The Parser called 'StringParser' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getParser('UrlParser').isReady }).toThrow(`The Parser called 'UrlParser' is loaded but not ready. Has the environment been initialised?`);
@@ -33,8 +34,9 @@ test('should be able to initialise built-in modules in new low environment', asy
   expect(env.getDoer('Doer').isReady).toBe(true);
   expect(env.getDoer('MultiDoer').isReady).toBe(true);
   expect(env.getParser('BooleanParser').isReady).toBe(true);
-  expect(env.getParser('NumberParser').isReady).toBe(true);
-  expect(env.getParser('ObjectParser').isReady).toBe(true);
+  expect(env.getParser('IntegerParser').isReady).toBe(true);
+  expect(env.getParser('FloatParser').isReady).toBe(true);
+  expect(env.getParser('JsonParser').isReady).toBe(true);
   expect(env.getParser('StringifyParser').isReady).toBe(true);
   expect(env.getParser('StringParser').isReady).toBe(true);
   expect(env.getParser('UrlParser').isReady).toBe(true);
@@ -100,7 +102,7 @@ test('should not be able to register Task with invalid Doer', async () => {
   const invalidTask: TaskConfig = JSON.parse(JSON.stringify(testTask));
   invalidTask.doer = 'xyz';
   const env = new Environment({}, [invalidTask], {});
-  expect.assertions(1);
+
   await expect(env.init()).rejects.toThrow(/No Doer called 'xyz' loaded/);
 });
 
@@ -110,6 +112,6 @@ test('should not be able to register Task with invalid Cache Manager', async () 
     invalidTask.cacheConfig.cacheManager = 'xyz';
   }
   const env = new Environment({}, [invalidTask], {});
-  expect.assertions(1);
+
   await expect(env.init()).rejects.toThrow(/No Cache Manager called 'xyz' loaded/);
 });

@@ -7,8 +7,12 @@ import { Module } from '../module';
  */
 export class Parser<T> extends Module {
   async parse(input: any, config: ParserConfig<T>): Promise<T|null> {
-    if (['null', 'undefined'].includes(typeof input)) {
-      return config.defaultValue || null;
+    if (typeof input === 'undefined' || input === null) {
+      if (typeof config.defaultValue === 'undefined' || config.defaultValue === null) {
+        return null;
+      } else {
+        return config.defaultValue as T;
+      }
     } else {
       return input as T;
     }
