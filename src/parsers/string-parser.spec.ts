@@ -207,3 +207,12 @@ test('should echo strings', async () => {
   expect(await parser.parse('', {})).toBe('');
   expect(await parser.parse('test', {})).toBe('test');
 });
+
+test('should throw and handle circular objects', async () => {
+  const parser = new StringParser();
+
+  const test: any = { test:  42 };
+  test.myself = test;
+
+  await expect(parser.parse(test, {})).rejects.toThrow(/circular structure/);
+});

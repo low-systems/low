@@ -1,6 +1,6 @@
 import { FloatParser } from './float-parser';
 
-test('should parse none strings or numbers as float correctly', async () => {
+test('should parse none strings or numbers as floats correctly', async () => {
   const parser = new FloatParser();
 
   expect(await parser.parse(true, {})).toBe(NaN);
@@ -17,7 +17,7 @@ test('should parse none strings or numbers as float correctly', async () => {
   expect(await parser.parse(undefined, { defaultValue: 42 })).toBe(42)
 });
 
-test('should parse strings as integers correctly', async () => {
+test('should parse strings as floats correctly', async () => {
   const parser = new FloatParser();
 
   expect(await parser.parse('123', {})).toBe(123);

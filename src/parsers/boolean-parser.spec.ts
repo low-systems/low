@@ -22,6 +22,7 @@ test('should parse strings as booleans correctly', async () => {
   expect(await parser.parse('YES', { interperateStrings: true })).toBe(true);
   expect(await parser.parse('false', { interperateStrings: true })).toBe(false);
   expect(await parser.parse('gobbledygook', { interperateStrings: true })).toBe(false);
+  expect(await parser.parse('gobbledygook', { interperateStrings: ['yes', 'gobbledygook'] })).toBe(true);
   expect(await parser.parse('probably true yeah?', { interperateStrings: {
     regex: 'true',
     options: 'ig'
@@ -61,6 +62,10 @@ test('should parse objects as booleans correctly', async() => {
   expect(await parser.parse({ test: false }, { emptyObjectsAsFalse: true })).toBe(true);
   expect(await parser.parse([], { emptyObjectsAsFalse: true })).toBe(false);
   expect(await parser.parse([1, 2, 3], { emptyObjectsAsFalse: true })).toBe(true);
+  expect(await parser.parse([null, undefined], { emptyObjectsAsFalse: true })).toBe(true);
+  expect(await parser.parse([null, undefined], { emptyObjectsAsFalse: true, removeObjectNullValues: true })).toBe(false);
+  expect(await parser.parse({ test1: null, test2: undefined }, { emptyObjectsAsFalse: true })).toBe(true);
+  expect(await parser.parse({ test1: null, test2: undefined }, { emptyObjectsAsFalse: true, removeObjectNullValues: true })).toBe(false);
 
   //TODO: Tests for removeObjectNullValues
 });
