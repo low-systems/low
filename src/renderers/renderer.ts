@@ -18,9 +18,11 @@ export class Renderer extends Module {
   async parseRendered(rendered: any, config: RenderConfig): Promise<any> {
     if (config.__parser) {
       const parser = this.env.getParser(config.__parser);
-      rendered = await parser.parse(rendered, config.__parserConfig || {});
+      const parsed = await parser.parse(rendered, config.__parserConfig || {});
+      return parsed;
+    } else {
+      return rendered;
     }
-    return rendered;
   }
 
   async core(template: any, context: Context): Promise<any> {
