@@ -1,6 +1,6 @@
 {
   "name": "low",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a templating driven low-code framework for rapid application developmnet",
   "main": "lib/environment.js",
   "homepage": "https://github.com/tonicblue/low#readme",
