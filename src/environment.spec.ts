@@ -19,7 +19,6 @@ test('should be able to initialise built-in modules in new low environment', asy
   expect(() => { env.getParser('IntegerParser').isReady }).toThrow(`The Parser called 'IntegerParser' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getParser('FloatParser').isReady }).toThrow(`The Parser called 'FloatParser' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getParser('JsonParser').isReady }).toThrow(`The Parser called 'JsonParser' is loaded but not ready. Has the environment been initialised?`);
-  expect(() => { env.getParser('StringifyParser').isReady }).toThrow(`The Parser called 'StringifyParser' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getParser('StringParser').isReady }).toThrow(`The Parser called 'StringParser' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getParser('UrlParser').isReady }).toThrow(`The Parser called 'UrlParser' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getRenderer('Renderer').isReady }).toThrow(`The Renderer called 'Renderer' is loaded but not ready. Has the environment been initialised?`);
@@ -37,7 +36,6 @@ test('should be able to initialise built-in modules in new low environment', asy
   expect(env.getParser('IntegerParser').isReady).toBe(true);
   expect(env.getParser('FloatParser').isReady).toBe(true);
   expect(env.getParser('JsonParser').isReady).toBe(true);
-  expect(env.getParser('StringifyParser').isReady).toBe(true);
   expect(env.getParser('StringParser').isReady).toBe(true);
   expect(env.getParser('UrlParser').isReady).toBe(true);
   expect(env.getRenderer('Renderer').isReady).toBe(true);

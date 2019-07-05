@@ -6,7 +6,6 @@ import { BooleanParser } from './parsers/boolean-parser';
 import { IntegerParser } from './parsers/integer-parser';
 import { FloatParser } from './parsers/float-parser';
 import { JsonParser } from './parsers/json-parser';
-import { StringifyParser } from './parsers/stringify-parser';
 import { StringParser } from './parsers/string-parser';
 import { UrlParser } from './parsers/url-parser';
 import { Renderer } from './renderers/renderer';
@@ -42,7 +41,6 @@ export class Environment {
       new IntegerParser(),
       new FloatParser(),
       new JsonParser(),
-      new StringifyParser(),
       new StringParser(),
       new UrlParser()
     ],

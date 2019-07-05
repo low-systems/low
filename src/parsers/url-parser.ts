@@ -1,11 +1,11 @@
-import { Url, parse as UrlParse } from 'url';
+import { URL } from 'url';
 
 import { Parser, ParserConfig } from './parser';
 
-export class UrlParser extends Parser<Url> {
-  async parse(input: any, config: ParserConfig<Url>): Promise<Url> {
+export class UrlParser extends Parser<URL> {
+  async parse(input: any, config: UrlParserConfig): Promise<URL> {
     try {
-      return UrlParse(input);
+      return new URL(input, config.base || undefined);
     } catch(err) {
       if (config.defaultValue) {
         return config.defaultValue;
@@ -14,4 +14,8 @@ export class UrlParser extends Parser<Url> {
       }
     }
   }
+}
+
+export interface UrlParserConfig extends ParserConfig<URL> {
+  base?: string;
 }
