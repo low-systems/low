@@ -36,10 +36,7 @@
       "js",
       "json",
       "node"
-    ],
-    "globals": {
-      "SECRETS": "secrets.json"
-    }
+    ]
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
