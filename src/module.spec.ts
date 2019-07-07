@@ -21,7 +21,13 @@ test('should be able to initialise a basic Module with a configuration and secre
   });
   await mod.init(env);
   expect(mod.config.test).toBe('It worked');
-  //TODO: Work out how to set environment variables for JEST
-  //running in VSCode. This test passes in CLI but not VSCode.
-  //expect(mod.secrets.test).toBe('It worked');
+  //TODO: Work out how to set environment variables for VSCode JEST extension.
+  //This test passes in CLI but not with VSCode extension.
+  expect(mod.secrets.test).toBe('It worked');
+});
+
+test('should throw an exception when code tries to access Module.env on an uninitialised Module', async () => {
+  const mod = new Module();
+
+  expect(() => { return mod.env }).toThrow(/No Environment has been set/);
 });

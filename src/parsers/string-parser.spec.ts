@@ -215,4 +215,5 @@ test('should throw and handle circular objects', async () => {
   test.myself = test;
 
   await expect(parser.parse(test, {})).rejects.toThrow(/circular structure/);
+  expect(await parser.parse(test, { defaultValue: 'It worked' })).toBe('It worked');
 });

@@ -113,3 +113,10 @@ test('should not be able to register Task with invalid Cache Manager', async () 
 
   await expect(env.init()).rejects.toThrow(/No Cache Manager called 'xyz' loaded/);
 });
+
+test('should load secrets as a serialised JSON string', async () => {
+  const env = new Environment({}, [], {}, 'SECRETS_ALT');
+  //TODO: Work out how to set environment variables for VSCode JEST extension.
+  //This test passes in CLI but not with VSCode extension.
+  expect(env.secrets.modules.Module.test).toBe('It worked');
+});

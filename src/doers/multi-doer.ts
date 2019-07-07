@@ -13,9 +13,11 @@ export class MultiDoer extends Doer {
         if (!branchConfig.taskName) {
           throw new Error(`Invalid BranchConfig for task '${multiDoerTask.task.name}'`);
         }
+
         const branchTask = this.env.getTask(branchConfig.taskName);
         const branchDoer = this.env.getDoer(branchTask.doer);
         await branchDoer.execute(context, branchTask);
+
         if (branchConfig.haltAfterExecution) {
           break;
         }

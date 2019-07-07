@@ -95,10 +95,6 @@ export class Environment {
     }
   }
 
-  registerTasks(tasks: TaskConfig[]) {
-
-  }
-
   async init(): Promise<void> {
     for (const mod of Object.values(this.modules.boundaries)) {
       await mod.init(this);

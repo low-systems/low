@@ -27,6 +27,9 @@ test('should parse strings as booleans correctly', async () => {
     regex: 'true',
     options: 'ig'
   }})).toBe(true);
+  expect(await parser.parse('probably true yeah?', { interperateStrings: {
+    regex: 'true'
+  }})).toBe(true);
   expect(await parser.parse('probably false yeah?', { interperateStrings: {
     regex: 'true',
     options: 'ig'
@@ -35,6 +38,25 @@ test('should parse strings as booleans correctly', async () => {
     regex: 'true|not false',
     options: 'ig'
   }})).toBe(true);
+});
+
+test('should handle invalid regular experessions properly', async () => {
+  const parser = new BooleanParser();
+
+  await expect(parser.parse('probably true yeah?', { interperateStrings: {
+    regex: 'true',
+    options: 'igp'
+  }})).rejects.toThrow(/Invalid flags supplied to RegExp/);
+
+  await expect(parser.parse('probably true yeah?', { interperateStrings: {
+    regex: 'tr(ue',
+    options: 'ig'
+  }})).rejects.toThrow(/Invalid regular expression/);
+
+  expect(await parser.parse('probably true yeah?', { interperateStrings: {
+    regex: 'tr(ue',
+    options: 'ig'
+  }, defaultValue: true })).toBe(true);
 });
 
 test('should parse booleans as booleans correctly', async () => {

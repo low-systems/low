@@ -1,14 +1,14 @@
 import { TaskConfig, Environment } from '../environment';
 import { BoundaryContext } from '../boundaries/boundary';
 
-function taskFactory(name: string): TaskConfig {
+function taskFactory(name?: string, doer?: string): TaskConfig {
   return {
     config: {
       test: 'It worked'
     },
-    doer: 'Doer',
+    doer: doer || 'Doer',
     metadata: {},
-    name: name
+    name: name || 'test-task'
   };
 }
 
@@ -134,4 +134,80 @@ test('should execute branched task and not continue running', async () => {
   expect(context.data[task1.name]).toStrictEqual(task1.config);
   expect(context.data[task2.name]).toStrictEqual(task2.config);
   expect(context.data[task3.name]).toBeUndefined();
+});
+
+test('should throw an exception when given an invalid BranchConfig to branch to', async () => {
+  const task1 = taskFactory('test-task-1');
+
+  const multiTask: TaskConfig = {
+    config: [
+      {
+        task: task1,
+        branch: {
+          haltAfterExecution: false,
+          schmtaskName: 'no-such-task'
+        }
+      }
+    ],
+    doer: 'MultiDoer',
+    metadata: {},
+    name: 'test-multi-doer'
+  };
+
+  const env = new Environment({}, [multiTask], {
+    metadata: {
+      test: 'It worked'
+    }
+  });
+  await env.init();
+
+  const doer = env.getDoer('MultiDoer');
+
+  const context: BoundaryContext = {
+    env: env,
+    boundary: { config: {}, input: {} },
+    data: {},
+    errors: {}
+  };
+
+  await doer.execute(context, multiTask);
+  expect(context.errors['test-multi-doer'].message).toMatch(/Invalid BranchConfig/);
+});
+
+test('should throw an exception when given an invalid task name to branch to', async () => {
+  const task1 = taskFactory('test-task-1');
+
+  const multiTask: TaskConfig = {
+    config: [
+      {
+        task: task1,
+        branch: {
+          haltAfterExecution: false,
+          taskName: 'no-such-task'
+        }
+      }
+    ],
+    doer: 'MultiDoer',
+    metadata: {},
+    name: 'test-multi-doer'
+  };
+
+  const env = new Environment({}, [multiTask], {
+    metadata: {
+      test: 'It worked'
+    }
+  });
+  await env.init();
+
+  const doer = env.getDoer('MultiDoer');
+
+  const context: BoundaryContext = {
+    env: env,
+    boundary: { config: {}, input: {} },
+    data: {},
+    errors: {}
+  };
+
+  await doer.execute(context, multiTask);
+  expect(context.errors['test-multi-doer'].message).toBe(`No Task called 'no-such-task' loaded`);
 });

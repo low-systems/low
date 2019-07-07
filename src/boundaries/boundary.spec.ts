@@ -15,6 +15,19 @@ const testTasks: TaskConfig[] = [
     metadata: {}
   },
   {
+    name: 'test-second-task-with-boundary',
+    boundaryConfigs: {
+      Boundary: {
+        __pointer: 'boundary.input'
+      }
+    },
+    config: {
+      test: 'It worked'
+    },
+    doer: 'Doer',
+    metadata: {}
+  },
+  {
     name: 'test-task-without-boundary',
     config: {
       test: 'It worked'

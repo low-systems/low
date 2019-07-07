@@ -4,7 +4,7 @@ export class Module {
   private _env: Environment | undefined;
   public get env(): Environment {
     if (!this._env) {
-      throw new Error('No Environment has been set. Has this Module been setup correctly');
+      throw new Error('No Environment has been set. Has this Module been setup correctly?');
     }
     return this._env;
   }
@@ -21,11 +21,9 @@ export class Module {
     return this.ready;
   }
 
-  constructor(...args: any[]) { }
-
   async init(env: Environment): Promise<void> {
     if (this.ready) {
-      this.destroy();
+      await this.destroy();
       this.ready = false;
     }
     this._env = env;
@@ -35,6 +33,6 @@ export class Module {
     this.ready = true;
   }
 
-  async setup(): Promise<void> { };
-  async destroy(): Promise<void> { };
+  async setup(): Promise<void> { return; };
+  async destroy(): Promise<void> { return; };
 }
