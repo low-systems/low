@@ -1,12 +1,12 @@
 {
   "name": "low",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a templating driven low-code framework for rapid application developmnet",
   "main": "lib/environment.js",
-  "homepage": "https://github.com/tonicblue/low#readme",
+  "homepage": "https://github.com/low-systems/low#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tonicblue/low"
+    "url": "https://github.com/low-systems/low"
   },
   "scripts": {
     "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
