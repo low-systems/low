@@ -1,4 +1,9 @@
-import { Environment, TaskConfig } from './environment';
+import { Environment, TaskConfig, Modules } from './environment';
+import { Boundary } from './boundaries/boundary';
+import { CacheManager } from './cache-managers/cache-manager';
+import { Doer } from './doers/doer';
+import { Parser } from './parsers/parser';
+import { Renderer } from './renderers/renderer';
 
 test('should create new basic instance of a low environment', () => {
   const env = new Environment({}, [], {});
@@ -118,4 +123,41 @@ test('should load secrets as a serialised JSON string', async () => {
   const env = new Environment({}, [], {}, 'SECRETS_ALT');
 
   expect(env.secrets.modules.Module.test).toBe('It worked');
+});
+
+test('should be able to pass in external Modules when creating an Environment', async () => {
+  class ExternalBoundary extends Boundary {}
+  class ExternalCacheManager extends CacheManager {}
+  class ExternalDoer extends Doer {}
+  class ExternalParser extends Parser<any> {}
+  class ExternalRenderer extends Renderer {}
+
+  const externalBoundary = new ExternalBoundary();
+  const externalCacheManager = new ExternalCacheManager();
+  const externalDoer = new ExternalDoer();
+  const externalParser = new ExternalParser();
+  const externalRenderer = new ExternalRenderer();
+
+  const modules: Modules = {
+    boundaries: [ externalBoundary ],
+    cacheManagers: [ externalCacheManager ],
+    doers: [ externalDoer ],
+    parsers: [ externalParser ],
+    renderers: [ externalRenderer ]
+  }
+
+  const env = new Environment(modules, [], {});
+  await env.init();
+
+  expect(env.getBoundary('ExternalBoundary')).toStrictEqual(externalBoundary);
+  expect(env.getCacheManager('ExternalCacheManager')).toStrictEqual(externalCacheManager);
+  expect(env.getDoer('ExternalDoer')).toStrictEqual(externalDoer);
+  expect(env.getParser('ExternalParser')).toStrictEqual(externalParser);
+  expect(env.getRenderer('ExternalRenderer')).toStrictEqual(externalRenderer);
+});
+
+test('should load no secrets when no or an invalid environmental var name is passed in', async () => {
+  const env = new Environment({}, [], {}, 'SECRETS_INVALID');
+
+  expect(env.secrets).toStrictEqual({});
 });

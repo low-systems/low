@@ -132,3 +132,16 @@ test('should understand templates in children', async() => {
   const output = await ObjectCompiler.compile(input, { env: env }, ['childRendered']);
   expect(output).toStrictEqual(expected);
 });
+
+test('should echo a non-object property when attempting to compile it', async() => {
+  const input = 'test';
+  const output = await ObjectCompiler.compile(input, { env: env });
+  expect(output).toBe(input);
+});
+
+test('should throw exception when passed a bad pointer', async() => {
+  const input = {
+    __pointer: 'env.config.metadata.noSuchProperty'
+  };
+  expect(() => { ObjectCompiler.resolvePointer(input, { env: env }); }).toThrow(/Could not resolve pointer/);
+});

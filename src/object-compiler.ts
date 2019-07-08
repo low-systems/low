@@ -4,10 +4,6 @@ import { Context } from './environment';
 //TODO: Should this be a Module or is that going to far?
 //I'm leaning on No because this is a bit fundamental and secret-sauce
 export class ObjectCompiler {
-  static isPointer(property: any): boolean {
-    return property && property.hasOwnProperty('__pointer');
-  }
-
   static isTemplate(property: any): boolean {
     return property && (property.hasOwnProperty('__template') || property.hasOwnProperty('__templatePath'));
   }
@@ -33,31 +29,31 @@ export class ObjectCompiler {
   }
 
   static async compileProperty(property: any, context: Context): Promise<any> {
-    property = ObjectCompiler.resolvePointer(property, context);
+    const resolvedProperty = ObjectCompiler.resolvePointer(property, context);
 
-    if (ObjectCompiler.isTemplate(property)) {
-      const renderer = context.env.getRenderer(property.__renderer);
-      return await renderer.render(property, context);
+    if (ObjectCompiler.isTemplate(resolvedProperty)) {
+      const renderer = context.env.getRenderer(resolvedProperty.__renderer);
+      return await renderer.render(resolvedProperty, context);
     }
 
-    if (Array.isArray(property)) {
+    if (Array.isArray(resolvedProperty)) {
       const compiled = [];
-      for (const item of property) {
+      for (const item of resolvedProperty) {
         const resolved = await ObjectCompiler.compileProperty(item, context);
         compiled.push(resolved);
       }
       return compiled;
     }
 
-    if (typeof property === 'object') {
+    if (typeof resolvedProperty === 'object') {
       const output: any = {};
-      for (const [key, value] of Object.entries(property)) {
+      for (const [key, value] of Object.entries(resolvedProperty)) {
         output[key] = await ObjectCompiler.compileProperty(value, context);
       }
       return output;
     }
 
-    return property;
+    return resolvedProperty;
   }
 
   static resolvePointer(property: any, context: Context) {
@@ -66,15 +62,6 @@ export class ObjectCompiler {
     const value = ObjectCompiler.objectPath(context, property.__pointer);
     if (typeof value === 'undefined') {
       throw new Error(`Could not resolve pointer "${property.__pointer}"`);
-    }
-
-    if (property.__extend === true) {
-      return Object.assign(value, property);
-    }
-
-    if (property.__output) {
-      property[property.__output] = value;
-      return property;
     }
 
     return value;
@@ -89,8 +76,4 @@ export class ObjectCompiler {
     const resolved = ObjectCompiler.objectPathCache[path](obj);
     return resolved;
   }
-}
-
-export interface Pointer {
-  __pointer: string;
 }

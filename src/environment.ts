@@ -22,50 +22,58 @@ export class Environment {
   }
 
   private modules: ModuleMaps = {
-    boundaries: {},
-    cacheManagers: {},
-    doers: {},
-    parsers: {},
-    renderers: {}
-  };
-
-  private builtIn: Modules = {
-    boundaries: [new Boundary()],
-    cacheManagers: [new CacheManager()],
-    doers: [
-      new Doer(),
-      new MultiDoer()
-    ],
-    parsers: [
-      new BooleanParser(),
-      new IntegerParser(),
-      new FloatParser(),
-      new JsonParser(),
-      new StringParser(),
-      new UrlParser()
-    ],
-    renderers: [new Renderer()]
+    boundaries: {
+      Boundary: new Boundary()
+    },
+    cacheManagers: {
+      CacheManager: new CacheManager()
+    },
+    doers: {
+      Doer: new Doer(),
+      MultiDoer: new MultiDoer()
+    },
+    parsers: {
+      BooleanParser: new BooleanParser(),
+      IntegerParser: new IntegerParser(),
+      FloatParser: new FloatParser(),
+      JsonParser: new JsonParser(),
+      StringParser: new StringParser(),
+      UrlParser: new UrlParser()
+    },
+    renderers: {
+      Renderer: new Renderer()
+    }
   };
 
   constructor(modules: Modules, tasks: TaskConfig[], public config: EnvironmentConfig, secretsName: string = 'SECRETS') {
-    for (const mod of [...(this.builtIn.boundaries || []), ...(modules.boundaries || [])]) {
-      this.modules.boundaries[mod.moduleType] = mod;
+    if (modules.boundaries) {
+      for (const mod of modules.boundaries) {
+        this.modules.boundaries[mod.moduleType] = mod;
+      }
     }
 
-    for (const mod of [...(this.builtIn.cacheManagers || []), ...(modules.cacheManagers || [])]) {
-      this.modules.cacheManagers[mod.moduleType] = mod;
+    if (modules.cacheManagers) {
+      for (const mod of modules.cacheManagers) {
+        this.modules.cacheManagers[mod.moduleType] = mod;
+      }
     }
 
-    for (const mod of [...(this.builtIn.doers || []), ...(modules.doers || [])]) {
-      this.modules.doers[mod.moduleType] = mod;
+    if (modules.doers) {
+      for (const mod of modules.doers) {
+        this.modules.doers[mod.moduleType] = mod;
+      }
     }
 
-    for (const mod of [...(this.builtIn.parsers || []), ...(modules.parsers || [])]) {
-      this.modules.parsers[mod.moduleType] = mod;
+    if (modules.parsers) {
+      for (const mod of modules.parsers) {
+        this.modules.parsers[mod.moduleType] = mod;
+      }
     }
 
-    for (const mod of [...(this.builtIn.renderers || []), ...(modules.renderers || [])]) {
-      this.modules.renderers[mod.moduleType] = mod;
+    if (modules.renderers) {
+      for (const mod of modules.renderers) {
+        this.modules.renderers[mod.moduleType] = mod;
+      }
     }
 
     for (const task of tasks) {
@@ -76,8 +84,6 @@ export class Environment {
   }
 
   loadSecrets(secretsName: string) {
-    if (!secretsName) return;
-
     //TODO: What the heck actually happens when you try to access `process`
     //      in a browser. Need more checks around this
     const secretsVar = process.env[secretsName];
@@ -132,16 +138,12 @@ export class Environment {
       const doer = this.modules.doers[task.doer];
       if (!doer) {
         taskProblems.push(`No Doer called '${task.doer}' loaded`);
-      } else if (!doer.isReady) {
-        taskProblems.push(`The Doer called '${task.doer}' is loaded but not ready. It probably failed to initialise`);
       }
 
       if (task.cacheConfig) {
         const cacheManager = this.modules.cacheManagers[task.cacheConfig.cacheManager];
         if (!cacheManager) {
           taskProblems.push(`No Cache Manager called '${task.cacheConfig.cacheManager}' loaded`);
-        } else if (!cacheManager.isReady) {
-          taskProblems.push(`The Cache Manager called '${task.cacheConfig.cacheManager}' is loaded but not ready. It probably failed to initialise`);
         }
       }
 
