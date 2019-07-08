@@ -11,68 +11,115 @@ import { UrlParser } from './parsers/url-parser';
 import { Renderer } from './renderers/renderer';
 import { MultiDoer } from './doers/multi-doer';
 
+/**
+ * The Environment class is the core of a `low` system.
+ * If you are using `low` you should create an instance of this
+ * with your Modules, Tasks, and Configurations, and initialise it.
+ */
 export class Environment {
+  /**
+   * A map of all available task configurations [[TaskConfig]]
+   */
   tasks: { [taskName: string]: TaskConfig } = {};
+  /**
+   * Any sensitive configuration information loaded into the
+   * Environment using [Environment Variables](https://en.wikipedia.org/wiki/Environment_variable)
+   */
   secrets: EnvironmentConfig = {};
 
+  /**
+   * Set to true once `Environment.init()` has completed
+   */
   private ready: boolean = false;
 
+  /**
+   * Determine if the `Environment` is ready to execute tasks
+   */
   get isReady(): boolean {
     return this.ready;
   }
 
-  private modules: ModuleMaps = {
-    boundaries: {
-      Boundary: new Boundary()
-    },
-    cacheManagers: {
-      CacheManager: new CacheManager()
-    },
-    doers: {
-      Doer: new Doer(),
-      MultiDoer: new MultiDoer()
-    },
-    parsers: {
-      BooleanParser: new BooleanParser(),
-      IntegerParser: new IntegerParser(),
-      FloatParser: new FloatParser(),
-      JsonParser: new JsonParser(),
-      StringParser: new StringParser(),
-      UrlParser: new UrlParser()
-    },
-    renderers: {
-      Renderer: new Renderer()
-    }
+  /**
+   * A collection of [[Boundary]] modules. Boundaries are gateways from
+   * your application or external sources to run tasks in the `low` Environment
+   */
+  private boundaries: { [boundaryName: string]: Boundary } = {
+    Boundary: new Boundary()
   };
 
+  /**
+   * A collection of [[CacheManager]] modules. CacheManagers are used to
+   * improve the performance of frequently executed tasks and object compilation
+   */
+  private cacheManagers: { [cacheManagerName: string]: CacheManager } = {
+    CacheManager: new CacheManager()
+  };
+
+  /**
+   * A collection of [[Doer]] modules. Doers are used to execute tasks
+   */
+  private doers: { [doerName: string]: Doer } = {
+    Doer: new Doer(),
+    MultiDoer: new MultiDoer()
+  };
+
+  /**
+   * A collection of [[Parser]] modules. Parsers ensure that any compiled
+   * output from the [[ObjectCompiler]] is a specified type
+   */
+  private parsers: { [parserName: string]: Parser<any> } = {
+    BooleanParser: new BooleanParser(),
+    IntegerParser: new IntegerParser(),
+    FloatParser: new FloatParser(),
+    JsonParser: new JsonParser(),
+    StringParser: new StringParser(),
+    UrlParser: new UrlParser()
+  };
+
+  /**
+   * A collection of [[Renderer]] modules. Renderers are used by the
+   * [[ObjectCompiler]] to create dynamic bits of configuration to be
+   * used by other modules
+   */
+  private renderers: { [rendererName: string]: Renderer } = {
+    Renderer: new Renderer()
+  };
+
+  /**
+   * Create a new `Environment` instance
+   * @param modules       A collection of instances of all external modules to be made available in the Environment
+   * @param tasks         A list of all task configurations available in the Environment
+   * @param config        Any configuration information for your modules and metadata your tasks may require
+   * @param secretsName   The name of an system level environment variable that holds an `EnvironmentConfig` with information to sensitive to go into code
+   */
   constructor(modules: Modules, tasks: TaskConfig[], public config: EnvironmentConfig, secretsName: string = 'SECRETS') {
     if (modules.boundaries) {
       for (const mod of modules.boundaries) {
-        this.modules.boundaries[mod.moduleType] = mod;
+        this.boundaries[mod.moduleType] = mod;
       }
     }
 
     if (modules.cacheManagers) {
       for (const mod of modules.cacheManagers) {
-        this.modules.cacheManagers[mod.moduleType] = mod;
+        this.cacheManagers[mod.moduleType] = mod;
       }
     }
 
     if (modules.doers) {
       for (const mod of modules.doers) {
-        this.modules.doers[mod.moduleType] = mod;
+        this.doers[mod.moduleType] = mod;
       }
     }
 
     if (modules.parsers) {
       for (const mod of modules.parsers) {
-        this.modules.parsers[mod.moduleType] = mod;
+        this.parsers[mod.moduleType] = mod;
       }
     }
 
     if (modules.renderers) {
       for (const mod of modules.renderers) {
-        this.modules.renderers[mod.moduleType] = mod;
+        this.renderers[mod.moduleType] = mod;
       }
     }
 
@@ -102,23 +149,23 @@ export class Environment {
   }
 
   async init(): Promise<void> {
-    for (const mod of Object.values(this.modules.boundaries)) {
+    for (const mod of Object.values(this.boundaries)) {
       await mod.init(this);
     }
 
-    for (const mod of Object.values(this.modules.cacheManagers)) {
+    for (const mod of Object.values(this.cacheManagers)) {
       await mod.init(this);
     }
 
-    for (const mod of Object.values(this.modules.doers)) {
+    for (const mod of Object.values(this.doers)) {
       await mod.init(this);
     }
 
-    for (const mod of Object.values(this.modules.parsers)) {
+    for (const mod of Object.values(this.parsers)) {
       await mod.init(this);
     }
 
-    for (const mod of Object.values(this.modules.renderers)) {
+    for (const mod of Object.values(this.renderers)) {
       await mod.init(this);
     }
 
@@ -135,13 +182,13 @@ export class Environment {
     for (const task of Object.values(this.tasks)) {
       const taskProblems: string[] = [];
 
-      const doer = this.modules.doers[task.doer];
+      const doer = this.doers[task.doer];
       if (!doer) {
         taskProblems.push(`No Doer called '${task.doer}' loaded`);
       }
 
       if (task.cacheConfig) {
-        const cacheManager = this.modules.cacheManagers[task.cacheConfig.cacheManager];
+        const cacheManager = this.cacheManagers[task.cacheConfig.cacheManager];
         if (!cacheManager) {
           taskProblems.push(`No Cache Manager called '${task.cacheConfig.cacheManager}' loaded`);
         }
@@ -164,10 +211,10 @@ export class Environment {
   }
 
   getBoundary(name: string): Boundary {
-    if (!this.modules.boundaries.hasOwnProperty(name)) {
+    if (!this.boundaries.hasOwnProperty(name)) {
       throw new Error(`No Boundary called '${name}' loaded`);
     }
-    const boundary = this.modules.boundaries[name];
+    const boundary = this.boundaries[name];
     if (!boundary.isReady) {
       throw new Error(`The Boundary called '${name}' is loaded but not ready. Has the environment been initialised?`);
     }
@@ -175,10 +222,10 @@ export class Environment {
   }
 
   getCacheManager(name: string): CacheManager {
-    if (!this.modules.cacheManagers.hasOwnProperty(name)) {
+    if (!this.cacheManagers.hasOwnProperty(name)) {
       throw new Error(`No Cache Manager called '${name}' loaded`);
     }
-    const cacheManager = this.modules.cacheManagers[name];
+    const cacheManager = this.cacheManagers[name];
     if (!cacheManager.isReady) {
       throw new Error(`The Cache Manager called '${name}' is loaded but not ready. Has the environment been initialised?`);
     }
@@ -186,10 +233,10 @@ export class Environment {
   }
 
   getDoer(name: string): Doer {
-    if (!this.modules.doers.hasOwnProperty(name)) {
+    if (!this.doers.hasOwnProperty(name)) {
       throw new Error(`No Doer called '${name}' loaded`);
     }
-    const doer = this.modules.doers[name];
+    const doer = this.doers[name];
     if (!doer.isReady) {
       throw new Error(`The Doer called '${name}' is loaded but not ready. Has the environment been initialised?`);
     }
@@ -197,10 +244,10 @@ export class Environment {
   }
 
   getParser(name: string): Parser<any> {
-    if (!this.modules.parsers.hasOwnProperty(name)) {
+    if (!this.parsers.hasOwnProperty(name)) {
       throw new Error(`No Parser called '${name}' loaded`);
     }
-    const parser = this.modules.parsers[name];
+    const parser = this.parsers[name];
     if (!parser.isReady) {
       throw new Error(`The Parser called '${name}' is loaded but not ready. Has the environment been initialised?`);
     }
@@ -208,10 +255,10 @@ export class Environment {
   }
 
   getRenderer(name: string): Renderer {
-    if (!this.modules.renderers.hasOwnProperty(name)) {
+    if (!this.renderers.hasOwnProperty(name)) {
       throw new Error(`No Renderer called '${name}' loaded`);
     }
-    const renderer = this.modules.renderers[name];
+    const renderer = this.renderers[name];
     if (!renderer.isReady) {
       throw new Error(`The Renderer called '${name}' is loaded but not ready. Has the environment been initialised?`);
     }
@@ -241,14 +288,6 @@ export interface Modules {
   doers?: Doer[];
   parsers?: Parser<any>[];
   renderers?: Renderer[];
-}
-
-export interface ModuleMaps {
-  boundaries: { [boundaryName: string]: Boundary };
-  cacheManagers: { [CacheManagerName: string]: CacheManager };
-  renderers: { [rendererName: string]: Renderer };
-  doers: { [doerName: string]: Doer };
-  parsers: { [parserName: string]: Parser<any> };
 }
 
 export interface Context {

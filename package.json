@@ -9,8 +9,9 @@
     "url": "https://github.com/tonicblue/low"
   },
   "scripts": {
-    "test": "SECRETS='test-secrets.json' SECRETS_ALT='{ \"modules\": { \"Module\": { \"test\": \"It worked\" } } }' jest",
-    "coverage": "SECRETS='test-secrets.json' SECRETS_ALT='{ \"modules\": { \"Module\": { \"test\": \"It worked\" } } }' jest --coverage"
+    "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
+    "test": "SECRETS='test-secrets.json' SECRETS_ALT='{ \"modules\": { \"Module\": { \"test\": \"It worked\" } } }' jest --coverage",
+    "build": "npm run clean && tsc && npm test && typedoc"
   },
   "keywords": [
     "lowcode",
@@ -44,6 +45,7 @@
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.17.0",
+    "typedoc": "^0.14.2",
     "typescript": "^3.5.2"
   },
   "dependencies": {}
