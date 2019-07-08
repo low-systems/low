@@ -2,6 +2,10 @@ import { Module } from '../module';
 import { Context, TaskConfig } from '../environment';
 import { ObjectCompiler } from '../object-compiler';
 
+//TODO: Question: Should this Boundary be used to allow different Environment
+//instances to communicate? What would that mean or involve? Probably way to
+//specialised but food for thought at least
+
 export class Boundary extends Module {
   async setup() {
     for (const task of Object.values(this.env.tasks)) {
