@@ -1,12 +1,29 @@
 import { Module } from '../module';
 import { ParserConfig } from '../parsers/parser';
 import { Context } from '../environment';
+import { CacheConfig, CacheManager, CacheKey } from '../cache-managers/cache-manager';
 
 export class Renderer extends Module {
   async render(config: RenderConfig, context: Context): Promise<any> {
+    let cacheManager: CacheManager | undefined;
+    let cacheKey: CacheKey | undefined;
+
+    if (config.__cacheConfig) {
+      cacheManager = this.env.getCacheManager(config.__cacheConfig.cacheManager);
+      cacheKey = await cacheManager.makeKey(config.__cacheConfig, context);
+      const cachedItem = await cacheManager.getItem(cacheKey);
+      if (cachedItem !== null) {
+        return cachedItem;
+      }
+    }
+
     const template = await this.getTemplate(config, context);
     const rendered = await this.core(template, context);
     const parsed = await this.parseRendered(rendered, config);
+
+    if (cacheManager && cacheKey) {
+      await cacheManager.setItem(cacheKey, parsed, (config.__cacheConfig as CacheConfig).ttl);
+    }
 
     return parsed;
   }
@@ -36,4 +53,5 @@ export interface RenderConfig {
   __parser?: string;
   __parserConfig?: ParserConfig<any>;
   __metaData?: any;
+  __cacheConfig?: CacheConfig;
 }

@@ -71,6 +71,7 @@ export class CacheManager extends Module {
   }
 }
 
+//TODO: Perhaps move all but `cacheManager` into a `config` property
 export interface CacheConfig {
   cacheManager: string;
   keyProperties: string[];
