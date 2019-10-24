@@ -1,0 +1,11 @@
+{
+  "name": "@low-systems/json-i",
+  "version": "0.0.1",
+  "description": "Compile JSON files from multiple files",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "author": "Matthew Parry-Wilkes",
+  "license": "GPL-3.0"
+}
