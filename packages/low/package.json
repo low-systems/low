@@ -10,7 +10,7 @@
   },
   "scripts": {
     "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
-    "test": "SECRETS='test-secrets.json' SECRETS_ALT='{ \"modules\": { \"Module\": { \"test\": \"It worked\" } } }' jest --coverage",
+    "test": "jest --coverage",
     "build": "npm run clean && tsc && npm test && typedoc"
   },
   "keywords": [
@@ -21,7 +21,7 @@
   ],
   "author": {
     "name": "Matthew Parry-Wilkes",
-    "url": "https://tonicblue.co.uk"
+    "url": "https://low.systems"
   },
   "license": "GPL-3.0",
   "jest": {
