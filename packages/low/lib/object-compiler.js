@@ -64,6 +64,6 @@ class ObjectCompiler {
         return resolved;
     }
 }
-ObjectCompiler.objectPathCache = {};
 exports.ObjectCompiler = ObjectCompiler;
+ObjectCompiler.objectPathCache = {};
 //# sourceMappingURL=object-compiler.js.map

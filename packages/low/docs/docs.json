@@ -12,7 +12,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/boundaries/boundary.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/boundaries/boundary.ts",
 			"children": [
 				{
 					"id": 47,
@@ -843,7 +843,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/cache-managers/cache-manager.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/cache-managers/cache-manager.ts",
 			"children": [
 				{
 					"id": 86,
@@ -1980,7 +1980,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/doers/doer.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/doers/doer.ts",
 			"children": [
 				{
 					"id": 142,
@@ -2549,7 +2549,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/doers/multi-doer.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/doers/multi-doer.ts",
 			"children": [
 				{
 					"id": 395,
@@ -3281,7 +3281,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/environment.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/environment.ts",
 			"children": [
 				{
 					"id": 428,
@@ -5037,7 +5037,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/module.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/module.ts",
 			"children": [
 				{
 					"id": 2,
@@ -5441,7 +5441,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/object-compiler.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/object-compiler.ts",
 			"children": [
 				{
 					"id": 21,
@@ -5857,7 +5857,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/parsers/boolean-parser.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/boolean-parser.ts",
 			"children": [
 				{
 					"id": 195,
@@ -6648,7 +6648,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/parsers/float-parser.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/float-parser.ts",
 			"children": [
 				{
 					"id": 251,
@@ -7158,7 +7158,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/parsers/integer-parser.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/integer-parser.ts",
 			"children": [
 				{
 					"id": 226,
@@ -7767,7 +7767,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/parsers/json-parser.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/json-parser.ts",
 			"children": [
 				{
 					"id": 273,
@@ -8277,7 +8277,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/parsers/parser.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/parser.ts",
 			"children": [
 				{
 					"id": 169,
@@ -8911,7 +8911,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/parsers/string-parser.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/string-parser.ts",
 			"children": [
 				{
 					"id": 295,
@@ -9805,7 +9805,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/parsers/url-parser.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/url-parser.ts",
 			"children": [
 				{
 					"id": 329,
@@ -10414,7 +10414,7 @@
 			"flags": {
 				"isExported": true
 			},
-			"originalName": "/home/tonicblue/code/low/low/src/renderers/renderer.ts",
+			"originalName": "/home/tonicblue/code/low/packages/low/src/renderers/renderer.ts",
 			"children": [
 				{
 					"id": 354,
@@ -11258,6 +11258,199 @@
 					"character": 0
 				}
 			]
+		},
+		{
+			"id": 510,
+			"name": "\"type-checker\"",
+			"kind": 1,
+			"kindString": "External module",
+			"flags": {
+				"isExported": true
+			},
+			"originalName": "/home/tonicblue/code/low/packages/low/src/type-checker.ts",
+			"children": [
+				{
+					"id": 511,
+					"name": "TypeChecker",
+					"kind": 128,
+					"kindString": "Class",
+					"flags": {
+						"isExported": true
+					},
+					"children": [
+						{
+							"id": 516,
+							"name": "compileLogic",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isStatic": true,
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 517,
+									"name": "compileLogic",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 518,
+											"name": "tree",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										}
+									],
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 519,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"signatures": [
+												{
+													"id": 520,
+													"name": "__call",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"parameters": [
+														{
+															"id": 521,
+															"name": "context",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"type": {
+																"type": "intrinsic",
+																"name": "any"
+															}
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "boolean"
+													}
+												}
+											],
+											"sources": [
+												{
+													"fileName": "type-checker.ts",
+													"line": 37,
+													"character": 33
+												}
+											]
+										}
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "type-checker.ts",
+									"line": 37,
+									"character": 21
+								}
+							]
+						},
+						{
+							"id": 512,
+							"name": "parseLogic",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isStatic": true,
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 513,
+									"name": "parseLogic",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 514,
+											"name": "tree",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										},
+										{
+											"id": 515,
+											"name": "level",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "number"
+											},
+											"defaultValue": "1"
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "type-checker.ts",
+									"line": 2,
+									"character": 19
+								}
+							]
+						}
+					],
+					"groups": [
+						{
+							"title": "Methods",
+							"kind": 2048,
+							"children": [
+								516,
+								512
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "type-checker.ts",
+							"line": 1,
+							"character": 24
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Classes",
+					"kind": 128,
+					"children": [
+						511
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "type-checker.ts",
+					"line": 1,
+					"character": 0
+				}
+			]
 		}
 	],
 	"groups": [
@@ -11279,7 +11472,8 @@
 				168,
 				294,
 				328,
-				353
+				353,
+				510
 			]
 		}
 	]
