@@ -1,3 +1,5 @@
+![low logo](resources/logo.png)
+
 # :point_down: low
 > a templating driven low-code framework for rapid application developmnet
 
