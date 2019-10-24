@@ -8,6 +8,7 @@ import { FloatParser } from './parsers/float-parser';
 import { JsonParser } from './parsers/json-parser';
 import { StringParser } from './parsers/string-parser';
 import { UrlParser } from './parsers/url-parser';
+import { QuerystringParser } from './parsers/querystring-parser';
 import { Renderer } from './renderers/renderer';
 import { MultiDoer } from './doers/multi-doer';
 
@@ -73,7 +74,8 @@ export class Environment {
     FloatParser: new FloatParser(),
     JsonParser: new JsonParser(),
     StringParser: new StringParser(),
-    UrlParser: new UrlParser()
+    UrlParser: new UrlParser(),
+    QuerystringParser: new QuerystringParser(),
   };
 
   /**

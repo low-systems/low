@@ -13,5 +13,8 @@
   },
   "dependencies": {
     "low": "file:packages/low"
+  },
+  "jest": {
+    "preset": "ts-jest"
   }
 }

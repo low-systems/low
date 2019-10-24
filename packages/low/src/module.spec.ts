@@ -1,5 +1,16 @@
+import * as Path from 'path';
+
 import { Module } from './module';
 import { Environment } from './environment';
+
+beforeAll(() => {
+  if (!process.env.SECRETS) {
+    process.env = Object.assign(process.env, {
+      SECRETS: Path.join('packages', 'low', 'test-secrets.json'),
+      SECRETS_ALT: '{ "modules": { "Module": { "test": "It worked" } } }'
+    });
+  }
+});
 
 test('should be able to construct and initialise a basic Module', async () => {
   const mod = new Module();

@@ -1,15 +1,13 @@
 
 import { Context } from './environment';
 
-//TODO: Should this be a Module or is that going to far?
-//I'm leaning on No because this is a bit fundamental and secret-sauce
 export class ObjectCompiler {
   static isTemplate(property: any): boolean {
-    return property && (property.hasOwnProperty('__template') || property.hasOwnProperty('__templatePath'));
+    return typeof property === 'object' && property !== null && property.hasOwnProperty('__template');
   }
 
   static async compile(config: any, context: Context, specialProperties?: string[]): Promise<any> {
-    if (typeof config !== 'object') {
+    if (typeof config !== 'object' || config === null) {
       return config;
     }
 
@@ -45,7 +43,7 @@ export class ObjectCompiler {
       return compiled;
     }
 
-    if (typeof resolvedProperty === 'object') {
+    if (typeof resolvedProperty === 'object' && resolvedProperty !== null && !resolvedProperty.hasOwnProperty('__doNotCompile')) {
       const output: any = {};
       for (const [key, value] of Object.entries(resolvedProperty)) {
         output[key] = await ObjectCompiler.compileProperty(value, context);

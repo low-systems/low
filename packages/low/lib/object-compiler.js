@@ -1,13 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-//TODO: Should this be a Module or is that going to far?
-//I'm leaning on No because this is a bit fundamental and secret-sauce
 class ObjectCompiler {
     static isTemplate(property) {
-        return property && (property.hasOwnProperty('__template') || property.hasOwnProperty('__templatePath'));
+        return typeof property === 'object' && property !== null && property.hasOwnProperty('__template');
     }
     static async compile(config, context, specialProperties) {
-        if (typeof config !== 'object') {
+        if (typeof config !== 'object' || config === null) {
             return config;
         }
         //May not be necessary
@@ -37,7 +35,7 @@ class ObjectCompiler {
             }
             return compiled;
         }
-        if (typeof resolvedProperty === 'object') {
+        if (typeof resolvedProperty === 'object' && resolvedProperty !== null && !resolvedProperty.hasOwnProperty('__doNotCompile')) {
             const output = {};
             for (const [key, value] of Object.entries(resolvedProperty)) {
                 output[key] = await ObjectCompiler.compileProperty(value, context);

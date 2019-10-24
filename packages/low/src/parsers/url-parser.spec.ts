@@ -1,3 +1,5 @@
+import { URL } from 'url';
+
 import { UrlParser } from './url-parser';
 
 test('should parse valid url to instance of URL', async () => {

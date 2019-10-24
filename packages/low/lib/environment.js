@@ -9,6 +9,7 @@ const float_parser_1 = require("./parsers/float-parser");
 const json_parser_1 = require("./parsers/json-parser");
 const string_parser_1 = require("./parsers/string-parser");
 const url_parser_1 = require("./parsers/url-parser");
+const querystring_parser_1 = require("./parsers/querystring-parser");
 const renderer_1 = require("./renderers/renderer");
 const multi_doer_1 = require("./doers/multi-doer");
 /**
@@ -70,7 +71,8 @@ class Environment {
             FloatParser: new float_parser_1.FloatParser(),
             JsonParser: new json_parser_1.JsonParser(),
             StringParser: new string_parser_1.StringParser(),
-            UrlParser: new url_parser_1.UrlParser()
+            UrlParser: new url_parser_1.UrlParser(),
+            QuerystringParser: new querystring_parser_1.QuerystringParser(),
         };
         /**
          * A collection of [[Renderer]] modules. Renderers are used by the
