@@ -97,7 +97,7 @@ test('should parse numbers to strings using toLocaleString', async () => {
 
   expect(await parser.parse(123456789, { numberFunction: 'toLocaleString', locales: 'en-GB' })).toBe('123,456,789');
   expect(await parser.parse(123456.654321, { numberFunction: 'toLocaleString', locales: 'en-GB' })).toBe('123,456.654');
-  expect(await parser.parse(123456.789, { numberFunction: 'toLocaleString', localeOptions: { style: 'currency', currency: 'GBP' }})).toBe('£ 123,456.79');
+  expect(await parser.parse(123456.789, { numberFunction: 'toLocaleString', localeOptions: { style: 'currency', currency: 'GBP' }})).toBe('£123,456.79');
   expect(await parser.parse(123456.789, { numberFunction: 'toLocaleString', localeOptions: { maximumSignificantDigits: 3 }})).toBe('123,000');
 
   //TODO: Internationalisation is not available in stock Node.js without dependencies
