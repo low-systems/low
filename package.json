@@ -2,6 +2,16 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.18.3"
+    "@types/jest": "^24.0.19",
+    "@types/node": "^12.11.6",
+    "jest": "^24.9.0",
+    "lerna": "^3.18.3",
+    "ts-jest": "^24.1.0",
+    "tslint": "^5.20.0",
+    "typedoc": "^0.15.0",
+    "typescript": "^3.6.4"
+  },
+  "dependencies": {
+    "low": "file:packages/low"
   }
 }
