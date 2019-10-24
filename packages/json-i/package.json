@@ -4,8 +4,21 @@
   "description": "Compile JSON files from multiple files",
   "main": "lib/index.js",
   "scripts": {
-    "test": "jest --coverage"
+    "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
+    "test": "jest --coverage",
+    "build": "npm run clean && tsc && npm test && typedoc"
   },
   "author": "Matthew Parry-Wilkes",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "dependencies": {
+    "deepmerge": "^4.2.1",
+    "dot-object": "^1.9.0",
+    "glob": "^7.1.5",
+    "json-6": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/deepmerge": "^2.2.0",
+    "@types/dot-object": "^1.7.0",
+    "@types/glob": "^7.1.1"
+  }
 }
