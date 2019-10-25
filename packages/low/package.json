@@ -13,12 +13,6 @@
     "test": "jest --coverage",
     "build": "npm run clean && tsc && npm test && typedoc"
   },
-  "keywords": [
-    "lowcode",
-    "low",
-    "low",
-    "code"
-  ],
   "author": {
     "name": "Matthew Parry-Wilkes",
     "url": "https://low.systems"

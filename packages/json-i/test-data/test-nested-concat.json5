@@ -1,0 +1,10 @@
+{
+  '+': 'merge',
+  __items: [
+    {
+      '+': 'include',
+      __glob: 'nested/*.json5',
+      __dataType: 'object'
+    }
+  ]
+}

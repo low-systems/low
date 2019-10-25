@@ -1,0 +1,27 @@
+//This object is included both wholesale and patially
+{
+  name: 'Look at me',
+  object: {
+    key1: {
+      name: 'This is deep',
+      age: '14'
+    },
+    key2: {
+      name: 'This is passe',
+      age: '15'
+    }
+  },
+  array: [
+    'Test string',
+    1234,
+    [
+      'Embedded array?',
+      {
+        key1: 'With an object?!!',
+        key2: true
+      }
+    ],
+    true,
+    false
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  '+': 'include',
+  __glob: '../global-templates/*.hbs'
+}

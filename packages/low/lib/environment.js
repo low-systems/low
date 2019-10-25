@@ -119,22 +119,16 @@ class Environment {
         return this.ready;
     }
     loadSecrets(secretsName) {
-        //TODO: What the heck actually happens when you try to access `process`
-        //      in a browser. Need more checks around this
-        const secretsVar = process.env[secretsName];
-        if (!secretsVar)
+        if (!process) {
+            console.warn('No `process` object for environment variables. Probably in a browser');
             return;
-        if (secretsVar.indexOf('{') > -1) {
-            this.secrets = JSON.parse(secretsVar);
         }
-        else {
-            //This will obviously not work in the browser so be sure to set
-            //your secretsName variable properly. Don't like doing `require`
-            //but not sure how else to make `fs` conditional. Moar research!
-            const fs = require('fs');
-            const secretsJson = fs.readFileSync(secretsVar).toString();
-            this.secrets = JSON.parse(secretsJson);
+        if (!process.env.hasOwnProperty(secretsName)) {
+            console.warn(`No environment variable named '${secretsName}'.`);
+            return;
         }
+        const secretsVar = process.env[secretsName] || '{}';
+        this.secrets = JSON.parse(secretsVar);
     }
     async init() {
         for (const mod of Object.values(this.boundaries)) {

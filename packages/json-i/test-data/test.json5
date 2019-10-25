@@ -1,0 +1,61 @@
+//This is the test file
+{
+  name: 'The big test',
+  aSingleImportedObjectFull: {
+    '+': 'include',
+    __glob: 'test-include.json5',
+    __dataType: 'object'
+  },
+  aSingleImportedObjectPartial: {
+    '+': 'include',
+    __glob: 'test-include.json5',
+    __dataType: 'object',
+    __dotPath: 'object.key1.name'
+  },
+  templatesArray: {
+    '+': 'include',
+    __glob: 'templates/*.hbs'
+  },
+  templatesMap: {
+    '+': 'include',
+    __glob: 'templates/*.hbs',
+    __keyTemplate: '{{parts.[0]}}_{{name}}'
+  },
+  templatesConcat: {
+    '+': 'concat',
+    __items: [
+      "I am a non-imported template",
+      {
+        '+': 'include',
+        __glob: 'templates/*.hbs'
+      },
+      {
+        '+': 'include',
+        __glob: 'global-templates/*.hbs'
+      }
+    ]
+  },
+  templatesMerge: {
+    '+': 'merge',
+    __items: [
+      {
+        notImported: "I am a non-imported template"
+      },
+      {
+        '+': 'include',
+        __glob: 'templates/*.hbs',
+        __keyTemplate: '{{parts.[0]}}_{{name}}'
+      },
+      {
+        '+': 'include',
+        __glob: 'global-templates/*.hbs',
+        __keyTemplate: 'global_{{name}}'
+      }
+    ]
+  },
+  nestedConcat: {
+    '+': 'include',
+    __glob: 'test-nested-concat.json5',
+    __dataType: 'object'
+  }
+}

@@ -3,7 +3,8 @@
     "default": {
       "packages": [
         "package.json",
-        "packages/low/package.json"
+        "packages/low/package.json",
+        "packages/json-i/package.json"
       ]
     }
   }
