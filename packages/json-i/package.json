@@ -22,7 +22,7 @@
     "preset": "ts-jest"
   },
   "dependencies": {
-    "deepmerge": "^4.2.1",
+    "deepmerge": "^4.2.2",
     "dot-object": "^1.9.0",
     "glob": "^7.1.5",
     "handlebars": "^4.4.5",
