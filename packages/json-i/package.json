@@ -11,7 +11,8 @@
   "scripts": {
     "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
     "test": "jest --coverage",
-    "build": "npm run clean && tsc && npm test && typedoc"
+    "build": "npm run clean && tsc && chmod +x lib/json-i.js && npm test && typedoc",
+    "bin-test": "npm run clean && tsc && chmod +x lib/json-i.js && lib/json-i.js test-data/test.json5 test-data/test.json"
   },
   "author": {
     "name": "Matthew Parry-Wilkes",
@@ -27,5 +28,8 @@
     "glob": "^7.1.5",
     "handlebars": "^4.4.5",
     "json-6": "^1.0.2"
+  },
+  "bin": {
+    "json-i": "./lib/json-i.js"
   }
 }

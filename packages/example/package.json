@@ -1,0 +1,29 @@
+{
+  "name": "@low-systems/example",
+  "version": "0.0.1",
+  "description": "An example configuration mainly for testing low modules in a less unit-testy kinda way",
+  "main": "lib/index.js",
+  "scripts": {
+    "clean": "rm -rf lib/; rm -rf coverage/",
+    "test": "jest --coverage",
+    "build": "npm run clean && tsc && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/low-systems/low.git"
+  },
+  "keywords": [
+    "low",
+    "example"
+  ],
+  "author": "Matthew Wilkes (SCVO)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/low-systems/low/issues"
+  },
+  "homepage": "https://github.com/low-systems/low#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@low-systems/json-i": "file:../json-i"
+  }
+}

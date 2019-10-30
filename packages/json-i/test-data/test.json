@@ -1,0 +1,66 @@
+{
+  "name": "The big test",
+  "aSingleImportedObjectFull": {
+    "name": "Look at me",
+    "object": {
+      "key1": {
+        "name": "This is deep",
+        "age": "14"
+      },
+      "key2": {
+        "name": "This is passe",
+        "age": "15"
+      }
+    },
+    "array": [
+      "Test string",
+      1234,
+      [
+        "Embedded array?",
+        {
+          "key1": "With an object?!!",
+          "key2": true
+        }
+      ],
+      true,
+      false
+    ]
+  },
+  "aSingleImportedObjectPartial": "This is deep",
+  "templatesArray": [
+    "<html>\n  <body>\n    <h1>Template 1</h1>\n  </body>\n</html>",
+    "<html>\n  <body>\n    <h1>Template 2</h1>\n  </body>\n</html>",
+    "<html>\n  <body>\n    <h1>Template 3</h1>\n  </body>\n</html>"
+  ],
+  "templatesMap": {
+    "templates_template-1": "<html>\n  <body>\n    <h1>Template 1</h1>\n  </body>\n</html>",
+    "templates_template-2": "<html>\n  <body>\n    <h1>Template 2</h1>\n  </body>\n</html>",
+    "templates_template-3": "<html>\n  <body>\n    <h1>Template 3</h1>\n  </body>\n</html>"
+  },
+  "templatesConcat": [
+    "I am a non-imported template",
+    "<html>\n  <body>\n    <h1>Template 1</h1>\n  </body>\n</html>",
+    "<html>\n  <body>\n    <h1>Template 2</h1>\n  </body>\n</html>",
+    "<html>\n  <body>\n    <h1>Template 3</h1>\n  </body>\n</html>",
+    "<html>\n  <body>\n    <h1>Template 4</h1>\n  </body>\n</html>",
+    "<html>\n  <body>\n    <h1>Template 5</h1>\n  </body>\n</html>",
+    "<html>\n  <body>\n    <h1>Template 6</h1>\n  </body>\n</html>"
+  ],
+  "templatesMerge": {
+    "notImported": "I am a non-imported template",
+    "templates_template-1": "<html>\n  <body>\n    <h1>Template 1</h1>\n  </body>\n</html>",
+    "templates_template-2": "<html>\n  <body>\n    <h1>Template 2</h1>\n  </body>\n</html>",
+    "templates_template-3": "<html>\n  <body>\n    <h1>Template 3</h1>\n  </body>\n</html>",
+    "global_template-4": "<html>\n  <body>\n    <h1>Template 4</h1>\n  </body>\n</html>",
+    "global_template-5": "<html>\n  <body>\n    <h1>Template 5</h1>\n  </body>\n</html>",
+    "global_template-6": "<html>\n  <body>\n    <h1>Template 6</h1>\n  </body>\n</html>"
+  },
+  "nestedConcat": [
+    "<html>\n  <body>\n    <h1>Template 4</h1>\n  </body>\n</html>",
+    "<html>\n  <body>\n    <h1>Template 5</h1>\n  </body>\n</html>",
+    "<html>\n  <body>\n    <h1>Template 6</h1>\n  </body>\n</html>",
+    "<html>\n  <body>\n    <h1>Template 1</h1>\n  </body>\n</html>",
+    "<html>\n  <body>\n    <h1>Template 2</h1>\n  </body>\n</html>",
+    "<html>\n  <body>\n    <h1>Template 3</h1>\n  </body>\n</html>"
+  ]
+}

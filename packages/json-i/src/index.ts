@@ -9,7 +9,7 @@ import * as DeepMerge from 'deepmerge';
 const JSON6 = require('json-6');
 
 // tslint:disable:no-parameter-reassignment
-export function transpile(input: any, cwd: string): string {
+export function transpile(input: any, cwd: string): any {
   const inputType = typeof input;
   try {
     if (!['string', 'object'].includes(inputType)) {
