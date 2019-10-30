@@ -3,6 +3,7 @@
   "version": "1.0.4",
   "description": "a templating driven low-code framework for rapid systems development",
   "main": "lib/environment.js",
+  "types": "lib/environment.d.ts",
   "homepage": "https://github.com/low-systems/low#readme",
   "repository": {
     "type": "git",

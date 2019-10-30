@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Compile JSON files from multiple files",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "homepage": "https://github.com/low-systems/low#readme",
   "repository": {
     "type": "git",

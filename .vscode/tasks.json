@@ -21,6 +21,13 @@
       "script": "test",
       "path": "packages/low/",
       "problemMatcher": []
+    },
+    {
+      "label": "Build dev example",
+      "type": "npm",
+      "script": "dev",
+      "path": "packages/example/",
+      "problemMatcher": []
     }
   ]
 }

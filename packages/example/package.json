@@ -6,7 +6,9 @@
   "scripts": {
     "clean": "rm -rf lib/; rm -rf coverage/",
     "test": "jest --coverage",
-    "build": "npm run clean && tsc && npm test"
+    "build": "npm run clean && tsc && npm test",
+    "dev": "tsc && npm start",
+    "start": "node lib/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +24,12 @@
     "url": "https://github.com/low-systems/low/issues"
   },
   "homepage": "https://github.com/low-systems/low#readme",
-  "dependencies": {},
-  "devDependencies": {
-    "@low-systems/json-i": "file:../json-i"
+  "dependencies": {
+    "@low-systems/json-i": "file:../json-i",
+    "low": "file:../low",
+    "source-map-support": "^0.5.16"
+  },
+  "jest": {
+    "preset": "ts-jest"
   }
 }
