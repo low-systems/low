@@ -4,7 +4,8 @@
   "scripts": {
     "refresh-modules": "npm run clean-modules && npm i && lerna bootstrap --hoist && lerna link convert && npm run share-global-cli",
     "clean-modules": "./scripts/clean-modules.sh",
-    "share-global-cli": "./scripts/share-global-cli.js"
+    "share-global-cli": "./scripts/share-global-cli.js",
+    "update-all-dependencies": "./scripts/update-all-dependencies.js"
   },
   "devDependencies": {
     "@types/dot-object": "^1.7.0",

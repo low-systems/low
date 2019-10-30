@@ -11,7 +11,7 @@ const rootBinDir = Path.join(__dirname, '..', 'node_modules', '.bin', '*');
 const rootBinaryPaths = Glob.sync(rootBinDir, { absolute: true });
 const rootBinaries = rootBinaryPaths.map(Path.parse);
 
-console.log(`\n#### Root Binaries (${rootBinDir}):`.bgMagenta.black);
+console.log(`\nRoot Binaries (${rootBinDir}):`.bgMagenta.black);
 console.log(' ├', rootBinaries.map(binary => binary.name).join('\n ├ '));
 
 const packagesGlob = Path.join(__dirname, '..', 'packages', '*');
@@ -26,11 +26,11 @@ const packages = packagesPaths.map(dir => {
   };
 });
 
-console.log(`\n#### Packages (${packagesGlob}):`.bgMagenta.black);
+console.log(`\nPackages (${packagesGlob}):`.bgMagenta.black);
 console.log(' ├', packages.map(package => package.dir).join('\n ├ '));
 
 for (const package of packages) {
-  console.log(`\n#### Processing Package ${package.name}`.bgMagenta.black);
+  console.log(`\nProcessing Package ${package.name}`.bgMagenta.black);
 
   if (!FS.existsSync(package.packageJson)) {
     console.warn(` ├`, `Package '${package.name}' is not a Node package`.yellow);
@@ -40,8 +40,8 @@ for (const package of packages) {
   if (!FS.existsSync(package.modulesDir)) {
     console.warn(` ├`, `Package '${package.name}' does not have a node_modules directory. Running 'npm i'...`.yellow);
     process.chdir(package.dir);
-    const installOutput = ExecSync('npm i', { cwd: package.dir });
-    //console.log(installOutput.toString());
+    ExecSync('npm i', { cwd: package.dir, stdio: 'inherit' });
+
     if (!FS.existsSync(package.binDir)) {
       FS.mkdirSync(package.binDir, { recursive: true });
     }
