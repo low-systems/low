@@ -1,4 +1,4 @@
-import { Boundary } from './boundaries/boundary';
+import { Connector } from './connectors/connector';
 import { CacheManager, CacheConfig } from './cache-managers/cache-manager';
 import { Doer } from './doers/doer';
 import { Parser } from './parsers/parser';
@@ -30,10 +30,10 @@ export declare class Environment {
      */
     readonly isReady: boolean;
     /**
-     * A collection of [[Boundary]] modules. Boundaries are gateways from
+     * A collection of [[Connector]] modules. Connectors are gateways from
      * your application or external sources to run tasks in the `low` Environment
      */
-    private boundaries;
+    private connectors;
     /**
      * A collection of [[CacheManager]] modules. CacheManagers are used to
      * improve the performance of frequently executed tasks and object compilation
@@ -65,7 +65,7 @@ export declare class Environment {
     loadSecrets(secretsName: string): void;
     init(): Promise<void>;
     checkTasks(): string | null;
-    getBoundary(name: string): Boundary;
+    getConnector(name: string): Connector;
     getCacheManager(name: string): CacheManager;
     getDoer(name: string): Doer;
     getParser(name: string): Parser<any>;
@@ -78,7 +78,7 @@ export interface EnvironmentConfig {
     [key: string]: any;
 }
 export interface Modules {
-    boundaries?: Boundary[];
+    connectors?: Connector[];
     cacheManagers?: CacheManager[];
     doers?: Doer[];
     parsers?: Parser<any>[];
@@ -94,8 +94,8 @@ export interface TaskConfig {
     config: any;
     metadata: any;
     cacheConfig?: CacheConfig;
-    boundaryConfigs?: {
-        [boundaryName: string]: any;
+    connectorConfigs?: {
+        [connectorName: string]: any;
     };
     specialProperties?: string[];
 }

@@ -5,837 +5,6 @@
 	"flags": {},
 	"children": [
 		{
-			"id": 46,
-			"name": "\"boundaries/boundary\"",
-			"kind": 1,
-			"kindString": "External module",
-			"flags": {
-				"isExported": true
-			},
-			"originalName": "/home/tonicblue/code/low/packages/low/src/boundaries/boundary.ts",
-			"children": [
-				{
-					"id": 47,
-					"name": "Boundary",
-					"kind": 128,
-					"kindString": "Class",
-					"flags": {
-						"isExported": true
-					},
-					"children": [
-						{
-							"id": 62,
-							"name": "config",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 13,
-									"character": 8
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "any"
-							},
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.config",
-								"id": 7
-							}
-						},
-						{
-							"id": 65,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 19,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 10
-							}
-						},
-						{
-							"id": 61,
-							"name": "secrets",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 12,
-									"character": 9
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "any"
-							},
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.secrets",
-								"id": 6
-							}
-						},
-						{
-							"id": 59,
-							"name": "env",
-							"kind": 262144,
-							"kindString": "Accessor",
-							"flags": {
-								"isPublic": true,
-								"isExported": true
-							},
-							"getSignature": [
-								{
-									"id": 60,
-									"name": "__get",
-									"kind": 524288,
-									"kindString": "Get signature",
-									"flags": {},
-									"type": {
-										"type": "reference",
-										"name": "Environment",
-										"id": 454
-									},
-									"inheritedFrom": {
-										"type": "reference",
-										"name": "Module.env",
-										"id": 4
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 5,
-									"character": 16
-								}
-							],
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.env",
-								"id": 4
-							}
-						},
-						{
-							"id": 66,
-							"name": "isReady",
-							"kind": 262144,
-							"kindString": "Accessor",
-							"flags": {
-								"isExported": true
-							},
-							"getSignature": [
-								{
-									"id": 67,
-									"name": "__get",
-									"kind": 524288,
-									"kindString": "Get signature",
-									"flags": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "boolean"
-									},
-									"inheritedFrom": {
-										"type": "reference",
-										"name": "Module.isReady",
-										"id": 11
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 20,
-									"character": 13
-								}
-							],
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.isReady",
-								"id": 11
-							}
-						},
-						{
-							"id": 63,
-							"name": "moduleType",
-							"kind": 262144,
-							"kindString": "Accessor",
-							"flags": {
-								"isExported": true
-							},
-							"getSignature": [
-								{
-									"id": 64,
-									"name": "__get",
-									"kind": 524288,
-									"kindString": "Get signature",
-									"flags": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "string"
-									},
-									"inheritedFrom": {
-										"type": "reference",
-										"name": "Module.moduleType",
-										"id": 8
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 15,
-									"character": 16
-								}
-							],
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.moduleType",
-								"id": 8
-							}
-						},
-						{
-							"id": 71,
-							"name": "destroy",
-							"kind": 2048,
-							"kindString": "Method",
-							"flags": {
-								"isExported": true
-							},
-							"signatures": [
-								{
-									"id": 72,
-									"name": "destroy",
-									"kind": 4096,
-									"kindString": "Call signature",
-									"flags": {},
-									"type": {
-										"type": "reference",
-										"name": "Promise",
-										"typeArguments": [
-											{
-												"type": "intrinsic",
-												"name": "void"
-											}
-										]
-									},
-									"inheritedFrom": {
-										"type": "reference",
-										"name": "Module.destroy",
-										"id": 18
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 37,
-									"character": 15
-								}
-							],
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.destroy",
-								"id": 18
-							}
-						},
-						{
-							"id": 68,
-							"name": "init",
-							"kind": 2048,
-							"kindString": "Method",
-							"flags": {
-								"isExported": true
-							},
-							"signatures": [
-								{
-									"id": 69,
-									"name": "init",
-									"kind": 4096,
-									"kindString": "Call signature",
-									"flags": {},
-									"parameters": [
-										{
-											"id": 70,
-											"name": "env",
-											"kind": 32768,
-											"kindString": "Parameter",
-											"flags": {},
-											"type": {
-												"type": "reference",
-												"name": "Environment",
-												"id": 454
-											}
-										}
-									],
-									"type": {
-										"type": "reference",
-										"name": "Promise",
-										"typeArguments": [
-											{
-												"type": "intrinsic",
-												"name": "void"
-											}
-										]
-									},
-									"inheritedFrom": {
-										"type": "reference",
-										"name": "Module.init",
-										"id": 13
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 24,
-									"character": 12
-								}
-							],
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.init",
-								"id": 13
-							}
-						},
-						{
-							"id": 54,
-							"name": "runTask",
-							"kind": 2048,
-							"kindString": "Method",
-							"flags": {
-								"isExported": true
-							},
-							"signatures": [
-								{
-									"id": 55,
-									"name": "runTask",
-									"kind": 4096,
-									"kindString": "Call signature",
-									"flags": {},
-									"parameters": [
-										{
-											"id": 56,
-											"name": "task",
-											"kind": 32768,
-											"kindString": "Parameter",
-											"flags": {},
-											"type": {
-												"type": "reference",
-												"name": "TaskConfig",
-												"id": 526
-											}
-										},
-										{
-											"id": 57,
-											"name": "input",
-											"kind": 32768,
-											"kindString": "Parameter",
-											"flags": {},
-											"type": {
-												"type": "intrinsic",
-												"name": "any"
-											}
-										},
-										{
-											"id": 58,
-											"name": "config",
-											"kind": 32768,
-											"kindString": "Parameter",
-											"flags": {},
-											"type": {
-												"type": "intrinsic",
-												"name": "any"
-											}
-										}
-									],
-									"type": {
-										"type": "reference",
-										"name": "Promise",
-										"typeArguments": [
-											{
-												"type": "reference",
-												"name": "BoundaryContext",
-												"id": 73
-											}
-										]
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "boundaries/boundary.ts",
-									"line": 36,
-									"character": 15
-								}
-							]
-						},
-						{
-							"id": 48,
-							"name": "setup",
-							"kind": 2048,
-							"kindString": "Method",
-							"flags": {
-								"isExported": true
-							},
-							"signatures": [
-								{
-									"id": 49,
-									"name": "setup",
-									"kind": 4096,
-									"kindString": "Call signature",
-									"flags": {},
-									"type": {
-										"type": "reference",
-										"name": "Promise",
-										"typeArguments": [
-											{
-												"type": "intrinsic",
-												"name": "void"
-											}
-										]
-									},
-									"overwrites": {
-										"type": "reference",
-										"name": "Module.setup",
-										"id": 16
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "boundaries/boundary.ts",
-									"line": 10,
-									"character": 13
-								}
-							],
-							"overwrites": {
-								"type": "reference",
-								"name": "Module.setup",
-								"id": 16
-							}
-						},
-						{
-							"id": 50,
-							"name": "setupTask",
-							"kind": 2048,
-							"kindString": "Method",
-							"flags": {
-								"isExported": true
-							},
-							"signatures": [
-								{
-									"id": 51,
-									"name": "setupTask",
-									"kind": 4096,
-									"kindString": "Call signature",
-									"flags": {},
-									"parameters": [
-										{
-											"id": 52,
-											"name": "task",
-											"kind": 32768,
-											"kindString": "Parameter",
-											"flags": {},
-											"type": {
-												"type": "reference",
-												"name": "TaskConfig",
-												"id": 526
-											}
-										},
-										{
-											"id": 53,
-											"name": "config",
-											"kind": 32768,
-											"kindString": "Parameter",
-											"flags": {},
-											"type": {
-												"type": "intrinsic",
-												"name": "any"
-											}
-										}
-									],
-									"type": {
-										"type": "reference",
-										"name": "Promise",
-										"typeArguments": [
-											{
-												"type": "intrinsic",
-												"name": "void"
-											}
-										]
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "boundaries/boundary.ts",
-									"line": 18,
-									"character": 17
-								}
-							]
-						}
-					],
-					"groups": [
-						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								62,
-								65,
-								61
-							]
-						},
-						{
-							"title": "Accessors",
-							"kind": 262144,
-							"children": [
-								59,
-								66,
-								63
-							]
-						},
-						{
-							"title": "Methods",
-							"kind": 2048,
-							"children": [
-								71,
-								68,
-								54,
-								48,
-								50
-							]
-						}
-					],
-					"sources": [
-						{
-							"fileName": "boundaries/boundary.ts",
-							"line": 9,
-							"character": 21
-						}
-					],
-					"extendedTypes": [
-						{
-							"type": "reference",
-							"name": "Module",
-							"id": 2
-						}
-					]
-				},
-				{
-					"id": 73,
-					"name": "BoundaryContext",
-					"kind": 256,
-					"kindString": "Interface",
-					"flags": {
-						"isExported": true
-					},
-					"children": [
-						{
-							"id": 74,
-							"name": "boundary",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "boundaries/boundary.ts",
-									"line": 53,
-									"character": 10
-								}
-							],
-							"type": {
-								"type": "reflection",
-								"declaration": {
-									"id": 75,
-									"name": "__type",
-									"kind": 65536,
-									"kindString": "Type literal",
-									"flags": {},
-									"children": [
-										{
-											"id": 77,
-											"name": "config",
-											"kind": 32,
-											"kindString": "Variable",
-											"flags": {},
-											"sources": [
-												{
-													"fileName": "boundaries/boundary.ts",
-													"line": 55,
-													"character": 10
-												}
-											],
-											"type": {
-												"type": "intrinsic",
-												"name": "any"
-											}
-										},
-										{
-											"id": 76,
-											"name": "input",
-											"kind": 32,
-											"kindString": "Variable",
-											"flags": {},
-											"sources": [
-												{
-													"fileName": "boundaries/boundary.ts",
-													"line": 54,
-													"character": 9
-												}
-											],
-											"type": {
-												"type": "intrinsic",
-												"name": "any"
-											}
-										}
-									],
-									"groups": [
-										{
-											"title": "Variables",
-											"kind": 32,
-											"children": [
-												77,
-												76
-											]
-										}
-									],
-									"sources": [
-										{
-											"fileName": "boundaries/boundary.ts",
-											"line": 53,
-											"character": 11
-										}
-									]
-								}
-							}
-						},
-						{
-							"id": 78,
-							"name": "data",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "boundaries/boundary.ts",
-									"line": 57,
-									"character": 6
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "any"
-							}
-						},
-						{
-							"id": 84,
-							"name": "debug",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true,
-								"isOptional": true
-							},
-							"sources": [
-								{
-									"fileName": "environment.ts",
-									"line": 295,
-									"character": 7
-								}
-							],
-							"type": {
-								"type": "union",
-								"types": [
-									{
-										"type": "intrinsic",
-										"name": "undefined"
-									},
-									{
-										"type": "intrinsic",
-										"name": "false"
-									},
-									{
-										"type": "intrinsic",
-										"name": "true"
-									}
-								]
-							},
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Context.debug",
-								"id": 525
-							}
-						},
-						{
-							"id": 83,
-							"name": "env",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "environment.ts",
-									"line": 294,
-									"character": 5
-								}
-							],
-							"type": {
-								"type": "reference",
-								"name": "Environment",
-								"id": 454
-							},
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Context.env",
-								"id": 524
-							}
-						},
-						{
-							"id": 79,
-							"name": "errors",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "boundaries/boundary.ts",
-									"line": 58,
-									"character": 8
-								}
-							],
-							"type": {
-								"type": "reflection",
-								"declaration": {
-									"id": 80,
-									"name": "__type",
-									"kind": 65536,
-									"kindString": "Type literal",
-									"flags": {},
-									"indexSignature": [
-										{
-											"id": 81,
-											"name": "__index",
-											"kind": 8192,
-											"kindString": "Index signature",
-											"flags": {},
-											"parameters": [
-												{
-													"id": 82,
-													"name": "taskName",
-													"kind": 32768,
-													"kindString": "Parameter",
-													"flags": {},
-													"type": {
-														"type": "intrinsic",
-														"name": "string"
-													}
-												}
-											],
-											"type": {
-												"type": "reference",
-												"name": "Error"
-											}
-										}
-									],
-									"sources": [
-										{
-											"fileName": "boundaries/boundary.ts",
-											"line": 58,
-											"character": 9
-										}
-									]
-								}
-							}
-						}
-					],
-					"groups": [
-						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								74,
-								78,
-								84,
-								83,
-								79
-							]
-						}
-					],
-					"sources": [
-						{
-							"fileName": "boundaries/boundary.ts",
-							"line": 52,
-							"character": 32
-						}
-					],
-					"extendedTypes": [
-						{
-							"type": "reference",
-							"name": "Context",
-							"id": 523
-						}
-					]
-				}
-			],
-			"groups": [
-				{
-					"title": "Classes",
-					"kind": 128,
-					"children": [
-						47
-					]
-				},
-				{
-					"title": "Interfaces",
-					"kind": 256,
-					"children": [
-						73
-					]
-				}
-			],
-			"sources": [
-				{
-					"fileName": "boundaries/boundary.ts",
-					"line": 1,
-					"character": 0
-				}
-			]
-		},
-		{
 			"id": 85,
 			"name": "\"cache-managers/cache-manager\"",
 			"kind": 1,
@@ -1973,6 +1142,837 @@
 			]
 		},
 		{
+			"id": 46,
+			"name": "\"connectors/connector\"",
+			"kind": 1,
+			"kindString": "External module",
+			"flags": {
+				"isExported": true
+			},
+			"originalName": "/home/tonicblue/code/low/packages/low/src/connectors/connector.ts",
+			"children": [
+				{
+					"id": 47,
+					"name": "Connector",
+					"kind": 128,
+					"kindString": "Class",
+					"flags": {
+						"isExported": true
+					},
+					"children": [
+						{
+							"id": 62,
+							"name": "config",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "module.ts",
+									"line": 13,
+									"character": 8
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "any"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.config",
+								"id": 7
+							}
+						},
+						{
+							"id": 65,
+							"name": "ready",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isProtected": true,
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "module.ts",
+									"line": 19,
+									"character": 17
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							},
+							"defaultValue": "false",
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.ready",
+								"id": 10
+							}
+						},
+						{
+							"id": 61,
+							"name": "secrets",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "module.ts",
+									"line": 12,
+									"character": 9
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "any"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.secrets",
+								"id": 6
+							}
+						},
+						{
+							"id": 59,
+							"name": "env",
+							"kind": 262144,
+							"kindString": "Accessor",
+							"flags": {
+								"isPublic": true,
+								"isExported": true
+							},
+							"getSignature": [
+								{
+									"id": 60,
+									"name": "__get",
+									"kind": 524288,
+									"kindString": "Get signature",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"name": "Environment",
+										"id": 454
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "Module.env",
+										"id": 4
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "module.ts",
+									"line": 5,
+									"character": 16
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.env",
+								"id": 4
+							}
+						},
+						{
+							"id": 66,
+							"name": "isReady",
+							"kind": 262144,
+							"kindString": "Accessor",
+							"flags": {
+								"isExported": true
+							},
+							"getSignature": [
+								{
+									"id": 67,
+									"name": "__get",
+									"kind": 524288,
+									"kindString": "Get signature",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "boolean"
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "Module.isReady",
+										"id": 11
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "module.ts",
+									"line": 20,
+									"character": 13
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.isReady",
+								"id": 11
+							}
+						},
+						{
+							"id": 63,
+							"name": "moduleType",
+							"kind": 262144,
+							"kindString": "Accessor",
+							"flags": {
+								"isExported": true
+							},
+							"getSignature": [
+								{
+									"id": 64,
+									"name": "__get",
+									"kind": 524288,
+									"kindString": "Get signature",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "Module.moduleType",
+										"id": 8
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "module.ts",
+									"line": 15,
+									"character": 16
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.moduleType",
+								"id": 8
+							}
+						},
+						{
+							"id": 71,
+							"name": "destroy",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 72,
+									"name": "destroy",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "void"
+											}
+										]
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "Module.destroy",
+										"id": 18
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "module.ts",
+									"line": 37,
+									"character": 15
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.destroy",
+								"id": 18
+							}
+						},
+						{
+							"id": 68,
+							"name": "init",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 69,
+									"name": "init",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 70,
+											"name": "env",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "Environment",
+												"id": 454
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "void"
+											}
+										]
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "Module.init",
+										"id": 13
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "module.ts",
+									"line": 24,
+									"character": 12
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.init",
+								"id": 13
+							}
+						},
+						{
+							"id": 54,
+							"name": "runTask",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 55,
+									"name": "runTask",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 56,
+											"name": "task",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "TaskConfig",
+												"id": 526
+											}
+										},
+										{
+											"id": 57,
+											"name": "input",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										},
+										{
+											"id": 58,
+											"name": "config",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "reference",
+												"name": "ConnectorContext",
+												"id": 73
+											}
+										]
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "connectors/connector.ts",
+									"line": 36,
+									"character": 15
+								}
+							]
+						},
+						{
+							"id": 48,
+							"name": "setup",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 49,
+									"name": "setup",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "void"
+											}
+										]
+									},
+									"overwrites": {
+										"type": "reference",
+										"name": "Module.setup",
+										"id": 16
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "connectors/connector.ts",
+									"line": 10,
+									"character": 13
+								}
+							],
+							"overwrites": {
+								"type": "reference",
+								"name": "Module.setup",
+								"id": 16
+							}
+						},
+						{
+							"id": 50,
+							"name": "setupTask",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 51,
+									"name": "setupTask",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 52,
+											"name": "task",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "TaskConfig",
+												"id": 526
+											}
+										},
+										{
+											"id": 53,
+											"name": "config",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "void"
+											}
+										]
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "connectors/connector.ts",
+									"line": 18,
+									"character": 17
+								}
+							]
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"kind": 1024,
+							"children": [
+								62,
+								65,
+								61
+							]
+						},
+						{
+							"title": "Accessors",
+							"kind": 262144,
+							"children": [
+								59,
+								66,
+								63
+							]
+						},
+						{
+							"title": "Methods",
+							"kind": 2048,
+							"children": [
+								71,
+								68,
+								54,
+								48,
+								50
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "connectors/connector.ts",
+							"line": 9,
+							"character": 22
+						}
+					],
+					"extendedTypes": [
+						{
+							"type": "reference",
+							"name": "Module",
+							"id": 2
+						}
+					]
+				},
+				{
+					"id": 73,
+					"name": "ConnectorContext",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {
+						"isExported": true
+					},
+					"children": [
+						{
+							"id": 74,
+							"name": "connector",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "connectors/connector.ts",
+									"line": 53,
+									"character": 11
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 75,
+									"name": "__type",
+									"kind": 65536,
+									"kindString": "Type literal",
+									"flags": {},
+									"children": [
+										{
+											"id": 77,
+											"name": "config",
+											"kind": 32,
+											"kindString": "Variable",
+											"flags": {},
+											"sources": [
+												{
+													"fileName": "connectors/connector.ts",
+													"line": 55,
+													"character": 10
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										},
+										{
+											"id": 76,
+											"name": "input",
+											"kind": 32,
+											"kindString": "Variable",
+											"flags": {},
+											"sources": [
+												{
+													"fileName": "connectors/connector.ts",
+													"line": 54,
+													"character": 9
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Variables",
+											"kind": 32,
+											"children": [
+												77,
+												76
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "connectors/connector.ts",
+											"line": 53,
+											"character": 12
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 78,
+							"name": "data",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "connectors/connector.ts",
+									"line": 57,
+									"character": 6
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "any"
+							}
+						},
+						{
+							"id": 84,
+							"name": "debug",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true,
+								"isOptional": true
+							},
+							"sources": [
+								{
+									"fileName": "environment.ts",
+									"line": 295,
+									"character": 7
+								}
+							],
+							"type": {
+								"type": "union",
+								"types": [
+									{
+										"type": "intrinsic",
+										"name": "undefined"
+									},
+									{
+										"type": "intrinsic",
+										"name": "false"
+									},
+									{
+										"type": "intrinsic",
+										"name": "true"
+									}
+								]
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Context.debug",
+								"id": 525
+							}
+						},
+						{
+							"id": 83,
+							"name": "env",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "environment.ts",
+									"line": 294,
+									"character": 5
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "Environment",
+								"id": 454
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Context.env",
+								"id": 524
+							}
+						},
+						{
+							"id": 79,
+							"name": "errors",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "connectors/connector.ts",
+									"line": 58,
+									"character": 8
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 80,
+									"name": "__type",
+									"kind": 65536,
+									"kindString": "Type literal",
+									"flags": {},
+									"indexSignature": [
+										{
+											"id": 81,
+											"name": "__index",
+											"kind": 8192,
+											"kindString": "Index signature",
+											"flags": {},
+											"parameters": [
+												{
+													"id": 82,
+													"name": "taskName",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "Error"
+											}
+										}
+									],
+									"sources": [
+										{
+											"fileName": "connectors/connector.ts",
+											"line": 58,
+											"character": 9
+										}
+									]
+								}
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"kind": 1024,
+							"children": [
+								74,
+								78,
+								84,
+								83,
+								79
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "connectors/connector.ts",
+							"line": 52,
+							"character": 33
+						}
+					],
+					"extendedTypes": [
+						{
+							"type": "reference",
+							"name": "Context",
+							"id": 523
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Classes",
+					"kind": 128,
+					"children": [
+						47
+					]
+				},
+				{
+					"title": "Interfaces",
+					"kind": 256,
+					"children": [
+						73
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "connectors/connector.ts",
+					"line": 1,
+					"character": 0
+				}
+			]
+		},
+		{
 			"id": 141,
 			"name": "\"doers/doer\"",
 			"kind": 1,
@@ -2256,7 +2256,7 @@
 											"flags": {},
 											"type": {
 												"type": "reference",
-												"name": "BoundaryContext",
+												"name": "ConnectorContext",
 												"id": 73
 											}
 										},
@@ -2376,7 +2376,7 @@
 											"flags": {},
 											"type": {
 												"type": "reference",
-												"name": "BoundaryContext",
+												"name": "ConnectorContext",
 												"id": 73
 											}
 										},
@@ -2825,7 +2825,7 @@
 											"flags": {},
 											"type": {
 												"type": "reference",
-												"name": "BoundaryContext",
+												"name": "ConnectorContext",
 												"id": 73
 											}
 										},
@@ -2955,7 +2955,7 @@
 											"flags": {},
 											"type": {
 												"type": "reference",
-												"name": "BoundaryContext",
+												"name": "ConnectorContext",
 												"id": 73
 											}
 										},
@@ -3608,49 +3608,6 @@
 							]
 						},
 						{
-							"id": 494,
-							"name": "getBoundary",
-							"kind": 2048,
-							"kindString": "Method",
-							"flags": {
-								"isExported": true
-							},
-							"signatures": [
-								{
-									"id": 495,
-									"name": "getBoundary",
-									"kind": 4096,
-									"kindString": "Call signature",
-									"flags": {},
-									"parameters": [
-										{
-											"id": 496,
-											"name": "name",
-											"kind": 32768,
-											"kindString": "Parameter",
-											"flags": {},
-											"type": {
-												"type": "intrinsic",
-												"name": "string"
-											}
-										}
-									],
-									"type": {
-										"type": "reference",
-										"name": "Boundary",
-										"id": 47
-									}
-								}
-							],
-							"sources": [
-								{
-									"fileName": "environment.ts",
-									"line": 213,
-									"character": 13
-								}
-							]
-						},
-						{
 							"id": 497,
 							"name": "getCacheManager",
 							"kind": 2048,
@@ -3690,6 +3647,49 @@
 									"fileName": "environment.ts",
 									"line": 224,
 									"character": 17
+								}
+							]
+						},
+						{
+							"id": 494,
+							"name": "getConnector",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 495,
+									"name": "getConnector",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 496,
+											"name": "name",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "Connector",
+										"id": 47
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "environment.ts",
+									"line": 213,
+									"character": 14
 								}
 							]
 						},
@@ -3949,63 +3949,6 @@
 							]
 						},
 						{
-							"id": 463,
-							"name": "boundaries",
-							"kind": 2097152,
-							"kindString": "Object literal",
-							"flags": {
-								"isPrivate": true,
-								"isExported": true
-							},
-							"comment": {
-								"shortText": "A collection of [[Boundary]] modules. Boundaries are gateways from\nyour application or external sources to run tasks in the `low` Environment"
-							},
-							"children": [
-								{
-									"id": 464,
-									"name": "Boundary",
-									"kind": 32,
-									"kindString": "Variable",
-									"flags": {
-										"isExported": true
-									},
-									"sources": [
-										{
-											"fileName": "environment.ts",
-											"line": 48,
-											"character": 12
-										}
-									],
-									"type": {
-										"type": "reference",
-										"name": "Boundary",
-										"id": 47
-									},
-									"defaultValue": " new Boundary()"
-								}
-							],
-							"groups": [
-								{
-									"title": "Variables",
-									"kind": 32,
-									"children": [
-										464
-									]
-								}
-							],
-							"sources": [
-								{
-									"fileName": "environment.ts",
-									"line": 47,
-									"character": 20
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "object"
-							}
-						},
-						{
 							"id": 465,
 							"name": "cacheManagers",
 							"kind": 2097152,
@@ -4055,6 +3998,63 @@
 									"fileName": "environment.ts",
 									"line": 55,
 									"character": 23
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "object"
+							}
+						},
+						{
+							"id": 463,
+							"name": "connectors",
+							"kind": 2097152,
+							"kindString": "Object literal",
+							"flags": {
+								"isPrivate": true,
+								"isExported": true
+							},
+							"comment": {
+								"shortText": "A collection of [[Connector]] modules. Connectors are gateways from\nyour application or external sources to run tasks in the `low` Environment"
+							},
+							"children": [
+								{
+									"id": 464,
+									"name": "Connector",
+									"kind": 32,
+									"kindString": "Variable",
+									"flags": {
+										"isExported": true
+									},
+									"sources": [
+										{
+											"fileName": "environment.ts",
+											"line": 48,
+											"character": 13
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "Connector",
+										"id": 47
+									},
+									"defaultValue": " new Connector()"
+								}
+							],
+							"groups": [
+								{
+									"title": "Variables",
+									"kind": 32,
+									"children": [
+										464
+									]
+								}
+							],
+							"sources": [
+								{
+									"fileName": "environment.ts",
+									"line": 47,
+									"character": 20
 								}
 							],
 							"type": {
@@ -4425,8 +4425,8 @@
 							"kind": 2048,
 							"children": [
 								492,
-								494,
 								497,
+								494,
 								500,
 								503,
 								506,
@@ -4439,8 +4439,8 @@
 							"title": "Object literals",
 							"kind": 2097152,
 							"children": [
-								463,
 								465,
+								463,
 								467,
 								470,
 								478
@@ -4540,7 +4540,7 @@
 					"extendedBy": [
 						{
 							"type": "reference",
-							"name": "BoundaryContext",
+							"name": "ConnectorContext",
 							"id": 73
 						}
 					]
@@ -4651,31 +4651,6 @@
 					},
 					"children": [
 						{
-							"id": 518,
-							"name": "boundaries",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true,
-								"isOptional": true
-							},
-							"sources": [
-								{
-									"fileName": "environment.ts",
-									"line": 286,
-									"character": 12
-								}
-							],
-							"type": {
-								"type": "array",
-								"elementType": {
-									"type": "reference",
-									"name": "Boundary",
-									"id": 47
-								}
-							}
-						},
-						{
 							"id": 519,
 							"name": "cacheManagers",
 							"kind": 1024,
@@ -4697,6 +4672,31 @@
 									"type": "reference",
 									"name": "CacheManager",
 									"id": 86
+								}
+							}
+						},
+						{
+							"id": 518,
+							"name": "connectors",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true,
+								"isOptional": true
+							},
+							"sources": [
+								{
+									"fileName": "environment.ts",
+									"line": 286,
+									"character": 12
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "reference",
+									"name": "Connector",
+									"id": 47
 								}
 							}
 						},
@@ -4787,8 +4787,8 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								518,
 								519,
+								518,
 								520,
 								521,
 								522
@@ -4812,68 +4812,6 @@
 						"isExported": true
 					},
 					"children": [
-						{
-							"id": 532,
-							"name": "boundaryConfigs",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isExported": true,
-								"isOptional": true
-							},
-							"sources": [
-								{
-									"fileName": "environment.ts",
-									"line": 304,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "union",
-								"types": [
-									{
-										"type": "intrinsic",
-										"name": "undefined"
-									},
-									{
-										"type": "reflection",
-										"declaration": {
-											"id": 533,
-											"name": "__type",
-											"kind": 65536,
-											"kindString": "Type literal",
-											"flags": {},
-											"indexSignature": [
-												{
-													"id": 534,
-													"name": "__index",
-													"kind": 8192,
-													"kindString": "Index signature",
-													"flags": {},
-													"parameters": [
-														{
-															"id": 535,
-															"name": "boundaryName",
-															"kind": 32768,
-															"kindString": "Parameter",
-															"flags": {},
-															"type": {
-																"type": "intrinsic",
-																"name": "string"
-															}
-														}
-													],
-													"type": {
-														"type": "intrinsic",
-														"name": "any"
-													}
-												}
-											]
-										}
-									}
-								]
-							}
-						},
 						{
 							"id": 531,
 							"name": "cacheConfig",
@@ -4914,6 +4852,68 @@
 							"type": {
 								"type": "intrinsic",
 								"name": "any"
+							}
+						},
+						{
+							"id": 532,
+							"name": "connectorConfigs",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true,
+								"isOptional": true
+							},
+							"sources": [
+								{
+									"fileName": "environment.ts",
+									"line": 304,
+									"character": 18
+								}
+							],
+							"type": {
+								"type": "union",
+								"types": [
+									{
+										"type": "intrinsic",
+										"name": "undefined"
+									},
+									{
+										"type": "reflection",
+										"declaration": {
+											"id": 533,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"indexSignature": [
+												{
+													"id": 534,
+													"name": "__index",
+													"kind": 8192,
+													"kindString": "Index signature",
+													"flags": {},
+													"parameters": [
+														{
+															"id": 535,
+															"name": "connectorName",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "any"
+													}
+												}
+											]
+										}
+									}
+								]
 							}
 						},
 						{
@@ -5006,9 +5006,9 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								532,
 								531,
 								529,
+								532,
 								528,
 								530,
 								527,
@@ -5413,7 +5413,7 @@
 					"extendedBy": [
 						{
 							"type": "reference",
-							"name": "Boundary",
+							"name": "Connector",
 							"id": 47
 						},
 						{
@@ -12131,8 +12131,8 @@
 			"title": "External modules",
 			"kind": 1,
 			"children": [
-				46,
 				85,
+				46,
 				141,
 				420,
 				453,

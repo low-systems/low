@@ -1,5 +1,5 @@
 import { TaskConfig, Environment } from '../environment';
-import { BoundaryContext } from '../boundaries/boundary';
+import { ConnectorContext } from '../connectors/connector';
 import { CacheConfig } from '../cache-managers/cache-manager';
 
 test('should be able to execute doer and have input echoed', async () => {
@@ -21,9 +21,9 @@ test('should be able to execute doer and have input echoed', async () => {
     name: 'test-doer'
   };
 
-  const context: BoundaryContext = {
+  const context: ConnectorContext = {
     env: env,
-    boundary: { config: {}, input: {} },
+    connector: { config: {}, input: {} },
     data: {},
     errors: {}
   };
@@ -61,9 +61,9 @@ test('should be able to execute doer and have input cached and returned', async 
     name: 'test-doer'
   };
 
-  const context: BoundaryContext = {
+  const context: ConnectorContext = {
     env: env,
-    boundary: { config: {}, input: {} },
+    connector: { config: {}, input: {} },
     data: {},
     errors: {}
   };

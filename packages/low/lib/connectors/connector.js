@@ -2,21 +2,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const module_1 = require("../module");
 const object_compiler_1 = require("../object-compiler");
-//TODO: Question: Should this Boundary be used to allow different Environment
+//TODO: Question: Should this Connector be used to allow different Environment
 //instances to communicate? What would that mean or involve? Probably way to
 //specialised but food for thought at least
-class Boundary extends module_1.Module {
+class Connector extends module_1.Module {
     async setup() {
         for (const task of Object.values(this.env.tasks)) {
-            if (task.boundaryConfigs && task.boundaryConfigs[this.moduleType]) {
-                await this.setupTask(task, task.boundaryConfigs[this.moduleType]);
+            if (task.connectorConfigs && task.connectorConfigs[this.moduleType]) {
+                await this.setupTask(task, task.connectorConfigs[this.moduleType]);
             }
         }
     }
     async setupTask(task, config) {
-        //This is a hacky way of making a testable base Boundary module
+        //This is a hacky way of making a testable base Connector module
         //that is accessible. `accessor` is not likely necessary in "real"
-        //Boundary modules so I did not want it to be a real member.
+        //Connector modules so I did not want it to be a real member.
         //I did not want the base modules to be abstract classes for
         //testing and usability reasons. Each base module is usable but
         //usually useless
@@ -33,7 +33,7 @@ class Boundary extends module_1.Module {
     async runTask(task, input, config) {
         const context = {
             env: this.env,
-            boundary: {
+            connector: {
                 input,
                 config
             },
@@ -45,5 +45,5 @@ class Boundary extends module_1.Module {
         return context;
     }
 }
-exports.Boundary = Boundary;
-//# sourceMappingURL=boundary.js.map
+exports.Connector = Connector;
+//# sourceMappingURL=connector.js.map

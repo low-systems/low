@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const boundary_1 = require("./boundaries/boundary");
+const connector_1 = require("./connectors/connector");
 const cache_manager_1 = require("./cache-managers/cache-manager");
 const doer_1 = require("./doers/doer");
 const boolean_parser_1 = require("./parsers/boolean-parser");
@@ -41,11 +41,11 @@ class Environment {
          */
         this.ready = false;
         /**
-         * A collection of [[Boundary]] modules. Boundaries are gateways from
+         * A collection of [[Connector]] modules. Connectors are gateways from
          * your application or external sources to run tasks in the `low` Environment
          */
-        this.boundaries = {
-            Boundary: new boundary_1.Boundary()
+        this.connectors = {
+            Connector: new connector_1.Connector()
         };
         /**
          * A collection of [[CacheManager]] modules. CacheManagers are used to
@@ -82,9 +82,9 @@ class Environment {
         this.renderers = {
             Renderer: new renderer_1.Renderer()
         };
-        if (modules.boundaries) {
-            for (const mod of modules.boundaries) {
-                this.boundaries[mod.moduleType] = mod;
+        if (modules.connectors) {
+            for (const mod of modules.connectors) {
+                this.connectors[mod.moduleType] = mod;
             }
         }
         if (modules.cacheManagers) {
@@ -131,7 +131,7 @@ class Environment {
         this.secrets = JSON.parse(secretsVar);
     }
     async init() {
-        for (const mod of Object.values(this.boundaries)) {
+        for (const mod of Object.values(this.connectors)) {
             await mod.init(this);
         }
         for (const mod of Object.values(this.cacheManagers)) {
@@ -178,15 +178,15 @@ class Environment {
         }).join('\n');
         return report;
     }
-    getBoundary(name) {
-        if (!this.boundaries.hasOwnProperty(name)) {
-            throw new Error(`No Boundary called '${name}' loaded`);
+    getConnector(name) {
+        if (!this.connectors.hasOwnProperty(name)) {
+            throw new Error(`No Connector called '${name}' loaded`);
         }
-        const boundary = this.boundaries[name];
-        if (!boundary.isReady) {
-            throw new Error(`The Boundary called '${name}' is loaded but not ready. Has the environment been initialised?`);
+        const connector = this.connectors[name];
+        if (!connector.isReady) {
+            throw new Error(`The Connector called '${name}' is loaded but not ready. Has the environment been initialised?`);
         }
-        return boundary;
+        return connector;
     }
     getCacheManager(name) {
         if (!this.cacheManagers.hasOwnProperty(name)) {

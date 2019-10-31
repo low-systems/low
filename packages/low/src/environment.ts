@@ -1,4 +1,4 @@
-import { Boundary } from './boundaries/boundary';
+import { Connector } from './connectors/connector';
 import { CacheManager, CacheConfig } from './cache-managers/cache-manager';
 import { Doer } from './doers/doer';
 import { Parser } from './parsers/parser';
@@ -41,11 +41,11 @@ export class Environment {
   }
 
   /**
-   * A collection of [[Boundary]] modules. Boundaries are gateways from
+   * A collection of [[Connector]] modules. Connectors are gateways from
    * your application or external sources to run tasks in the `low` Environment
    */
-  private boundaries: { [boundaryName: string]: Boundary } = {
-    Boundary: new Boundary()
+  private connectors: { [connectorName: string]: Connector } = {
+    Connector: new Connector()
   };
 
   /**
@@ -95,9 +95,9 @@ export class Environment {
    * @param secretsName   The name of an system level environment variable that holds an `EnvironmentConfig` with information to sensitive to go into code
    */
   constructor(modules: Modules, tasks: TaskConfig[], public config: EnvironmentConfig, secretsName: string = 'SECRETS') {
-    if (modules.boundaries) {
-      for (const mod of modules.boundaries) {
-        this.boundaries[mod.moduleType] = mod;
+    if (modules.connectors) {
+      for (const mod of modules.connectors) {
+        this.connectors[mod.moduleType] = mod;
       }
     }
 
@@ -149,7 +149,7 @@ export class Environment {
   }
 
   async init(): Promise<void> {
-    for (const mod of Object.values(this.boundaries)) {
+    for (const mod of Object.values(this.connectors)) {
       await mod.init(this);
     }
 
@@ -210,15 +210,15 @@ export class Environment {
     return report;
   }
 
-  getBoundary(name: string): Boundary {
-    if (!this.boundaries.hasOwnProperty(name)) {
-      throw new Error(`No Boundary called '${name}' loaded`);
+  getConnector(name: string): Connector {
+    if (!this.connectors.hasOwnProperty(name)) {
+      throw new Error(`No Connector called '${name}' loaded`);
     }
-    const boundary = this.boundaries[name];
-    if (!boundary.isReady) {
-      throw new Error(`The Boundary called '${name}' is loaded but not ready. Has the environment been initialised?`);
+    const connector = this.connectors[name];
+    if (!connector.isReady) {
+      throw new Error(`The Connector called '${name}' is loaded but not ready. Has the environment been initialised?`);
     }
-    return boundary;
+    return connector;
   }
 
   getCacheManager(name: string): CacheManager {
@@ -283,7 +283,7 @@ export interface EnvironmentConfig {
 }
 
 export interface Modules {
-  boundaries?: Boundary[];
+  connectors?: Connector[];
   cacheManagers?: CacheManager[];
   doers?: Doer[];
   parsers?: Parser<any>[];
@@ -301,6 +301,6 @@ export interface TaskConfig {
   config: any;
   metadata: any;
   cacheConfig?: CacheConfig;
-  boundaryConfigs?: { [boundaryName: string]: any };
+  connectorConfigs?: { [connectorName: string]: any };
   specialProperties?: string[];
 }

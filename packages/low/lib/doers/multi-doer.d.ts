@@ -1,8 +1,8 @@
 import { Doer } from './doer';
-import { BoundaryContext } from '../boundaries/boundary';
+import { ConnectorContext } from '../connectors/connector';
 import { TaskConfig } from '../environment';
 export declare class MultiDoer extends Doer {
-    main(context: BoundaryContext, taskConfig: TaskConfig, multiDoerTasks: MultiDoerTask[]): Promise<any>;
+    main(context: ConnectorContext, taskConfig: TaskConfig, multiDoerTasks: MultiDoerTask[]): Promise<any>;
 }
 export interface MultiDoerTask {
     task: TaskConfig;

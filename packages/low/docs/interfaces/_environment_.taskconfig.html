@@ -2393,13 +2393,13 @@ img {
 			<a href="_environment_.taskconfig.html" class="tsd-kind-icon">Task<wbr>Config</a>
 			<ul>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="_environment_.taskconfig.html#boundaryconfigs" class="tsd-kind-icon">boundary<wbr>Configs</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-interface">
 					<a href="_environment_.taskconfig.html#cacheconfig" class="tsd-kind-icon">cache<wbr>Config</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
 					<a href="_environment_.taskconfig.html#config" class="tsd-kind-icon">config</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="_environment_.taskconfig.html#connectorconfigs" class="tsd-kind-icon">connector<wbr>Configs</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
 					<a href="_environment_.taskconfig.html#doer" class="tsd-kind-icon">doer</a>
@@ -2434,9 +2434,9 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_environment_.taskconfig.html#boundaryconfigs" class="tsd-kind-icon">boundary<wbr>Configs</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_environment_.taskconfig.html#cacheconfig" class="tsd-kind-icon">cache<wbr>Config</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_environment_.taskconfig.html#config" class="tsd-kind-icon">config</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_environment_.taskconfig.html#connectorconfigs" class="tsd-kind-icon">connector<wbr>Configs</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_environment_.taskconfig.html#doer" class="tsd-kind-icon">doer</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_environment_.taskconfig.html#metadata" class="tsd-kind-icon">metadata</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_environment_.taskconfig.html#name" class="tsd-kind-icon">name</a></li>
@@ -2449,22 +2449,12 @@ img {
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="boundaryconfigs" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagOptional">Optional</span> boundary<wbr>Configs</h3>
-				<div class="tsd-signature tsd-kind-icon">boundary<wbr>Configs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/tonicblue/low/blob/dce0dc5/packages/low/src/environment.ts#L304">environment.ts:304</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 				<a name="cacheconfig" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> cache<wbr>Config</h3>
 				<div class="tsd-signature tsd-kind-icon">cache<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="_cache_managers_cache_manager_.cacheconfig.html" class="tsd-signature-type">CacheConfig</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/tonicblue/low/blob/dce0dc5/packages/low/src/environment.ts#L303">environment.ts:303</a></li>
+						<li>Defined in <a href="https://github.com/tonicblue/low/blob/eef33b0/packages/low/src/environment.ts#L303">environment.ts:303</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2474,7 +2464,17 @@ img {
 				<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/tonicblue/low/blob/dce0dc5/packages/low/src/environment.ts#L301">environment.ts:301</a></li>
+						<li>Defined in <a href="https://github.com/tonicblue/low/blob/eef33b0/packages/low/src/environment.ts#L301">environment.ts:301</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="connectorconfigs" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> connector<wbr>Configs</h3>
+				<div class="tsd-signature tsd-kind-icon">connector<wbr>Configs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/tonicblue/low/blob/eef33b0/packages/low/src/environment.ts#L304">environment.ts:304</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2484,7 +2484,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">doer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/tonicblue/low/blob/dce0dc5/packages/low/src/environment.ts#L300">environment.ts:300</a></li>
+						<li>Defined in <a href="https://github.com/tonicblue/low/blob/eef33b0/packages/low/src/environment.ts#L300">environment.ts:300</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2494,7 +2494,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">metadata<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/tonicblue/low/blob/dce0dc5/packages/low/src/environment.ts#L302">environment.ts:302</a></li>
+						<li>Defined in <a href="https://github.com/tonicblue/low/blob/eef33b0/packages/low/src/environment.ts#L302">environment.ts:302</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2504,7 +2504,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/tonicblue/low/blob/dce0dc5/packages/low/src/environment.ts#L299">environment.ts:299</a></li>
+						<li>Defined in <a href="https://github.com/tonicblue/low/blob/eef33b0/packages/low/src/environment.ts#L299">environment.ts:299</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2514,7 +2514,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">special<wbr>Properties<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/tonicblue/low/blob/dce0dc5/packages/low/src/environment.ts#L305">environment.ts:305</a></li>
+						<li>Defined in <a href="https://github.com/tonicblue/low/blob/eef33b0/packages/low/src/environment.ts#L305">environment.ts:305</a></li>
 					</ul>
 				</aside>
 			</section>

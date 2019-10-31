@@ -1,5 +1,5 @@
 import { Environment, TaskConfig, Modules } from './environment';
-import { Boundary } from './boundaries/boundary';
+import { Connector } from './connectors/connector';
 import { CacheManager } from './cache-managers/cache-manager';
 import { Doer } from './doers/doer';
 import { Parser } from './parsers/parser';
@@ -22,7 +22,7 @@ test('should be able to initialise built-in modules in new low environment', asy
   expect(env.isReady).toBe(false);
 
   //Expect all default built in modules to be registered but not ready
-  expect(() => { env.getBoundary('Boundary').isReady }).toThrow(`The Boundary called 'Boundary' is loaded but not ready. Has the environment been initialised?`);
+  expect(() => { env.getConnector('Connector').isReady }).toThrow(`The Connector called 'Connector' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getCacheManager('CacheManager').isReady }).toThrow(`The Cache Manager called 'CacheManager' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getDoer('Doer').isReady }).toThrow(`The Doer called 'Doer' is loaded but not ready. Has the environment been initialised?`);
   expect(() => { env.getDoer('MultiDoer').isReady }).toThrow(`The Doer called 'MultiDoer' is loaded but not ready. Has the environment been initialised?`);
@@ -39,7 +39,7 @@ test('should be able to initialise built-in modules in new low environment', asy
   expect(env.isReady).toBe(true);
 
   //Check all built in modules are now ready
-  expect(env.getBoundary('Boundary').isReady).toBe(true);
+  expect(env.getConnector('Connector').isReady).toBe(true);
   expect(env.getCacheManager('CacheManager').isReady).toBe(true);
   expect(env.getDoer('Doer').isReady).toBe(true);
   expect(env.getDoer('MultiDoer').isReady).toBe(true);
@@ -52,9 +52,9 @@ test('should be able to initialise built-in modules in new low environment', asy
   expect(env.getRenderer('Renderer').isReady).toBe(true);
 });
 
-test('should not be able to get a none existent Boundary', () => {
+test('should not be able to get a none existent Connector', () => {
   const env = new Environment({}, [], {});
-  expect(() => { return env.getBoundary('xyz'); }).toThrow(`No Boundary called 'xyz' loaded`);
+  expect(() => { return env.getConnector('xyz'); }).toThrow(`No Connector called 'xyz' loaded`);
 });
 
 test('should not be able to get a none existent Cache Manager', () => {
@@ -79,7 +79,7 @@ test('should not be able to get a none existent Renderer', () => {
 
 const testTask: TaskConfig = {
   name: 'test-task',
-  boundaryConfigs: {},
+  connectorConfigs: {},
   cacheConfig: {
     cacheManager: 'CacheManager',
     keyProperties: [],
@@ -132,20 +132,20 @@ test('should load secrets as a serialised JSON string', async () => {
 });
 
 test('should be able to pass in external Modules when creating an Environment', async () => {
-  class ExternalBoundary extends Boundary {}
+  class ExternalConnector extends Connector {}
   class ExternalCacheManager extends CacheManager {}
   class ExternalDoer extends Doer {}
   class ExternalParser extends Parser<any> {}
   class ExternalRenderer extends Renderer {}
 
-  const externalBoundary = new ExternalBoundary();
+  const externalConnector = new ExternalConnector();
   const externalCacheManager = new ExternalCacheManager();
   const externalDoer = new ExternalDoer();
   const externalParser = new ExternalParser();
   const externalRenderer = new ExternalRenderer();
 
   const modules: Modules = {
-    boundaries: [ externalBoundary ],
+    connectors: [ externalConnector ],
     cacheManagers: [ externalCacheManager ],
     doers: [ externalDoer ],
     parsers: [ externalParser ],
@@ -155,7 +155,7 @@ test('should be able to pass in external Modules when creating an Environment', 
   const env = new Environment(modules, [], {});
   await env.init();
 
-  expect(env.getBoundary('ExternalBoundary')).toStrictEqual(externalBoundary);
+  expect(env.getConnector('ExternalConnector')).toStrictEqual(externalConnector);
   expect(env.getCacheManager('ExternalCacheManager')).toStrictEqual(externalCacheManager);
   expect(env.getDoer('ExternalDoer')).toStrictEqual(externalDoer);
   expect(env.getParser('ExternalParser')).toStrictEqual(externalParser);

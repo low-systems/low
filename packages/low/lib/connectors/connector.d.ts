@@ -1,12 +1,12 @@
 import { Module } from '../module';
 import { Context, TaskConfig } from '../environment';
-export declare class Boundary extends Module {
+export declare class Connector extends Module {
     setup(): Promise<void>;
     setupTask(task: TaskConfig, config: any): Promise<void>;
-    runTask(task: TaskConfig, input: any, config: any): Promise<BoundaryContext>;
+    runTask(task: TaskConfig, input: any, config: any): Promise<ConnectorContext>;
 }
-export interface BoundaryContext extends Context {
-    boundary: {
+export interface ConnectorContext extends Context {
+    connector: {
         input: any;
         config: any;
     };

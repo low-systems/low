@@ -1,11 +1,11 @@
 import { Module } from '../module';
 import { TaskConfig } from '../environment';
-import { BoundaryContext } from '../boundaries/boundary';
+import { ConnectorContext } from '../connectors/connector';
 import { ObjectCompiler } from '../object-compiler';
 import { CacheManager, CacheConfig, CacheKey } from '../cache-managers/cache-manager';
 
 export class Doer extends Module {
-  async execute(context: BoundaryContext, task: TaskConfig): Promise<void> {
+  async execute(context: ConnectorContext, task: TaskConfig): Promise<void> {
     try {
       let cacheManager: CacheManager | undefined;
       let cacheKey: CacheKey | undefined;
@@ -32,7 +32,7 @@ export class Doer extends Module {
     }
   }
 
-  async main(context: BoundaryContext, taskConfig: TaskConfig, coreConfig: any): Promise<any> {
+  async main(context: ConnectorContext, taskConfig: TaskConfig, coreConfig: any): Promise<any> {
     return coreConfig
   }
 }

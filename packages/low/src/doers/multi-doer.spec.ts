@@ -1,5 +1,5 @@
 import { TaskConfig, Environment } from '../environment';
-import { BoundaryContext } from '../boundaries/boundary';
+import { ConnectorContext } from '../connectors/connector';
 
 function taskFactory(name?: string, doer?: string): TaskConfig {
   return {
@@ -35,9 +35,9 @@ test('should be able to execute MultiDoer and have inputs echoed', async () => {
 
   const doer = env.getDoer('MultiDoer');
 
-  const context: BoundaryContext = {
+  const context: ConnectorContext = {
     env: env,
-    boundary: { config: {}, input: {} },
+    connector: { config: {}, input: {} },
     data: {},
     errors: {}
   };
@@ -78,9 +78,9 @@ test('should execute branched task and continue running', async () => {
 
   const doer = env.getDoer('MultiDoer');
 
-  const context: BoundaryContext = {
+  const context: ConnectorContext = {
     env: env,
-    boundary: { config: {}, input: {} },
+    connector: { config: {}, input: {} },
     data: {},
     errors: {}
   };
@@ -122,9 +122,9 @@ test('should execute branched task and not continue running', async () => {
 
   const doer = env.getDoer('MultiDoer');
 
-  const context: BoundaryContext = {
+  const context: ConnectorContext = {
     env: env,
-    boundary: { config: {}, input: {} },
+    connector: { config: {}, input: {} },
     data: {},
     errors: {}
   };
@@ -163,9 +163,9 @@ test('should throw an exception when given an invalid BranchConfig to branch to'
 
   const doer = env.getDoer('MultiDoer');
 
-  const context: BoundaryContext = {
+  const context: ConnectorContext = {
     env: env,
-    boundary: { config: {}, input: {} },
+    connector: { config: {}, input: {} },
     data: {},
     errors: {}
   };
@@ -201,9 +201,9 @@ test('should throw an exception when given an invalid task name to branch to', a
 
   const doer = env.getDoer('MultiDoer');
 
-  const context: BoundaryContext = {
+  const context: ConnectorContext = {
     env: env,
-    boundary: { config: {}, input: {} },
+    connector: { config: {}, input: {} },
     data: {},
     errors: {}
   };

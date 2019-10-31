@@ -2,23 +2,23 @@ import { Module } from '../module';
 import { Context, TaskConfig } from '../environment';
 import { ObjectCompiler } from '../object-compiler';
 
-//TODO: Question: Should this Boundary be used to allow different Environment
+//TODO: Question: Should this Connector be used to allow different Environment
 //instances to communicate? What would that mean or involve? Probably way to
 //specialised but food for thought at least
 
-export class Boundary extends Module {
+export class Connector extends Module {
   async setup() {
     for (const task of Object.values(this.env.tasks)) {
-      if (task.boundaryConfigs && task.boundaryConfigs[this.moduleType]) {
-        await this.setupTask(task, task.boundaryConfigs[this.moduleType]);
+      if (task.connectorConfigs && task.connectorConfigs[this.moduleType]) {
+        await this.setupTask(task, task.connectorConfigs[this.moduleType]);
       }
     }
   }
 
   async setupTask(task: TaskConfig, config: any) {
-    //This is a hacky way of making a testable base Boundary module
+    //This is a hacky way of making a testable base Connector module
     //that is accessible. `accessor` is not likely necessary in "real"
-    //Boundary modules so I did not want it to be a real member.
+    //Connector modules so I did not want it to be a real member.
     //I did not want the base modules to be abstract classes for
     //testing and usability reasons. Each base module is usable but
     //usually useless
@@ -33,10 +33,10 @@ export class Boundary extends Module {
     };
   }
 
-  async runTask(task: TaskConfig, input: any, config: any): Promise<BoundaryContext> {
-    const context: BoundaryContext = {
+  async runTask(task: TaskConfig, input: any, config: any): Promise<ConnectorContext> {
+    const context: ConnectorContext = {
       env: this.env,
-      boundary: {
+      connector: {
         input,
         config
       },
@@ -49,8 +49,8 @@ export class Boundary extends Module {
   }
 }
 
-export interface BoundaryContext extends Context {
-  boundary: {
+export interface ConnectorContext extends Context {
+  connector: {
     input: any;
     config: any;
   };

@@ -51,9 +51,9 @@ None of this is ready for use yet! Here is a high level list of things that need
   * :white_medium_square: Implement optional type checking of inputs and outputs to `Doers`
   * :ballot_box_with_check: Finish writing unit tests and make sure core package is fit for purpose
 * :white_medium_square: Write some basic modules to make the system usable
-  * :white_medium_square: HTTP `Boundary`
-  * :white_medium_square: Cron `Boundary`
-  * :white_medium_square: RabbitMQ `Boundary`
+  * :white_medium_square: HTTP `Connector`
+  * :white_medium_square: Cron `Connector`
+  * :white_medium_square: RabbitMQ `Connector`
   * :white_medium_square: Redis `Cache Manager`
   * :white_medium_square: Memcached `Cache Manager`
   * :white_medium_square: Branching `Doer`
