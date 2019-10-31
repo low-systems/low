@@ -44,7 +44,7 @@ export class Environment {
    * A collection of [[Connector]] modules. Connectors are gateways from
    * your application or external sources to run tasks in the `low` Environment
    */
-  private connectors: { [connectorName: string]: Connector } = {
+  private connectors: { [connectorName: string]: Connector<any, any> } = {
     Connector: new Connector()
   };
 
@@ -52,14 +52,14 @@ export class Environment {
    * A collection of [[CacheManager]] modules. CacheManagers are used to
    * improve the performance of frequently executed tasks and object compilation
    */
-  private cacheManagers: { [cacheManagerName: string]: CacheManager } = {
+  private cacheManagers: { [cacheManagerName: string]: CacheManager<any, any> } = {
     CacheManager: new CacheManager()
   };
 
   /**
    * A collection of [[Doer]] modules. Doers are used to execute tasks
    */
-  private doers: { [doerName: string]: Doer } = {
+  private doers: { [doerName: string]: Doer<any, any> } = {
     Doer: new Doer(),
     MultiDoer: new MultiDoer()
   };
@@ -83,7 +83,7 @@ export class Environment {
    * [[ObjectCompiler]] to create dynamic bits of configuration to be
    * used by other modules
    */
-  private renderers: { [rendererName: string]: Renderer } = {
+  private renderers: { [rendererName: string]: Renderer<any, any> } = {
     Renderer: new Renderer()
   };
 
@@ -210,7 +210,7 @@ export class Environment {
     return report;
   }
 
-  getConnector(name: string): Connector {
+  getConnector(name: string): Connector<any, any> {
     if (!this.connectors.hasOwnProperty(name)) {
       throw new Error(`No Connector called '${name}' loaded`);
     }
@@ -221,7 +221,7 @@ export class Environment {
     return connector;
   }
 
-  getCacheManager(name: string): CacheManager {
+  getCacheManager(name: string): CacheManager<any, any> {
     if (!this.cacheManagers.hasOwnProperty(name)) {
       throw new Error(`No Cache Manager called '${name}' loaded`);
     }
@@ -232,7 +232,7 @@ export class Environment {
     return cacheManager;
   }
 
-  getDoer(name: string): Doer {
+  getDoer(name: string): Doer<any, any> {
     if (!this.doers.hasOwnProperty(name)) {
       throw new Error(`No Doer called '${name}' loaded`);
     }
@@ -254,7 +254,7 @@ export class Environment {
     return parser;
   }
 
-  getRenderer(name: string): Renderer {
+  getRenderer(name: string): Renderer<any, any> {
     if (!this.renderers.hasOwnProperty(name)) {
       throw new Error(`No Renderer called '${name}' loaded`);
     }
@@ -283,11 +283,11 @@ export interface EnvironmentConfig {
 }
 
 export interface Modules {
-  connectors?: Connector[];
-  cacheManagers?: CacheManager[];
-  doers?: Doer[];
+  connectors?: Connector<any, any>[];
+  cacheManagers?: CacheManager<any, any>[];
+  doers?: Doer<any, any>[];
   parsers?: Parser<any>[];
-  renderers?: Renderer[];
+  renderers?: Renderer<any, any>[];
 }
 
 export interface Context {

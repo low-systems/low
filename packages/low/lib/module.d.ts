@@ -1,9 +1,11 @@
 import { Environment } from './environment';
-export declare class Module {
+export declare class Module<C, S> {
     private _env;
     readonly env: Environment;
-    secrets: any;
-    config: any;
+    private _config;
+    readonly config: C;
+    private _secrets;
+    readonly secrets: S;
     readonly moduleType: string;
     protected ready: boolean;
     readonly isReady: boolean;

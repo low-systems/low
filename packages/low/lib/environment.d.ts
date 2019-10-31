@@ -65,11 +65,11 @@ export declare class Environment {
     loadSecrets(secretsName: string): void;
     init(): Promise<void>;
     checkTasks(): string | null;
-    getConnector(name: string): Connector;
-    getCacheManager(name: string): CacheManager;
-    getDoer(name: string): Doer;
+    getConnector(name: string): Connector<any, any>;
+    getCacheManager(name: string): CacheManager<any, any>;
+    getDoer(name: string): Doer<any, any>;
     getParser(name: string): Parser<any>;
-    getRenderer(name: string): Renderer;
+    getRenderer(name: string): Renderer<any, any>;
     getTask(name: string): TaskConfig;
 }
 export interface EnvironmentConfig {
@@ -78,11 +78,11 @@ export interface EnvironmentConfig {
     [key: string]: any;
 }
 export interface Modules {
-    connectors?: Connector[];
-    cacheManagers?: CacheManager[];
-    doers?: Doer[];
+    connectors?: Connector<any, any>[];
+    cacheManagers?: CacheManager<any, any>[];
+    doers?: Doer<any, any>[];
     parsers?: Parser<any>[];
-    renderers?: Renderer[];
+    renderers?: Renderer<any, any>[];
 }
 export interface Context {
     env: Environment;

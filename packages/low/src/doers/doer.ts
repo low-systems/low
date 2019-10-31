@@ -4,10 +4,10 @@ import { ConnectorContext } from '../connectors/connector';
 import { ObjectCompiler } from '../object-compiler';
 import { CacheManager, CacheConfig, CacheKey } from '../cache-managers/cache-manager';
 
-export class Doer extends Module {
+export class Doer<C, S> extends Module<C, S> {
   async execute(context: ConnectorContext, task: TaskConfig): Promise<void> {
     try {
-      let cacheManager: CacheManager | undefined;
+      let cacheManager: CacheManager<any, any> | undefined;
       let cacheKey: CacheKey | undefined;
 
       if (task.cacheConfig) {

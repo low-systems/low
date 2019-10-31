@@ -1,13 +1,13 @@
 {
-  "name": "low",
-  "version": "1.0.4",
-  "description": "a templating driven low-code framework for rapid systems development",
-  "main": "lib/environment.js",
-  "types": "lib/environment.d.ts",
+  "name": "@low-systems/connector-http",
+  "version": "0.0.1",
+  "description": "A basic HTTP connector for low",
+  "main": "lib/connector-http.js",
+  "types": "lib/connector-http.d.ts",
   "homepage": "https://github.com/low-systems/low#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/low-systems/low"
+    "url": "git+https://github.com/low-systems/low.git"
   },
   "scripts": {
     "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
@@ -21,5 +21,9 @@
   "license": "GPL-3.0",
   "jest": {
     "preset": "ts-jest"
+  },
+  "dependencies": {
+    "low": "file:../low",
+    "url-pattern": "^1.0.3"
   }
 }

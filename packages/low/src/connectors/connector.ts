@@ -6,8 +6,12 @@ import { ObjectCompiler } from '../object-compiler';
 //instances to communicate? What would that mean or involve? Probably way to
 //specialised but food for thought at least
 
-export class Connector extends Module {
+export class Connector<C, S> extends Module<C, S> {
   async setup() {
+    await this.setupTasks();
+  }
+
+  async setupTasks() {
     for (const task of Object.values(this.env.tasks)) {
       if (task.connectorConfigs && task.connectorConfigs[this.moduleType]) {
         await this.setupTask(task, task.connectorConfigs[this.moduleType]);

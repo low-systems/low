@@ -2,7 +2,7 @@ import { Module } from '../module';
 import { ParserConfig } from '../parsers/parser';
 import { Context } from '../environment';
 import { CacheConfig } from '../cache-managers/cache-manager';
-export declare class Renderer extends Module {
+export declare class Renderer<C, S> extends Module<C, S> {
     render(config: RenderConfig, context: Context): Promise<any>;
     getTemplate(config: RenderConfig, context: Context): Promise<any>;
     parseRendered(rendered: any, config: RenderConfig): Promise<any>;

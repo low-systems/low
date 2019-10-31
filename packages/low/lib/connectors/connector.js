@@ -7,6 +7,9 @@ const object_compiler_1 = require("../object-compiler");
 //specialised but food for thought at least
 class Connector extends module_1.Module {
     async setup() {
+        await this.setupTasks();
+    }
+    async setupTasks() {
         for (const task of Object.values(this.env.tasks)) {
             if (task.connectorConfigs && task.connectorConfigs[this.moduleType]) {
                 await this.setupTask(task, task.connectorConfigs[this.moduleType]);

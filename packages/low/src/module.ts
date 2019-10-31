@@ -1,16 +1,29 @@
 import { Environment } from './environment';
 
-export class Module {
+export class Module<C, S> {
   private _env: Environment | undefined;
-  public get env(): Environment {
+  get env(): Environment {
     if (!this._env) {
       throw new Error('No Environment has been set. Has this Module been setup correctly?');
     }
     return this._env;
   }
 
-  secrets: any = {};
-  config: any = {};
+  private _config: C | undefined;
+  get config(): C {
+    if (!this._config) {
+      throw new Error('No Config have been set. Has this Module been setup correctly?');
+    }
+    return this._config;
+  }
+
+  private _secrets: S | undefined;
+  get secrets(): S {
+    if (!this._secrets) {
+      throw new Error('No Secrets have been set. Has this Module been setup correctly?');
+    }
+    return this._secrets;
+  }
 
   get moduleType(): string {
     return this.constructor.name;
@@ -27,8 +40,8 @@ export class Module {
       this.ready = false;
     }
     this._env = env;
-    this.config = env.config.modules && env.config.modules[this.moduleType] || {};
-    this.secrets = env.secrets.modules && env.secrets.modules[this.moduleType] || {};
+    this._config = env.config.modules && env.config.modules[this.moduleType] || {};
+    this._secrets = env.secrets.modules && env.secrets.modules[this.moduleType] || {};
     await this.setup();
     this.ready = true;
   }

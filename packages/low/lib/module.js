@@ -2,8 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class Module {
     constructor() {
-        this.secrets = {};
-        this.config = {};
         this.ready = false;
     }
     get env() {
@@ -11,6 +9,18 @@ class Module {
             throw new Error('No Environment has been set. Has this Module been setup correctly?');
         }
         return this._env;
+    }
+    get config() {
+        if (!this._config) {
+            throw new Error('No Config have been set. Has this Module been setup correctly?');
+        }
+        return this._config;
+    }
+    get secrets() {
+        if (!this._secrets) {
+            throw new Error('No Secrets have been set. Has this Module been setup correctly?');
+        }
+        return this._secrets;
     }
     get moduleType() {
         return this.constructor.name;
@@ -24,8 +34,8 @@ class Module {
             this.ready = false;
         }
         this._env = env;
-        this.config = env.config.modules && env.config.modules[this.moduleType] || {};
-        this.secrets = env.secrets.modules && env.secrets.modules[this.moduleType] || {};
+        this._config = env.config.modules && env.config.modules[this.moduleType] || {};
+        this._secrets = env.secrets.modules && env.secrets.modules[this.moduleType] || {};
         await this.setup();
         this.ready = true;
     }

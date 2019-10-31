@@ -1,6 +1,6 @@
 import { Module } from '../module';
 import { Context } from '../environment';
-export declare class CacheManager extends Module {
+export declare class CacheManager<C, S> extends Module<C, S> {
     private _CACHE;
     readonly CACHE: MemoryCache;
     makeKey(config: CacheConfig, context: Context): Promise<CacheKey>;

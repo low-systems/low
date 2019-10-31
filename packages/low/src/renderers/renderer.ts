@@ -3,9 +3,9 @@ import { ParserConfig } from '../parsers/parser';
 import { Context } from '../environment';
 import { CacheConfig, CacheManager, CacheKey } from '../cache-managers/cache-manager';
 
-export class Renderer extends Module {
+export class Renderer<C, S> extends Module<C, S> {
   async render(config: RenderConfig, context: Context): Promise<any> {
-    let cacheManager: CacheManager | undefined;
+    let cacheManager: CacheManager<any, any> | undefined;
     let cacheKey: CacheKey | undefined;
 
     if (config.__cacheConfig) {

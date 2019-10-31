@@ -3,7 +3,7 @@ import { ConnectorContext } from '../connectors/connector';
 import { TaskConfig } from '../environment';
 import { ObjectCompiler } from '../object-compiler';
 
-export class MultiDoer extends Doer {
+export class MultiDoer<C, S> extends Doer<C, S> {
   async main(context: ConnectorContext, taskConfig: TaskConfig, multiDoerTasks: MultiDoerTask[]): Promise<any> {
     for (const multiDoerTask of multiDoerTasks) {
       const doer = this.env.getDoer(multiDoerTask.task.doer);
