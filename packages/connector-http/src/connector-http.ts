@@ -41,7 +41,7 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any> {
 
   async setupTask(task: TaskConfig, config: HttpTaskConfig) {
     for (const site of config.sites) {
-      this.sites[site].registerRoutes(task, config.patterns, config.verbs, config.priority);
+      this.sites[site].registerRoutes(task, config);
     }
   }
 
@@ -89,7 +89,7 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any> {
     };
 
     const output = await this.runTask(match.route.task, input, match.route.config);
-
+    console.log(output);
     //TODO: Work out what to do with response
   }
 

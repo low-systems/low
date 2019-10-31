@@ -2,7 +2,7 @@ import UrlPattern = require("url-pattern");
 
 import { TaskConfig } from "low/src/environment";
 
-import { HttpVerbFlags, HttpVerb, ALL_HTTP_VERBS, HttpVerbsFromArray } from "./http-verbs";
+import { HttpVerbFlags, HttpVerb, HttpVerbsFromArray } from "./http-verbs";
 import { HttpTaskConfig } from "./connector-http";
 
 export class Site {
@@ -10,12 +10,13 @@ export class Site {
 
   constructor(public name: string, public config: SiteConfig) { }
 
-  registerRoutes(task: TaskConfig, patterns: string[], verbs: HttpVerb[] = ALL_HTTP_VERBS, config: HttpTaskConfig) {
-    for (const pattern of patterns) {
+  registerRoutes(task: TaskConfig, config: HttpTaskConfig) {
+    const verbs = HttpVerbsFromArray(config.verbs);
+    for (const pattern of config.patterns) {
       const route: Route = {
         task,
         config,
-        verbs: HttpVerbsFromArray(verbs),
+        verbs,
         urlPattern: new UrlPattern(pattern)
       };
       this.routes.push(route);
