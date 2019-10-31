@@ -1,5 +1,5 @@
 {
-  environment: { '+': 'include', __glob: 'environment.json5' },
-  tasks: { '+': 'include', __glob: 'tasks.json5' },
-  secrets: { '+': 'include', __glob: 'secrets.json5' }
+  environment: { '+': 'include', __glob: 'environment.json5', __dataType: 'object' },
+  tasks: { '+': 'include', __glob: 'tasks.json5', __dataType: 'object' },
+  secrets: { '+': 'include', __glob: 'secrets.json5', __dataType: 'object' }
 }

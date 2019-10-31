@@ -32,7 +32,8 @@
       "name": "Launch Example",
       "program": "${workspaceFolder}/packages/example/src/index.ts",
       "preLaunchTask": "Build dev example",
-      "outFiles": ["${workspaceFolder}/packages/example/lib/**/*.js"]
+      "outFiles": ["${workspaceFolder}/packages/example/lib/**/*.js"],
+      "smartStep": true
     },
   ]
 }
