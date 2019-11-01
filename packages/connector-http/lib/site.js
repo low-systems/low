@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const UrlPattern = require("url-pattern");
 const http_verbs_1 = require("./http-verbs");
+const http_error_1 = require("./http-error");
 class Site {
     constructor(name, config) {
         this.name = name;
@@ -41,7 +42,7 @@ class Site {
             }
         }
         if (routeMatches.length === 0) {
-            return;
+            throw new http_error_1.HttpError('Invalid path', 404);
         }
         else if (routeMatches.length > 1) {
             routeMatches.sort((a, b) => (b.route.config.priority || 0) - (a.route.config.priority || 0));

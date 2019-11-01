@@ -132,11 +132,11 @@ test('should load secrets as a serialised JSON string', async () => {
 });
 
 test('should be able to pass in external Modules when creating an Environment', async () => {
-  class ExternalConnector extends Connector {}
-  class ExternalCacheManager extends CacheManager {}
-  class ExternalDoer extends Doer {}
+  class ExternalConnector extends Connector<any, any, any> {}
+  class ExternalCacheManager extends CacheManager<any, any> {}
+  class ExternalDoer extends Doer<any, any> {}
   class ExternalParser extends Parser<any> {}
-  class ExternalRenderer extends Renderer {}
+  class ExternalRenderer extends Renderer<any, any> {}
 
   const externalConnector = new ExternalConnector();
   const externalCacheManager = new ExternalCacheManager();

@@ -3,7 +3,8 @@ import UrlPattern = require("url-pattern");
 import { TaskConfig } from "low/src/environment";
 
 import { HttpVerbFlags, HttpVerb, HttpVerbsFromArray } from "./http-verbs";
-import { HttpTaskConfig } from "./connector-http";
+import { HttpTaskConfig, ErrorHandler, HeaderMap } from "./connector-http";
+import { HttpError } from "./http-error";
 
 export class Site {
   routes: Route[] = [];
@@ -25,7 +26,7 @@ export class Site {
 
   //IDEA: Perhaps use a CacheManager here
   private routeMatchCache: RouteMatchCache = {};
-  matchRoute(path: string, verb: HttpVerb): RouteMatch | void {
+  matchRoute(path: string, verb: HttpVerb): RouteMatch {
     const routeCacheKey = `${verb}: ${path}`;
     if (this.routeMatchCache.hasOwnProperty(routeCacheKey)) {
       return this.routeMatchCache[routeCacheKey];
@@ -47,7 +48,7 @@ export class Site {
     }
 
     if (routeMatches.length === 0) {
-      return;
+      throw new HttpError('Invalid path', 404);
     } else if (routeMatches.length > 1) {
       routeMatches.sort((a, b) => (b.route.config.priority || 0) - (a.route.config.priority || 0));
     }
@@ -59,6 +60,8 @@ export class Site {
 
 export interface SiteConfig {
   hostnames: string[];
+  errorHandlers?: ErrorHandler[];
+  responseHeaders?: HeaderMap;
 }
 
 export interface Route {

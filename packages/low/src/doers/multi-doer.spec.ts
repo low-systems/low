@@ -35,7 +35,7 @@ test('should be able to execute MultiDoer and have inputs echoed', async () => {
 
   const doer = env.getDoer('MultiDoer');
 
-  const context: ConnectorContext = {
+  const context: ConnectorContext<any> = {
     env: env,
     connector: { config: {}, input: {} },
     data: {},
@@ -78,7 +78,7 @@ test('should execute branched task and continue running', async () => {
 
   const doer = env.getDoer('MultiDoer');
 
-  const context: ConnectorContext = {
+  const context: ConnectorContext<any> = {
     env: env,
     connector: { config: {}, input: {} },
     data: {},
@@ -122,7 +122,7 @@ test('should execute branched task and not continue running', async () => {
 
   const doer = env.getDoer('MultiDoer');
 
-  const context: ConnectorContext = {
+  const context: ConnectorContext<any> = {
     env: env,
     connector: { config: {}, input: {} },
     data: {},
@@ -163,7 +163,7 @@ test('should throw an exception when given an invalid BranchConfig to branch to'
 
   const doer = env.getDoer('MultiDoer');
 
-  const context: ConnectorContext = {
+  const context: ConnectorContext<any> = {
     env: env,
     connector: { config: {}, input: {} },
     data: {},
@@ -201,7 +201,7 @@ test('should throw an exception when given an invalid task name to branch to', a
 
   const doer = env.getDoer('MultiDoer');
 
-  const context: ConnectorContext = {
+  const context: ConnectorContext<any> = {
     env: env,
     connector: { config: {}, input: {} },
     data: {},

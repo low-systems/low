@@ -27,8 +27,8 @@ test('should be able to initialise a basic Module with a configuration and secre
   };
   const env = new Environment({}, [], modulesConfig, 'SECRETS_ALT');
   await mod.init(env);
-  expect(mod.config.test).toBe('It worked');
-  expect(mod.secrets.test).toBe('It worked');
+  expect((mod.config as any).test).toBe('It worked');
+  expect((mod.secrets as any).test).toBe('It worked');
 });
 
 test('should throw an exception when code tries to access Module.env on an uninitialised Module', async () => {

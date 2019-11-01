@@ -1,18 +1,19 @@
 import { Module } from '../module';
 import { Context, TaskConfig } from '../environment';
-export declare class Connector<C, S> extends Module<C, S> {
+export declare class Connector<C, S, I> extends Module<C, S> {
     setup(): Promise<void>;
     setupTasks(): Promise<void>;
     setupTask(task: TaskConfig, config: any): Promise<void>;
-    runTask(task: TaskConfig, input: any, config: any): Promise<ConnectorContext>;
+    runTask(task: TaskConfig, input: I, config: any, data?: any, errors?: TaskErrorMap): Promise<ConnectorContext<I>>;
 }
-export interface ConnectorContext extends Context {
+export interface ConnectorContext<I> extends Context {
     connector: {
-        input: any;
+        input: I;
         config: any;
     };
     data: any;
-    errors: {
-        [taskName: string]: Error;
-    };
+    errors: TaskErrorMap;
+}
+export interface TaskErrorMap {
+    [taskName: string]: Error;
 }

@@ -65,7 +65,7 @@ export declare class Environment {
     loadSecrets(secretsName: string): void;
     init(): Promise<void>;
     checkTasks(): string | null;
-    getConnector(name: string): Connector<any, any>;
+    getConnector(name: string): Connector<any, any, any>;
     getCacheManager(name: string): CacheManager<any, any>;
     getDoer(name: string): Doer<any, any>;
     getParser(name: string): Parser<any>;
@@ -78,7 +78,7 @@ export interface EnvironmentConfig {
     [key: string]: any;
 }
 export interface Modules {
-    connectors?: Connector<any, any>[];
+    connectors?: Connector<any, any, any>[];
     cacheManagers?: CacheManager<any, any>[];
     doers?: Doer<any, any>[];
     parsers?: Parser<any>[];
@@ -98,4 +98,5 @@ export interface TaskConfig {
         [connectorName: string]: any;
     };
     specialProperties?: string[];
+    throwError?: boolean;
 }

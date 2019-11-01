@@ -1,12 +1,13 @@
 import { Module } from '../module';
 import { Context, TaskConfig } from '../environment';
 import { ObjectCompiler } from '../object-compiler';
+import { ConnectorRunError } from './connector-run-error';
 
 //TODO: Question: Should this Connector be used to allow different Environment
 //instances to communicate? What would that mean or involve? Probably way to
 //specialised but food for thought at least
 
-export class Connector<C, S> extends Module<C, S> {
+export class Connector<C, S, I> extends Module<C, S> {
   async setup() {
     await this.setupTasks();
   }
@@ -37,27 +38,32 @@ export class Connector<C, S> extends Module<C, S> {
     };
   }
 
-  async runTask(task: TaskConfig, input: any, config: any): Promise<ConnectorContext> {
-    const context: ConnectorContext = {
-      env: this.env,
-      connector: {
-        input,
-        config
-      },
-      data: {},
-      errors: {}
+  async runTask(task: TaskConfig, input: I, config: any, data: any = {}, errors: TaskErrorMap = {}): Promise<ConnectorContext<I>> {
+    const context: ConnectorContext<I> = {
+      data,
+      errors,
+      connector: { input, config },
+      env: this.env
     };
-    const doer = this.env.getDoer(task.doer);
-    await doer.execute(context, task);
+    try {
+      const doer = this.env.getDoer(task.doer);
+      await doer.execute(context, task);
+    } catch(err) {
+      throw new ConnectorRunError(err.message, context);
+    }
     return context;
   }
 }
 
-export interface ConnectorContext extends Context {
+export interface ConnectorContext<I> extends Context {
   connector: {
-    input: any;
+    input: I;
     config: any;
   };
   data: any;
-  errors: { [taskName: string]: Error };
+  errors: TaskErrorMap;
+}
+
+export interface TaskErrorMap {
+  [taskName: string]: Error;
 }

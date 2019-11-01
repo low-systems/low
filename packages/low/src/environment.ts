@@ -44,7 +44,7 @@ export class Environment {
    * A collection of [[Connector]] modules. Connectors are gateways from
    * your application or external sources to run tasks in the `low` Environment
    */
-  private connectors: { [connectorName: string]: Connector<any, any> } = {
+  private connectors: { [connectorName: string]: Connector<any, any, any> } = {
     Connector: new Connector()
   };
 
@@ -210,7 +210,7 @@ export class Environment {
     return report;
   }
 
-  getConnector(name: string): Connector<any, any> {
+  getConnector(name: string): Connector<any, any, any> {
     if (!this.connectors.hasOwnProperty(name)) {
       throw new Error(`No Connector called '${name}' loaded`);
     }
@@ -283,7 +283,7 @@ export interface EnvironmentConfig {
 }
 
 export interface Modules {
-  connectors?: Connector<any, any>[];
+  connectors?: Connector<any, any, any>[];
   cacheManagers?: CacheManager<any, any>[];
   doers?: Doer<any, any>[];
   parsers?: Parser<any>[];
@@ -303,4 +303,5 @@ export interface TaskConfig {
   cacheConfig?: CacheConfig;
   connectorConfigs?: { [connectorName: string]: any };
   specialProperties?: string[];
+  throwError?: boolean;
 }

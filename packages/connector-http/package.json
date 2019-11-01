@@ -23,7 +23,14 @@
     "preset": "ts-jest"
   },
   "dependencies": {
+    "cookie": "^0.4.0",
+    "get-body": "^1.0.3",
+    "is-gzip": "^2.0.0",
     "low": "file:../low",
+    "pako": "^1.0.10",
     "url-pattern": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/pako": "^1.0.1"
   }
 }

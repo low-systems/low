@@ -1,7 +1,7 @@
 import UrlPattern = require("url-pattern");
 import { TaskConfig } from "low/src/environment";
 import { HttpVerbFlags, HttpVerb } from "./http-verbs";
-import { HttpTaskConfig } from "./connector-http";
+import { HttpTaskConfig, ErrorHandler, HeaderMap } from "./connector-http";
 export declare class Site {
     name: string;
     config: SiteConfig;
@@ -9,10 +9,12 @@ export declare class Site {
     constructor(name: string, config: SiteConfig);
     registerRoutes(task: TaskConfig, config: HttpTaskConfig): void;
     private routeMatchCache;
-    matchRoute(path: string, verb: HttpVerb): RouteMatch | void;
+    matchRoute(path: string, verb: HttpVerb): RouteMatch;
 }
 export interface SiteConfig {
     hostnames: string[];
+    errorHandlers?: ErrorHandler[];
+    responseHeaders?: HeaderMap;
 }
 export interface Route {
     urlPattern: UrlPattern;

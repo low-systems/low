@@ -5,7 +5,7 @@ import { ObjectCompiler } from '../object-compiler';
 import { CacheManager, CacheConfig, CacheKey } from '../cache-managers/cache-manager';
 
 export class Doer<C, S> extends Module<C, S> {
-  async execute(context: ConnectorContext, task: TaskConfig): Promise<void> {
+  async execute(context: ConnectorContext<any>, task: TaskConfig): Promise<void> {
     try {
       let cacheManager: CacheManager<any, any> | undefined;
       let cacheKey: CacheKey | undefined;
@@ -29,10 +29,13 @@ export class Doer<C, S> extends Module<C, S> {
       }
     } catch(err) {
       context.errors[task.name] = err;
+      if (task.throwError) {
+        throw err;
+      }
     }
   }
 
-  async main(context: ConnectorContext, taskConfig: TaskConfig, coreConfig: any): Promise<any> {
+  async main(context: ConnectorContext<any>, taskConfig: TaskConfig, coreConfig: any): Promise<any> {
     return coreConfig
   }
 }

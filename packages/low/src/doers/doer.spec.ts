@@ -21,7 +21,7 @@ test('should be able to execute doer and have input echoed', async () => {
     name: 'test-doer'
   };
 
-  const context: ConnectorContext = {
+  const context: ConnectorContext<any> = {
     env: env,
     connector: { config: {}, input: {} },
     data: {},
@@ -61,7 +61,7 @@ test('should be able to execute doer and have input cached and returned', async 
     name: 'test-doer'
   };
 
-  const context: ConnectorContext = {
+  const context: ConnectorContext<any> = {
     env: env,
     connector: { config: {}, input: {} },
     data: {},

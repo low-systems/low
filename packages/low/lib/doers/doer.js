@@ -25,6 +25,9 @@ class Doer extends module_1.Module {
         }
         catch (err) {
             context.errors[task.name] = err;
+            if (task.throwError) {
+                throw err;
+            }
         }
     }
     async main(context, taskConfig, coreConfig) {

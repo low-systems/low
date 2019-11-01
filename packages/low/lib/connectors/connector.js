@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const module_1 = require("../module");
 const object_compiler_1 = require("../object-compiler");
+const connector_run_error_1 = require("./connector-run-error");
 //TODO: Question: Should this Connector be used to allow different Environment
 //instances to communicate? What would that mean or involve? Probably way to
 //specialised but food for thought at least
@@ -33,18 +34,20 @@ class Connector extends module_1.Module {
             return output;
         };
     }
-    async runTask(task, input, config) {
+    async runTask(task, input, config, data = {}, errors = {}) {
         const context = {
-            env: this.env,
-            connector: {
-                input,
-                config
-            },
-            data: {},
-            errors: {}
+            data,
+            errors,
+            connector: { input, config },
+            env: this.env
         };
-        const doer = this.env.getDoer(task.doer);
-        await doer.execute(context, task);
+        try {
+            const doer = this.env.getDoer(task.doer);
+            await doer.execute(context, task);
+        }
+        catch (err) {
+            throw new connector_run_error_1.ConnectorRunError(err.message, context);
+        }
         return context;
     }
 }

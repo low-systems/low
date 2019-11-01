@@ -8,6 +8,7 @@
     "update-all-dependencies": "./scripts/update-all-dependencies.js"
   },
   "devDependencies": {
+    "@types/cookie": "^0.3.3",
     "@types/dot-object": "^1.7.0",
     "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.19",
@@ -22,6 +23,8 @@
     "typescript": "^3.6.4"
   },
   "dependencies": {
+    "@low-systems/connector-http": "file:packages/connector-http",
+    "@low-systems/example": "file:packages/example",
     "@low-systems/json-i": "file:packages/json-i",
     "low": "file:packages/low"
   },
