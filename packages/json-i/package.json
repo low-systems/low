@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "deepmerge": "^4.2.1",
-    "dot-object": "^1.9.0",
+    "dot-object": "^2.1.0",
     "glob": "^7.1.5",
     "handlebars": "^4.4.5",
     "json-6": "^1.0.2"
