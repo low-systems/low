@@ -11,11 +11,12 @@ import { Connector, TaskErrorMap, TaskConfig, ConnectorRunError, ObjectCompiler 
 import { Site, SiteMap, SiteConfig, Route } from './site';
 import { HttpVerb } from './http-verbs';
 import { HttpError } from './http-error';
+import { TLSSocket } from 'tls';
 
 const POSSIBLE_HTTPS_HEADERS = {
   'x-forwarded-proto': 'https',           //Recommended way for load balancers and proxies
   'front-end-https': 'on',                //Microsoft's way
-  'x-arr_ssl': true,                      //Another Microsoft way
+  'x-arr-ssl': true,                      //Another Microsoft way
   'cloudfront-forwarded-proto': 'https',  //Amazon's CloudFront way
   'x-forwarded-scheme': 'https',          //KeyCDN's way
   'x-forwarded-protocol': 'https',        //Some other ways
@@ -115,7 +116,11 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
     return foundSite;
   }
 
-  getRequestProtocol(request: Http.IncomingMessage) {
+  getRequestProtocol(request: Http.IncomingMessage): 'http' | 'https' {
+    if (request.socket.hasOwnProperty('encrypted') && (request.socket as TLSSocket).encrypted === true) {
+      return 'https';
+    }
+
     for (const [name, value] of Object.entries(POSSIBLE_HTTPS_HEADERS)) {
       if (typeof value === 'boolean' && request.headers[name]) {
         return 'https';
@@ -123,6 +128,7 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
         return 'https';
       }
     }
+
     return 'http';
   }
 
@@ -138,9 +144,9 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
     const query: any = {};
 
     const keys = url.searchParams.keys();
-    for (let key of Array.from(keys)) {
-      key = key.replace('[]', '');
-      query[key] = url.searchParams.getAll(key);
+    for (const key of Array.from(keys)) {
+      const preparedKey = key.replace('[]', '');
+      query[preparedKey] = url.searchParams.getAll(key);
     }
 
     return query;
@@ -148,9 +154,14 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
 
   async getRequestBody(request: Http.IncomingMessage) {
     try {
+      if (['GET', 'HEAD', 'DELETE'].includes(request.method || 'GET')) {
+        return {};
+      }
+
       if (!request.headers.hasOwnProperty('content-type')) {
         request.headers['content-type'] = 'text/plain';
       }
+
       const headers = request.headers as GetBody.Headers;
       const body = await GetBody.parse(request, headers);
       return body || {};
@@ -313,19 +324,11 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
 
   async destroy() {
     if (this.httpServer) {
-      this.httpServer.close((err) => {
-        if (err) {
-          console.error('Failed to close HTTP server', err);
-        }
-      });
+      this.httpServer.close();
     }
 
     if (this.httpsServer) {
-      this.httpsServer.close((err) => {
-        if (err) {
-          console.error('Failed to close HTTP server', err);
-        }
-      });
+      this.httpsServer.close();
     }
   }
 }

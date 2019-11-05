@@ -5,11 +5,44 @@
         serverOptions: {},
         port: 8888
       },
+      httpsOptions: {
+        serverOptions: {},
+        port: 9999
+      },
       sites: {
         default: {
-          hostnames: ['localhost']
+          hostnames: ['localhost'],
+          stripTrailingSlash: true,
+          errorHandlers: [
+            {
+              statusCodeMin: 404,
+              statusCodeMax: 404,
+              taskName: 'pageNotFound',
+              output: {
+                body: '404 - Page not found'
+              }
+            }
+          ]
         }
-      }
+      },
+      errorHandlers: [
+        {
+          statusCodeMin: 400,
+          statusCodeMax: 499,
+          taskName: 'requestErrorHandler',
+          output: {
+            body: 'REQUEST ERROR'
+          }
+        },
+        {
+          statusCodeMin: 500,
+          statusCodeMax: 599,
+          taskName: 'serverErrorHandler',
+          output: {
+            body: 'SERVER ERROR'
+          }
+        }
+      ]
     }
   }
 }

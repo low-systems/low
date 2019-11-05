@@ -27,7 +27,13 @@ export class Site {
   //IDEA: Perhaps use a CacheManager here
   private routeMatchCache: RouteMatchCache = {};
   matchRoute(path: string, verb: HttpVerb): RouteMatch {
-    const routeCacheKey = `${verb}: ${path}`;
+    let preparedPath = path;
+
+    if (path.length > 1 && this.config.stripTrailingSlash && path.endsWith('/')) {
+      preparedPath = path.slice(0, -1);
+    }
+
+    const routeCacheKey = `${verb}: ${preparedPath}`;
     if (this.routeMatchCache.hasOwnProperty(routeCacheKey)) {
       return this.routeMatchCache[routeCacheKey];
     }
@@ -37,7 +43,7 @@ export class Site {
     const routeMatches: RouteMatch[] = [];
     for (const route of this.routes) {
       if ((verbFlag & route.verbs) === verbFlag) {
-        const match = route.urlPattern.match(path);
+        const match = route.urlPattern.match(preparedPath);
         if (match) {
           routeMatches.push({
             route,
@@ -62,6 +68,7 @@ export interface SiteConfig {
   hostnames: string[];
   errorHandlers?: ErrorHandler[];
   responseHeaders?: HeaderMap;
+  stripTrailingSlash?: Boolean;
 }
 
 export interface Route {

@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@low-systems/json-i": "file:../json-i",
-    "@types/pako": "^1.0.1"
+    "@types/pako": "^1.0.1",
+    "readable-mock-req": "^0.2.2"
   }
 }
