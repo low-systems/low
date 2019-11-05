@@ -29,21 +29,21 @@ export class Module<C, S> {
     return this.constructor.name;
   }
 
-  protected ready: boolean = false;
+  private _ready: boolean = false;
   get isReady(): boolean {
-    return this.ready;
+    return this._ready;
   }
 
   async init(env: Environment): Promise<void> {
-    if (this.ready) {
+    if (this._ready) {
       await this.destroy();
-      this.ready = false;
+      this._ready = false;
     }
     this._env = env;
     this._config = env.config.modules && env.config.modules[this.moduleType] || {};
     this._secrets = env.secrets.modules && env.secrets.modules[this.moduleType] || {};
     await this.setup();
-    this.ready = true;
+    this._ready = true;
   }
 
   async setup(): Promise<void> { return; };

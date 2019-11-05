@@ -5,7 +5,7 @@
 	"flags": {},
 	"children": [
 		{
-			"id": 112,
+			"id": 111,
 			"name": "\"cache-managers/cache-manager\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -15,7 +15,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/cache-managers/cache-manager.ts",
 			"children": [
 				{
-					"id": 113,
+					"id": 112,
 					"name": "CacheManager",
 					"kind": 128,
 					"kindString": "Class",
@@ -24,14 +24,14 @@
 					},
 					"typeParameter": [
 						{
-							"id": 114,
+							"id": 113,
 							"name": "C",
 							"kind": 131072,
 							"kindString": "Type parameter",
 							"flags": {}
 						},
 						{
-							"id": 115,
+							"id": 114,
 							"name": "S",
 							"kind": 131072,
 							"kindString": "Type parameter",
@@ -40,7 +40,7 @@
 					],
 					"children": [
 						{
-							"id": 116,
+							"id": 115,
 							"name": "_CACHE",
 							"kind": 1024,
 							"kindString": "Property",
@@ -58,38 +58,11 @@
 							"type": {
 								"type": "reference",
 								"name": "MemoryCache",
-								"id": 160
+								"id": 158
 							}
 						},
 						{
-							"id": 142,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
-						{
-							"id": 117,
+							"id": 116,
 							"name": "CACHE",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -98,7 +71,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 118,
+									"id": 117,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -106,7 +79,7 @@
 									"type": {
 										"type": "reference",
 										"name": "MemoryCache",
-										"id": 160
+										"id": 158
 									}
 								}
 							],
@@ -119,7 +92,7 @@
 							]
 						},
 						{
-							"id": 136,
+							"id": 135,
 							"name": "config",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -128,7 +101,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 137,
+									"id": 136,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -158,7 +131,7 @@
 							}
 						},
 						{
-							"id": 134,
+							"id": 133,
 							"name": "env",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -167,7 +140,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 135,
+									"id": 134,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -175,7 +148,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -198,7 +171,7 @@
 							}
 						},
 						{
-							"id": 143,
+							"id": 141,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -207,7 +180,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 144,
+									"id": 142,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -237,7 +210,7 @@
 							}
 						},
 						{
-							"id": 140,
+							"id": 139,
 							"name": "moduleType",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -246,7 +219,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 141,
+									"id": 140,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -276,7 +249,7 @@
 							}
 						},
 						{
-							"id": 138,
+							"id": 137,
 							"name": "secrets",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -285,7 +258,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 139,
+									"id": 138,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -315,7 +288,7 @@
 							}
 						},
 						{
-							"id": 131,
+							"id": 130,
 							"name": "bust",
 							"kind": 2048,
 							"kindString": "Method",
@@ -324,14 +297,14 @@
 							},
 							"signatures": [
 								{
-									"id": 132,
+									"id": 131,
 									"name": "bust",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 133,
+											"id": 132,
 											"name": "partition",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -363,7 +336,7 @@
 							]
 						},
 						{
-							"id": 150,
+							"id": 148,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -372,7 +345,7 @@
 							},
 							"signatures": [
 								{
-									"id": 151,
+									"id": 149,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -408,7 +381,7 @@
 							}
 						},
 						{
-							"id": 123,
+							"id": 122,
 							"name": "getItem",
 							"kind": 2048,
 							"kindString": "Method",
@@ -417,14 +390,14 @@
 							},
 							"signatures": [
 								{
-									"id": 124,
+									"id": 123,
 									"name": "getItem",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 125,
+											"id": 124,
 											"name": "cacheKey",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -432,7 +405,7 @@
 											"type": {
 												"type": "reference",
 												"name": "CacheKey",
-												"id": 157
+												"id": 155
 											}
 										}
 									],
@@ -457,7 +430,7 @@
 							]
 						},
 						{
-							"id": 145,
+							"id": 143,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -466,14 +439,14 @@
 							},
 							"signatures": [
 								{
-									"id": 146,
+									"id": 144,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 147,
+											"id": 145,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -481,7 +454,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -516,7 +489,7 @@
 							}
 						},
 						{
-							"id": 119,
+							"id": 118,
 							"name": "makeKey",
 							"kind": 2048,
 							"kindString": "Method",
@@ -525,14 +498,14 @@
 							},
 							"signatures": [
 								{
-									"id": 120,
+									"id": 119,
 									"name": "makeKey",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 121,
+											"id": 120,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -540,11 +513,11 @@
 											"type": {
 												"type": "reference",
 												"name": "CacheConfig",
-												"id": 152
+												"id": 150
 											}
 										},
 										{
-											"id": 122,
+											"id": 121,
 											"name": "context",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -552,7 +525,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Context",
-												"id": 582
+												"id": 569
 											}
 										}
 									],
@@ -563,7 +536,7 @@
 											{
 												"type": "reference",
 												"name": "CacheKey",
-												"id": 157
+												"id": 155
 											}
 										]
 									}
@@ -578,7 +551,7 @@
 							]
 						},
 						{
-							"id": 126,
+							"id": 125,
 							"name": "setItem",
 							"kind": 2048,
 							"kindString": "Method",
@@ -587,14 +560,14 @@
 							},
 							"signatures": [
 								{
-									"id": 127,
+									"id": 126,
 									"name": "setItem",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 128,
+											"id": 127,
 											"name": "cacheKey",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -602,11 +575,11 @@
 											"type": {
 												"type": "reference",
 												"name": "CacheKey",
-												"id": 157
+												"id": 155
 											}
 										},
 										{
-											"id": 129,
+											"id": 128,
 											"name": "item",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -617,7 +590,7 @@
 											}
 										},
 										{
-											"id": 130,
+											"id": 129,
 											"name": "ttl",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -649,7 +622,7 @@
 							]
 						},
 						{
-							"id": 148,
+							"id": 146,
 							"name": "setup",
 							"kind": 2048,
 							"kindString": "Method",
@@ -658,7 +631,7 @@
 							},
 							"signatures": [
 								{
-									"id": 149,
+									"id": 147,
 									"name": "setup",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -699,33 +672,32 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								116,
-								142
+								115
 							]
 						},
 						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								117,
-								136,
-								134,
-								143,
-								140,
-								138
+								116,
+								135,
+								133,
+								141,
+								139,
+								137
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								131,
-								150,
-								123,
-								145,
-								119,
-								126,
-								148
+								130,
+								148,
+								122,
+								143,
+								118,
+								125,
+								146
 							]
 						}
 					],
@@ -755,7 +727,7 @@
 					]
 				},
 				{
-					"id": 152,
+					"id": 150,
 					"name": "CacheConfig",
 					"kind": 256,
 					"kindString": "Interface",
@@ -764,7 +736,7 @@
 					},
 					"children": [
 						{
-							"id": 153,
+							"id": 151,
 							"name": "cacheManager",
 							"kind": 1024,
 							"kindString": "Property",
@@ -784,7 +756,7 @@
 							}
 						},
 						{
-							"id": 154,
+							"id": 152,
 							"name": "keyProperties",
 							"kind": 1024,
 							"kindString": "Property",
@@ -807,7 +779,7 @@
 							}
 						},
 						{
-							"id": 155,
+							"id": 153,
 							"name": "partition",
 							"kind": 1024,
 							"kindString": "Property",
@@ -827,7 +799,7 @@
 							}
 						},
 						{
-							"id": 156,
+							"id": 154,
 							"name": "ttl",
 							"kind": 1024,
 							"kindString": "Property",
@@ -852,10 +824,10 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
+								151,
+								152,
 								153,
-								154,
-								155,
-								156
+								154
 							]
 						}
 					],
@@ -868,7 +840,7 @@
 					]
 				},
 				{
-					"id": 157,
+					"id": 155,
 					"name": "CacheKey",
 					"kind": 256,
 					"kindString": "Interface",
@@ -877,7 +849,7 @@
 					},
 					"children": [
 						{
-							"id": 159,
+							"id": 157,
 							"name": "key",
 							"kind": 1024,
 							"kindString": "Property",
@@ -906,7 +878,7 @@
 							}
 						},
 						{
-							"id": 158,
+							"id": 156,
 							"name": "partition",
 							"kind": 1024,
 							"kindString": "Property",
@@ -940,8 +912,8 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								159,
-								158
+								157,
+								156
 							]
 						}
 					],
@@ -954,7 +926,7 @@
 					]
 				},
 				{
-					"id": 160,
+					"id": 158,
 					"name": "MemoryCache",
 					"kind": 256,
 					"kindString": "Interface",
@@ -963,14 +935,14 @@
 					},
 					"indexSignature": [
 						{
-							"id": 161,
+							"id": 159,
 							"name": "__index",
 							"kind": 8192,
 							"kindString": "Index signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 162,
+									"id": 160,
 									"name": "partition",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -984,21 +956,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 163,
+									"id": 161,
 									"name": "__type",
 									"kind": 65536,
 									"kindString": "Type literal",
 									"flags": {},
 									"indexSignature": [
 										{
-											"id": 164,
+											"id": 162,
 											"name": "__index",
 											"kind": 8192,
 											"kindString": "Index signature",
 											"flags": {},
 											"parameters": [
 												{
-													"id": 165,
+													"id": 163,
 													"name": "key",
 													"kind": 32768,
 													"kindString": "Parameter",
@@ -1012,7 +984,7 @@
 											"type": {
 												"type": "reference",
 												"name": "MemoryCacheItem",
-												"id": 166
+												"id": 164
 											}
 										}
 									],
@@ -1036,7 +1008,7 @@
 					]
 				},
 				{
-					"id": 166,
+					"id": 164,
 					"name": "MemoryCacheItem",
 					"kind": 256,
 					"kindString": "Interface",
@@ -1045,7 +1017,7 @@
 					},
 					"children": [
 						{
-							"id": 168,
+							"id": 166,
 							"name": "created",
 							"kind": 1024,
 							"kindString": "Property",
@@ -1065,7 +1037,7 @@
 							}
 						},
 						{
-							"id": 167,
+							"id": 165,
 							"name": "data",
 							"kind": 1024,
 							"kindString": "Property",
@@ -1085,7 +1057,7 @@
 							}
 						},
 						{
-							"id": 170,
+							"id": 168,
 							"name": "expires",
 							"kind": 1024,
 							"kindString": "Property",
@@ -1105,7 +1077,7 @@
 							}
 						},
 						{
-							"id": 171,
+							"id": 169,
 							"name": "touched",
 							"kind": 1024,
 							"kindString": "Property",
@@ -1125,7 +1097,7 @@
 							}
 						},
 						{
-							"id": 169,
+							"id": 167,
 							"name": "updated",
 							"kind": 1024,
 							"kindString": "Property",
@@ -1150,11 +1122,11 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
+								166,
+								165,
 								168,
-								167,
-								170,
-								171,
-								169
+								169,
+								167
 							]
 						}
 					],
@@ -1172,17 +1144,17 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						113
+						112
 					]
 				},
 				{
 					"title": "Interfaces",
 					"kind": 256,
 					"children": [
-						152,
-						157,
-						160,
-						166
+						150,
+						155,
+						158,
+						164
 					]
 				}
 			],
@@ -1236,33 +1208,6 @@
 						}
 					],
 					"children": [
-						{
-							"id": 91,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
 						{
 							"id": 85,
 							"name": "config",
@@ -1320,7 +1265,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -1343,7 +1288,7 @@
 							}
 						},
 						{
-							"id": 92,
+							"id": 91,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -1352,7 +1297,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 93,
+									"id": 92,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -1460,7 +1405,7 @@
 							}
 						},
 						{
-							"id": 97,
+							"id": 96,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -1469,7 +1414,7 @@
 							},
 							"signatures": [
 								{
-									"id": 98,
+									"id": 97,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -1505,7 +1450,7 @@
 							}
 						},
 						{
-							"id": 94,
+							"id": 93,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -1514,14 +1459,14 @@
 							},
 							"signatures": [
 								{
-									"id": 95,
+									"id": 94,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 96,
+											"id": 95,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -1529,7 +1474,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -1588,7 +1533,7 @@
 											"type": {
 												"type": "reference",
 												"name": "TaskConfig",
-												"id": 585
+												"id": 572
 											}
 										},
 										{
@@ -1634,7 +1579,7 @@
 											"type": {
 												"type": "reference",
 												"name": "TaskErrorMap",
-												"id": 109
+												"id": 108
 											},
 											"defaultValue": " {}"
 										}
@@ -1646,7 +1591,7 @@
 											{
 												"type": "reference",
 												"name": "ConnectorContext",
-												"id": 99,
+												"id": 98,
 												"typeArguments": [
 													{
 														"type": "typeParameter",
@@ -1736,7 +1681,7 @@
 											"type": {
 												"type": "reference",
 												"name": "TaskConfig",
-												"id": 585
+												"id": 572
 											}
 										},
 										{
@@ -1809,19 +1754,12 @@
 					],
 					"groups": [
 						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								91
-							]
-						},
-						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
 								85,
 								83,
-								92,
+								91,
 								89,
 								87
 							]
@@ -1830,8 +1768,8 @@
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								97,
-								94,
+								96,
+								93,
 								76,
 								68,
 								72,
@@ -1865,7 +1803,7 @@
 					]
 				},
 				{
-					"id": 99,
+					"id": 98,
 					"name": "ConnectorContext",
 					"kind": 256,
 					"kindString": "Interface",
@@ -1874,7 +1812,7 @@
 					},
 					"typeParameter": [
 						{
-							"id": 100,
+							"id": 99,
 							"name": "I",
 							"kind": 131072,
 							"kindString": "Type parameter",
@@ -1883,7 +1821,7 @@
 					],
 					"children": [
 						{
-							"id": 101,
+							"id": 100,
 							"name": "connector",
 							"kind": 1024,
 							"kindString": "Property",
@@ -1900,14 +1838,14 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 102,
+									"id": 101,
 									"name": "__type",
 									"kind": 65536,
 									"kindString": "Type literal",
 									"flags": {},
 									"children": [
 										{
-											"id": 104,
+											"id": 103,
 											"name": "config",
 											"kind": 32,
 											"kindString": "Variable",
@@ -1925,7 +1863,7 @@
 											}
 										},
 										{
-											"id": 103,
+											"id": 102,
 											"name": "input",
 											"kind": 32,
 											"kindString": "Variable",
@@ -1948,8 +1886,8 @@
 											"title": "Variables",
 											"kind": 32,
 											"children": [
-												104,
-												103
+												103,
+												102
 											]
 										}
 									],
@@ -1964,7 +1902,7 @@
 							}
 						},
 						{
-							"id": 105,
+							"id": 104,
 							"name": "data",
 							"kind": 1024,
 							"kindString": "Property",
@@ -1984,7 +1922,7 @@
 							}
 						},
 						{
-							"id": 108,
+							"id": 107,
 							"name": "debug",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2019,11 +1957,11 @@
 							"inheritedFrom": {
 								"type": "reference",
 								"name": "Context.debug",
-								"id": 584
+								"id": 571
 							}
 						},
 						{
-							"id": 107,
+							"id": 106,
 							"name": "env",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2040,16 +1978,16 @@
 							"type": {
 								"type": "reference",
 								"name": "Environment",
-								"id": 513
+								"id": 500
 							},
 							"inheritedFrom": {
 								"type": "reference",
 								"name": "Context.env",
-								"id": 583
+								"id": 570
 							}
 						},
 						{
-							"id": 106,
+							"id": 105,
 							"name": "errors",
 							"kind": 1024,
 							"kindString": "Property",
@@ -2066,7 +2004,7 @@
 							"type": {
 								"type": "reference",
 								"name": "TaskErrorMap",
-								"id": 109
+								"id": 108
 							}
 						}
 					],
@@ -2075,11 +2013,11 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								101,
-								105,
-								108,
+								100,
+								104,
 								107,
-								106
+								106,
+								105
 							]
 						}
 					],
@@ -2094,12 +2032,12 @@
 						{
 							"type": "reference",
 							"name": "Context",
-							"id": 582
+							"id": 569
 						}
 					]
 				},
 				{
-					"id": 109,
+					"id": 108,
 					"name": "TaskErrorMap",
 					"kind": 256,
 					"kindString": "Interface",
@@ -2108,14 +2046,14 @@
 					},
 					"indexSignature": [
 						{
-							"id": 110,
+							"id": 109,
 							"name": "__index",
 							"kind": 8192,
 							"kindString": "Index signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 111,
+									"id": 110,
 									"name": "taskName",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -2153,8 +2091,8 @@
 					"title": "Interfaces",
 					"kind": 256,
 					"children": [
-						99,
-						109
+						98,
+						108
 					]
 				}
 			],
@@ -2221,7 +2159,7 @@
 											"type": {
 												"type": "reference",
 												"name": "ConnectorContext",
-												"id": 99,
+												"id": 98,
 												"typeArguments": [
 													{
 														"type": "intrinsic",
@@ -2266,7 +2204,7 @@
 							"type": {
 								"type": "reference",
 								"name": "ConnectorContext",
-								"id": 99,
+								"id": 98,
 								"typeArguments": [
 									{
 										"type": "intrinsic",
@@ -2436,7 +2374,7 @@
 			]
 		},
 		{
-			"id": 172,
+			"id": 170,
 			"name": "\"doers/doer\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -2446,7 +2384,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/doers/doer.ts",
 			"children": [
 				{
-					"id": 173,
+					"id": 171,
 					"name": "Doer",
 					"kind": 128,
 					"kindString": "Class",
@@ -2455,14 +2393,14 @@
 					},
 					"typeParameter": [
 						{
-							"id": 174,
+							"id": 172,
 							"name": "C",
 							"kind": 131072,
 							"kindString": "Type parameter",
 							"flags": {}
 						},
 						{
-							"id": 175,
+							"id": 173,
 							"name": "S",
 							"kind": 131072,
 							"kindString": "Type parameter",
@@ -2471,34 +2409,7 @@
 					],
 					"children": [
 						{
-							"id": 193,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
-						{
-							"id": 187,
+							"id": 185,
 							"name": "config",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -2507,7 +2418,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 188,
+									"id": 186,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -2537,7 +2448,7 @@
 							}
 						},
 						{
-							"id": 185,
+							"id": 183,
 							"name": "env",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -2546,7 +2457,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 186,
+									"id": 184,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -2554,7 +2465,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -2577,7 +2488,7 @@
 							}
 						},
 						{
-							"id": 194,
+							"id": 191,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -2586,7 +2497,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 195,
+									"id": 192,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -2616,7 +2527,7 @@
 							}
 						},
 						{
-							"id": 191,
+							"id": 189,
 							"name": "moduleType",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -2625,7 +2536,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 192,
+									"id": 190,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -2655,7 +2566,7 @@
 							}
 						},
 						{
-							"id": 189,
+							"id": 187,
 							"name": "secrets",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -2664,7 +2575,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 190,
+									"id": 188,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -2694,7 +2605,7 @@
 							}
 						},
 						{
-							"id": 201,
+							"id": 198,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -2703,7 +2614,7 @@
 							},
 							"signatures": [
 								{
-									"id": 202,
+									"id": 199,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -2739,7 +2650,7 @@
 							}
 						},
 						{
-							"id": 176,
+							"id": 174,
 							"name": "execute",
 							"kind": 2048,
 							"kindString": "Method",
@@ -2748,14 +2659,14 @@
 							},
 							"signatures": [
 								{
-									"id": 177,
+									"id": 175,
 									"name": "execute",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 178,
+											"id": 176,
 											"name": "context",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -2763,7 +2674,7 @@
 											"type": {
 												"type": "reference",
 												"name": "ConnectorContext",
-												"id": 99,
+												"id": 98,
 												"typeArguments": [
 													{
 														"type": "intrinsic",
@@ -2773,7 +2684,7 @@
 											}
 										},
 										{
-											"id": 179,
+											"id": 177,
 											"name": "task",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -2781,7 +2692,7 @@
 											"type": {
 												"type": "reference",
 												"name": "TaskConfig",
-												"id": 585
+												"id": 572
 											}
 										}
 									],
@@ -2806,7 +2717,7 @@
 							]
 						},
 						{
-							"id": 196,
+							"id": 193,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -2815,14 +2726,14 @@
 							},
 							"signatures": [
 								{
-									"id": 197,
+									"id": 194,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 198,
+											"id": 195,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -2830,7 +2741,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -2865,7 +2776,7 @@
 							}
 						},
 						{
-							"id": 180,
+							"id": 178,
 							"name": "main",
 							"kind": 2048,
 							"kindString": "Method",
@@ -2874,14 +2785,14 @@
 							},
 							"signatures": [
 								{
-									"id": 181,
+									"id": 179,
 									"name": "main",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 182,
+											"id": 180,
 											"name": "context",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -2889,7 +2800,7 @@
 											"type": {
 												"type": "reference",
 												"name": "ConnectorContext",
-												"id": 99,
+												"id": 98,
 												"typeArguments": [
 													{
 														"type": "intrinsic",
@@ -2899,7 +2810,7 @@
 											}
 										},
 										{
-											"id": 183,
+											"id": 181,
 											"name": "taskConfig",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -2907,11 +2818,11 @@
 											"type": {
 												"type": "reference",
 												"name": "TaskConfig",
-												"id": 585
+												"id": 572
 											}
 										},
 										{
-											"id": 184,
+											"id": 182,
 											"name": "coreConfig",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -2943,7 +2854,7 @@
 							]
 						},
 						{
-							"id": 199,
+							"id": 196,
 							"name": "setup",
 							"kind": 2048,
 							"kindString": "Method",
@@ -2952,7 +2863,7 @@
 							},
 							"signatures": [
 								{
-									"id": 200,
+									"id": 197,
 									"name": "setup",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -2990,32 +2901,25 @@
 					],
 					"groups": [
 						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								193
-							]
-						},
-						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								187,
 								185,
-								194,
+								183,
 								191,
-								189
+								189,
+								187
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								201,
-								176,
-								196,
-								180,
-								199
+								198,
+								174,
+								193,
+								178,
+								196
 							]
 						}
 					],
@@ -3047,7 +2951,7 @@
 						{
 							"type": "reference",
 							"name": "MultiDoer",
-							"id": 476
+							"id": 464
 						}
 					]
 				}
@@ -3057,7 +2961,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						173
+						171
 					]
 				}
 			],
@@ -3070,7 +2974,7 @@
 			]
 		},
 		{
-			"id": 475,
+			"id": 463,
 			"name": "\"doers/multi-doer\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -3080,7 +2984,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/doers/multi-doer.ts",
 			"children": [
 				{
-					"id": 476,
+					"id": 464,
 					"name": "MultiDoer",
 					"kind": 128,
 					"kindString": "Class",
@@ -3089,14 +2993,14 @@
 					},
 					"typeParameter": [
 						{
-							"id": 477,
+							"id": 465,
 							"name": "C",
 							"kind": 131072,
 							"kindString": "Type parameter",
 							"flags": {}
 						},
 						{
-							"id": 478,
+							"id": 466,
 							"name": "S",
 							"kind": 131072,
 							"kindString": "Type parameter",
@@ -3105,34 +3009,7 @@
 					],
 					"children": [
 						{
-							"id": 496,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
-						{
-							"id": 490,
+							"id": 478,
 							"name": "config",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -3141,7 +3018,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 491,
+									"id": 479,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -3171,7 +3048,7 @@
 							}
 						},
 						{
-							"id": 488,
+							"id": 476,
 							"name": "env",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -3180,7 +3057,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 489,
+									"id": 477,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -3188,7 +3065,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -3211,7 +3088,7 @@
 							}
 						},
 						{
-							"id": 497,
+							"id": 484,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -3220,7 +3097,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 498,
+									"id": 485,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -3250,7 +3127,7 @@
 							}
 						},
 						{
-							"id": 494,
+							"id": 482,
 							"name": "moduleType",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -3259,7 +3136,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 495,
+									"id": 483,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -3289,7 +3166,7 @@
 							}
 						},
 						{
-							"id": 492,
+							"id": 480,
 							"name": "secrets",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -3298,7 +3175,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 493,
+									"id": 481,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -3328,7 +3205,7 @@
 							}
 						},
 						{
-							"id": 504,
+							"id": 491,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3337,7 +3214,7 @@
 							},
 							"signatures": [
 								{
-									"id": 505,
+									"id": 492,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3373,7 +3250,7 @@
 							}
 						},
 						{
-							"id": 484,
+							"id": 472,
 							"name": "execute",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3382,14 +3259,14 @@
 							},
 							"signatures": [
 								{
-									"id": 485,
+									"id": 473,
 									"name": "execute",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 486,
+											"id": 474,
 											"name": "context",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3397,7 +3274,7 @@
 											"type": {
 												"type": "reference",
 												"name": "ConnectorContext",
-												"id": 99,
+												"id": 98,
 												"typeArguments": [
 													{
 														"type": "intrinsic",
@@ -3407,7 +3284,7 @@
 											}
 										},
 										{
-											"id": 487,
+											"id": 475,
 											"name": "task",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3415,7 +3292,7 @@
 											"type": {
 												"type": "reference",
 												"name": "TaskConfig",
-												"id": 585
+												"id": 572
 											}
 										}
 									],
@@ -3432,7 +3309,7 @@
 									"inheritedFrom": {
 										"type": "reference",
 										"name": "Doer.execute",
-										"id": 176
+										"id": 174
 									}
 								}
 							],
@@ -3446,11 +3323,11 @@
 							"inheritedFrom": {
 								"type": "reference",
 								"name": "Doer.execute",
-								"id": 176
+								"id": 174
 							}
 						},
 						{
-							"id": 499,
+							"id": 486,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3459,14 +3336,14 @@
 							},
 							"signatures": [
 								{
-									"id": 500,
+									"id": 487,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 501,
+											"id": 488,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3474,7 +3351,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -3509,7 +3386,7 @@
 							}
 						},
 						{
-							"id": 479,
+							"id": 467,
 							"name": "main",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3518,14 +3395,14 @@
 							},
 							"signatures": [
 								{
-									"id": 480,
+									"id": 468,
 									"name": "main",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 481,
+											"id": 469,
 											"name": "context",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3533,7 +3410,7 @@
 											"type": {
 												"type": "reference",
 												"name": "ConnectorContext",
-												"id": 99,
+												"id": 98,
 												"typeArguments": [
 													{
 														"type": "intrinsic",
@@ -3543,7 +3420,7 @@
 											}
 										},
 										{
-											"id": 482,
+											"id": 470,
 											"name": "taskConfig",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3551,11 +3428,11 @@
 											"type": {
 												"type": "reference",
 												"name": "TaskConfig",
-												"id": 585
+												"id": 572
 											}
 										},
 										{
-											"id": 483,
+											"id": 471,
 											"name": "multiDoerTasks",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3565,7 +3442,7 @@
 												"elementType": {
 													"type": "reference",
 													"name": "MultiDoerTask",
-													"id": 506
+													"id": 493
 												}
 											}
 										}
@@ -3583,7 +3460,7 @@
 									"overwrites": {
 										"type": "reference",
 										"name": "Doer.main",
-										"id": 180
+										"id": 178
 									}
 								}
 							],
@@ -3597,11 +3474,11 @@
 							"overwrites": {
 								"type": "reference",
 								"name": "Doer.main",
-								"id": 180
+								"id": 178
 							}
 						},
 						{
-							"id": 502,
+							"id": 489,
 							"name": "setup",
 							"kind": 2048,
 							"kindString": "Method",
@@ -3610,7 +3487,7 @@
 							},
 							"signatures": [
 								{
-									"id": 503,
+									"id": 490,
 									"name": "setup",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -3648,32 +3525,25 @@
 					],
 					"groups": [
 						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								496
-							]
-						},
-						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								490,
-								488,
-								497,
-								494,
-								492
+								478,
+								476,
+								484,
+								482,
+								480
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								504,
-								484,
-								499,
-								479,
-								502
+								491,
+								472,
+								486,
+								467,
+								489
 							]
 						}
 					],
@@ -3688,7 +3558,7 @@
 						{
 							"type": "reference",
 							"name": "Doer",
-							"id": 173,
+							"id": 171,
 							"typeArguments": [
 								{
 									"type": "typeParameter",
@@ -3703,7 +3573,7 @@
 					]
 				},
 				{
-					"id": 509,
+					"id": 496,
 					"name": "BranchConfig",
 					"kind": 256,
 					"kindString": "Interface",
@@ -3712,7 +3582,7 @@
 					},
 					"children": [
 						{
-							"id": 511,
+							"id": 498,
 							"name": "haltAfterExecution",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3732,7 +3602,7 @@
 							}
 						},
 						{
-							"id": 510,
+							"id": 497,
 							"name": "taskName",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3757,8 +3627,8 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								511,
-								510
+								498,
+								497
 							]
 						}
 					],
@@ -3771,7 +3641,7 @@
 					]
 				},
 				{
-					"id": 506,
+					"id": 493,
 					"name": "MultiDoerTask",
 					"kind": 256,
 					"kindString": "Interface",
@@ -3780,7 +3650,7 @@
 					},
 					"children": [
 						{
-							"id": 508,
+							"id": 495,
 							"name": "branch",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3801,7 +3671,7 @@
 							}
 						},
 						{
-							"id": 507,
+							"id": 494,
 							"name": "task",
 							"kind": 1024,
 							"kindString": "Property",
@@ -3818,7 +3688,7 @@
 							"type": {
 								"type": "reference",
 								"name": "TaskConfig",
-								"id": 585
+								"id": 572
 							}
 						}
 					],
@@ -3827,8 +3697,8 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								508,
-								507
+								495,
+								494
 							]
 						}
 					],
@@ -3846,15 +3716,15 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						476
+						464
 					]
 				},
 				{
 					"title": "Interfaces",
 					"kind": 256,
 					"children": [
-						509,
-						506
+						496,
+						493
 					]
 				}
 			],
@@ -3867,7 +3737,7 @@
 			]
 		},
 		{
-			"id": 512,
+			"id": 499,
 			"name": "\"environment\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -3877,7 +3747,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/environment.ts",
 			"children": [
 				{
-					"id": 513,
+					"id": 500,
 					"name": "Environment",
 					"kind": 128,
 					"kindString": "Class",
@@ -3889,7 +3759,7 @@
 					},
 					"children": [
 						{
-							"id": 539,
+							"id": 526,
 							"name": "constructor",
 							"kind": 512,
 							"kindString": "Constructor",
@@ -3901,7 +3771,7 @@
 							},
 							"signatures": [
 								{
-									"id": 541,
+									"id": 528,
 									"name": "new Environment",
 									"kind": 16384,
 									"kindString": "Constructor signature",
@@ -3911,7 +3781,7 @@
 									},
 									"parameters": [
 										{
-											"id": 542,
+											"id": 529,
 											"name": "modules",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3922,11 +3792,11 @@
 											"type": {
 												"type": "reference",
 												"name": "Modules",
-												"id": 576
+												"id": 563
 											}
 										},
 										{
-											"id": 543,
+											"id": 530,
 											"name": "tasks",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3939,12 +3809,12 @@
 												"elementType": {
 													"type": "reference",
 													"name": "TaskConfig",
-													"id": 585
+													"id": 572
 												}
 											}
 										},
 										{
-											"id": 544,
+											"id": 531,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3955,11 +3825,11 @@
 											"type": {
 												"type": "reference",
 												"name": "EnvironmentConfig",
-												"id": 571
+												"id": 558
 											}
 										},
 										{
-											"id": 545,
+											"id": 532,
 											"name": "secretsName",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -3977,7 +3847,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									}
 								}
 							],
@@ -3990,7 +3860,7 @@
 							]
 						},
 						{
-							"id": 540,
+							"id": 527,
 							"name": "config",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4012,11 +3882,11 @@
 							"type": {
 								"type": "reference",
 								"name": "EnvironmentConfig",
-								"id": 571
+								"id": 558
 							}
 						},
 						{
-							"id": 519,
+							"id": 506,
 							"name": "ready",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4041,7 +3911,7 @@
 							"defaultValue": "false"
 						},
 						{
-							"id": 518,
+							"id": 505,
 							"name": "secrets",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4061,11 +3931,11 @@
 							"type": {
 								"type": "reference",
 								"name": "EnvironmentConfig",
-								"id": 571
+								"id": 558
 							}
 						},
 						{
-							"id": 514,
+							"id": 501,
 							"name": "tasks",
 							"kind": 1024,
 							"kindString": "Property",
@@ -4085,21 +3955,21 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 515,
+									"id": 502,
 									"name": "__type",
 									"kind": 65536,
 									"kindString": "Type literal",
 									"flags": {},
 									"indexSignature": [
 										{
-											"id": 516,
+											"id": 503,
 											"name": "__index",
 											"kind": 8192,
 											"kindString": "Index signature",
 											"flags": {},
 											"parameters": [
 												{
-													"id": 517,
+													"id": 504,
 													"name": "taskName",
 													"kind": 32768,
 													"kindString": "Parameter",
@@ -4113,7 +3983,7 @@
 											"type": {
 												"type": "reference",
 												"name": "TaskConfig",
-												"id": 585
+												"id": 572
 											}
 										}
 									],
@@ -4128,7 +3998,7 @@
 							}
 						},
 						{
-							"id": 520,
+							"id": 507,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -4140,7 +4010,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 521,
+									"id": 508,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -4163,7 +4033,7 @@
 							]
 						},
 						{
-							"id": 551,
+							"id": 538,
 							"name": "checkTasks",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4172,7 +4042,7 @@
 							},
 							"signatures": [
 								{
-									"id": 552,
+									"id": 539,
 									"name": "checkTasks",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -4201,7 +4071,7 @@
 							]
 						},
 						{
-							"id": 556,
+							"id": 543,
 							"name": "getCacheManager",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4210,14 +4080,14 @@
 							},
 							"signatures": [
 								{
-									"id": 557,
+									"id": 544,
 									"name": "getCacheManager",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 558,
+											"id": 545,
 											"name": "name",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4231,7 +4101,7 @@
 									"type": {
 										"type": "reference",
 										"name": "CacheManager",
-										"id": 113,
+										"id": 112,
 										"typeArguments": [
 											{
 												"type": "intrinsic",
@@ -4254,7 +4124,7 @@
 							]
 						},
 						{
-							"id": 553,
+							"id": 540,
 							"name": "getConnector",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4263,14 +4133,14 @@
 							},
 							"signatures": [
 								{
-									"id": 554,
+									"id": 541,
 									"name": "getConnector",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 555,
+											"id": 542,
 											"name": "name",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4311,7 +4181,7 @@
 							]
 						},
 						{
-							"id": 559,
+							"id": 546,
 							"name": "getDoer",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4320,14 +4190,14 @@
 							},
 							"signatures": [
 								{
-									"id": 560,
+									"id": 547,
 									"name": "getDoer",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 561,
+											"id": 548,
 											"name": "name",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4341,7 +4211,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Doer",
-										"id": 173,
+										"id": 171,
 										"typeArguments": [
 											{
 												"type": "intrinsic",
@@ -4364,7 +4234,7 @@
 							]
 						},
 						{
-							"id": 562,
+							"id": 549,
 							"name": "getParser",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4373,14 +4243,14 @@
 							},
 							"signatures": [
 								{
-									"id": 563,
+									"id": 550,
 									"name": "getParser",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 564,
+											"id": 551,
 											"name": "name",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4394,7 +4264,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Parser",
-										"id": 204,
+										"id": 201,
 										"typeArguments": [
 											{
 												"type": "intrinsic",
@@ -4413,7 +4283,7 @@
 							]
 						},
 						{
-							"id": 565,
+							"id": 552,
 							"name": "getRenderer",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4422,14 +4292,14 @@
 							},
 							"signatures": [
 								{
-									"id": 566,
+									"id": 553,
 									"name": "getRenderer",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 567,
+											"id": 554,
 											"name": "name",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4443,7 +4313,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Renderer",
-										"id": 431,
+										"id": 420,
 										"typeArguments": [
 											{
 												"type": "intrinsic",
@@ -4466,7 +4336,7 @@
 							]
 						},
 						{
-							"id": 568,
+							"id": 555,
 							"name": "getTask",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4475,14 +4345,14 @@
 							},
 							"signatures": [
 								{
-									"id": 569,
+									"id": 556,
 									"name": "getTask",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 570,
+											"id": 557,
 											"name": "name",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4496,7 +4366,7 @@
 									"type": {
 										"type": "reference",
 										"name": "TaskConfig",
-										"id": 585
+										"id": 572
 									}
 								}
 							],
@@ -4509,7 +4379,7 @@
 							]
 						},
 						{
-							"id": 549,
+							"id": 536,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4518,7 +4388,7 @@
 							},
 							"signatures": [
 								{
-									"id": 550,
+									"id": 537,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -4544,7 +4414,7 @@
 							]
 						},
 						{
-							"id": 546,
+							"id": 533,
 							"name": "loadSecrets",
 							"kind": 2048,
 							"kindString": "Method",
@@ -4553,14 +4423,14 @@
 							},
 							"signatures": [
 								{
-									"id": 547,
+									"id": 534,
 									"name": "loadSecrets",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 548,
+											"id": 535,
 											"name": "secretsName",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -4586,7 +4456,7 @@
 							]
 						},
 						{
-							"id": 524,
+							"id": 511,
 							"name": "cacheManagers",
 							"kind": 2097152,
 							"kindString": "Object literal",
@@ -4599,7 +4469,7 @@
 							},
 							"children": [
 								{
-									"id": 525,
+									"id": 512,
 									"name": "CacheManager",
 									"kind": 32,
 									"kindString": "Variable",
@@ -4616,7 +4486,7 @@
 									"type": {
 										"type": "reference",
 										"name": "CacheManager",
-										"id": 113,
+										"id": 112,
 										"typeArguments": [
 											{
 												"type": "intrinsic",
@@ -4636,7 +4506,7 @@
 									"title": "Variables",
 									"kind": 32,
 									"children": [
-										525
+										512
 									]
 								}
 							],
@@ -4653,7 +4523,7 @@
 							}
 						},
 						{
-							"id": 522,
+							"id": 509,
 							"name": "connectors",
 							"kind": 2097152,
 							"kindString": "Object literal",
@@ -4666,7 +4536,7 @@
 							},
 							"children": [
 								{
-									"id": 523,
+									"id": 510,
 									"name": "Connector",
 									"kind": 32,
 									"kindString": "Variable",
@@ -4707,7 +4577,7 @@
 									"title": "Variables",
 									"kind": 32,
 									"children": [
-										523
+										510
 									]
 								}
 							],
@@ -4724,7 +4594,7 @@
 							}
 						},
 						{
-							"id": 526,
+							"id": 513,
 							"name": "doers",
 							"kind": 2097152,
 							"kindString": "Object literal",
@@ -4737,7 +4607,7 @@
 							},
 							"children": [
 								{
-									"id": 527,
+									"id": 514,
 									"name": "Doer",
 									"kind": 32,
 									"kindString": "Variable",
@@ -4754,7 +4624,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Doer",
-										"id": 173,
+										"id": 171,
 										"typeArguments": [
 											{
 												"type": "intrinsic",
@@ -4769,7 +4639,7 @@
 									"defaultValue": " new Doer()"
 								},
 								{
-									"id": 528,
+									"id": 515,
 									"name": "MultiDoer",
 									"kind": 32,
 									"kindString": "Variable",
@@ -4786,7 +4656,7 @@
 									"type": {
 										"type": "reference",
 										"name": "MultiDoer",
-										"id": 476,
+										"id": 464,
 										"typeArguments": [
 											{
 												"type": "intrinsic",
@@ -4806,8 +4676,8 @@
 									"title": "Variables",
 									"kind": 32,
 									"children": [
-										527,
-										528
+										514,
+										515
 									]
 								}
 							],
@@ -4824,7 +4694,7 @@
 							}
 						},
 						{
-							"id": 529,
+							"id": 516,
 							"name": "parsers",
 							"kind": 2097152,
 							"kindString": "Object literal",
@@ -4837,7 +4707,7 @@
 							},
 							"children": [
 								{
-									"id": 530,
+									"id": 517,
 									"name": "BooleanParser",
 									"kind": 32,
 									"kindString": "Variable",
@@ -4854,12 +4724,12 @@
 									"type": {
 										"type": "reference",
 										"name": "BooleanParser",
-										"id": 232
+										"id": 228
 									},
 									"defaultValue": " new BooleanParser()"
 								},
 								{
-									"id": 532,
+									"id": 519,
 									"name": "FloatParser",
 									"kind": 32,
 									"kindString": "Variable",
@@ -4876,12 +4746,12 @@
 									"type": {
 										"type": "reference",
 										"name": "FloatParser",
-										"id": 292
+										"id": 286
 									},
 									"defaultValue": " new FloatParser()"
 								},
 								{
-									"id": 531,
+									"id": 518,
 									"name": "IntegerParser",
 									"kind": 32,
 									"kindString": "Variable",
@@ -4898,12 +4768,12 @@
 									"type": {
 										"type": "reference",
 										"name": "IntegerParser",
-										"id": 265
+										"id": 260
 									},
 									"defaultValue": " new IntegerParser()"
 								},
 								{
-									"id": 533,
+									"id": 520,
 									"name": "JsonParser",
 									"kind": 32,
 									"kindString": "Variable",
@@ -4920,12 +4790,12 @@
 									"type": {
 										"type": "reference",
 										"name": "JsonParser",
-										"id": 316
+										"id": 309
 									},
 									"defaultValue": " new JsonParser()"
 								},
 								{
-									"id": 536,
+									"id": 523,
 									"name": "QuerystringParser",
 									"kind": 32,
 									"kindString": "Variable",
@@ -4942,12 +4812,12 @@
 									"type": {
 										"type": "reference",
 										"name": "QuerystringParser",
-										"id": 403
+										"id": 393
 									},
 									"defaultValue": " new QuerystringParser()"
 								},
 								{
-									"id": 534,
+									"id": 521,
 									"name": "StringParser",
 									"kind": 32,
 									"kindString": "Variable",
@@ -4964,12 +4834,12 @@
 									"type": {
 										"type": "reference",
 										"name": "StringParser",
-										"id": 340
+										"id": 332
 									},
 									"defaultValue": " new StringParser()"
 								},
 								{
-									"id": 535,
+									"id": 522,
 									"name": "UrlParser",
 									"kind": 32,
 									"kindString": "Variable",
@@ -4986,7 +4856,7 @@
 									"type": {
 										"type": "reference",
 										"name": "UrlParser",
-										"id": 376
+										"id": 367
 									},
 									"defaultValue": " new UrlParser()"
 								}
@@ -4996,13 +4866,13 @@
 									"title": "Variables",
 									"kind": 32,
 									"children": [
-										530,
-										532,
-										531,
-										533,
-										536,
-										534,
-										535
+										517,
+										519,
+										518,
+										520,
+										523,
+										521,
+										522
 									]
 								}
 							],
@@ -5019,7 +4889,7 @@
 							}
 						},
 						{
-							"id": 537,
+							"id": 524,
 							"name": "renderers",
 							"kind": 2097152,
 							"kindString": "Object literal",
@@ -5032,7 +4902,7 @@
 							},
 							"children": [
 								{
-									"id": 538,
+									"id": 525,
 									"name": "Renderer",
 									"kind": 32,
 									"kindString": "Variable",
@@ -5049,7 +4919,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Renderer",
-										"id": 431,
+										"id": 420,
 										"typeArguments": [
 											{
 												"type": "intrinsic",
@@ -5069,7 +4939,7 @@
 									"title": "Variables",
 									"kind": 32,
 									"children": [
-										538
+										525
 									]
 								}
 							],
@@ -5091,50 +4961,50 @@
 							"title": "Constructors",
 							"kind": 512,
 							"children": [
-								539
+								526
 							]
 						},
 						{
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								540,
-								519,
-								518,
-								514
+								527,
+								506,
+								505,
+								501
 							]
 						},
 						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								520
+								507
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								551,
-								556,
-								553,
-								559,
-								562,
-								565,
-								568,
+								538,
+								543,
+								540,
+								546,
 								549,
-								546
+								552,
+								555,
+								536,
+								533
 							]
 						},
 						{
 							"title": "Object literals",
 							"kind": 2097152,
 							"children": [
-								524,
-								522,
-								526,
-								529,
-								537
+								511,
+								509,
+								513,
+								516,
+								524
 							]
 						}
 					],
@@ -5147,7 +5017,7 @@
 					]
 				},
 				{
-					"id": 582,
+					"id": 569,
 					"name": "Context",
 					"kind": 256,
 					"kindString": "Interface",
@@ -5156,7 +5026,7 @@
 					},
 					"children": [
 						{
-							"id": 584,
+							"id": 571,
 							"name": "debug",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5190,7 +5060,7 @@
 							}
 						},
 						{
-							"id": 583,
+							"id": 570,
 							"name": "env",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5207,7 +5077,7 @@
 							"type": {
 								"type": "reference",
 								"name": "Environment",
-								"id": 513
+								"id": 500
 							}
 						}
 					],
@@ -5216,8 +5086,8 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								584,
-								583
+								571,
+								570
 							]
 						}
 					],
@@ -5232,12 +5102,12 @@
 						{
 							"type": "reference",
 							"name": "ConnectorContext",
-							"id": 99
+							"id": 98
 						}
 					]
 				},
 				{
-					"id": 571,
+					"id": 558,
 					"name": "EnvironmentConfig",
 					"kind": 256,
 					"kindString": "Interface",
@@ -5246,14 +5116,14 @@
 					},
 					"indexSignature": [
 						{
-							"id": 574,
+							"id": 561,
 							"name": "__index",
 							"kind": 8192,
 							"kindString": "Index signature",
 							"flags": {},
 							"parameters": [
 								{
-									"id": 575,
+									"id": 562,
 									"name": "key",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -5272,7 +5142,7 @@
 					],
 					"children": [
 						{
-							"id": 572,
+							"id": 559,
 							"name": "metadata",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5293,7 +5163,7 @@
 							}
 						},
 						{
-							"id": 573,
+							"id": 560,
 							"name": "modules",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5319,8 +5189,8 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								572,
-								573
+								559,
+								560
 							]
 						}
 					],
@@ -5333,7 +5203,7 @@
 					]
 				},
 				{
-					"id": 576,
+					"id": 563,
 					"name": "Modules",
 					"kind": 256,
 					"kindString": "Interface",
@@ -5342,7 +5212,7 @@
 					},
 					"children": [
 						{
-							"id": 578,
+							"id": 565,
 							"name": "cacheManagers",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5362,7 +5232,7 @@
 								"elementType": {
 									"type": "reference",
 									"name": "CacheManager",
-									"id": 113,
+									"id": 112,
 									"typeArguments": [
 										{
 											"type": "intrinsic",
@@ -5377,7 +5247,7 @@
 							}
 						},
 						{
-							"id": 577,
+							"id": 564,
 							"name": "connectors",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5416,7 +5286,7 @@
 							}
 						},
 						{
-							"id": 579,
+							"id": 566,
 							"name": "doers",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5436,7 +5306,7 @@
 								"elementType": {
 									"type": "reference",
 									"name": "Doer",
-									"id": 173,
+									"id": 171,
 									"typeArguments": [
 										{
 											"type": "intrinsic",
@@ -5451,7 +5321,7 @@
 							}
 						},
 						{
-							"id": 580,
+							"id": 567,
 							"name": "parsers",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5471,7 +5341,7 @@
 								"elementType": {
 									"type": "reference",
 									"name": "Parser",
-									"id": 204,
+									"id": 201,
 									"typeArguments": [
 										{
 											"type": "intrinsic",
@@ -5482,7 +5352,7 @@
 							}
 						},
 						{
-							"id": 581,
+							"id": 568,
 							"name": "renderers",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5502,7 +5372,7 @@
 								"elementType": {
 									"type": "reference",
 									"name": "Renderer",
-									"id": 431,
+									"id": 420,
 									"typeArguments": [
 										{
 											"type": "intrinsic",
@@ -5522,11 +5392,11 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								578,
-								577,
-								579,
-								580,
-								581
+								565,
+								564,
+								566,
+								567,
+								568
 							]
 						}
 					],
@@ -5539,7 +5409,7 @@
 					]
 				},
 				{
-					"id": 585,
+					"id": 572,
 					"name": "TaskConfig",
 					"kind": 256,
 					"kindString": "Interface",
@@ -5548,7 +5418,7 @@
 					},
 					"children": [
 						{
-							"id": 590,
+							"id": 577,
 							"name": "cacheConfig",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5566,11 +5436,11 @@
 							"type": {
 								"type": "reference",
 								"name": "CacheConfig",
-								"id": 152
+								"id": 150
 							}
 						},
 						{
-							"id": 588,
+							"id": 575,
 							"name": "config",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5590,7 +5460,7 @@
 							}
 						},
 						{
-							"id": 591,
+							"id": 578,
 							"name": "connectorConfigs",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5615,21 +5485,21 @@
 									{
 										"type": "reflection",
 										"declaration": {
-											"id": 592,
+											"id": 579,
 											"name": "__type",
 											"kind": 65536,
 											"kindString": "Type literal",
 											"flags": {},
 											"indexSignature": [
 												{
-													"id": 593,
+													"id": 580,
 													"name": "__index",
 													"kind": 8192,
 													"kindString": "Index signature",
 													"flags": {},
 													"parameters": [
 														{
-															"id": 594,
+															"id": 581,
 															"name": "connectorName",
 															"kind": 32768,
 															"kindString": "Parameter",
@@ -5652,7 +5522,7 @@
 							}
 						},
 						{
-							"id": 587,
+							"id": 574,
 							"name": "doer",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5672,7 +5542,7 @@
 							}
 						},
 						{
-							"id": 589,
+							"id": 576,
 							"name": "metadata",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5692,7 +5562,7 @@
 							}
 						},
 						{
-							"id": 586,
+							"id": 573,
 							"name": "name",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5712,7 +5582,7 @@
 							}
 						},
 						{
-							"id": 595,
+							"id": 582,
 							"name": "specialProperties",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5736,7 +5606,7 @@
 							}
 						},
 						{
-							"id": 596,
+							"id": 583,
 							"name": "throwError",
 							"kind": 1024,
 							"kindString": "Property",
@@ -5775,14 +5645,14 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								590,
-								588,
-								591,
-								587,
-								589,
-								586,
-								595,
-								596
+								577,
+								575,
+								578,
+								574,
+								576,
+								573,
+								582,
+								583
 							]
 						}
 					],
@@ -5800,23 +5670,40 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						513
+						500
 					]
 				},
 				{
 					"title": "Interfaces",
 					"kind": 256,
 					"children": [
-						582,
-						571,
-						576,
-						585
+						569,
+						558,
+						563,
+						572
 					]
 				}
 			],
 			"sources": [
 				{
 					"fileName": "environment.ts",
+					"line": 1,
+					"character": 0
+				}
+			]
+		},
+		{
+			"id": 584,
+			"name": "\"index\"",
+			"kind": 1,
+			"kindString": "External module",
+			"flags": {
+				"isExported": true
+			},
+			"originalName": "/home/tonicblue/code/low/packages/low/src/index.ts",
+			"sources": [
+				{
+					"fileName": "index.ts",
 					"line": 1,
 					"character": 0
 				}
@@ -5909,7 +5796,7 @@
 									{
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									{
 										"type": "intrinsic",
@@ -5917,6 +5804,28 @@
 									}
 								]
 							}
+						},
+						{
+							"id": 16,
+							"name": "_ready",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isPrivate": true,
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "module.ts",
+									"line": 32,
+									"character": 16
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							},
+							"defaultValue": "false"
 						},
 						{
 							"id": 11,
@@ -5947,28 +5856,6 @@
 									}
 								]
 							}
-						},
-						{
-							"id": 16,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false"
 						},
 						{
 							"id": 9,
@@ -6017,7 +5904,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									}
 								}
 							],
@@ -6176,7 +6063,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -6243,8 +6130,8 @@
 							"children": [
 								8,
 								5,
-								11,
-								16
+								16,
+								11
 							]
 						},
 						{
@@ -6284,22 +6171,22 @@
 						{
 							"type": "reference",
 							"name": "CacheManager",
-							"id": 113
+							"id": 112
 						},
 						{
 							"type": "reference",
 							"name": "Doer",
-							"id": 173
+							"id": 171
 						},
 						{
 							"type": "reference",
 							"name": "Parser",
-							"id": 204
+							"id": 201
 						},
 						{
 							"type": "reference",
 							"name": "Renderer",
-							"id": 431
+							"id": 420
 						}
 					]
 				}
@@ -6437,7 +6324,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Context",
-												"id": 582
+												"id": 569
 											}
 										},
 										{
@@ -6514,7 +6401,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Context",
-												"id": 582
+												"id": 569
 											}
 										}
 									],
@@ -6672,7 +6559,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Context",
-												"id": 582
+												"id": 569
 											}
 										}
 									],
@@ -6738,7 +6625,7 @@
 			]
 		},
 		{
-			"id": 231,
+			"id": 227,
 			"name": "\"parsers/boolean-parser\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -6748,7 +6635,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/boolean-parser.ts",
 			"children": [
 				{
-					"id": 232,
+					"id": 228,
 					"name": "BooleanParser",
 					"kind": 128,
 					"kindString": "Class",
@@ -6757,34 +6644,7 @@
 					},
 					"children": [
 						{
-							"id": 246,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
-						{
-							"id": 233,
+							"id": 229,
 							"name": "trueStrings",
 							"kind": 1024,
 							"kindString": "Property",
@@ -6808,7 +6668,7 @@
 							"defaultValue": " [\n    'true', 'yes', 'ok', 'correct', '1', 'waar', 'صحيح', 'doğru', 'праўда',\n    'вярно', 'সত্য', 'istinito', 'veritat', 'tinuod', 'skutečný', 'gwir',\n    'rigtigt', 'wahr', 'αληθής', 'cierto', 'tõsi', 'egia', 'درست است',\n    'totta', 'vrai', 'fíor', 'verdade', 'સાચું', 'gaskiya', 'सच', 'pravi',\n    'vre', 'igaz', 'ճիշտ', 'benar', 'ezi', 'satt', 'vero', 'נכון', '本当の',\n    'bener', 'მართალია', 'шын', 'ពិត','ನಿಜ', '참된', 'ຈິງ', 'tiesa', 'taisnība',\n    'marina', 'pono', 'точно', 'ശരി', 'үнэн', 'खरे', 'veru', 'စစ်မှန်တဲ့',\n    'सत्य', 'ekte', 'zoona', 'ਸਹੀ', 'prawdziwe', 'adevărat', 'правда', 'සැබෑ',\n    'pravdivý', 'prav', 'run', 'i vërtetë', 'истина', 'nete', 'leres', 'sann',\n    'kweli', 'உண்மை', 'నిజమైన', 'рост', 'จริง', 'totoo', 'вірно', 'سچ',\n    'haqiqiy', 'thật', 'otitọ', '真正', 'kuyiqiniso', 'ja', 'نعم فعلا', 'bəli',\n    'так', 'да', 'হাঁ', 'da', 'sí', 'oo', 'ano', 'ie', 'ja', 'ναί', 'sí',\n    'jah', 'bai', 'بله', 'joo', 'oui', 'tá', 'si', 'હા', 'eh', 'हाँ', 'da',\n    'wi', 'igen', 'այո', 'iya nih', 'ee', 'já', 'sì', 'כן', 'はい', 'ya',\n    'დიახ', 'иә', 'បាទ', 'ಹೌದು', '예', 'ແມ່ນແລ້ວ', 'taip', 'jā', 'eny', 'ae',\n    'да', 'അതെ', 'тийм ээ', 'हो', 'iva', 'ဟုတ်ကဲ့', 'inde', 'ਹਾਂ', 'tak',\n    'sim', 'ඔව්', 'áno', 'haa', 'po', 'e', 'enya', 'ndiyo', 'ஆம்', 'అవును',\n    'ҳа', 'ใช่', 'evet', 'جی ہاں', 'ha', 'vâng', 'bẹẹni', '是', 'yebo', 'okay',\n    'yas', 'yas queen', 'aye'\n  ]"
 						},
 						{
-							"id": 240,
+							"id": 236,
 							"name": "config",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -6817,7 +6677,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 241,
+									"id": 237,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -6847,7 +6707,7 @@
 							}
 						},
 						{
-							"id": 238,
+							"id": 234,
 							"name": "env",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -6856,7 +6716,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 239,
+									"id": 235,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -6864,7 +6724,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -6887,7 +6747,7 @@
 							}
 						},
 						{
-							"id": 247,
+							"id": 242,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -6896,7 +6756,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 248,
+									"id": 243,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -6926,7 +6786,7 @@
 							}
 						},
 						{
-							"id": 244,
+							"id": 240,
 							"name": "moduleType",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -6935,7 +6795,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 245,
+									"id": 241,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -6965,7 +6825,7 @@
 							}
 						},
 						{
-							"id": 242,
+							"id": 238,
 							"name": "secrets",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -6974,7 +6834,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 243,
+									"id": 239,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -7004,7 +6864,7 @@
 							}
 						},
 						{
-							"id": 254,
+							"id": 249,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7013,7 +6873,7 @@
 							},
 							"signatures": [
 								{
-									"id": 255,
+									"id": 250,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -7049,7 +6909,7 @@
 							}
 						},
 						{
-							"id": 249,
+							"id": 244,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7058,14 +6918,14 @@
 							},
 							"signatures": [
 								{
-									"id": 250,
+									"id": 245,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 251,
+											"id": 246,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -7073,7 +6933,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -7108,7 +6968,7 @@
 							}
 						},
 						{
-							"id": 234,
+							"id": 230,
 							"name": "parse",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7117,14 +6977,14 @@
 							},
 							"signatures": [
 								{
-									"id": 235,
+									"id": 231,
 									"name": "parse",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 236,
+											"id": 232,
 											"name": "input",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -7135,7 +6995,7 @@
 											}
 										},
 										{
-											"id": 237,
+											"id": 233,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -7143,7 +7003,7 @@
 											"type": {
 												"type": "reference",
 												"name": "BooleanParserConfig",
-												"id": 256
+												"id": 251
 											}
 										}
 									],
@@ -7160,7 +7020,7 @@
 									"overwrites": {
 										"type": "reference",
 										"name": "Parser.parse",
-										"id": 206
+										"id": 203
 									}
 								}
 							],
@@ -7174,11 +7034,11 @@
 							"overwrites": {
 								"type": "reference",
 								"name": "Parser.parse",
-								"id": 206
+								"id": 203
 							}
 						},
 						{
-							"id": 252,
+							"id": 247,
 							"name": "setup",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7187,7 +7047,7 @@
 							},
 							"signatures": [
 								{
-									"id": 253,
+									"id": 248,
 									"name": "setup",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -7228,29 +7088,28 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								246,
-								233
+								229
 							]
 						},
 						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
+								236,
+								234,
+								242,
 								240,
-								238,
-								247,
-								244,
-								242
+								238
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								254,
 								249,
-								234,
-								252
+								244,
+								230,
+								247
 							]
 						}
 					],
@@ -7265,7 +7124,7 @@
 						{
 							"type": "reference",
 							"name": "Parser",
-							"id": 204,
+							"id": 201,
 							"typeArguments": [
 								{
 									"type": "intrinsic",
@@ -7276,7 +7135,7 @@
 					]
 				},
 				{
-					"id": 256,
+					"id": 251,
 					"name": "BooleanParserConfig",
 					"kind": 256,
 					"kindString": "Interface",
@@ -7285,7 +7144,7 @@
 					},
 					"children": [
 						{
-							"id": 260,
+							"id": 255,
 							"name": "defaultValue",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7303,16 +7162,16 @@
 							"type": {
 								"type": "reference",
 								"name": "T",
-								"id": 205
+								"id": 202
 							},
 							"inheritedFrom": {
 								"type": "reference",
 								"name": "ParserConfig.defaultValue",
-								"id": 230
+								"id": 226
 							}
 						},
 						{
-							"id": 258,
+							"id": 253,
 							"name": "emptyObjectsAsFalse",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7346,7 +7205,7 @@
 							}
 						},
 						{
-							"id": 257,
+							"id": 252,
 							"name": "interperateStrings",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7371,7 +7230,7 @@
 									{
 										"type": "reference",
 										"name": "RegularExpression",
-										"id": 261
+										"id": 256
 									},
 									{
 										"type": "array",
@@ -7384,7 +7243,7 @@
 							}
 						},
 						{
-							"id": 259,
+							"id": 254,
 							"name": "removeObjectNullValues",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7423,10 +7282,10 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								260,
-								258,
-								257,
-								259
+								255,
+								253,
+								252,
+								254
 							]
 						}
 					],
@@ -7441,7 +7300,7 @@
 						{
 							"type": "reference",
 							"name": "ParserConfig",
-							"id": 228,
+							"id": 224,
 							"typeArguments": [
 								{
 									"type": "intrinsic",
@@ -7452,7 +7311,7 @@
 					]
 				},
 				{
-					"id": 261,
+					"id": 256,
 					"name": "RegularExpression",
 					"kind": 256,
 					"kindString": "Interface",
@@ -7461,7 +7320,7 @@
 					},
 					"children": [
 						{
-							"id": 263,
+							"id": 258,
 							"name": "options",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7491,7 +7350,7 @@
 							}
 						},
 						{
-							"id": 262,
+							"id": 257,
 							"name": "regex",
 							"kind": 1024,
 							"kindString": "Property",
@@ -7516,8 +7375,8 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								263,
-								262
+								258,
+								257
 							]
 						}
 					],
@@ -7535,15 +7394,15 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						232
+						228
 					]
 				},
 				{
 					"title": "Interfaces",
 					"kind": 256,
 					"children": [
-						256,
-						261
+						251,
+						256
 					]
 				}
 			],
@@ -7556,7 +7415,7 @@
 			]
 		},
 		{
-			"id": 291,
+			"id": 285,
 			"name": "\"parsers/float-parser\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -7566,7 +7425,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/float-parser.ts",
 			"children": [
 				{
-					"id": 292,
+					"id": 286,
 					"name": "FloatParser",
 					"kind": 128,
 					"kindString": "Class",
@@ -7575,34 +7434,7 @@
 					},
 					"children": [
 						{
-							"id": 305,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
-						{
-							"id": 299,
+							"id": 293,
 							"name": "config",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -7611,7 +7443,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 300,
+									"id": 294,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -7641,7 +7473,7 @@
 							}
 						},
 						{
-							"id": 297,
+							"id": 291,
 							"name": "env",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -7650,7 +7482,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 298,
+									"id": 292,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -7658,7 +7490,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -7681,7 +7513,7 @@
 							}
 						},
 						{
-							"id": 306,
+							"id": 299,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -7690,7 +7522,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 307,
+									"id": 300,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -7720,7 +7552,7 @@
 							}
 						},
 						{
-							"id": 303,
+							"id": 297,
 							"name": "moduleType",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -7729,7 +7561,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 304,
+									"id": 298,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -7759,7 +7591,7 @@
 							}
 						},
 						{
-							"id": 301,
+							"id": 295,
 							"name": "secrets",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -7768,7 +7600,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 302,
+									"id": 296,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -7798,7 +7630,7 @@
 							}
 						},
 						{
-							"id": 313,
+							"id": 306,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7807,7 +7639,7 @@
 							},
 							"signatures": [
 								{
-									"id": 314,
+									"id": 307,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -7843,7 +7675,7 @@
 							}
 						},
 						{
-							"id": 308,
+							"id": 301,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7852,14 +7684,14 @@
 							},
 							"signatures": [
 								{
-									"id": 309,
+									"id": 302,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 310,
+											"id": 303,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -7867,7 +7699,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -7902,7 +7734,7 @@
 							}
 						},
 						{
-							"id": 293,
+							"id": 287,
 							"name": "parse",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7911,14 +7743,14 @@
 							},
 							"signatures": [
 								{
-									"id": 294,
+									"id": 288,
 									"name": "parse",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 295,
+											"id": 289,
 											"name": "input",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -7929,7 +7761,7 @@
 											}
 										},
 										{
-											"id": 296,
+											"id": 290,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -7937,7 +7769,7 @@
 											"type": {
 												"type": "reference",
 												"name": "ParserConfig",
-												"id": 228,
+												"id": 224,
 												"typeArguments": [
 													{
 														"type": "intrinsic",
@@ -7960,7 +7792,7 @@
 									"overwrites": {
 										"type": "reference",
 										"name": "Parser.parse",
-										"id": 206
+										"id": 203
 									}
 								}
 							],
@@ -7974,11 +7806,11 @@
 							"overwrites": {
 								"type": "reference",
 								"name": "Parser.parse",
-								"id": 206
+								"id": 203
 							}
 						},
 						{
-							"id": 311,
+							"id": 304,
 							"name": "setup",
 							"kind": 2048,
 							"kindString": "Method",
@@ -7987,7 +7819,7 @@
 							},
 							"signatures": [
 								{
-									"id": 312,
+									"id": 305,
 									"name": "setup",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -8025,31 +7857,24 @@
 					],
 					"groups": [
 						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								305
-							]
-						},
-						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
+								293,
+								291,
 								299,
 								297,
-								306,
-								303,
-								301
+								295
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								313,
-								308,
-								293,
-								311
+								306,
+								301,
+								287,
+								304
 							]
 						}
 					],
@@ -8064,7 +7889,7 @@
 						{
 							"type": "reference",
 							"name": "Parser",
-							"id": 204,
+							"id": 201,
 							"typeArguments": [
 								{
 									"type": "intrinsic",
@@ -8080,7 +7905,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						292
+						286
 					]
 				}
 			],
@@ -8093,7 +7918,7 @@
 			]
 		},
 		{
-			"id": 264,
+			"id": 259,
 			"name": "\"parsers/integer-parser\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -8103,7 +7928,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/integer-parser.ts",
 			"children": [
 				{
-					"id": 265,
+					"id": 260,
 					"name": "IntegerParser",
 					"kind": 128,
 					"kindString": "Class",
@@ -8112,34 +7937,7 @@
 					},
 					"children": [
 						{
-							"id": 278,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
-						{
-							"id": 272,
+							"id": 267,
 							"name": "config",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -8148,7 +7946,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 273,
+									"id": 268,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -8178,7 +7976,7 @@
 							}
 						},
 						{
-							"id": 270,
+							"id": 265,
 							"name": "env",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -8187,7 +7985,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 271,
+									"id": 266,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -8195,7 +7993,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -8218,7 +8016,7 @@
 							}
 						},
 						{
-							"id": 279,
+							"id": 273,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -8227,7 +8025,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 280,
+									"id": 274,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -8257,7 +8055,7 @@
 							}
 						},
 						{
-							"id": 276,
+							"id": 271,
 							"name": "moduleType",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -8266,7 +8064,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 277,
+									"id": 272,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -8296,7 +8094,7 @@
 							}
 						},
 						{
-							"id": 274,
+							"id": 269,
 							"name": "secrets",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -8305,7 +8103,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 275,
+									"id": 270,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -8335,7 +8133,7 @@
 							}
 						},
 						{
-							"id": 286,
+							"id": 280,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -8344,7 +8142,7 @@
 							},
 							"signatures": [
 								{
-									"id": 287,
+									"id": 281,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -8380,7 +8178,7 @@
 							}
 						},
 						{
-							"id": 281,
+							"id": 275,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -8389,14 +8187,14 @@
 							},
 							"signatures": [
 								{
-									"id": 282,
+									"id": 276,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 283,
+											"id": 277,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -8404,7 +8202,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -8439,7 +8237,7 @@
 							}
 						},
 						{
-							"id": 266,
+							"id": 261,
 							"name": "parse",
 							"kind": 2048,
 							"kindString": "Method",
@@ -8448,14 +8246,14 @@
 							},
 							"signatures": [
 								{
-									"id": 267,
+									"id": 262,
 									"name": "parse",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 268,
+											"id": 263,
 											"name": "input",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -8466,7 +8264,7 @@
 											}
 										},
 										{
-											"id": 269,
+											"id": 264,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -8474,7 +8272,7 @@
 											"type": {
 												"type": "reference",
 												"name": "IntegerParserConfig",
-												"id": 288
+												"id": 282
 											}
 										}
 									],
@@ -8491,7 +8289,7 @@
 									"overwrites": {
 										"type": "reference",
 										"name": "Parser.parse",
-										"id": 206
+										"id": 203
 									}
 								}
 							],
@@ -8505,11 +8303,11 @@
 							"overwrites": {
 								"type": "reference",
 								"name": "Parser.parse",
-								"id": 206
+								"id": 203
 							}
 						},
 						{
-							"id": 284,
+							"id": 278,
 							"name": "setup",
 							"kind": 2048,
 							"kindString": "Method",
@@ -8518,7 +8316,7 @@
 							},
 							"signatures": [
 								{
-									"id": 285,
+									"id": 279,
 									"name": "setup",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -8556,31 +8354,24 @@
 					],
 					"groups": [
 						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								278
-							]
-						},
-						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								272,
-								270,
-								279,
-								276,
-								274
+								267,
+								265,
+								273,
+								271,
+								269
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								286,
-								281,
-								266,
-								284
+								280,
+								275,
+								261,
+								278
 							]
 						}
 					],
@@ -8595,7 +8386,7 @@
 						{
 							"type": "reference",
 							"name": "Parser",
-							"id": 204,
+							"id": 201,
 							"typeArguments": [
 								{
 									"type": "intrinsic",
@@ -8606,7 +8397,7 @@
 					]
 				},
 				{
-					"id": 288,
+					"id": 282,
 					"name": "IntegerParserConfig",
 					"kind": 256,
 					"kindString": "Interface",
@@ -8615,7 +8406,7 @@
 					},
 					"children": [
 						{
-							"id": 290,
+							"id": 284,
 							"name": "defaultValue",
 							"kind": 1024,
 							"kindString": "Property",
@@ -8633,16 +8424,16 @@
 							"type": {
 								"type": "reference",
 								"name": "T",
-								"id": 205
+								"id": 202
 							},
 							"inheritedFrom": {
 								"type": "reference",
 								"name": "ParserConfig.defaultValue",
-								"id": 230
+								"id": 226
 							}
 						},
 						{
-							"id": 289,
+							"id": 283,
 							"name": "radix",
 							"kind": 1024,
 							"kindString": "Property",
@@ -8677,8 +8468,8 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								290,
-								289
+								284,
+								283
 							]
 						}
 					],
@@ -8693,7 +8484,7 @@
 						{
 							"type": "reference",
 							"name": "ParserConfig",
-							"id": 228,
+							"id": 224,
 							"typeArguments": [
 								{
 									"type": "intrinsic",
@@ -8709,14 +8500,14 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						265
+						260
 					]
 				},
 				{
 					"title": "Interfaces",
 					"kind": 256,
 					"children": [
-						288
+						282
 					]
 				}
 			],
@@ -8729,7 +8520,7 @@
 			]
 		},
 		{
-			"id": 315,
+			"id": 308,
 			"name": "\"parsers/json-parser\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -8739,7 +8530,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/json-parser.ts",
 			"children": [
 				{
-					"id": 316,
+					"id": 309,
 					"name": "JsonParser",
 					"kind": 128,
 					"kindString": "Class",
@@ -8748,34 +8539,7 @@
 					},
 					"children": [
 						{
-							"id": 329,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
-						{
-							"id": 323,
+							"id": 316,
 							"name": "config",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -8784,7 +8548,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 324,
+									"id": 317,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -8814,7 +8578,7 @@
 							}
 						},
 						{
-							"id": 321,
+							"id": 314,
 							"name": "env",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -8823,7 +8587,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 322,
+									"id": 315,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -8831,7 +8595,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -8854,7 +8618,7 @@
 							}
 						},
 						{
-							"id": 330,
+							"id": 322,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -8863,7 +8627,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 331,
+									"id": 323,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -8893,7 +8657,7 @@
 							}
 						},
 						{
-							"id": 327,
+							"id": 320,
 							"name": "moduleType",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -8902,7 +8666,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 328,
+									"id": 321,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -8932,7 +8696,7 @@
 							}
 						},
 						{
-							"id": 325,
+							"id": 318,
 							"name": "secrets",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -8941,7 +8705,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 326,
+									"id": 319,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -8971,7 +8735,7 @@
 							}
 						},
 						{
-							"id": 337,
+							"id": 329,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -8980,7 +8744,7 @@
 							},
 							"signatures": [
 								{
-									"id": 338,
+									"id": 330,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -9016,7 +8780,7 @@
 							}
 						},
 						{
-							"id": 332,
+							"id": 324,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -9025,14 +8789,14 @@
 							},
 							"signatures": [
 								{
-									"id": 333,
+									"id": 325,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 334,
+											"id": 326,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -9040,7 +8804,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -9075,7 +8839,7 @@
 							}
 						},
 						{
-							"id": 317,
+							"id": 310,
 							"name": "parse",
 							"kind": 2048,
 							"kindString": "Method",
@@ -9084,14 +8848,14 @@
 							},
 							"signatures": [
 								{
-									"id": 318,
+									"id": 311,
 									"name": "parse",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 319,
+											"id": 312,
 											"name": "input",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -9102,7 +8866,7 @@
 											}
 										},
 										{
-											"id": 320,
+											"id": 313,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -9110,7 +8874,7 @@
 											"type": {
 												"type": "reference",
 												"name": "ParserConfig",
-												"id": 228,
+												"id": 224,
 												"typeArguments": [
 													{
 														"type": "intrinsic",
@@ -9133,7 +8897,7 @@
 									"overwrites": {
 										"type": "reference",
 										"name": "Parser.parse",
-										"id": 206
+										"id": 203
 									}
 								}
 							],
@@ -9147,11 +8911,11 @@
 							"overwrites": {
 								"type": "reference",
 								"name": "Parser.parse",
-								"id": 206
+								"id": 203
 							}
 						},
 						{
-							"id": 335,
+							"id": 327,
 							"name": "setup",
 							"kind": 2048,
 							"kindString": "Method",
@@ -9160,7 +8924,7 @@
 							},
 							"signatures": [
 								{
-									"id": 336,
+									"id": 328,
 									"name": "setup",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -9198,31 +8962,24 @@
 					],
 					"groups": [
 						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								329
-							]
-						},
-						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								323,
-								321,
-								330,
-								327,
-								325
+								316,
+								314,
+								322,
+								320,
+								318
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								337,
-								332,
-								317,
-								335
+								329,
+								324,
+								310,
+								327
 							]
 						}
 					],
@@ -9237,7 +8994,7 @@
 						{
 							"type": "reference",
 							"name": "Parser",
-							"id": 204,
+							"id": 201,
 							"typeArguments": [
 								{
 									"type": "intrinsic",
@@ -9253,7 +9010,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						316
+						309
 					]
 				}
 			],
@@ -9266,7 +9023,7 @@
 			]
 		},
 		{
-			"id": 203,
+			"id": 200,
 			"name": "\"parsers/parser\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -9276,7 +9033,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/parser.ts",
 			"children": [
 				{
-					"id": 204,
+					"id": 201,
 					"name": "Parser",
 					"kind": 128,
 					"kindString": "Class",
@@ -9288,7 +9045,7 @@
 					},
 					"typeParameter": [
 						{
-							"id": 205,
+							"id": 202,
 							"name": "T",
 							"kind": 131072,
 							"kindString": "Type parameter",
@@ -9297,34 +9054,7 @@
 					],
 					"children": [
 						{
-							"id": 218,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
-						{
-							"id": 212,
+							"id": 209,
 							"name": "config",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -9333,7 +9063,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 213,
+									"id": 210,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -9363,7 +9093,7 @@
 							}
 						},
 						{
-							"id": 210,
+							"id": 207,
 							"name": "env",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -9372,7 +9102,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 211,
+									"id": 208,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -9380,7 +9110,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -9403,7 +9133,7 @@
 							}
 						},
 						{
-							"id": 219,
+							"id": 215,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -9412,7 +9142,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 220,
+									"id": 216,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -9442,7 +9172,7 @@
 							}
 						},
 						{
-							"id": 216,
+							"id": 213,
 							"name": "moduleType",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -9451,7 +9181,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 217,
+									"id": 214,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -9481,7 +9211,7 @@
 							}
 						},
 						{
-							"id": 214,
+							"id": 211,
 							"name": "secrets",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -9490,7 +9220,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 215,
+									"id": 212,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -9520,7 +9250,7 @@
 							}
 						},
 						{
-							"id": 226,
+							"id": 222,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -9529,7 +9259,7 @@
 							},
 							"signatures": [
 								{
-									"id": 227,
+									"id": 223,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -9565,7 +9295,7 @@
 							}
 						},
 						{
-							"id": 221,
+							"id": 217,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -9574,14 +9304,14 @@
 							},
 							"signatures": [
 								{
-									"id": 222,
+									"id": 218,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 223,
+											"id": 219,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -9589,7 +9319,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -9624,7 +9354,7 @@
 							}
 						},
 						{
-							"id": 206,
+							"id": 203,
 							"name": "parse",
 							"kind": 2048,
 							"kindString": "Method",
@@ -9633,14 +9363,14 @@
 							},
 							"signatures": [
 								{
-									"id": 207,
+									"id": 204,
 									"name": "parse",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 208,
+											"id": 205,
 											"name": "input",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -9651,7 +9381,7 @@
 											}
 										},
 										{
-											"id": 209,
+											"id": 206,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -9659,7 +9389,7 @@
 											"type": {
 												"type": "reference",
 												"name": "ParserConfig",
-												"id": 228,
+												"id": 224,
 												"typeArguments": [
 													{
 														"type": "typeParameter",
@@ -9699,7 +9429,7 @@
 							]
 						},
 						{
-							"id": 224,
+							"id": 220,
 							"name": "setup",
 							"kind": 2048,
 							"kindString": "Method",
@@ -9708,7 +9438,7 @@
 							},
 							"signatures": [
 								{
-									"id": 225,
+									"id": 221,
 									"name": "setup",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -9746,31 +9476,24 @@
 					],
 					"groups": [
 						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								218
-							]
-						},
-						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								212,
-								210,
-								219,
-								216,
-								214
+								209,
+								207,
+								215,
+								213,
+								211
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								226,
-								221,
-								206,
-								224
+								222,
+								217,
+								203,
+								220
 							]
 						}
 					],
@@ -9802,42 +9525,42 @@
 						{
 							"type": "reference",
 							"name": "BooleanParser",
-							"id": 232
+							"id": 228
 						},
 						{
 							"type": "reference",
 							"name": "IntegerParser",
-							"id": 265
+							"id": 260
 						},
 						{
 							"type": "reference",
 							"name": "FloatParser",
-							"id": 292
+							"id": 286
 						},
 						{
 							"type": "reference",
 							"name": "JsonParser",
-							"id": 316
+							"id": 309
 						},
 						{
 							"type": "reference",
 							"name": "StringParser",
-							"id": 340
+							"id": 332
 						},
 						{
 							"type": "reference",
 							"name": "UrlParser",
-							"id": 376
+							"id": 367
 						},
 						{
 							"type": "reference",
 							"name": "QuerystringParser",
-							"id": 403
+							"id": 393
 						}
 					]
 				},
 				{
-					"id": 228,
+					"id": 224,
 					"name": "ParserConfig",
 					"kind": 256,
 					"kindString": "Interface",
@@ -9846,7 +9569,7 @@
 					},
 					"typeParameter": [
 						{
-							"id": 229,
+							"id": 225,
 							"name": "T",
 							"kind": 131072,
 							"kindString": "Type parameter",
@@ -9855,7 +9578,7 @@
 					],
 					"children": [
 						{
-							"id": 230,
+							"id": 226,
 							"name": "defaultValue",
 							"kind": 1024,
 							"kindString": "Property",
@@ -9873,7 +9596,7 @@
 							"type": {
 								"type": "reference",
 								"name": "T",
-								"id": 229
+								"id": 225
 							}
 						}
 					],
@@ -9882,7 +9605,7 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								230
+								226
 							]
 						}
 					],
@@ -9897,27 +9620,27 @@
 						{
 							"type": "reference",
 							"name": "BooleanParserConfig",
-							"id": 256
+							"id": 251
 						},
 						{
 							"type": "reference",
 							"name": "IntegerParserConfig",
-							"id": 288
+							"id": 282
 						},
 						{
 							"type": "reference",
 							"name": "StringParserConfig",
-							"id": 363
+							"id": 354
 						},
 						{
 							"type": "reference",
 							"name": "UrlParserConfig",
-							"id": 399
+							"id": 389
 						},
 						{
 							"type": "reference",
 							"name": "QuerystringParserConfig",
-							"id": 426
+							"id": 415
 						}
 					]
 				}
@@ -9927,14 +9650,14 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						204
+						201
 					]
 				},
 				{
 					"title": "Interfaces",
 					"kind": 256,
 					"children": [
-						228
+						224
 					]
 				}
 			],
@@ -9947,7 +9670,7 @@
 			]
 		},
 		{
-			"id": 402,
+			"id": 392,
 			"name": "\"parsers/querystring-parser\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -9957,7 +9680,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/querystring-parser.ts",
 			"children": [
 				{
-					"id": 403,
+					"id": 393,
 					"name": "QuerystringParser",
 					"kind": 128,
 					"kindString": "Class",
@@ -9966,34 +9689,7 @@
 					},
 					"children": [
 						{
-							"id": 416,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
-						{
-							"id": 410,
+							"id": 400,
 							"name": "config",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -10002,7 +9698,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 411,
+									"id": 401,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -10032,7 +9728,7 @@
 							}
 						},
 						{
-							"id": 408,
+							"id": 398,
 							"name": "env",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -10041,7 +9737,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 409,
+									"id": 399,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -10049,7 +9745,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -10072,7 +9768,7 @@
 							}
 						},
 						{
-							"id": 417,
+							"id": 406,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -10081,7 +9777,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 418,
+									"id": 407,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -10111,7 +9807,7 @@
 							}
 						},
 						{
-							"id": 414,
+							"id": 404,
 							"name": "moduleType",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -10120,7 +9816,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 415,
+									"id": 405,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -10150,7 +9846,7 @@
 							}
 						},
 						{
-							"id": 412,
+							"id": 402,
 							"name": "secrets",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -10159,7 +9855,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 413,
+									"id": 403,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -10189,7 +9885,7 @@
 							}
 						},
 						{
-							"id": 424,
+							"id": 413,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -10198,7 +9894,7 @@
 							},
 							"signatures": [
 								{
-									"id": 425,
+									"id": 414,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -10234,7 +9930,7 @@
 							}
 						},
 						{
-							"id": 419,
+							"id": 408,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -10243,14 +9939,14 @@
 							},
 							"signatures": [
 								{
-									"id": 420,
+									"id": 409,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 421,
+											"id": 410,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -10258,7 +9954,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -10293,7 +9989,7 @@
 							}
 						},
 						{
-							"id": 404,
+							"id": 394,
 							"name": "parse",
 							"kind": 2048,
 							"kindString": "Method",
@@ -10302,14 +9998,14 @@
 							},
 							"signatures": [
 								{
-									"id": 405,
+									"id": 395,
 									"name": "parse",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 406,
+											"id": 396,
 											"name": "input",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -10320,7 +10016,7 @@
 											}
 										},
 										{
-											"id": 407,
+											"id": 397,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -10328,7 +10024,7 @@
 											"type": {
 												"type": "reference",
 												"name": "QuerystringParserConfig",
-												"id": 426
+												"id": 415
 											}
 										}
 									],
@@ -10345,7 +10041,7 @@
 									"overwrites": {
 										"type": "reference",
 										"name": "Parser.parse",
-										"id": 206
+										"id": 203
 									}
 								}
 							],
@@ -10359,11 +10055,11 @@
 							"overwrites": {
 								"type": "reference",
 								"name": "Parser.parse",
-								"id": 206
+								"id": 203
 							}
 						},
 						{
-							"id": 422,
+							"id": 411,
 							"name": "setup",
 							"kind": 2048,
 							"kindString": "Method",
@@ -10372,7 +10068,7 @@
 							},
 							"signatures": [
 								{
-									"id": 423,
+									"id": 412,
 									"name": "setup",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -10410,31 +10106,24 @@
 					],
 					"groups": [
 						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								416
-							]
-						},
-						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								410,
-								408,
-								417,
-								414,
-								412
+								400,
+								398,
+								406,
+								404,
+								402
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								424,
-								419,
-								404,
-								422
+								413,
+								408,
+								394,
+								411
 							]
 						}
 					],
@@ -10449,7 +10138,7 @@
 						{
 							"type": "reference",
 							"name": "Parser",
-							"id": 204,
+							"id": 201,
 							"typeArguments": [
 								{
 									"type": "intrinsic",
@@ -10460,7 +10149,7 @@
 					]
 				},
 				{
-					"id": 426,
+					"id": 415,
 					"name": "QuerystringParserConfig",
 					"kind": 256,
 					"kindString": "Interface",
@@ -10469,7 +10158,7 @@
 					},
 					"children": [
 						{
-							"id": 429,
+							"id": 418,
 							"name": "defaultValue",
 							"kind": 1024,
 							"kindString": "Property",
@@ -10487,16 +10176,16 @@
 							"type": {
 								"type": "reference",
 								"name": "T",
-								"id": 205
+								"id": 202
 							},
 							"inheritedFrom": {
 								"type": "reference",
 								"name": "ParserConfig.defaultValue",
-								"id": 230
+								"id": 226
 							}
 						},
 						{
-							"id": 428,
+							"id": 417,
 							"name": "equals",
 							"kind": 1024,
 							"kindString": "Property",
@@ -10526,7 +10215,7 @@
 							}
 						},
 						{
-							"id": 427,
+							"id": 416,
 							"name": "separator",
 							"kind": 1024,
 							"kindString": "Property",
@@ -10561,9 +10250,9 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								429,
-								428,
-								427
+								418,
+								417,
+								416
 							]
 						}
 					],
@@ -10578,7 +10267,7 @@
 						{
 							"type": "reference",
 							"name": "ParserConfig",
-							"id": 228,
+							"id": 224,
 							"typeArguments": [
 								{
 									"type": "intrinsic",
@@ -10594,14 +10283,14 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						403
+						393
 					]
 				},
 				{
 					"title": "Interfaces",
 					"kind": 256,
 					"children": [
-						426
+						415
 					]
 				}
 			],
@@ -10614,7 +10303,7 @@
 			]
 		},
 		{
-			"id": 339,
+			"id": 331,
 			"name": "\"parsers/string-parser\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -10624,7 +10313,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/string-parser.ts",
 			"children": [
 				{
-					"id": 340,
+					"id": 332,
 					"name": "StringParser",
 					"kind": 128,
 					"kindString": "Class",
@@ -10633,34 +10322,7 @@
 					},
 					"children": [
 						{
-							"id": 353,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
-						{
-							"id": 347,
+							"id": 339,
 							"name": "config",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -10669,7 +10331,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 348,
+									"id": 340,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -10699,7 +10361,7 @@
 							}
 						},
 						{
-							"id": 345,
+							"id": 337,
 							"name": "env",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -10708,7 +10370,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 346,
+									"id": 338,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -10716,7 +10378,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -10739,7 +10401,7 @@
 							}
 						},
 						{
-							"id": 354,
+							"id": 345,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -10748,7 +10410,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 355,
+									"id": 346,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -10778,7 +10440,7 @@
 							}
 						},
 						{
-							"id": 351,
+							"id": 343,
 							"name": "moduleType",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -10787,7 +10449,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 352,
+									"id": 344,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -10817,7 +10479,7 @@
 							}
 						},
 						{
-							"id": 349,
+							"id": 341,
 							"name": "secrets",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -10826,7 +10488,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 350,
+									"id": 342,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -10856,7 +10518,7 @@
 							}
 						},
 						{
-							"id": 361,
+							"id": 352,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -10865,7 +10527,7 @@
 							},
 							"signatures": [
 								{
-									"id": 362,
+									"id": 353,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -10901,7 +10563,7 @@
 							}
 						},
 						{
-							"id": 356,
+							"id": 347,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -10910,14 +10572,14 @@
 							},
 							"signatures": [
 								{
-									"id": 357,
+									"id": 348,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 358,
+											"id": 349,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -10925,7 +10587,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -10960,7 +10622,7 @@
 							}
 						},
 						{
-							"id": 341,
+							"id": 333,
 							"name": "parse",
 							"kind": 2048,
 							"kindString": "Method",
@@ -10969,14 +10631,14 @@
 							},
 							"signatures": [
 								{
-									"id": 342,
+									"id": 334,
 									"name": "parse",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 343,
+											"id": 335,
 											"name": "input",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -10987,7 +10649,7 @@
 											}
 										},
 										{
-											"id": 344,
+											"id": 336,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -10995,7 +10657,7 @@
 											"type": {
 												"type": "reference",
 												"name": "StringParserConfig",
-												"id": 363
+												"id": 354
 											}
 										}
 									],
@@ -11012,7 +10674,7 @@
 									"overwrites": {
 										"type": "reference",
 										"name": "Parser.parse",
-										"id": 206
+										"id": 203
 									}
 								}
 							],
@@ -11026,11 +10688,11 @@
 							"overwrites": {
 								"type": "reference",
 								"name": "Parser.parse",
-								"id": 206
+								"id": 203
 							}
 						},
 						{
-							"id": 359,
+							"id": 350,
 							"name": "setup",
 							"kind": 2048,
 							"kindString": "Method",
@@ -11039,7 +10701,7 @@
 							},
 							"signatures": [
 								{
-									"id": 360,
+									"id": 351,
 									"name": "setup",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -11077,31 +10739,24 @@
 					],
 					"groups": [
 						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								353
-							]
-						},
-						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								347,
+								339,
+								337,
 								345,
-								354,
-								351,
-								349
+								343,
+								341
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								361,
-								356,
-								341,
-								359
+								352,
+								347,
+								333,
+								350
 							]
 						}
 					],
@@ -11116,7 +10771,7 @@
 						{
 							"type": "reference",
 							"name": "Parser",
-							"id": 204,
+							"id": 201,
 							"typeArguments": [
 								{
 									"type": "intrinsic",
@@ -11127,7 +10782,7 @@
 					]
 				},
 				{
-					"id": 363,
+					"id": 354,
 					"name": "StringParserConfig",
 					"kind": 256,
 					"kindString": "Interface",
@@ -11136,7 +10791,7 @@
 					},
 					"children": [
 						{
-							"id": 374,
+							"id": 365,
 							"name": "defaultValue",
 							"kind": 1024,
 							"kindString": "Property",
@@ -11154,16 +10809,16 @@
 							"type": {
 								"type": "reference",
 								"name": "T",
-								"id": 205
+								"id": 202
 							},
 							"inheritedFrom": {
 								"type": "reference",
 								"name": "ParserConfig.defaultValue",
-								"id": 230
+								"id": 226
 							}
 						},
 						{
-							"id": 372,
+							"id": 363,
 							"name": "falseString",
 							"kind": 1024,
 							"kindString": "Property",
@@ -11193,7 +10848,7 @@
 							}
 						},
 						{
-							"id": 366,
+							"id": 357,
 							"name": "fractionDigits",
 							"kind": 1024,
 							"kindString": "Property",
@@ -11223,7 +10878,7 @@
 							}
 						},
 						{
-							"id": 368,
+							"id": 359,
 							"name": "localeOptions",
 							"kind": 1024,
 							"kindString": "Property",
@@ -11244,7 +10899,7 @@
 							}
 						},
 						{
-							"id": 367,
+							"id": 358,
 							"name": "locales",
 							"kind": 1024,
 							"kindString": "Property",
@@ -11277,7 +10932,7 @@
 							}
 						},
 						{
-							"id": 365,
+							"id": 356,
 							"name": "numberFunction",
 							"kind": 1024,
 							"kindString": "Property",
@@ -11319,7 +10974,7 @@
 							}
 						},
 						{
-							"id": 369,
+							"id": 360,
 							"name": "precision",
 							"kind": 1024,
 							"kindString": "Property",
@@ -11349,7 +11004,7 @@
 							}
 						},
 						{
-							"id": 370,
+							"id": 361,
 							"name": "radix",
 							"kind": 1024,
 							"kindString": "Property",
@@ -11379,7 +11034,7 @@
 							}
 						},
 						{
-							"id": 364,
+							"id": 355,
 							"name": "spaces",
 							"kind": 1024,
 							"kindString": "Property",
@@ -11409,7 +11064,7 @@
 							}
 						},
 						{
-							"id": 371,
+							"id": 362,
 							"name": "trueString",
 							"kind": 1024,
 							"kindString": "Property",
@@ -11439,7 +11094,7 @@
 							}
 						},
 						{
-							"id": 373,
+							"id": 364,
 							"name": "undefinedString",
 							"kind": 1024,
 							"kindString": "Property",
@@ -11474,17 +11129,17 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								374,
-								372,
-								366,
-								368,
-								367,
 								365,
-								369,
-								370,
-								364,
-								371,
-								373
+								363,
+								357,
+								359,
+								358,
+								356,
+								360,
+								361,
+								355,
+								362,
+								364
 							]
 						}
 					],
@@ -11499,7 +11154,7 @@
 						{
 							"type": "reference",
 							"name": "ParserConfig",
-							"id": 228,
+							"id": 224,
 							"typeArguments": [
 								{
 									"type": "intrinsic",
@@ -11515,14 +11170,14 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						340
+						332
 					]
 				},
 				{
 					"title": "Interfaces",
 					"kind": 256,
 					"children": [
-						363
+						354
 					]
 				}
 			],
@@ -11535,7 +11190,7 @@
 			]
 		},
 		{
-			"id": 375,
+			"id": 366,
 			"name": "\"parsers/url-parser\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -11545,7 +11200,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/parsers/url-parser.ts",
 			"children": [
 				{
-					"id": 376,
+					"id": 367,
 					"name": "UrlParser",
 					"kind": 128,
 					"kindString": "Class",
@@ -11554,34 +11209,7 @@
 					},
 					"children": [
 						{
-							"id": 389,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
-						{
-							"id": 383,
+							"id": 374,
 							"name": "config",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -11590,7 +11218,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 384,
+									"id": 375,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -11620,7 +11248,7 @@
 							}
 						},
 						{
-							"id": 381,
+							"id": 372,
 							"name": "env",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -11629,7 +11257,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 382,
+									"id": 373,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -11637,7 +11265,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -11660,7 +11288,7 @@
 							}
 						},
 						{
-							"id": 390,
+							"id": 380,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -11669,7 +11297,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 391,
+									"id": 381,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -11699,7 +11327,7 @@
 							}
 						},
 						{
-							"id": 387,
+							"id": 378,
 							"name": "moduleType",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -11708,7 +11336,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 388,
+									"id": 379,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -11738,7 +11366,7 @@
 							}
 						},
 						{
-							"id": 385,
+							"id": 376,
 							"name": "secrets",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -11747,7 +11375,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 386,
+									"id": 377,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -11777,7 +11405,7 @@
 							}
 						},
 						{
-							"id": 397,
+							"id": 387,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -11786,7 +11414,7 @@
 							},
 							"signatures": [
 								{
-									"id": 398,
+									"id": 388,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -11822,7 +11450,7 @@
 							}
 						},
 						{
-							"id": 392,
+							"id": 382,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -11831,14 +11459,14 @@
 							},
 							"signatures": [
 								{
-									"id": 393,
+									"id": 383,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 394,
+											"id": 384,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -11846,7 +11474,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -11881,7 +11509,7 @@
 							}
 						},
 						{
-							"id": 377,
+							"id": 368,
 							"name": "parse",
 							"kind": 2048,
 							"kindString": "Method",
@@ -11890,14 +11518,14 @@
 							},
 							"signatures": [
 								{
-									"id": 378,
+									"id": 369,
 									"name": "parse",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 379,
+											"id": 370,
 											"name": "input",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -11908,7 +11536,7 @@
 											}
 										},
 										{
-											"id": 380,
+											"id": 371,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -11916,7 +11544,7 @@
 											"type": {
 												"type": "reference",
 												"name": "UrlParserConfig",
-												"id": 399
+												"id": 389
 											}
 										}
 									],
@@ -11933,7 +11561,7 @@
 									"overwrites": {
 										"type": "reference",
 										"name": "Parser.parse",
-										"id": 206
+										"id": 203
 									}
 								}
 							],
@@ -11947,11 +11575,11 @@
 							"overwrites": {
 								"type": "reference",
 								"name": "Parser.parse",
-								"id": 206
+								"id": 203
 							}
 						},
 						{
-							"id": 395,
+							"id": 385,
 							"name": "setup",
 							"kind": 2048,
 							"kindString": "Method",
@@ -11960,7 +11588,7 @@
 							},
 							"signatures": [
 								{
-									"id": 396,
+									"id": 386,
 									"name": "setup",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -11998,31 +11626,24 @@
 					],
 					"groups": [
 						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								389
-							]
-						},
-						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								383,
-								381,
-								390,
-								387,
-								385
+								374,
+								372,
+								380,
+								378,
+								376
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								397,
-								392,
-								377,
-								395
+								387,
+								382,
+								368,
+								385
 							]
 						}
 					],
@@ -12037,7 +11658,7 @@
 						{
 							"type": "reference",
 							"name": "Parser",
-							"id": 204,
+							"id": 201,
 							"typeArguments": [
 								{
 									"type": "reference",
@@ -12048,7 +11669,7 @@
 					]
 				},
 				{
-					"id": 399,
+					"id": 389,
 					"name": "UrlParserConfig",
 					"kind": 256,
 					"kindString": "Interface",
@@ -12057,7 +11678,7 @@
 					},
 					"children": [
 						{
-							"id": 400,
+							"id": 390,
 							"name": "base",
 							"kind": 1024,
 							"kindString": "Property",
@@ -12087,7 +11708,7 @@
 							}
 						},
 						{
-							"id": 401,
+							"id": 391,
 							"name": "defaultValue",
 							"kind": 1024,
 							"kindString": "Property",
@@ -12105,12 +11726,12 @@
 							"type": {
 								"type": "reference",
 								"name": "T",
-								"id": 205
+								"id": 202
 							},
 							"inheritedFrom": {
 								"type": "reference",
 								"name": "ParserConfig.defaultValue",
-								"id": 230
+								"id": 226
 							}
 						}
 					],
@@ -12119,8 +11740,8 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								400,
-								401
+								390,
+								391
 							]
 						}
 					],
@@ -12135,7 +11756,7 @@
 						{
 							"type": "reference",
 							"name": "ParserConfig",
-							"id": 228,
+							"id": 224,
 							"typeArguments": [
 								{
 									"type": "reference",
@@ -12151,14 +11772,14 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						376
+						367
 					]
 				},
 				{
 					"title": "Interfaces",
 					"kind": 256,
 					"children": [
-						399
+						389
 					]
 				}
 			],
@@ -12171,7 +11792,7 @@
 			]
 		},
 		{
-			"id": 430,
+			"id": 419,
 			"name": "\"renderers/renderer\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -12181,7 +11802,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/renderers/renderer.ts",
 			"children": [
 				{
-					"id": 431,
+					"id": 420,
 					"name": "Renderer",
 					"kind": 128,
 					"kindString": "Class",
@@ -12190,14 +11811,14 @@
 					},
 					"typeParameter": [
 						{
-							"id": 432,
+							"id": 421,
 							"name": "C",
 							"kind": 131072,
 							"kindString": "Type parameter",
 							"flags": {}
 						},
 						{
-							"id": 433,
+							"id": 422,
 							"name": "S",
 							"kind": 131072,
 							"kindString": "Type parameter",
@@ -12206,34 +11827,7 @@
 					],
 					"children": [
 						{
-							"id": 458,
-							"name": "ready",
-							"kind": 1024,
-							"kindString": "Property",
-							"flags": {
-								"isProtected": true,
-								"isExported": true
-							},
-							"sources": [
-								{
-									"fileName": "module.ts",
-									"line": 32,
-									"character": 17
-								}
-							],
-							"type": {
-								"type": "intrinsic",
-								"name": "boolean"
-							},
-							"defaultValue": "false",
-							"inheritedFrom": {
-								"type": "reference",
-								"name": "Module.ready",
-								"id": 16
-							}
-						},
-						{
-							"id": 452,
+							"id": 441,
 							"name": "config",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -12242,7 +11836,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 453,
+									"id": 442,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -12272,7 +11866,7 @@
 							}
 						},
 						{
-							"id": 450,
+							"id": 439,
 							"name": "env",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -12281,7 +11875,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 451,
+									"id": 440,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -12289,7 +11883,7 @@
 									"type": {
 										"type": "reference",
 										"name": "Environment",
-										"id": 513
+										"id": 500
 									},
 									"inheritedFrom": {
 										"type": "reference",
@@ -12312,7 +11906,7 @@
 							}
 						},
 						{
-							"id": 459,
+							"id": 447,
 							"name": "isReady",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -12321,7 +11915,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 460,
+									"id": 448,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -12351,7 +11945,7 @@
 							}
 						},
 						{
-							"id": 456,
+							"id": 445,
 							"name": "moduleType",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -12360,7 +11954,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 457,
+									"id": 446,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -12390,7 +11984,7 @@
 							}
 						},
 						{
-							"id": 454,
+							"id": 443,
 							"name": "secrets",
 							"kind": 262144,
 							"kindString": "Accessor",
@@ -12399,7 +11993,7 @@
 							},
 							"getSignature": [
 								{
-									"id": 455,
+									"id": 444,
 									"name": "__get",
 									"kind": 524288,
 									"kindString": "Get signature",
@@ -12429,7 +12023,7 @@
 							}
 						},
 						{
-							"id": 446,
+							"id": 435,
 							"name": "core",
 							"kind": 2048,
 							"kindString": "Method",
@@ -12438,14 +12032,14 @@
 							},
 							"signatures": [
 								{
-									"id": 447,
+									"id": 436,
 									"name": "core",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 448,
+											"id": 437,
 											"name": "template",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -12456,7 +12050,7 @@
 											}
 										},
 										{
-											"id": 449,
+											"id": 438,
 											"name": "context",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -12464,7 +12058,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Context",
-												"id": 582
+												"id": 569
 											}
 										}
 									],
@@ -12489,7 +12083,7 @@
 							]
 						},
 						{
-							"id": 466,
+							"id": 454,
 							"name": "destroy",
 							"kind": 2048,
 							"kindString": "Method",
@@ -12498,7 +12092,7 @@
 							},
 							"signatures": [
 								{
-									"id": 467,
+									"id": 455,
 									"name": "destroy",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -12534,7 +12128,7 @@
 							}
 						},
 						{
-							"id": 438,
+							"id": 427,
 							"name": "getTemplate",
 							"kind": 2048,
 							"kindString": "Method",
@@ -12543,14 +12137,14 @@
 							},
 							"signatures": [
 								{
-									"id": 439,
+									"id": 428,
 									"name": "getTemplate",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 440,
+											"id": 429,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -12558,11 +12152,11 @@
 											"type": {
 												"type": "reference",
 												"name": "RenderConfig",
-												"id": 468
+												"id": 456
 											}
 										},
 										{
-											"id": 441,
+											"id": 430,
 											"name": "context",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -12570,7 +12164,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Context",
-												"id": 582
+												"id": 569
 											}
 										}
 									],
@@ -12595,7 +12189,7 @@
 							]
 						},
 						{
-							"id": 461,
+							"id": 449,
 							"name": "init",
 							"kind": 2048,
 							"kindString": "Method",
@@ -12604,14 +12198,14 @@
 							},
 							"signatures": [
 								{
-									"id": 462,
+									"id": 450,
 									"name": "init",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 463,
+											"id": 451,
 											"name": "env",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -12619,7 +12213,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Environment",
-												"id": 513
+												"id": 500
 											}
 										}
 									],
@@ -12654,7 +12248,7 @@
 							}
 						},
 						{
-							"id": 442,
+							"id": 431,
 							"name": "parseRendered",
 							"kind": 2048,
 							"kindString": "Method",
@@ -12663,14 +12257,14 @@
 							},
 							"signatures": [
 								{
-									"id": 443,
+									"id": 432,
 									"name": "parseRendered",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 444,
+											"id": 433,
 											"name": "rendered",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -12681,7 +12275,7 @@
 											}
 										},
 										{
-											"id": 445,
+											"id": 434,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -12689,7 +12283,7 @@
 											"type": {
 												"type": "reference",
 												"name": "RenderConfig",
-												"id": 468
+												"id": 456
 											}
 										}
 									],
@@ -12714,7 +12308,7 @@
 							]
 						},
 						{
-							"id": 434,
+							"id": 423,
 							"name": "render",
 							"kind": 2048,
 							"kindString": "Method",
@@ -12723,14 +12317,14 @@
 							},
 							"signatures": [
 								{
-									"id": 435,
+									"id": 424,
 									"name": "render",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 436,
+											"id": 425,
 											"name": "config",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -12738,11 +12332,11 @@
 											"type": {
 												"type": "reference",
 												"name": "RenderConfig",
-												"id": 468
+												"id": 456
 											}
 										},
 										{
-											"id": 437,
+											"id": 426,
 											"name": "context",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -12750,7 +12344,7 @@
 											"type": {
 												"type": "reference",
 												"name": "Context",
-												"id": 582
+												"id": 569
 											}
 										}
 									],
@@ -12775,7 +12369,7 @@
 							]
 						},
 						{
-							"id": 464,
+							"id": 452,
 							"name": "setup",
 							"kind": 2048,
 							"kindString": "Method",
@@ -12784,7 +12378,7 @@
 							},
 							"signatures": [
 								{
-									"id": 465,
+									"id": 453,
 									"name": "setup",
 									"kind": 4096,
 									"kindString": "Call signature",
@@ -12822,34 +12416,27 @@
 					],
 					"groups": [
 						{
-							"title": "Properties",
-							"kind": 1024,
-							"children": [
-								458
-							]
-						},
-						{
 							"title": "Accessors",
 							"kind": 262144,
 							"children": [
-								452,
-								450,
-								459,
-								456,
-								454
+								441,
+								439,
+								447,
+								445,
+								443
 							]
 						},
 						{
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								446,
-								466,
-								438,
-								461,
-								442,
-								434,
-								464
+								435,
+								454,
+								427,
+								449,
+								431,
+								423,
+								452
 							]
 						}
 					],
@@ -12879,7 +12466,7 @@
 					]
 				},
 				{
-					"id": 468,
+					"id": 456,
 					"name": "RenderConfig",
 					"kind": 256,
 					"kindString": "Interface",
@@ -12888,7 +12475,7 @@
 					},
 					"children": [
 						{
-							"id": 474,
+							"id": 462,
 							"name": "__cacheConfig",
 							"kind": 1024,
 							"kindString": "Property",
@@ -12906,11 +12493,11 @@
 							"type": {
 								"type": "reference",
 								"name": "CacheConfig",
-								"id": 152
+								"id": 150
 							}
 						},
 						{
-							"id": 473,
+							"id": 461,
 							"name": "__metaData",
 							"kind": 1024,
 							"kindString": "Property",
@@ -12931,7 +12518,7 @@
 							}
 						},
 						{
-							"id": 471,
+							"id": 459,
 							"name": "__parser",
 							"kind": 1024,
 							"kindString": "Property",
@@ -12961,7 +12548,7 @@
 							}
 						},
 						{
-							"id": 472,
+							"id": 460,
 							"name": "__parserConfig",
 							"kind": 1024,
 							"kindString": "Property",
@@ -12979,7 +12566,7 @@
 							"type": {
 								"type": "reference",
 								"name": "ParserConfig",
-								"id": 228,
+								"id": 224,
 								"typeArguments": [
 									{
 										"type": "intrinsic",
@@ -12989,7 +12576,7 @@
 							}
 						},
 						{
-							"id": 469,
+							"id": 457,
 							"name": "__renderer",
 							"kind": 1024,
 							"kindString": "Property",
@@ -13009,7 +12596,7 @@
 							}
 						},
 						{
-							"id": 470,
+							"id": 458,
 							"name": "__template",
 							"kind": 1024,
 							"kindString": "Property",
@@ -13034,12 +12621,12 @@
 							"title": "Properties",
 							"kind": 1024,
 							"children": [
-								474,
-								473,
-								471,
-								472,
-								469,
-								470
+								462,
+								461,
+								459,
+								460,
+								457,
+								458
 							]
 						}
 					],
@@ -13057,14 +12644,14 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						431
+						420
 					]
 				},
 				{
 					"title": "Interfaces",
 					"kind": 256,
 					"children": [
-						468
+						456
 					]
 				}
 			],
@@ -13077,7 +12664,7 @@
 			]
 		},
 		{
-			"id": 597,
+			"id": 585,
 			"name": "\"type-checker\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -13087,7 +12674,7 @@
 			"originalName": "/home/tonicblue/code/low/packages/low/src/type-checker.ts",
 			"children": [
 				{
-					"id": 598,
+					"id": 586,
 					"name": "TypeChecker",
 					"kind": 128,
 					"kindString": "Class",
@@ -13096,7 +12683,7 @@
 					},
 					"children": [
 						{
-							"id": 603,
+							"id": 591,
 							"name": "compileLogic",
 							"kind": 2048,
 							"kindString": "Method",
@@ -13106,14 +12693,14 @@
 							},
 							"signatures": [
 								{
-									"id": 604,
+									"id": 592,
 									"name": "compileLogic",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 605,
+											"id": 593,
 											"name": "tree",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -13127,21 +12714,21 @@
 									"type": {
 										"type": "reflection",
 										"declaration": {
-											"id": 606,
+											"id": 594,
 											"name": "__type",
 											"kind": 65536,
 											"kindString": "Type literal",
 											"flags": {},
 											"signatures": [
 												{
-													"id": 607,
+													"id": 595,
 													"name": "__call",
 													"kind": 4096,
 													"kindString": "Call signature",
 													"flags": {},
 													"parameters": [
 														{
-															"id": 608,
+															"id": 596,
 															"name": "context",
 															"kind": 32768,
 															"kindString": "Parameter",
@@ -13178,7 +12765,7 @@
 							]
 						},
 						{
-							"id": 599,
+							"id": 587,
 							"name": "parseLogic",
 							"kind": 2048,
 							"kindString": "Method",
@@ -13188,14 +12775,14 @@
 							},
 							"signatures": [
 								{
-									"id": 600,
+									"id": 588,
 									"name": "parseLogic",
 									"kind": 4096,
 									"kindString": "Call signature",
 									"flags": {},
 									"parameters": [
 										{
-											"id": 601,
+											"id": 589,
 											"name": "tree",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -13206,7 +12793,7 @@
 											}
 										},
 										{
-											"id": 602,
+											"id": 590,
 											"name": "level",
 											"kind": 32768,
 											"kindString": "Parameter",
@@ -13238,8 +12825,8 @@
 							"title": "Methods",
 							"kind": 2048,
 							"children": [
-								603,
-								599
+								591,
+								587
 							]
 						}
 					],
@@ -13257,7 +12844,7 @@
 					"title": "Classes",
 					"kind": 128,
 					"children": [
-						598
+						586
 					]
 				}
 			],
@@ -13275,24 +12862,25 @@
 			"title": "External modules",
 			"kind": 1,
 			"children": [
-				112,
+				111,
 				63,
 				52,
-				172,
-				475,
-				512,
+				170,
+				463,
+				499,
+				584,
 				1,
 				26,
-				231,
-				291,
-				264,
-				315,
-				203,
-				402,
-				339,
-				375,
-				430,
-				597
+				227,
+				285,
+				259,
+				308,
+				200,
+				392,
+				331,
+				366,
+				419,
+				585
 			]
 		}
 	]

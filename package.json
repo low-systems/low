@@ -8,11 +8,13 @@
     "update-all-dependencies": "./scripts/update-all-dependencies.js"
   },
   "devDependencies": {
+    "@low-systems/json-i": "file:../json-i",
     "@types/cookie": "^0.3.3",
     "@types/dot-object": "^1.7.0",
     "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.19",
     "@types/node": "^12.11.6",
+    "@types/pako": "^1.0.1",
     "colors": "^1.4.0",
     "glob": "^7.1.5",
     "jest": "^24.9.0",
@@ -29,6 +31,13 @@
     "low": "file:packages/low"
   },
   "jest": {
-    "preset": "ts-jest"
+    "preset": "ts-jest",
+    "globals": {
+      "ts-jest": {
+        "tsConfig": {
+          "target": "es6"
+        }
+      }
+    }
   }
 }

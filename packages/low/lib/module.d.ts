@@ -7,7 +7,7 @@ export declare class Module<C, S> {
     private _secrets;
     readonly secrets: S;
     readonly moduleType: string;
-    protected ready: boolean;
+    private _ready;
     readonly isReady: boolean;
     init(env: Environment): Promise<void>;
     setup(): Promise<void>;

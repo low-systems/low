@@ -1,6 +1,9 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const UrlPattern = require("url-pattern");
+const url_pattern_1 = __importDefault(require("url-pattern"));
 const http_verbs_1 = require("./http-verbs");
 const http_error_1 = require("./http-error");
 class Site {
@@ -18,7 +21,7 @@ class Site {
                 task,
                 config,
                 verbs,
-                urlPattern: new UrlPattern(pattern)
+                urlPattern: new url_pattern_1.default(pattern)
             };
             this.routes.push(route);
         }

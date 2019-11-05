@@ -1,8 +1,17 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 class Module {
     constructor() {
-        this.ready = false;
+        this._ready = false;
     }
     get env() {
         if (!this._env) {
@@ -26,22 +35,28 @@ class Module {
         return this.constructor.name;
     }
     get isReady() {
-        return this.ready;
+        return this._ready;
     }
-    async init(env) {
-        if (this.ready) {
-            await this.destroy();
-            this.ready = false;
-        }
-        this._env = env;
-        this._config = env.config.modules && env.config.modules[this.moduleType] || {};
-        this._secrets = env.secrets.modules && env.secrets.modules[this.moduleType] || {};
-        await this.setup();
-        this.ready = true;
+    init(env) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this._ready) {
+                yield this.destroy();
+                this._ready = false;
+            }
+            this._env = env;
+            this._config = env.config.modules && env.config.modules[this.moduleType] || {};
+            this._secrets = env.secrets.modules && env.secrets.modules[this.moduleType] || {};
+            yield this.setup();
+            this._ready = true;
+        });
     }
-    async setup() { return; }
+    setup() {
+        return __awaiter(this, void 0, void 0, function* () { return; });
+    }
     ;
-    async destroy() { return; }
+    destroy() {
+        return __awaiter(this, void 0, void 0, function* () { return; });
+    }
     ;
 }
 exports.Module = Module;

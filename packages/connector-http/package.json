@@ -20,7 +20,10 @@
   },
   "license": "GPL-3.0",
   "jest": {
-    "preset": "ts-jest"
+    "preset": "ts-jest",
+    "ts-jest": {
+      "tsConfig": "tsconfig.json"
+    }
   },
   "dependencies": {
     "cookie": "^0.4.0",
@@ -31,6 +34,7 @@
     "url-pattern": "^1.0.3"
   },
   "devDependencies": {
+    "@low-systems/json-i": "file:../json-i",
     "@types/pako": "^1.0.1"
   }
 }

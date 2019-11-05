@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const parser_1 = require("./parser");
 class BooleanParser extends parser_1.Parser {
@@ -30,50 +39,52 @@ class BooleanParser extends parser_1.Parser {
             'yas', 'yas queen', 'aye'
         ];
     }
-    async parse(input, config) {
-        try {
-            if (config.interperateStrings && typeof input === 'string') {
-                if (Array.isArray(config.interperateStrings)) {
-                    return config.interperateStrings.includes(input.toLowerCase());
-                }
-                else if (config.interperateStrings.hasOwnProperty('regex')) {
-                    const regex = new RegExp(config.interperateStrings.regex, config.interperateStrings.options || 'ig');
-                    return regex.test(input);
-                }
-                else {
-                    return this.trueStrings.includes(input.toLowerCase());
-                }
-            }
-            else if (config.emptyObjectsAsFalse && typeof input === 'object') {
-                if (Array.isArray(input)) {
-                    if (config.removeObjectNullValues) {
-                        return input.filter(item => item !== null && typeof item !== 'undefined').length > 0;
+    parse(input, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (config.interperateStrings && typeof input === 'string') {
+                    if (Array.isArray(config.interperateStrings)) {
+                        return config.interperateStrings.includes(input.toLowerCase());
+                    }
+                    else if (config.interperateStrings.hasOwnProperty('regex')) {
+                        const regex = new RegExp(config.interperateStrings.regex, config.interperateStrings.options || 'ig');
+                        return regex.test(input);
                     }
                     else {
-                        return input.length > 0;
+                        return this.trueStrings.includes(input.toLowerCase());
+                    }
+                }
+                else if (config.emptyObjectsAsFalse && typeof input === 'object') {
+                    if (Array.isArray(input)) {
+                        if (config.removeObjectNullValues) {
+                            return input.filter(item => item !== null && typeof item !== 'undefined').length > 0;
+                        }
+                        else {
+                            return input.length > 0;
+                        }
+                    }
+                    else {
+                        if (config.removeObjectNullValues) {
+                            return Object.values(input).filter(value => value !== null && typeof value !== 'undefined').length > 0;
+                        }
+                        else {
+                            return Object.keys(input).length > 0;
+                        }
                     }
                 }
                 else {
-                    if (config.removeObjectNullValues) {
-                        return Object.values(input).filter(value => value !== null && typeof value !== 'undefined').length > 0;
-                    }
-                    else {
-                        return Object.keys(input).length > 0;
-                    }
+                    return Boolean(input);
                 }
             }
-            else {
-                return Boolean(input);
+            catch (err) {
+                if (typeof config.defaultValue === 'boolean') {
+                    return config.defaultValue;
+                }
+                else {
+                    throw err;
+                }
             }
-        }
-        catch (err) {
-            if (typeof config.defaultValue === 'boolean') {
-                return config.defaultValue;
-            }
-            else {
-                throw err;
-            }
-        }
+        });
     }
 }
 exports.BooleanParser = BooleanParser;

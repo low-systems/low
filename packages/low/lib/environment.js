@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const connector_1 = require("./connectors/connector");
 const cache_manager_1 = require("./cache-managers/cache-manager");
@@ -130,27 +139,29 @@ class Environment {
         const secretsVar = process.env[secretsName] || '{}';
         this.secrets = JSON.parse(secretsVar);
     }
-    async init() {
-        for (const mod of Object.values(this.connectors)) {
-            await mod.init(this);
-        }
-        for (const mod of Object.values(this.cacheManagers)) {
-            await mod.init(this);
-        }
-        for (const mod of Object.values(this.doers)) {
-            await mod.init(this);
-        }
-        for (const mod of Object.values(this.parsers)) {
-            await mod.init(this);
-        }
-        for (const mod of Object.values(this.renderers)) {
-            await mod.init(this);
-        }
-        const taskReport = this.checkTasks();
-        if (taskReport) {
-            throw new Error(`There are one or more task configuration problems\n${taskReport}`);
-        }
-        this.ready = true;
+    init() {
+        return __awaiter(this, void 0, void 0, function* () {
+            for (const mod of Object.values(this.connectors)) {
+                yield mod.init(this);
+            }
+            for (const mod of Object.values(this.cacheManagers)) {
+                yield mod.init(this);
+            }
+            for (const mod of Object.values(this.doers)) {
+                yield mod.init(this);
+            }
+            for (const mod of Object.values(this.parsers)) {
+                yield mod.init(this);
+            }
+            for (const mod of Object.values(this.renderers)) {
+                yield mod.init(this);
+            }
+            const taskReport = this.checkTasks();
+            if (taskReport) {
+                throw new Error(`There are one or more task configuration problems\n${taskReport}`);
+            }
+            this.ready = true;
+        });
     }
     checkTasks() {
         const problems = {};
@@ -236,6 +247,28 @@ class Environment {
             throw new Error('The environment is not ready thus no task checks have been made');
         }
         return this.tasks[name];
+    }
+    destroy() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this.ready) {
+                return;
+            }
+            for (const mod of Object.values(this.connectors)) {
+                yield mod.destroy();
+            }
+            for (const mod of Object.values(this.cacheManagers)) {
+                yield mod.destroy();
+            }
+            for (const mod of Object.values(this.doers)) {
+                yield mod.destroy();
+            }
+            for (const mod of Object.values(this.parsers)) {
+                yield mod.destroy();
+            }
+            for (const mod of Object.values(this.renderers)) {
+                yield mod.destroy();
+            }
+        });
     }
 }
 exports.Environment = Environment;

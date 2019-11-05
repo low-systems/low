@@ -71,6 +71,7 @@ export declare class Environment {
     getParser(name: string): Parser<any>;
     getRenderer(name: string): Renderer<any, any>;
     getTask(name: string): TaskConfig;
+    destroy(): Promise<void>;
 }
 export interface EnvironmentConfig {
     metadata?: any;

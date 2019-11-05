@@ -1,0 +1,39 @@
+{
+  name: 'index',
+  doer: 'MultiDoer',
+  connectorConfigs: {
+    ConnectorHttp: {
+      patterns: ['/', '/index'],
+      sites: ['default'],
+      output: {
+        body: {
+          task1: { __pointer: 'data.someTask.test' },
+          task2: { __pointer: 'data.finalTask.test' }
+        },
+        headers: {
+          'content-type': 'text/plain'
+        }
+      }
+    }
+  },
+  config: [
+    {
+      task: {
+        name: 'someTask',
+        doer: 'Doer',
+        config: {
+          test: 'I return this object'
+        }
+      }
+    },
+    {
+      task: {
+        name: 'finalTask',
+        doer: 'Doer',
+        config: {
+          test: 'And I return this object'
+        }
+      }
+    }
+  ]
+}

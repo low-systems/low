@@ -274,6 +274,32 @@ export class Environment {
     }
     return this.tasks[name];
   }
+
+  async destroy() {
+    if (!this.ready) {
+      return;
+    }
+
+    for (const mod of Object.values(this.connectors)) {
+      await mod.destroy();
+    }
+
+    for (const mod of Object.values(this.cacheManagers)) {
+      await mod.destroy();
+    }
+
+    for (const mod of Object.values(this.doers)) {
+      await mod.destroy();
+    }
+
+    for (const mod of Object.values(this.parsers)) {
+      await mod.destroy();
+    }
+
+    for (const mod of Object.values(this.renderers)) {
+      await mod.destroy();
+    }
+  }
 }
 
 export interface EnvironmentConfig {

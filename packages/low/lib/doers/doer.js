@@ -1,37 +1,50 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const module_1 = require("../module");
 const object_compiler_1 = require("../object-compiler");
 class Doer extends module_1.Module {
-    async execute(context, task) {
-        try {
-            let cacheManager;
-            let cacheKey;
-            if (task.cacheConfig) {
-                cacheManager = this.env.getCacheManager(task.cacheConfig.cacheManager);
-                cacheKey = await cacheManager.makeKey(task.cacheConfig, context);
-                const cachedItem = await cacheManager.getItem(cacheKey);
-                if (cachedItem) {
-                    context.data[task.name] = cachedItem;
-                    return;
+    execute(context, task) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let cacheManager;
+                let cacheKey;
+                if (task.cacheConfig) {
+                    cacheManager = this.env.getCacheManager(task.cacheConfig.cacheManager);
+                    cacheKey = yield cacheManager.makeKey(task.cacheConfig, context);
+                    const cachedItem = yield cacheManager.getItem(cacheKey);
+                    if (cachedItem) {
+                        context.data[task.name] = cachedItem;
+                        return;
+                    }
+                }
+                const coreConfig = yield object_compiler_1.ObjectCompiler.compile(task.config, context);
+                const output = yield this.main(context, task, coreConfig);
+                context.data[task.name] = output;
+                if (cacheManager && cacheKey) {
+                    yield cacheManager.setItem(cacheKey, output, task.cacheConfig.ttl);
                 }
             }
-            const coreConfig = await object_compiler_1.ObjectCompiler.compile(task.config, context);
-            const output = await this.main(context, task, coreConfig);
-            context.data[task.name] = output;
-            if (cacheManager && cacheKey) {
-                await cacheManager.setItem(cacheKey, output, task.cacheConfig.ttl);
+            catch (err) {
+                context.errors[task.name] = err;
+                if (task.throwError) {
+                    throw err;
+                }
             }
-        }
-        catch (err) {
-            context.errors[task.name] = err;
-            if (task.throwError) {
-                throw err;
-            }
-        }
+        });
     }
-    async main(context, taskConfig, coreConfig) {
-        return coreConfig;
+    main(context, taskConfig, coreConfig) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return coreConfig;
+        });
     }
 }
 exports.Doer = Doer;

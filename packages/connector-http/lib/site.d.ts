@@ -1,5 +1,5 @@
-import UrlPattern = require("url-pattern");
-import { TaskConfig } from "low/src/environment";
+import UrlPattern from "url-pattern";
+import { TaskConfig } from "low";
 import { HttpVerbFlags, HttpVerb } from "./http-verbs";
 import { HttpTaskConfig, ErrorHandler, HeaderMap } from "./connector-http";
 export declare class Site {

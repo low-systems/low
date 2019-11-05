@@ -1,6 +1,6 @@
 import UrlPattern = require("url-pattern");
 
-import { TaskConfig } from "low/src/environment";
+import { TaskConfig } from "low";
 
 import { HttpVerbFlags, HttpVerb, HttpVerbsFromArray } from "./http-verbs";
 import { HttpTaskConfig, ErrorHandler, HeaderMap } from "./connector-http";

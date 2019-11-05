@@ -6,14 +6,11 @@ import * as GetBody from 'get-body';
 import * as CookieHelper from 'cookie';
 import * as Pako from 'pako';
 
-import { Connector, TaskErrorMap } from 'low/src/connectors/connector';
-import { TaskConfig } from 'low/src/environment';
+import { Connector, TaskErrorMap, TaskConfig, ConnectorRunError, ObjectCompiler } from 'low';
 
 import { Site, SiteMap, SiteConfig, Route } from './site';
 import { HttpVerb } from './http-verbs';
 import { HttpError } from './http-error';
-import { ConnectorRunError } from 'low/src/connectors/connector-run-error';
-import { ObjectCompiler } from 'low/src/object-compiler';
 
 const POSSIBLE_HTTPS_HEADERS = {
   'x-forwarded-proto': 'https',           //Recommended way for load balancers and proxies
@@ -33,11 +30,15 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
 
   async setup() {
     if (this.config.httpOptions) {
-      this.httpServer = Http.createServer(this.config.httpOptions, this.requestHandler.bind(this));
+      this.httpServer = Http.createServer(this.config.httpOptions.serverOptions, this.requestHandler.bind(this));
+      const port = this.getPort(this.config.httpOptions.port);
+      this.httpServer.listen(port);
     }
 
     if (this.config.httpsOptions) {
-      this.httpsServer = Https.createServer(this.config.httpsOptions, this.requestHandler.bind(this));
+      this.httpsServer = Https.createServer(this.config.httpsOptions.serverOptions, this.requestHandler.bind(this));
+      const port = this.getPort(this.config.httpsOptions.port);
+      this.httpsServer.listen(port);
     }
 
     for (const [siteName, siteConfig] of Object.entries(this.config.sites)) {
@@ -46,6 +47,24 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
     }
 
     await this.setupTasks();
+  }
+
+  getPort(portOrVar: number | string) {
+    if (typeof portOrVar === 'number') {
+      return portOrVar;
+    }
+
+    const envPort = process.env[portOrVar];
+    if (typeof envPort === 'undefined') {
+      throw new Error(`Cannot load port number from environment variable '${portOrVar}' as it has not been set`);
+    }
+
+    const port = +envPort;
+    if (Number.isNaN(port)) {
+      throw new Error(`Port number '${envPort}' loaded from '${portOrVar}' is not a number.`);
+    }
+
+    return port;
   }
 
   async setupTask(task: TaskConfig, config: HttpTaskConfig) {
@@ -69,7 +88,7 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
       input.route = match.route;
       input.query = this.getQuerystringObject(input.url);
       input.cookies = CookieHelper.parse(request.headers.cookie || '');
-      input.body = await GetBody.parse(request, request.headers as GetBody.Headers);
+      input.body = await this.getRequestBody(request);
 
       const context = await this.runTask(match.route.task, input, match.route.config);
       const output = await ObjectCompiler.compile(match.route.config.output, context);
@@ -118,12 +137,30 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
   getQuerystringObject(url: Url.URL) {
     const query: any = {};
 
-    for (let key of url.searchParams.keys()) {
+    const keys = url.searchParams.keys();
+    for (let key of Array.from(keys)) {
       key = key.replace('[]', '');
       query[key] = url.searchParams.getAll(key);
     }
 
     return query;
+  }
+
+  async getRequestBody(request: Http.IncomingMessage) {
+    try {
+      if (!request.headers.hasOwnProperty('content-type')) {
+        request.headers['content-type'] = 'text/plain';
+      }
+      const headers = request.headers as GetBody.Headers;
+      const body = await GetBody.parse(request, headers);
+      return body || {};
+    } catch(err) {
+      //TODO: Plain requests with no body cause `GetBody.parse()` to throw an error.
+      //      Is it right to just return an empty object here or might there be other
+      //      scenarios that would cause an exception where we'd want to handle things
+      //      differently
+      return {};
+    }
   }
 
   async handleError(response: Http.ServerResponse, error: Error | HttpError | ConnectorRunError, input: HttpInput) {
@@ -273,14 +310,42 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
 
     response.write(bodyBuffer);
   }
+
+  async destroy() {
+    if (this.httpServer) {
+      this.httpServer.close((err) => {
+        if (err) {
+          console.error('Failed to close HTTP server', err);
+        }
+      });
+    }
+
+    if (this.httpsServer) {
+      this.httpsServer.close((err) => {
+        if (err) {
+          console.error('Failed to close HTTP server', err);
+        }
+      });
+    }
+  }
 }
 
 export interface ConnectorHttpConfig {
-  httpOptions?: Http.ServerOptions;
-  httpsOptions?: Https.ServerOptions;
+  httpOptions?: HttpOptions;
+  httpsOptions?: HttpsOptions;
   sites: { [name: string]: SiteConfig };
   errorHandlers?: ErrorHandler[];
   responseHeaders?: HeaderMap;
+}
+
+export interface HttpOptions {
+  serverOptions: Http.ServerOptions;
+  port: number | string;
+}
+
+export interface HttpsOptions {
+  serverOptions: Https.ServerOptions;
+  port: number | string;
 }
 
 export interface HostnameCache {

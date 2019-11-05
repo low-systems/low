@@ -3,12 +3,10 @@ import * as Http from 'http';
 import * as Https from 'https';
 import * as Url from 'url';
 import * as CookieHelper from 'cookie';
-import { Connector } from 'low/src/connectors/connector';
-import { TaskConfig } from 'low/src/environment';
+import { Connector, TaskConfig, ConnectorRunError } from 'low';
 import { Site, SiteMap, SiteConfig, Route } from './site';
 import { HttpVerb } from './http-verbs';
 import { HttpError } from './http-error';
-import { ConnectorRunError } from 'low/src/connectors/connector-run-error';
 export declare class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput> {
     httpServer?: Http.Server;
     httpsServer?: Https.Server;

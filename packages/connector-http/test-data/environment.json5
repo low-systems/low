@@ -1,0 +1,15 @@
+{
+  modules: {
+    ConnectorHttp: {
+      httpOptions: {
+        serverOptions: {},
+        port: 8888
+      },
+      sites: {
+        default: {
+          hostnames: ['localhost']
+        }
+      }
+    }
+  }
+}

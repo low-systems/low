@@ -1,16 +1,30 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Http = require("http");
-const Https = require("https");
-const Url = require("url");
-const GetBody = require("get-body");
-const CookieHelper = require("cookie");
-const Pako = require("pako");
-const connector_1 = require("low/src/connectors/connector");
+const Http = __importStar(require("http"));
+const Https = __importStar(require("https"));
+const Url = __importStar(require("url"));
+const GetBody = __importStar(require("get-body"));
+const CookieHelper = __importStar(require("cookie"));
+const Pako = __importStar(require("pako"));
+const low_1 = require("low");
 const site_1 = require("./site");
 const http_error_1 = require("./http-error");
-const connector_run_error_1 = require("low/src/connectors/connector-run-error");
-const object_compiler_1 = require("low/src/object-compiler");
 const POSSIBLE_HTTPS_HEADERS = {
     'x-forwarded-proto': 'https',
     'front-end-https': 'on',
@@ -21,50 +35,56 @@ const POSSIBLE_HTTPS_HEADERS = {
     'x-forwarded-ssl': 'on',
     'x-url-scheme': 'https'
 };
-class ConnectorHttp extends connector_1.Connector {
+class ConnectorHttp extends low_1.Connector {
     constructor() {
         super(...arguments);
         this.sites = {};
         this.hostnameCache = {};
     }
-    async setup() {
-        if (this.config.httpOptions) {
-            this.httpServer = Http.createServer(this.config.httpOptions, this.requestHandler.bind(this));
-        }
-        if (this.config.httpsOptions) {
-            this.httpsServer = Https.createServer(this.config.httpsOptions, this.requestHandler.bind(this));
-        }
-        for (const [siteName, siteConfig] of Object.entries(this.config.sites)) {
-            const site = new site_1.Site(siteName, siteConfig);
-            this.sites[siteName] = site;
-        }
-        await this.setupTasks();
+    setup() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.config.httpOptions) {
+                this.httpServer = Http.createServer(this.config.httpOptions, this.requestHandler.bind(this));
+            }
+            if (this.config.httpsOptions) {
+                this.httpsServer = Https.createServer(this.config.httpsOptions, this.requestHandler.bind(this));
+            }
+            for (const [siteName, siteConfig] of Object.entries(this.config.sites)) {
+                const site = new site_1.Site(siteName, siteConfig);
+                this.sites[siteName] = site;
+            }
+            yield this.setupTasks();
+        });
     }
-    async setupTask(task, config) {
-        for (const site of config.sites) {
-            this.sites[site].registerRoutes(task, config);
-        }
+    setupTask(task, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            for (const site of config.sites) {
+                this.sites[site].registerRoutes(task, config);
+            }
+        });
     }
-    async requestHandler(request, response) {
-        const input = {
-            url: this.getRequestUrl(request),
-            verb: request.method || 'GET'
-        };
-        try {
-            input.site = this.getSiteFromHostname(input.url.hostname);
-            const match = input.site.matchRoute(input.url.pathname, input.verb);
-            input.params = match.params;
-            input.route = match.route;
-            input.query = this.getQuerystringObject(input.url);
-            input.cookies = CookieHelper.parse(request.headers.cookie || '');
-            input.body = await GetBody.parse(request, request.headers);
-            const context = await this.runTask(match.route.task, input, match.route.config);
-            const output = await object_compiler_1.ObjectCompiler.compile(match.route.config.output, context);
-            this.sendResponse(response, output);
-        }
-        catch (err) {
-            await this.handleError(response, err, input);
-        }
+    requestHandler(request, response) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const input = {
+                url: this.getRequestUrl(request),
+                verb: request.method || 'GET'
+            };
+            try {
+                input.site = this.getSiteFromHostname(input.url.hostname);
+                const match = input.site.matchRoute(input.url.pathname, input.verb);
+                input.params = match.params;
+                input.route = match.route;
+                input.query = this.getQuerystringObject(input.url);
+                input.cookies = CookieHelper.parse(request.headers.cookie || '');
+                input.body = yield GetBody.parse(request, request.headers);
+                const context = yield this.runTask(match.route.task, input, match.route.config);
+                const output = yield low_1.ObjectCompiler.compile(match.route.config.output, context);
+                this.sendResponse(response, output);
+            }
+            catch (err) {
+                yield this.handleError(response, err, input);
+            }
+        });
     }
     getSiteFromHostname(hostname) {
         if (this.hostnameCache.hasOwnProperty(hostname)) {
@@ -97,36 +117,39 @@ class ConnectorHttp extends connector_1.Connector {
     }
     getQuerystringObject(url) {
         const query = {};
-        for (let key of url.searchParams.keys()) {
+        const keys = url.searchParams.keys();
+        for (let key of Array.from(keys)) {
             key = key.replace('[]', '');
             query[key] = url.searchParams.getAll(key);
         }
         return query;
     }
-    async handleError(response, error, input) {
-        const statusCode = error instanceof http_error_1.HttpError ? error.statusCode : 500;
-        try {
-            const handlers = this.mergeErrorHandlers(input.site);
-            const handler = this.findErrorHandler(handlers, statusCode);
-            const task = this.env.getTask(handler.taskName);
-            const config = input.route && input.route.config || {};
-            let data = {};
-            let errors = {};
-            if (error instanceof connector_run_error_1.ConnectorRunError) {
-                data = error.context.data;
-                errors = error.context.errors;
+    handleError(response, error, input) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const statusCode = error instanceof http_error_1.HttpError ? error.statusCode : 500;
+            try {
+                const handlers = this.mergeErrorHandlers(input.site);
+                const handler = this.findErrorHandler(handlers, statusCode);
+                const task = this.env.getTask(handler.taskName);
+                const config = input.route && input.route.config || {};
+                let data = {};
+                let errors = {};
+                if (error instanceof low_1.ConnectorRunError) {
+                    data = error.context.data;
+                    errors = error.context.errors;
+                }
+                const context = yield this.runTask(task, input, config, data, errors);
+                const output = yield low_1.ObjectCompiler.compile(handler.output, context);
+                this.sendResponse(response, output);
             }
-            const context = await this.runTask(task, input, config, data, errors);
-            const output = await object_compiler_1.ObjectCompiler.compile(handler.output, context);
-            this.sendResponse(response, output);
-        }
-        catch (err) {
-            this.sendResponse(response, {
-                body: error.message,
-                statusCode: statusCode,
-                statusMessage: error.message
-            });
-        }
+            catch (err) {
+                this.sendResponse(response, {
+                    body: error.message,
+                    statusCode: statusCode,
+                    statusMessage: error.message
+                });
+            }
+        });
     }
     mergeErrorHandlers(site) {
         const handlers = [
