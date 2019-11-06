@@ -13,6 +13,10 @@
         default: {
           hostnames: ['localhost'],
           stripTrailingSlash: true,
+          responseHeaders: {
+            'x-site-header': 'default site',
+            'x-global-overridden': 'I have been overridden'
+          },
           errorHandlers: [
             {
               statusCodeMin: 404,
@@ -24,6 +28,10 @@
             }
           ]
         }
+      },
+      responseHeaders: {
+        'x-powered-by': 'low',
+        'x-global-overridden': 'You should not see me'
       },
       errorHandlers: [
         {

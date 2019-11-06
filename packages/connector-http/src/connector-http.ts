@@ -94,7 +94,7 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
       const context = await this.runTask(match.route.task, input, match.route.config);
       const output = await ObjectCompiler.compile(match.route.config.output, context);
 
-      this.sendResponse(response, output);
+      this.sendResponse(response, output, input.site);
     } catch(err) {
       await this.handleError(response, err, input);
     }
@@ -193,7 +193,7 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
       const context = await this.runTask(task, input, config, data, errors);
       const output = await ObjectCompiler.compile(handler.output, context);
 
-      this.sendResponse(response, output);
+      this.sendResponse(response, output, input.site);
     } catch (err) {
       this.sendResponse(response, {
         body: error.message,
@@ -222,17 +222,17 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
     throw new Error('No error handler found');
   }
 
-  sendResponse(response: Http.ServerResponse, output: HttpOutput) {
+  sendResponse(response: Http.ServerResponse, output: HttpOutput, site?: Site) {
     response.statusCode = output.statusCode || 200;
     response.statusMessage = output.statusMessage || 'OK';
-    this.setResponseHeaders(response, output.headers);
+    this.setResponseHeaders(response, output.headers, site);
     this.setResponseCookies(response, output.cookies);
     this.setResponseBody(response, output.body, output.gzip);
     response.end();
   }
 
   setResponseHeaders(response: Http.ServerResponse, headers?: HeaderMap, site?: Site) {
-    if (site && this.config.responseHeaders) {
+    if (this.config.responseHeaders) {
       for (const [name, value] of Object.entries(this.config.responseHeaders)) {
         response.setHeader(name.toLowerCase(), value);
       }
