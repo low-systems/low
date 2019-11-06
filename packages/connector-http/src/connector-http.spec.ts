@@ -6,8 +6,10 @@ import { Socket } from 'net';
 import { TLSSocket } from 'tls';
 import { Buffer } from 'buffer';
 
+// tslint:disable-next-line: no-implicit-dependencies
 const MockRequest = require('readable-mock-req');
 
+// tslint:disable-next-line: no-implicit-dependencies
 import { transpile } from '@low-systems/json-i';
 import { Environment } from 'low';
 
