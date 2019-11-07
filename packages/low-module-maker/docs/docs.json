@@ -144,7 +144,7 @@
 							}
 						},
 						{
-							"id": 5,
+							"id": 4,
 							"name": "name",
 							"kind": 1024,
 							"kindString": "Property",
@@ -154,7 +154,7 @@
 							"sources": [
 								{
 									"fileName": "index.ts",
-									"line": 73,
+									"line": 72,
 									"character": 6
 								}
 							],
@@ -164,7 +164,7 @@
 							}
 						},
 						{
-							"id": 4,
+							"id": 6,
 							"name": "organisation",
 							"kind": 1024,
 							"kindString": "Property",
@@ -175,7 +175,7 @@
 							"sources": [
 								{
 									"fileName": "index.ts",
-									"line": 72,
+									"line": 74,
 									"character": 14
 								}
 							],
@@ -194,7 +194,7 @@
 							}
 						},
 						{
-							"id": 3,
+							"id": 5,
 							"name": "outputDir",
 							"kind": 1024,
 							"kindString": "Property",
@@ -204,7 +204,7 @@
 							"sources": [
 								{
 									"fileName": "index.ts",
-									"line": 71,
+									"line": 73,
 									"character": 11
 								}
 							],
@@ -244,7 +244,7 @@
 							}
 						},
 						{
-							"id": 6,
+							"id": 3,
 							"name": "type",
 							"kind": 1024,
 							"kindString": "Property",
@@ -254,34 +254,14 @@
 							"sources": [
 								{
 									"fileName": "index.ts",
-									"line": 74,
+									"line": 71,
 									"character": 6
 								}
 							],
 							"type": {
-								"type": "union",
-								"types": [
-									{
-										"type": "stringLiteral",
-										"value": "CacheManager"
-									},
-									{
-										"type": "stringLiteral",
-										"value": "Connector"
-									},
-									{
-										"type": "stringLiteral",
-										"value": "Doer"
-									},
-									{
-										"type": "stringLiteral",
-										"value": "Parser"
-									},
-									{
-										"type": "stringLiteral",
-										"value": "Renderer"
-									}
-								]
+								"type": "reference",
+								"name": "ModuleType",
+								"id": 18
 							}
 						}
 					],
@@ -294,11 +274,11 @@
 								9,
 								7,
 								10,
-								5,
 								4,
-								3,
+								6,
+								5,
 								11,
-								6
+								3
 							]
 						}
 					],
@@ -309,6 +289,47 @@
 							"character": 29
 						}
 					]
+				},
+				{
+					"id": 18,
+					"name": "ModuleType",
+					"kind": 4194304,
+					"kindString": "Type alias",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "index.ts",
+							"line": 82,
+							"character": 22
+						}
+					],
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "stringLiteral",
+								"value": "CacheManager"
+							},
+							{
+								"type": "stringLiteral",
+								"value": "Connector"
+							},
+							{
+								"type": "stringLiteral",
+								"value": "Doer"
+							},
+							{
+								"type": "stringLiteral",
+								"value": "Parser"
+							},
+							{
+								"type": "stringLiteral",
+								"value": "Renderer"
+							}
+						]
+					}
 				},
 				{
 					"id": 12,
@@ -405,6 +426,13 @@
 					]
 				},
 				{
+					"title": "Type aliases",
+					"kind": 4194304,
+					"children": [
+						18
+					]
+				},
+				{
 					"title": "Functions",
 					"kind": 64,
 					"children": [
@@ -422,7 +450,7 @@
 			]
 		},
 		{
-			"id": 18,
+			"id": 19,
 			"name": "\"low-module-maker\"",
 			"kind": 1,
 			"kindString": "External module",
@@ -430,82 +458,6 @@
 				"isExported": true
 			},
 			"originalName": "/home/tonicblue/code/low/packages/low-module-maker/src/low-module-maker.ts",
-			"children": [
-				{
-					"id": 20,
-					"name": "moduleName",
-					"kind": 32,
-					"kindString": "Variable",
-					"flags": {
-						"isConst": true
-					},
-					"sources": [
-						{
-							"fileName": "low-module-maker.ts",
-							"line": 8,
-							"character": 16
-						}
-					],
-					"type": {
-						"type": "intrinsic",
-						"name": "string"
-					},
-					"defaultValue": " process.argv[3]"
-				},
-				{
-					"id": 21,
-					"name": "moduleOutput",
-					"kind": 32,
-					"kindString": "Variable",
-					"flags": {
-						"isLet": true
-					},
-					"sources": [
-						{
-							"fileName": "low-module-maker.ts",
-							"line": 9,
-							"character": 16
-						}
-					],
-					"type": {
-						"type": "intrinsic",
-						"name": "string"
-					},
-					"defaultValue": " process.argv[4]"
-				},
-				{
-					"id": 19,
-					"name": "moduleType",
-					"kind": 32,
-					"kindString": "Variable",
-					"flags": {
-						"isConst": true
-					},
-					"sources": [
-						{
-							"fileName": "low-module-maker.ts",
-							"line": 7,
-							"character": 16
-						}
-					],
-					"type": {
-						"type": "intrinsic",
-						"name": "string"
-					},
-					"defaultValue": " process.argv[2]"
-				}
-			],
-			"groups": [
-				{
-					"title": "Variables",
-					"kind": 32,
-					"children": [
-						20,
-						21,
-						19
-					]
-				}
-			],
 			"sources": [
 				{
 					"fileName": "low-module-maker.ts",
@@ -521,7 +473,7 @@
 			"kind": 1,
 			"children": [
 				1,
-				18
+				19
 			]
 		}
 	]

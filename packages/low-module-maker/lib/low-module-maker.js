@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Path = require("path");
 const Readline = require("readline-sync");
-//, createModule,
 const index_1 = require("./index");
 (async () => {
     console.log('');
@@ -31,31 +30,32 @@ const index_1 = require("./index");
         type: moduleType,
         outputDir: moduleOutput
     };
-    const organisation = Readline.question('NPM organisation name (e.g. low-systems)? [optional] ');
+    const organisation = Readline.question('NPM organisation name (e.g. low-systems)? [optional]: ');
     if (organisation) {
         config.organisation = organisation;
     }
-    const description = Readline.question('Module description? [optional] ');
+    const description = Readline.question('Module description? [optional]: ');
     if (description) {
         config.description = description;
     }
-    const author = Readline.question('Author name? [optional] ');
+    const author = Readline.question('Author name? [optional]: ');
     if (author) {
         config.author = author;
     }
-    const authorUrl = Readline.question('Author url? [optional] ');
+    const authorUrl = Readline.question('Author url? [optional]: ');
     if (authorUrl) {
         config.authorUrl = authorUrl;
     }
-    const repository = Readline.question('Repository url (e.g. https://github.com/low-systems/my-module)? [optional] ');
+    const repository = Readline.question('Repository url (e.g. https://github.com/low-systems/my-module)? [optional]: ');
     if (repository) {
         config.repository = repository;
     }
-    const homepage = Readline.question('Module homepage? [optional] ');
+    const homepage = Readline.question('Module homepage? [optional]: ');
     if (homepage) {
         config.homepage = homepage;
     }
     console.log('Configuration for new module');
     console.log(JSON.stringify(config, null, 2));
+    index_1.createModule(config);
 })().then().catch(err => console.error);
 //# sourceMappingURL=low-module-maker.js.map
