@@ -64,7 +64,7 @@ export class CacheManager<C, S> extends Module<C, S> {
     }
   }
 
-  async bust(partition: string): Promise<void> {
+  async flush(partition: string): Promise<void> {
     if (this.CACHE.hasOwnProperty(partition)) {
       delete this.CACHE[partition];
     }

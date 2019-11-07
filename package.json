@@ -19,6 +19,7 @@
     "glob": "^7.1.5",
     "jest": "^24.9.0",
     "lerna": "^3.18.3",
+    "readable-mock-req": "^0.2.2",
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
     "typedoc": "^0.15.0",
@@ -28,6 +29,7 @@
     "@low-systems/connector-http": "file:packages/connector-http",
     "@low-systems/example": "file:packages/example",
     "@low-systems/json-i": "file:packages/json-i",
+    "@low-systems/low-module-maker": "file:packages/low-module-maker",
     "low": "file:packages/low"
   },
   "jest": {

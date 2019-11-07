@@ -1,0 +1,34 @@
+{
+  "name": "@low-systems/low-module-maker",
+  "version": "0.0.1",
+  "description": "Create stub low module projects",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "homepage": "https://github.com/low-systems/low#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/low-systems/low"
+  },
+  "scripts": {
+    "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
+    "test": "jest --coverage",
+    "build": "npm run clean && tsc && chmod +x lib/low-module-maker.js && npm test && typedoc"
+  },
+  "author": {
+    "name": "Matthew Parry-Wilkes",
+    "url": "https://low.systems"
+  },
+  "license": "GPL-3.0",
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "bin": {
+    "lmm": "./lib/low-module-maker.js"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "@types/readline-sync": "^1.4.3"
+  }
+}
