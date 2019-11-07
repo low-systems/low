@@ -1,7 +1,7 @@
 {
   "version": "0.0.1",
-  "main": "lib/handlebars.js",
-  "types": "lib/handlebars.d.ts",
+  "main": "lib/renderer-handlebars.js",
+  "types": "lib/renderer-handlebars.d.ts",
   "scripts": {
     "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
     "test": "jest --coverage",
@@ -15,6 +15,7 @@
     }
   },
   "dependencies": {
+    "handlebars": "^4.5.1",
     "low": "../low"
   },
   "name": "@low-systems/handlebars",

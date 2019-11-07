@@ -58,10 +58,14 @@ for (const package of packages) {
       console.log(` ├`, `Binary '${rootBinary.name}' already exists`.brightGreen);
     } else {
       console.log(` └`, `Binary '${rootBinary.name}' does not exist, creating symlink...`.yellow);
-      const rootBinaryPath = Path.join(rootBinary.dir, rootBinary.name);
-      FS.symlinkSync(rootBinaryPath, packageBinaryPath);
-      const localBinPath = Path.join('node_modules', '.bin', rootBinary.name);
-      console.log(`   └`, `Symlink created: ${localBinPath} => ${rootBinaryPath}`.green)
+      try {
+        const rootBinaryPath = Path.join(rootBinary.dir, rootBinary.name);
+        FS.symlinkSync(rootBinaryPath, packageBinaryPath);
+        const localBinPath = Path.join('node_modules', '.bin', rootBinary.name);
+        console.log(`   └`, `Symlink created: ${localBinPath} => ${rootBinaryPath}`.green)
+      } catch (err) {
+        console.log(`   └`, err.message.red)
+      }
     }
   }
 }
