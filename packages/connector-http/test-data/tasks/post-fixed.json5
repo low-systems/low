@@ -1,0 +1,21 @@
+{
+  name: 'post-fixed',
+  doer: 'Doer',
+  connectorConfigs: {
+    ConnectorHttp: {
+      patterns: ['/post/fixed'],
+      sites: ['default'],
+      verbs: ['GET'],
+      priority: 1,
+      output: {
+        body: {
+          input: { __pointer: 'metadata.input' }
+        },
+        headers: {
+          'content-type': 'application/json'
+        }
+      }
+    }
+  },
+  config: {}
+}

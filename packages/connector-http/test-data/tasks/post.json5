@@ -1,0 +1,20 @@
+{
+  name: 'post',
+  doer: 'Doer',
+  connectorConfigs: {
+    ConnectorHttp: {
+      patterns: ['/post/:slug'],
+      sites: ['default'],
+      verbs: ['GET'],
+      output: {
+        body: {
+          input: { __pointer: 'metadata.input' }
+        },
+        headers: {
+          'content-type': 'application/json'
+        }
+      }
+    }
+  },
+  config: {}
+}
