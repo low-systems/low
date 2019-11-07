@@ -253,12 +253,14 @@ export class ConnectorHttp extends Connector<ConnectorHttpConfig, any, HttpInput
 
   setResponseCookies(response: Http.ServerResponse, cookies?: CookieMap) {
     if (cookies) {
+      const cookieJar: string[] = [];
       for (const [cookieName, cookie] of Object.entries(cookies)) {
-        const cookieString = cookie.value ?
-          CookieHelper.serialize(cookieName, cookie.value, cookie.options) :
+        const cookieString = cookie ?
+          CookieHelper.serialize(cookieName, cookie.value || '', cookie.options) :
           CookieHelper.serialize(cookieName, '', { expires: new Date(0) });
-        response.setHeader('Set-Cookie', cookieString);
+          cookieJar.push(cookieString);
       }
+      response.setHeader('Set-Cookie', cookieJar);
     }
   }
 
@@ -389,7 +391,7 @@ export interface HeaderMap {
 }
 
 export interface CookieMap {
-  [name: string]: Cookie;
+  [name: string]: Cookie | null;
 }
 
 export interface Cookie {

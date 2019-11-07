@@ -194,7 +194,9 @@ test('should send an appropriate response', () => {
       'x-test': 'It worked'
     },
     cookies: {
-      'uid': { value: '1234abcd' }
+      'empty': { },
+      'uid': { value: '1234abcd', options: { expires: new Date(2048, 10, 11) } },
+      'clear-me': null
     }
   };
   connector.sendResponse(response, output, site);
@@ -203,7 +205,7 @@ test('should send an appropriate response', () => {
   expect(response.statusMessage).toBe('OK');
   expect(response.getHeader('x-test')).toBe('It worked');
   expect(response.getHeader('content-type')).toBe('text/plain');
-  expect(response.getHeader('set-cookie')).toBe('uid=1234abcd');
+  expect(response.getHeader('set-cookie')).toEqual(['empty=', 'uid=1234abcd; Expires=Wed, 11 Nov 2048 00:00:00 GMT', 'clear-me=; Expires=Thu, 01 Jan 1970 00:00:00 GMT']);
   expect(response.getHeader('x-powered-by')).toBe('low');
   expect(response.getHeader('x-global-overridden')).toBe('I have been overridden');
   expect(response.getHeader('x-site-header')).toBe('default site');
