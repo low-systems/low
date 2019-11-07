@@ -8,7 +8,8 @@
     "update-all-dependencies": "./scripts/update-all-dependencies.js"
   },
   "devDependencies": {
-    "@low-systems/json-i": "file:../json-i",
+    "@low-systems/json-i": "file:packages/json-i",
+    "@low-systems/low-module-maker": "file:packages/low-module-maker",
     "@types/cookie": "^0.3.3",
     "@types/dot-object": "^1.7.0",
     "@types/glob": "^7.1.1",
@@ -28,8 +29,6 @@
   "dependencies": {
     "@low-systems/connector-http": "file:packages/connector-http",
     "@low-systems/example": "file:packages/example",
-    "@low-systems/json-i": "file:packages/json-i",
-    "@low-systems/low-module-maker": "file:packages/low-module-maker",
     "low": "file:packages/low"
   },
   "jest": {
