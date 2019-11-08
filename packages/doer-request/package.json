@@ -1,7 +1,7 @@
 {
   "version": "0.0.1",
-  "main": "lib/request.js",
-  "types": "lib/request.d.ts",
+  "main": "lib/doer-request.js",
+  "types": "lib/doer-request.d.ts",
   "scripts": {
     "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
     "test": "jest --coverage",
@@ -19,7 +19,7 @@
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8"
   },
-  "name": "@low-systems/request",
+  "name": "@low-systems/doer-request",
   "description": "A Http Request doer for low",
   "homepage": "https://github.com/low-systems/low#readme",
   "author": {

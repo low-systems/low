@@ -1,0 +1,36 @@
+{
+  templates: {
+    '+': 'merge',
+    __items: [
+      {
+        '+': 'include',
+        __glob: '../sites/goodmoves/handlebars-templates/**/*.*',
+        __dataType: 'string',
+        __keyTemplate: 'goodmoves_{{name}}'
+      },
+      {
+        '+': 'include',
+        __glob: '../sites/scvo/handlebars-templates/**/*.*',
+        __dataType: 'string',
+        __keyTemplate: 'scvo_{{name}}'
+      },
+    ]
+  },
+  partials: {
+    '+': 'merge',
+    __items: [
+      {
+        '+': 'include',
+        __glob: '../sites/goodmoves/handlebars-partials/**/*.*',
+        __dataType: 'string',
+        __keyTemplate: 'goodmoves_{{name}}'
+      },
+      {
+        '+': 'include',
+        __glob: '../sites/scvo/handlebars-partials/**/*.*',
+        __dataType: 'string',
+        __keyTemplate: 'scvo_{{name}}'
+      },
+    ]
+  }
+}

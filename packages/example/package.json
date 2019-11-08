@@ -7,8 +7,10 @@
     "clean": "rm -rf lib/; rm -rf coverage/",
     "test": "jest --coverage",
     "build": "npm run clean && tsc && npm test",
-    "dev": "tsc && npm start",
-    "start": "node lib/index.js"
+    "jsoni": "json-i configuration/main.json5 configuration/main.json",
+    "dev": "tsc && npm run jsoni && npm start",
+    "start": "node lib/index.js",
+    "update-modules": "node scripts/update-modules.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +27,13 @@
   },
   "homepage": "https://github.com/low-systems/low#readme",
   "dependencies": {
+    "@low-systems/connector-http": "file:../connector-http",
+    "@low-systems/doer-request": "file:../doer-request",
+    "@low-systems/handlebars": "file:../renderer-handlebars",
     "@low-systems/json-i": "file:../json-i",
+    "@low-systems/renderer-handlebars": "file:../renderer-handlebars",
+    "@low-systems/request": "file:../doer-request",
+    "glob": "^7.1.5",
     "low": "file:../low",
     "source-map-support": "^0.5.16"
   },

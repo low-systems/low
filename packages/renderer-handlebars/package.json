@@ -18,7 +18,7 @@
     "handlebars": "^4.5.1",
     "low": "../low"
   },
-  "name": "@low-systems/handlebars",
+  "name": "@low-systems/renderer-handlebars",
   "description": "A Handlebars Renderer for low",
   "homepage": "https://github.com/low-systems/low",
   "author": {

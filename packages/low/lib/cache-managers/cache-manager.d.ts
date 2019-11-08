@@ -2,11 +2,11 @@ import { Module } from '../module';
 import { Context } from '../environment';
 export declare class CacheManager<C, S> extends Module<C, S> {
     private _CACHE;
-    readonly CACHE: MemoryCache;
+    get CACHE(): MemoryCache;
     makeKey(config: CacheConfig, context: Context): Promise<CacheKey>;
     getItem(cacheKey: CacheKey): Promise<any>;
     setItem(cacheKey: CacheKey, item: any, ttl: number): Promise<void>;
-    bust(partition: string): Promise<void>;
+    flush(partition: string): Promise<void>;
 }
 export interface CacheConfig {
     cacheManager: string;

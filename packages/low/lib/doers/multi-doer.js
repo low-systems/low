@@ -15,12 +15,15 @@ class MultiDoer extends doer_1.Doer {
     main(context, taskConfig, multiDoerTasks) {
         return __awaiter(this, void 0, void 0, function* () {
             for (const multiDoerTask of multiDoerTasks) {
-                const doer = this.env.getDoer(multiDoerTask.task.doer);
-                yield doer.execute(context, multiDoerTask.task);
+                const task = typeof multiDoerTask.task === 'string' ?
+                    this.env.getTask(multiDoerTask.task) :
+                    multiDoerTask.task;
+                const doer = this.env.getDoer(task.doer);
+                yield doer.execute(context, task);
                 if (multiDoerTask.branch) {
                     const branchConfig = yield object_compiler_1.ObjectCompiler.compile(multiDoerTask.branch, context);
                     if (!branchConfig.taskName) {
-                        throw new Error(`Invalid BranchConfig for task '${multiDoerTask.task.name}'`);
+                        throw new Error(`Invalid BranchConfig for task '${task.name}'`);
                     }
                     const branchTask = this.env.getTask(branchConfig.taskName);
                     const branchDoer = this.env.getDoer(branchTask.doer);

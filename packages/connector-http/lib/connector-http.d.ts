@@ -12,30 +12,41 @@ export declare class ConnectorHttp extends Connector<ConnectorHttpConfig, any, H
     httpsServer?: Https.Server;
     sites: SiteMap;
     setup(): Promise<void>;
+    getPort(portOrVar: number | string): number;
     setupTask(task: TaskConfig, config: HttpTaskConfig): Promise<void>;
     requestHandler(request: Http.IncomingMessage, response: Http.ServerResponse): Promise<void>;
     hostnameCache: HostnameCache;
     getSiteFromHostname(hostname: string): Site;
-    getRequestProtocol(request: Http.IncomingMessage): "https" | "http";
+    getRequestProtocol(request: Http.IncomingMessage): 'http' | 'https';
     getRequestUrl(request: Http.IncomingMessage): Url.URL;
     getQuerystringObject(url: Url.URL): any;
+    getRequestBody(request: Http.IncomingMessage): Promise<any>;
     handleError(response: Http.ServerResponse, error: Error | HttpError | ConnectorRunError, input: HttpInput): Promise<void>;
     mergeErrorHandlers(site?: Site): ErrorHandler[];
     findErrorHandler(handlers: ErrorHandler[], statusCode?: number): ErrorHandler;
-    sendResponse(response: Http.ServerResponse, output: HttpOutput): void;
+    sendResponse(response: Http.ServerResponse, output: HttpOutput, site?: Site): void;
     setResponseHeaders(response: Http.ServerResponse, headers?: HeaderMap, site?: Site): void;
     setResponseCookies(response: Http.ServerResponse, cookies?: CookieMap): void;
     getContentType(response: Http.ServerResponse, body: any): string;
     setResponseBody(response: Http.ServerResponse, body: any, gzip?: boolean): void;
+    destroy(): Promise<void>;
 }
 export interface ConnectorHttpConfig {
-    httpOptions?: Http.ServerOptions;
-    httpsOptions?: Https.ServerOptions;
+    httpOptions?: HttpOptions;
+    httpsOptions?: HttpsOptions;
     sites: {
         [name: string]: SiteConfig;
     };
     errorHandlers?: ErrorHandler[];
     responseHeaders?: HeaderMap;
+}
+export interface HttpOptions {
+    serverOptions: Http.ServerOptions;
+    port: number | string;
+}
+export interface HttpsOptions {
+    serverOptions: Https.ServerOptions;
+    port: number | string;
 }
 export interface HostnameCache {
     [hostname: string]: Site;
@@ -70,7 +81,7 @@ export interface HeaderMap {
     [name: string]: string | number | string[];
 }
 export interface CookieMap {
-    [name: string]: Cookie;
+    [name: string]: Cookie | null;
 }
 export interface Cookie {
     value?: string;

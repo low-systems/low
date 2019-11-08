@@ -1,0 +1,20 @@
+{
+  httpOptions: {
+    serverOptions: {},
+    port: 8888
+  },
+  httpsOptions: {
+    serverOptions: {},
+    port: 9999
+  },
+  sites: {
+    scvo: {
+      hostnames: ['scvo.local'],
+      stripTrailingSlash: true
+    },
+    goodmoves: {
+      hostnames: ['goodmoves.local'],
+      stripTrailingSlash: true
+    }
+  }
+}

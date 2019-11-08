@@ -1,1 +1,8 @@
-{}
+{
+  modules: {
+    '+': 'include',
+    __glob: 'modules/*.json5',
+    __dataType: 'object',
+    __keyTemplate: '{{name}}'
+  }
+}

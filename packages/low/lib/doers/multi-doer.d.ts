@@ -5,7 +5,7 @@ export declare class MultiDoer<C, S> extends Doer<C, S> {
     main(context: ConnectorContext<any>, taskConfig: TaskConfig, multiDoerTasks: MultiDoerTask[]): Promise<any>;
 }
 export interface MultiDoerTask {
-    task: TaskConfig;
+    task: TaskConfig | string;
     branch?: any;
 }
 export interface BranchConfig {

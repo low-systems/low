@@ -1,0 +1,116 @@
+{
+  "environment": {
+    "modules": {
+      "ConnectorHttp": {
+        "httpOptions": {
+          "serverOptions": {},
+          "port": 8888
+        },
+        "httpsOptions": {
+          "serverOptions": {},
+          "port": 9999
+        },
+        "sites": {
+          "scvo": {
+            "hostnames": [
+              "scvo.local"
+            ],
+            "stripTrailingSlash": true
+          },
+          "goodmoves": {
+            "hostnames": [
+              "goodmoves.local"
+            ],
+            "stripTrailingSlash": true
+          }
+        }
+      },
+      "RendererHandlebars": {
+        "templates": {
+          "goodmoves_index": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <title>Goodmoves</title>\n  </head>\n  <body>\n    <h1>Goodmoves</h1>\n    <h2>Home</h2>\n    <p>Welcome to Goodmoves</p>\n  </body>\n</html>",
+          "scvo_index": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <title>SCVO</title>\n  </head>\n  <body>\n    <h1>SCVO</h1>\n    <h2>Home</h2>\n    <p>Welcome to SCVO</p>\n    <h2>{{data.global_citybikes.network.name}}</h2>\n    <ul>\n      {{#each data.global_citybikes.network.stations}}\n        {{>scvo_bike-station}}\n      {{/each}}\n    </ul>\n  </body>\n</html>"
+        },
+        "partials": {
+          "scvo_bike-station": "<li>\n  <strong>{{extra.address}}</strong> -\n  {{free_bikes}}\n</li>"
+        }
+      }
+    }
+  },
+  "tasks": [
+    {
+      "name": "global_citybikes",
+      "doer": "DoerRequest",
+      "config": {
+        "url": "https://api.citybik.es/v2/networks/edinburgh-cycle-hire",
+        "json": true
+      }
+    },
+    {
+      "name": "goodmoves-index",
+      "doer": "Doer",
+      "connectorConfigs": {
+        "ConnectorHttp": {
+          "patterns": [
+            "/",
+            "/home"
+          ],
+          "sites": [
+            "goodmoves"
+          ],
+          "verbs": [
+            "GET"
+          ],
+          "output": {
+            "body": {
+              "__template": {
+                "name": "goodmoves_index"
+              },
+              "__renderer": "RendererHandlebars",
+              "__parser": "StringParser"
+            },
+            "headers": {
+              "content-type": "text/html"
+            }
+          }
+        }
+      },
+      "config": {}
+    },
+    {
+      "name": "scvo-index",
+      "doer": "MultiDoer",
+      "connectorConfigs": {
+        "ConnectorHttp": {
+          "patterns": [
+            "/",
+            "/home"
+          ],
+          "sites": [
+            "scvo"
+          ],
+          "verbs": [
+            "GET"
+          ],
+          "output": {
+            "body": {
+              "__template": {
+                "name": "scvo_index"
+              },
+              "__renderer": "RendererHandlebars",
+              "__parser": "StringParser"
+            },
+            "headers": {
+              "content-type": "text/html"
+            }
+          }
+        }
+      },
+      "config": [
+        {
+          "task": "global_citybikes"
+        }
+      ]
+    }
+  ],
+  "secrets": {}
+}

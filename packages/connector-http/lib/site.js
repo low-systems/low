@@ -1,9 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const url_pattern_1 = __importDefault(require("url-pattern"));
+const UrlPattern = require("url-pattern");
 const http_verbs_1 = require("./http-verbs");
 const http_error_1 = require("./http-error");
 class Site {
@@ -21,13 +18,17 @@ class Site {
                 task,
                 config,
                 verbs,
-                urlPattern: new url_pattern_1.default(pattern)
+                urlPattern: new UrlPattern(pattern)
             };
             this.routes.push(route);
         }
     }
     matchRoute(path, verb) {
-        const routeCacheKey = `${verb}: ${path}`;
+        let preparedPath = path;
+        if (path.length > 1 && this.config.stripTrailingSlash && path.endsWith('/')) {
+            preparedPath = path.slice(0, -1);
+        }
+        const routeCacheKey = `${verb}: ${preparedPath}`;
         if (this.routeMatchCache.hasOwnProperty(routeCacheKey)) {
             return this.routeMatchCache[routeCacheKey];
         }
@@ -35,7 +36,7 @@ class Site {
         const routeMatches = [];
         for (const route of this.routes) {
             if ((verbFlag & route.verbs) === verbFlag) {
-                const match = route.urlPattern.match(path);
+                const match = route.urlPattern.match(preparedPath);
                 if (match) {
                     routeMatches.push({
                         route,

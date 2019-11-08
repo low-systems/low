@@ -28,7 +28,7 @@ export declare class Environment {
     /**
      * Determine if the `Environment` is ready to execute tasks
      */
-    readonly isReady: boolean;
+    get isReady(): boolean;
     /**
      * A collection of [[Connector]] modules. Connectors are gateways from
      * your application or external sources to run tasks in the `low` Environment

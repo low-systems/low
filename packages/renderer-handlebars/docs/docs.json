@@ -1,0 +1,958 @@
+{
+	"id": 0,
+	"name": "@low-systems/renderer-handlebars",
+	"kind": 0,
+	"flags": {},
+	"children": [
+		{
+			"id": 1,
+			"name": "\"renderer-handlebars\"",
+			"kind": 1,
+			"kindString": "External module",
+			"flags": {
+				"isExported": true
+			},
+			"originalName": "/home/tonicblue/code/low/packages/renderer-handlebars/src/renderer-handlebars.ts",
+			"children": [
+				{
+					"id": 2,
+					"name": "RendererHandlebars",
+					"kind": 128,
+					"kindString": "Class",
+					"flags": {
+						"isExported": true
+					},
+					"children": [
+						{
+							"id": 4,
+							"name": "constructor",
+							"kind": 512,
+							"kindString": "Constructor",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 6,
+									"name": "new RendererHandlebars",
+									"kind": 16384,
+									"kindString": "Constructor signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 7,
+											"name": "hbs",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "Handlebars"
+											},
+											"defaultValue": " Handlebars.create()"
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "RendererHandlebars",
+										"id": 2
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "renderer-handlebars.ts",
+									"line": 6,
+									"character": 30
+								}
+							]
+						},
+						{
+							"id": 31,
+							"name": "config",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "/home/tonicblue/code/low/packages/low/lib/module.d.ts",
+									"line": 6,
+									"character": 19
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "HandlebarsConfig",
+								"id": 40
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.config"
+							}
+						},
+						{
+							"id": 30,
+							"name": "env",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "/home/tonicblue/code/low/packages/low/lib/module.d.ts",
+									"line": 4,
+									"character": 16
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "Environment"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.env"
+							}
+						},
+						{
+							"id": 5,
+							"name": "hbs",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isPublic": true,
+								"isExported": true,
+								"isConstructorProperty": true
+							},
+							"sources": [
+								{
+									"fileName": "renderer-handlebars.ts",
+									"line": 8,
+									"character": 24
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "Handlebars"
+							}
+						},
+						{
+							"id": 34,
+							"name": "isReady",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "/home/tonicblue/code/low/packages/low/lib/module.d.ts",
+									"line": 11,
+									"character": 20
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.isReady"
+							}
+						},
+						{
+							"id": 33,
+							"name": "moduleType",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "/home/tonicblue/code/low/packages/low/lib/module.d.ts",
+									"line": 9,
+									"character": 23
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.moduleType"
+							}
+						},
+						{
+							"id": 32,
+							"name": "secrets",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "/home/tonicblue/code/low/packages/low/lib/module.d.ts",
+									"line": 8,
+									"character": 20
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "any"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.secrets"
+							}
+						},
+						{
+							"id": 3,
+							"name": "templates",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true
+							},
+							"sources": [
+								{
+									"fileName": "renderer-handlebars.ts",
+									"line": 6,
+									"character": 11
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "TemplateMap",
+								"id": 46
+							}
+						},
+						{
+							"id": 14,
+							"name": "core",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 15,
+									"name": "core",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 16,
+											"name": "template",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "TemplateDelegate"
+											}
+										},
+										{
+											"id": 17,
+											"name": "context",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "Context"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "any"
+											}
+										]
+									},
+									"overwrites": {
+										"type": "reference",
+										"name": "Renderer.core"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "renderer-handlebars.ts",
+									"line": 33,
+									"character": 12
+								}
+							],
+							"overwrites": {
+								"type": "reference",
+								"name": "Renderer.core"
+							}
+						},
+						{
+							"id": 38,
+							"name": "destroy",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 39,
+									"name": "destroy",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "void"
+											}
+										]
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "Module.destroy"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "/home/tonicblue/code/low/packages/low/lib/module.d.ts",
+									"line": 14,
+									"character": 11
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.destroy"
+							}
+						},
+						{
+							"id": 18,
+							"name": "getTemplate",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 19,
+									"name": "getTemplate",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 20,
+											"name": "config",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "RenderConfig"
+											}
+										},
+										{
+											"id": 21,
+											"name": "context",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "Context"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "any"
+											}
+										]
+									},
+									"overwrites": {
+										"type": "reference",
+										"name": "Renderer.getTemplate"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "renderer-handlebars.ts",
+									"line": 38,
+									"character": 19
+								}
+							],
+							"overwrites": {
+								"type": "reference",
+								"name": "Renderer.getTemplate"
+							}
+						},
+						{
+							"id": 35,
+							"name": "init",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 36,
+									"name": "init",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 37,
+											"name": "env",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "Environment"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "void"
+											}
+										]
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "Module.init"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "/home/tonicblue/code/low/packages/low/lib/module.d.ts",
+									"line": 12,
+									"character": 8
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Module.init"
+							}
+						},
+						{
+							"id": 26,
+							"name": "parseRendered",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 27,
+									"name": "parseRendered",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 28,
+											"name": "rendered",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										},
+										{
+											"id": 29,
+											"name": "config",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "RenderConfig"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "any"
+											}
+										]
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "Renderer.parseRendered"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "/home/tonicblue/code/low/packages/low/lib/renderers/renderer.d.ts",
+									"line": 8,
+									"character": 17
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Renderer.parseRendered"
+							}
+						},
+						{
+							"id": 12,
+							"name": "registerPartials",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 13,
+									"name": "registerPartials",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "void"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "renderer-handlebars.ts",
+									"line": 24,
+									"character": 18
+								}
+							]
+						},
+						{
+							"id": 10,
+							"name": "registerTemplates",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 11,
+									"name": "registerTemplates",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "void"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "renderer-handlebars.ts",
+									"line": 15,
+									"character": 19
+								}
+							]
+						},
+						{
+							"id": 22,
+							"name": "render",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 23,
+									"name": "render",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 24,
+											"name": "config",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "RenderConfig"
+											}
+										},
+										{
+											"id": 25,
+											"name": "context",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"name": "Context"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "any"
+											}
+										]
+									},
+									"inheritedFrom": {
+										"type": "reference",
+										"name": "Renderer.render"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "/home/tonicblue/code/low/packages/low/lib/renderers/renderer.d.ts",
+									"line": 6,
+									"character": 10
+								}
+							],
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "Renderer.render"
+							}
+						},
+						{
+							"id": 8,
+							"name": "setup",
+							"kind": 2048,
+							"kindString": "Method",
+							"flags": {
+								"isExported": true
+							},
+							"signatures": [
+								{
+									"id": 9,
+									"name": "setup",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"name": "Promise",
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "void"
+											}
+										]
+									},
+									"overwrites": {
+										"type": "reference",
+										"name": "Module.setup"
+									}
+								}
+							],
+							"sources": [
+								{
+									"fileName": "renderer-handlebars.ts",
+									"line": 10,
+									"character": 13
+								}
+							],
+							"overwrites": {
+								"type": "reference",
+								"name": "Module.setup"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Constructors",
+							"kind": 512,
+							"children": [
+								4
+							]
+						},
+						{
+							"title": "Properties",
+							"kind": 1024,
+							"children": [
+								31,
+								30,
+								5,
+								34,
+								33,
+								32,
+								3
+							]
+						},
+						{
+							"title": "Methods",
+							"kind": 2048,
+							"children": [
+								14,
+								38,
+								18,
+								35,
+								26,
+								12,
+								10,
+								22,
+								8
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "renderer-handlebars.ts",
+							"line": 5,
+							"character": 31
+						}
+					],
+					"extendedTypes": [
+						{
+							"type": "reference",
+							"name": "Renderer",
+							"typeArguments": [
+								{
+									"type": "reference",
+									"name": "HandlebarsConfig",
+									"id": 40
+								},
+								{
+									"type": "intrinsic",
+									"name": "any"
+								}
+							]
+						}
+					]
+				},
+				{
+					"id": 40,
+					"name": "HandlebarsConfig",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {
+						"isExported": true
+					},
+					"children": [
+						{
+							"id": 42,
+							"name": "partials",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true,
+								"isOptional": true
+							},
+							"sources": [
+								{
+									"fileName": "renderer-handlebars.ts",
+									"line": 55,
+									"character": 10
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "HandlebarsMap",
+								"id": 43
+							}
+						},
+						{
+							"id": 41,
+							"name": "templates",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {
+								"isExported": true,
+								"isOptional": true
+							},
+							"sources": [
+								{
+									"fileName": "renderer-handlebars.ts",
+									"line": 54,
+									"character": 11
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "HandlebarsMap",
+								"id": 43
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"kind": 1024,
+							"children": [
+								42,
+								41
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "renderer-handlebars.ts",
+							"line": 53,
+							"character": 33
+						}
+					]
+				},
+				{
+					"id": 43,
+					"name": "HandlebarsMap",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {
+						"isExported": true
+					},
+					"indexSignature": [
+						{
+							"id": 44,
+							"name": "__index",
+							"kind": 8192,
+							"kindString": "Index signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 45,
+									"name": "name",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"sources": [
+						{
+							"fileName": "renderer-handlebars.ts",
+							"line": 58,
+							"character": 30
+						}
+					]
+				},
+				{
+					"id": 46,
+					"name": "TemplateMap",
+					"kind": 256,
+					"kindString": "Interface",
+					"flags": {
+						"isExported": true
+					},
+					"indexSignature": [
+						{
+							"id": 47,
+							"name": "__index",
+							"kind": 8192,
+							"kindString": "Index signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 48,
+									"name": "name",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "TemplateDelegate"
+							}
+						}
+					],
+					"sources": [
+						{
+							"fileName": "renderer-handlebars.ts",
+							"line": 62,
+							"character": 28
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Classes",
+					"kind": 128,
+					"children": [
+						2
+					]
+				},
+				{
+					"title": "Interfaces",
+					"kind": 256,
+					"children": [
+						40,
+						43,
+						46
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "renderer-handlebars.ts",
+					"line": 1,
+					"character": 0
+				}
+			]
+		}
+	],
+	"groups": [
+		{
+			"title": "External modules",
+			"kind": 1,
+			"children": [
+				1
+			]
+		}
+	]
+}

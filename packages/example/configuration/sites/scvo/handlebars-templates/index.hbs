@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SCVO</title>
+  </head>
+  <body>
+    <h1>SCVO</h1>
+    <h2>Home</h2>
+    <p>Welcome to SCVO</p>
+    <h2>{{data.global_citybikes.network.name}}</h2>
+    <ul>
+      {{#each data.global_citybikes.network.stations}}
+        {{>scvo_bike-station}}
+      {{/each}}
+    </ul>
+  </body>
+</html>

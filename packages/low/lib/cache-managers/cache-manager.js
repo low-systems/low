@@ -78,7 +78,7 @@ class CacheManager extends module_1.Module {
             }
         });
     }
-    bust(partition) {
+    flush(partition) {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.CACHE.hasOwnProperty(partition)) {
                 delete this.CACHE[partition];

@@ -8,27 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Http = __importStar(require("http"));
-const Https = __importStar(require("https"));
-const Url = __importStar(require("url"));
-const GetBody = __importStar(require("get-body"));
-const CookieHelper = __importStar(require("cookie"));
-const Pako = __importStar(require("pako"));
+const Http = require("http");
+const Https = require("https");
+const Url = require("url");
+const GetBody = require("get-body");
+const CookieHelper = require("cookie");
+const Pako = require("pako");
 const low_1 = require("low");
 const site_1 = require("./site");
 const http_error_1 = require("./http-error");
 const POSSIBLE_HTTPS_HEADERS = {
     'x-forwarded-proto': 'https',
     'front-end-https': 'on',
-    'x-arr_ssl': true,
+    'x-arr-ssl': true,
     'cloudfront-forwarded-proto': 'https',
     'x-forwarded-scheme': 'https',
     'x-forwarded-protocol': 'https',
@@ -44,10 +37,14 @@ class ConnectorHttp extends low_1.Connector {
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.config.httpOptions) {
-                this.httpServer = Http.createServer(this.config.httpOptions, this.requestHandler.bind(this));
+                this.httpServer = Http.createServer(this.config.httpOptions.serverOptions, this.requestHandler.bind(this));
+                const port = this.getPort(this.config.httpOptions.port);
+                this.httpServer.listen(port);
             }
             if (this.config.httpsOptions) {
-                this.httpsServer = Https.createServer(this.config.httpsOptions, this.requestHandler.bind(this));
+                this.httpsServer = Https.createServer(this.config.httpsOptions.serverOptions, this.requestHandler.bind(this));
+                const port = this.getPort(this.config.httpsOptions.port);
+                this.httpsServer.listen(port);
             }
             for (const [siteName, siteConfig] of Object.entries(this.config.sites)) {
                 const site = new site_1.Site(siteName, siteConfig);
@@ -55,6 +52,20 @@ class ConnectorHttp extends low_1.Connector {
             }
             yield this.setupTasks();
         });
+    }
+    getPort(portOrVar) {
+        if (typeof portOrVar === 'number') {
+            return portOrVar;
+        }
+        const envPort = process.env[portOrVar];
+        if (typeof envPort === 'undefined') {
+            throw new Error(`Cannot load port number from environment variable '${portOrVar}' as it has not been set`);
+        }
+        const port = +envPort;
+        if (Number.isNaN(port)) {
+            throw new Error(`Port number '${envPort}' loaded from '${portOrVar}' is not a number.`);
+        }
+        return port;
     }
     setupTask(task, config) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -76,10 +87,10 @@ class ConnectorHttp extends low_1.Connector {
                 input.route = match.route;
                 input.query = this.getQuerystringObject(input.url);
                 input.cookies = CookieHelper.parse(request.headers.cookie || '');
-                input.body = yield GetBody.parse(request, request.headers);
+                input.body = yield this.getRequestBody(request);
                 const context = yield this.runTask(match.route.task, input, match.route.config);
                 const output = yield low_1.ObjectCompiler.compile(match.route.config.output, context);
-                this.sendResponse(response, output);
+                this.sendResponse(response, output, input.site);
             }
             catch (err) {
                 yield this.handleError(response, err, input);
@@ -98,6 +109,9 @@ class ConnectorHttp extends low_1.Connector {
         return foundSite;
     }
     getRequestProtocol(request) {
+        if (request.socket.hasOwnProperty('encrypted') && request.socket.encrypted === true) {
+            return 'https';
+        }
         for (const [name, value] of Object.entries(POSSIBLE_HTTPS_HEADERS)) {
             if (typeof value === 'boolean' && request.headers[name]) {
                 return 'https';
@@ -118,11 +132,33 @@ class ConnectorHttp extends low_1.Connector {
     getQuerystringObject(url) {
         const query = {};
         const keys = url.searchParams.keys();
-        for (let key of Array.from(keys)) {
-            key = key.replace('[]', '');
-            query[key] = url.searchParams.getAll(key);
+        for (const key of Array.from(keys)) {
+            const preparedKey = key.replace('[]', '');
+            query[preparedKey] = url.searchParams.getAll(key);
         }
         return query;
+    }
+    getRequestBody(request) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (['GET', 'HEAD', 'DELETE'].includes(request.method || 'GET')) {
+                    return {};
+                }
+                if (!request.headers.hasOwnProperty('content-type')) {
+                    request.headers['content-type'] = 'text/plain';
+                }
+                const headers = request.headers;
+                const body = yield GetBody.parse(request, headers);
+                return body || {};
+            }
+            catch (err) {
+                //TODO: Plain requests with no body cause `GetBody.parse()` to throw an error.
+                //      Is it right to just return an empty object here or might there be other
+                //      scenarios that would cause an exception where we'd want to handle things
+                //      differently
+                return {};
+            }
+        });
     }
     handleError(response, error, input) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -140,7 +176,7 @@ class ConnectorHttp extends low_1.Connector {
                 }
                 const context = yield this.runTask(task, input, config, data, errors);
                 const output = yield low_1.ObjectCompiler.compile(handler.output, context);
-                this.sendResponse(response, output);
+                this.sendResponse(response, output, input.site);
             }
             catch (err) {
                 this.sendResponse(response, {
@@ -166,16 +202,16 @@ class ConnectorHttp extends low_1.Connector {
         }
         throw new Error('No error handler found');
     }
-    sendResponse(response, output) {
+    sendResponse(response, output, site) {
         response.statusCode = output.statusCode || 200;
         response.statusMessage = output.statusMessage || 'OK';
-        this.setResponseHeaders(response, output.headers);
+        this.setResponseHeaders(response, output.headers, site);
         this.setResponseCookies(response, output.cookies);
         this.setResponseBody(response, output.body, output.gzip);
         response.end();
     }
     setResponseHeaders(response, headers, site) {
-        if (site && this.config.responseHeaders) {
+        if (this.config.responseHeaders) {
             for (const [name, value] of Object.entries(this.config.responseHeaders)) {
                 response.setHeader(name.toLowerCase(), value);
             }
@@ -193,12 +229,14 @@ class ConnectorHttp extends low_1.Connector {
     }
     setResponseCookies(response, cookies) {
         if (cookies) {
+            const cookieJar = [];
             for (const [cookieName, cookie] of Object.entries(cookies)) {
-                const cookieString = cookie.value ?
-                    CookieHelper.serialize(cookieName, cookie.value, cookie.options) :
+                const cookieString = cookie ?
+                    CookieHelper.serialize(cookieName, cookie.value || '', cookie.options) :
                     CookieHelper.serialize(cookieName, '', { expires: new Date(0) });
-                response.setHeader('Set-Cookie', cookieString);
+                cookieJar.push(cookieString);
             }
+            response.setHeader('Set-Cookie', cookieJar);
         }
     }
     getContentType(response, body) {
@@ -252,6 +290,16 @@ class ConnectorHttp extends low_1.Connector {
         response.removeHeader('content-type');
         response.setHeader('content-type', contentType);
         response.write(bodyBuffer);
+    }
+    destroy() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.httpServer) {
+                this.httpServer.close();
+            }
+            if (this.httpsServer) {
+                this.httpsServer.close();
+            }
+        });
     }
 }
 exports.ConnectorHttp = ConnectorHttp;

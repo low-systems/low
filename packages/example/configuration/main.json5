@@ -1,5 +1,32 @@
 {
-  environment: { '+': 'include', __glob: 'environment.json5', __dataType: 'object' },
-  tasks: { '+': 'include', __glob: 'tasks.json5', __dataType: 'object' },
-  secrets: { '+': 'include', __glob: 'secrets.json5', __dataType: 'object' }
+  environment: {
+    '+': 'include',
+    __glob: 'environment.json5',
+    __dataType: 'object'
+  },
+  tasks: {
+    '+': 'concat',
+    __items: [
+      {
+        '+': 'include',
+        __glob: 'global-tasks/**/*.*',
+        __dataType: 'object'
+      },
+      {
+        '+': 'include',
+        __glob: 'sites/goodmoves/tasks/**/*.*',
+        __dataType: 'object'
+      },
+      {
+        '+': 'include',
+        __glob: 'sites/scvo/tasks/**/*.*',
+        __dataType: 'object'
+      },
+    ]
+  },
+  secrets: {
+    '+': 'include',
+    __glob: 'secrets.json5',
+    __dataType: 'object'
+  }
 }
