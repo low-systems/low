@@ -42,6 +42,22 @@ test('should be able to load partials and templates from module config', async (
   expect(renderer.hbs.partials).toHaveProperty('test');
 });
 
+test('should be able to not load partials and templates from module config', async () => {
+  const modules = { renderers: [new RendererHandlebars()] };
+  const config = {
+    modules: {
+      RendererHandlebars: { }
+    }
+  };
+  const environment = new Environment(modules, [], config);
+  await environment.init();
+
+  const renderer = environment.getRenderer('RendererHandlebars') as RendererHandlebars;
+
+  expect(renderer.templates).toEqual({});
+  expect(renderer.hbs.partials).toEqual({});
+});
+
 test('should be able to render templates', async () => {
   const modules = { renderers: [new RendererHandlebars()] };
   const config = {
@@ -65,7 +81,16 @@ test('should be able to render templates', async () => {
     __renderer: 'RendererHandlebars',
     __parser: 'StringParser'
   };
-  const output = renderer.render(rendererConfig, context);
+  const pointerOutput = await renderer.render(rendererConfig, context);
+  expect(pointerOutput).toBe('I am a test template I am a test partial');
 
-  expect(output).toBe('I am a test template I am a test partial');
+  rendererConfig.__template = 'I am another test template {{>test}}';
+  const stringOutput = await renderer.render(rendererConfig, context);
+  expect(stringOutput).toBe('I am another test template I am a test partial');
+
+  rendererConfig.__template = { name: 'baloney' };
+  await expect(renderer.render(rendererConfig, context)).rejects.toThrow(/pre-compiled template/i)
+
+  rendererConfig.__template = 1234;
+  await expect(renderer.render(rendererConfig, context)).rejects.toThrow(/invalid handlebars template/i)
 });
