@@ -1,0 +1,26 @@
+{
+  name: 'scvo-index',
+  doer: 'MultiDoer',
+  connectorConfigs: {
+    HttpConnector: {
+      patterns: ['/', '/home'],
+      sites: ['scvo'],
+      verbs: ['GET'],
+      output: {
+        body: {
+          __template: { name: 'scvo_index' },
+          __renderer: 'HandlebarsRenderer',
+          __parser: 'StringParser'
+        },
+        headers: {
+          'content-type': 'text/html'
+        }
+      }
+    }
+  },
+  config: [
+    {
+      task: "global_citybikes"
+    }
+  ]
+}

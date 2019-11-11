@@ -7,7 +7,7 @@ const ExecSync = require('child_process').execSync;
 const Glob = require('glob');
 require('colors');
 
-const packagesGlob = Path.join(__dirname, '..', 'packages', '*');
+const packagesGlob = Path.join(__dirname, '..', 'packages', '@(cache-managers|connectors|doers|parsers|renderers|core|tools)', '*');
 const packagesPaths = Glob.sync(packagesGlob, { absolute: true });
 const packages = [
   {

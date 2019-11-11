@@ -1,0 +1,32 @@
+{
+  "version": "0.0.1",
+  "main": "lib/handlebars-renderer.js",
+  "types": "lib/handlebars-renderer.d.ts",
+  "scripts": {
+    "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
+    "test": "jest --coverage",
+    "build": "npm run clean && tsc && npm test && typedoc"
+  },
+  "license": "GPL-3.0",
+  "jest": {
+    "preset": "ts-jest",
+    "ts-jest": {
+      "tsConfig": "tsconfig.json"
+    }
+  },
+  "dependencies": {
+    "handlebars": "^4.5.1",
+    "low": "../../core/low"
+  },
+  "name": "@low-systems/renderer-handlebars",
+  "description": "A Handlebars Renderer for low",
+  "homepage": "https://github.com/low-systems/low",
+  "author": {
+    "name": "Matthew Wilkes (@SCVO)",
+    "url": "https://scvo.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/low-systems/low"
+  }
+}

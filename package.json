@@ -2,14 +2,14 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "refresh-modules": "npm run clean-modules && npm i && lerna bootstrap --hoist && lerna link convert && npm run share-global-cli",
-    "clean-modules": "./scripts/clean-modules.sh",
+    "refresh-modules": "npm run clean-modules && npm i && npm run update-all-dependencies && npm run share-global-cli",
+    "clean-modules": "./scripts/clean-modules.js",
     "share-global-cli": "./scripts/share-global-cli.js",
     "update-all-dependencies": "./scripts/update-all-dependencies.js"
   },
   "devDependencies": {
-    "@low-systems/json-i": "file:packages/json-i",
-    "@low-systems/low-module-maker": "file:packages/low-module-maker",
+    "@low-systems/json-i": "file:packages/tools/json-i",
+    "@low-systems/low-module-maker": "file:packages/tools/low-module-maker",
     "@types/cookie": "^0.3.3",
     "@types/dot-object": "^1.7.0",
     "@types/glob": "^7.1.1",
@@ -26,11 +26,7 @@
     "typedoc": "^0.15.0",
     "typescript": "^3.6.4"
   },
-  "dependencies": {
-    "@low-systems/connector-http": "file:packages/connector-http",
-    "@low-systems/example": "file:packages/example",
-    "low": "file:packages/low"
-  },
+  "dependencies": {},
   "jest": {
     "preset": "ts-jest",
     "globals": {

@@ -11,10 +11,12 @@ const rootBinDir = Path.join(__dirname, '..', 'node_modules', '.bin', '*');
 const rootBinaryPaths = Glob.sync(rootBinDir, { absolute: true });
 const rootBinaries = rootBinaryPaths.map(Path.parse);
 
+//ExecSync('lerna bootstrap --hoist && lerna link convert');
+
 console.log(`\nRoot Binaries (${rootBinDir}):`.bgMagenta.black);
 console.log(' ├', rootBinaries.map(binary => binary.name).join('\n ├ '));
 
-const packagesGlob = Path.join(__dirname, '..', 'packages', '*');
+const packagesGlob = Path.join(__dirname, '..', 'packages', '@(cache-managers|connectors|doers|parsers|renderers|core|tools)' , '*');
 const packagesPaths = Glob.sync(packagesGlob, { absolute: true });
 const packages = packagesPaths.map(dir => {
   return {

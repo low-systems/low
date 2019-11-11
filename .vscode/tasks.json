@@ -6,7 +6,7 @@
     {
       "label": "Compile low core",
       "type": "typescript",
-      "tsconfig": "packages/low/tsconfig.json",
+      "tsconfig": "packages/core/low/tsconfig.json",
       "problemMatcher": [
         "$tsc"
       ],
@@ -19,14 +19,14 @@
       "label": "Test low core",
       "type": "npm",
       "script": "test",
-      "path": "packages/low/",
+      "path": "packages/core/low/",
       "problemMatcher": []
     },
     {
       "label": "Build dev example",
       "type": "npm",
       "script": "dev",
-      "path": "packages/example/",
+      "path": "packages/core/example/",
       "problemMatcher": []
     }
   ]

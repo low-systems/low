@@ -1,8 +1,0 @@
-{
-  name: 'global_citybikes',
-  doer: 'DoerRequest',
-  config: {
-    url: 'https://api.citybik.es/v2/networks/edinburgh-cycle-hire',
-    json: true
-  }
-}

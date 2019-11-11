@@ -1,0 +1,41 @@
+{
+  "name": "@low-systems/example",
+  "version": "0.0.1",
+  "description": "An example configuration mainly for testing low modules in a less unit-testy kinda way",
+  "main": "lib/index.js",
+  "scripts": {
+    "clean": "rm -rf lib/; rm -rf coverage/",
+    "test": "jest --coverage",
+    "build": "npm run clean && tsc && npm test",
+    "jsoni": "json-i configuration/main.json5 configuration/main.json",
+    "dev": "tsc && npm run jsoni && npm start",
+    "start": "node lib/index.js",
+    "update-modules": "node scripts/update-modules.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/low-systems/low.git"
+  },
+  "keywords": [
+    "low",
+    "example"
+  ],
+  "author": "Matthew Wilkes (SCVO)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/low-systems/low/issues"
+  },
+  "homepage": "https://github.com/low-systems/low#readme",
+  "dependencies": {
+    "@low-systems/http-connector": "file:../../connectors/http-connector",
+    "@low-systems/request-doer": "file:../../doers/request-doer",
+    "@low-systems/handlebars-renderer": "file:../../renderers/handlebars-renderer",
+    "@low-systems/json-i": "file:../../tools/json-i",
+    "glob": "^7.1.5",
+    "low": "file:../../core/low",
+    "source-map-support": "^0.5.16"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  }
+}
