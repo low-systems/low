@@ -20,4 +20,5 @@ __export(require("./parsers/querystring-parser"));
 __export(require("./parsers/string-parser"));
 __export(require("./parsers/url-parser"));
 __export(require("./renderers/renderer"));
+;
 //# sourceMappingURL=index.js.map

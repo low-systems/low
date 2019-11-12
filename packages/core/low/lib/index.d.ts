@@ -15,3 +15,7 @@ export * from './parsers/querystring-parser';
 export * from './parsers/string-parser';
 export * from './parsers/url-parser';
 export * from './renderers/renderer';
+export interface IMap<V> {
+    [key: string]: V;
+    [key: number]: V;
+}

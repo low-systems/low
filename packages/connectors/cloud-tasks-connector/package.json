@@ -1,0 +1,35 @@
+{
+  "version": "0.0.1",
+  "main": "lib/cloud-tasks.js",
+  "types": "lib/cloud-tasks.d.ts",
+  "scripts": {
+    "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
+    "test": "jest --coverage",
+    "build": "npm run clean && tsc && npm test && typedoc"
+  },
+  "license": "GPL-3.0",
+  "jest": {
+    "preset": "ts-jest",
+    "ts-jest": {
+      "tsConfig": "tsconfig.json"
+    }
+  },
+  "dependencies": {
+    "@google-cloud/tasks": "^1.5.1",
+    "low": "file:../../core/low"
+  },
+  "name": "@low-systems/cloud-tasks",
+  "description": "A Google Cloud Tasks connector for low",
+  "homepage": "https://github.com/low-systems/low#readme",
+  "author": {
+    "name": "Matthew Wilkes (@SCVO)",
+    "url": "https://scvo.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/low-systems/low"
+  },
+  "devDependencies": {
+    "@types/google-cloud__tasks": "^0.2.1"
+  }
+}
