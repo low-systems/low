@@ -1,7 +1,7 @@
 {
   "version": "0.0.1",
-  "main": "lib/cloud-tasks.js",
-  "types": "lib/cloud-tasks.d.ts",
+  "main": "lib/cloud-tasks-doer.js",
+  "types": "lib/cloud-tasks-doer.d.ts",
   "scripts": {
     "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
     "test": "jest --coverage",
@@ -16,10 +16,11 @@
   },
   "dependencies": {
     "@google-cloud/tasks": "^1.5.1",
+    "google-gax": "^1.10.0",
     "low": "file:../../core/low"
   },
   "name": "@low-systems/cloud-tasks",
-  "description": "A Google Cloud Tasks connector for low",
+  "description": "A Google Cloud Tasks doer for low",
   "homepage": "https://github.com/low-systems/low#readme",
   "author": {
     "name": "Matthew Wilkes (@SCVO)",
