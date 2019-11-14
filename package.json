@@ -29,6 +29,7 @@
   "dependencies": {},
   "jest": {
     "preset": "ts-jest",
+    "testEnvironment": "node",
     "globals": {
       "ts-jest": {
         "tsConfig": {

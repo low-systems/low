@@ -1,4 +1,10 @@
-import CloudTasksClient, { CloudTasksConfig, Queue, CreateNamedRequest, NamedRequest, CreateTaskRequest, ListRequestObject, CallOptionsWithPagination, UpdateNamedRequest, EnhancedPick, RunTaskRequest } from '@google-cloud/tasks';
+//TODO: There is some hacky BS going on here because there are no built-in type definitions
+//      for CloudTasks yet and the one from @types/google-cloud__tasks does some weird stuff.
+//      The types that come out of importing * seems different from the actual objects. No idea...
+//      Basically stay on top of releases for types and jump on them when they arrive or are fixed.
+import * as CloudTasks from '@google-cloud/tasks';
+// tslint:disable-next-line: no-duplicate-imports
+import { CloudTasksConfig, Queue, CreateNamedRequest, NamedRequest, CreateTaskRequest, ListRequestObject, CallOptionsWithPagination, UpdateNamedRequest, EnhancedPick, RunTaskRequest } from '@google-cloud/tasks';
 
 import { Doer, TaskConfig, IMap, ConnectorContext } from 'low';
 import { CallOptions } from '@google-cloud/tasks/node_modules/google-gax';
@@ -6,7 +12,7 @@ import { CallOptions } from '@google-cloud/tasks/node_modules/google-gax';
 export const  ALLOWED_CLOUD_TASKS_METHODS = ['createQueue', 'createTask', 'deleteQueue', 'deleteTask', 'getQueue', 'getTask', 'listQueues', 'listTasks', 'pauseQueue', 'purgeQueue', 'resumeQueue', 'runTask', 'updateQueue'];
 
 export class CloudTasksDoer extends Doer<CloudTasksDoerConfig, CloudTasksSecrets> {
-  clients: IMap<CloudTasksClient> = {};
+  clients: IMap<CloudTasks.default> = {};
 
   async setup() {
     this.setupClients();
@@ -18,12 +24,12 @@ export class CloudTasksDoer extends Doer<CloudTasksDoerConfig, CloudTasksSecrets
         config.credentials = this.secrets.clientCredentials[name];
       }
 
-      const client = new CloudTasksClient(config);
+      const client = new (CloudTasks.default as any).CloudTasksClient(config);
       this.clients[name] = client;
     }
   }
 
-  async createQueue(tasksQueueConfig: Queue, client: CloudTasksClient) {
+  async createQueue(tasksQueueConfig: Queue, client: CloudTasks.default) {
     let queue = await client.getQueue({ name: tasksQueueConfig.name });
 
     if (!Array.isArray(queue)) {
@@ -97,9 +103,9 @@ export class CloudTasksDoer extends Doer<CloudTasksDoerConfig, CloudTasksSecrets
           throw err;
         }
       }
-
-      return responses;
     }
+
+    return responses;
   }
 }
 

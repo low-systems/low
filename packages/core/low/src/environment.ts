@@ -175,6 +175,12 @@ export class Environment {
     }
 
     this.ready = true;
+
+    if (this.config.startupTask) {
+      const task = this.getTask(this.config.startupTask);
+      const connector = this.getConnector('Connector');
+      await connector.runTask(task, {}, {});
+    }
   }
 
   checkTasks(): string|null {
@@ -305,6 +311,7 @@ export class Environment {
 export interface EnvironmentConfig {
   metadata?: any;
   modules?: any;
+  startupTask?: string;
   [key: string]: any;
 }
 
