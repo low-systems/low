@@ -3,8 +3,10 @@
 //      The types that come out of importing * seems different from the actual objects. No idea...
 //      Basically stay on top of releases for types and jump on them when they arrive or are fixed.
 import * as CloudTasks from '@google-cloud/tasks';
-// tslint:disable-next-line: no-duplicate-imports
-import { CloudTasksConfig, Queue, CreateNamedRequest, NamedRequest, CreateTaskRequest, ListRequestObject, CallOptionsWithPagination, UpdateNamedRequest, EnhancedPick, RunTaskRequest } from '@google-cloud/tasks';
+// tslint:disable: no-duplicate-imports
+import { CloudTasksConfig, Queue, CreateNamedRequest, NamedRequest, ListRequestObject, CallOptionsWithPagination, UpdateNamedRequest, EnhancedPick, RunTaskRequest } from '@google-cloud/tasks';
+
+const v2beta3 = require('@google-cloud/tasks').v2beta3;
 
 import { Doer, TaskConfig, IMap, ConnectorContext } from 'low';
 import { CallOptions } from '@google-cloud/tasks/node_modules/google-gax';
@@ -24,7 +26,7 @@ export class CloudTasksDoer extends Doer<CloudTasksDoerConfig, CloudTasksSecrets
         config.credentials = this.secrets.clientCredentials[name];
       }
 
-      const client = new (CloudTasks.default as any).CloudTasksClient(config);
+      const client = new v2beta3.CloudTasksClient(config);
       this.clients[name] = client;
     }
   }
@@ -59,6 +61,16 @@ export class CloudTasksDoer extends Doer<CloudTasksDoerConfig, CloudTasksSecrets
             responses[call.name] = await client.createQueue(call.request, call.options);
             break;
           case ('createTask'):
+            if (call.request.task.appEngineHttpRequest && call.request.task.appEngineHttpRequest.body) {
+              const inputBody: unknown = call.request.task.appEngineHttpRequest.body;
+              const body = typeof inputBody === 'string' ? inputBody : JSON.stringify(inputBody, null, 2);
+              call.request.task.appEngineHttpRequest.body = Buffer.from(body).toString('base64');
+            }
+            if (call.request.task.httpRequest && call.request.task.httpRequest.body) {
+              const inputBody: unknown = call.request.task.httpRequest.body;
+              const body = typeof inputBody === 'string' ? inputBody : JSON.stringify(inputBody, null, 2);
+              call.request.task.httpRequest.body = Buffer.from(body).toString('base64');
+            }
             responses[call.name] = await client.createTask(call.request, call.options);
             break;
           case ('deleteQueue'):
@@ -96,7 +108,9 @@ export class CloudTasksDoer extends Doer<CloudTasksDoerConfig, CloudTasksSecrets
             break;
         }
       } catch(err) {
-        responses[call.name] = err;
+        const errorJson = JSON.stringify(err, Object.getOwnPropertyNames(err));
+        const error = JSON.parse(errorJson);
+        responses[call.name] = { error };
         if (call.errorHandling === 'halt') {
           break;
         } else if (call.errorHandling === 'throw') {
@@ -159,6 +173,23 @@ export interface CloudTasksPurgeQueueCall extends CloudTasksMethodCall<'purgeQue
 export interface CloudTasksResumeQueueCall extends CloudTasksMethodCall<'resumeQueue', NamedRequest, CallOptions> { }
 export interface CloudTasksRunTaskCall extends CloudTasksMethodCall<'runTask', NamedRequest & RunTaskRequest, CallOptions> { }
 export interface CloudTasksUpdateQueueCall extends CloudTasksMethodCall<'updateQueue', UpdateNamedRequest<"queue", EnhancedPick<Queue, 'name', 'appEngineHttpQueue' | 'rateLimits' | 'retryConfig'>>, CallOptions> { }
+
+// Some more hacky type definition BS.
+export interface CreateTaskRequest extends CloudTasks.CreateTaskRequest {
+  task: Partial<Task> & Partial<CloudTasks.Task>
+}
+
+export interface Task {
+  httpRequest: {
+    url: String;
+    httpMethod?: string;
+    headers?: IMap<string>;
+    body?: any;
+    oauthToken?: any;
+    oidcToken?: any;
+  },
+  payloadType: 'http_request' | 'app_engine_http_request';
+}
 
 /**
  * The old way
