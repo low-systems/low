@@ -31,20 +31,6 @@ export class CloudTasksDoer extends Doer<CloudTasksDoerConfig, CloudTasksSecrets
     }
   }
 
-  async createQueue(tasksQueueConfig: Queue, client: CloudTasks.default) {
-    let queue = await client.getQueue({ name: tasksQueueConfig.name });
-
-    if (!Array.isArray(queue)) {
-      const parent = tasksQueueConfig.name.split('/').splice(0, 4).join('/');
-      queue = await client.createQueue({
-        parent: parent,
-        queue: tasksQueueConfig
-      });
-    }
-
-    return queue[0];
-  }
-
   async main(context: ConnectorContext<any>, taskConfig: TaskConfig, coreConfig: CloudTasksTaskConfig) {
     const responses: any = {};
 

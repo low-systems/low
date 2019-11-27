@@ -1,8 +1,6 @@
-import * as FS from 'fs';
-
 import { Environment, EnvironmentConfig, ConnectorContext, TaskConfig } from 'low';
 
-import { CloudTasksDoer, CloudTasksTaskConfig } from './cloud-tasks-doer';
+import { CloudTasksDoer } from './cloud-tasks-doer';
 
 const CLIENT_CONFIGS = require('../configuration/client.secrets.json');
 const SECRETS = require('../configuration/secrets');
@@ -18,7 +16,7 @@ beforeAll(async (done) => {
     modules: {
       CloudTasksDoer: {
         clientConfigs: {
-          "test-client": CLIENT_CONFIGS
+          "test-client": CLIENT_CONFIGS.testClient
         }
       }
     }
@@ -38,13 +36,19 @@ afterAll(async (done) => {
   done();
 });
 
-function getTaskConfig(name: string, coreConfig: CloudTasksTaskConfig): TaskConfig {
-  return {
+function getTaskConfig(name: string, calls: any[]): TaskConfig {
+  const taskConfig = {
     name: name,
     doer: 'CloudTasksDoer',
     metadata: {},
-    config: coreConfig
+    config: { calls }
   };
+
+  return taskConfig;
+}
+
+function getCall(name: string, method: string, request: any) {
+  return { name, method, client: 'test-client', request };
 }
 
 function getContext(): ConnectorContext<any> {
@@ -66,105 +70,117 @@ test('should be able to initialise Doer', async () => {
 test('should be able to create, get, and delete a task queue', async () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
   const doer = environment.getDoer('CloudTasksDoer') as CloudTasksDoer;
+  const client = doer.clients['test-client'];
 
   const queueName = 'test-queue-' + (Math.floor(Math.random() * 89999) + 10000);
 
-  jest.setTimeout(30000);
+  //We need a big delay after creating a queue before executing tasks in it
+  jest.setTimeout(60000);
 
-  //TODO: Work out what the hell is going wrong with my AppEngine routing.
-  //      Perhaps setup a new project
+  const locationPath = client.locationPath(CLIENT_CONFIGS.projectId, CLIENT_CONFIGS.locationId);
+  const queuePath = client.queuePath(CLIENT_CONFIGS.projectId, CLIENT_CONFIGS.locationId, queueName);
+  const taskPath = client.taskPath(CLIENT_CONFIGS.projectId, CLIENT_CONFIGS.locationId, queueName, 'test-task');
+
   const context = getContext();
-  const taskConfig1 = getTaskConfig('test1', {
-    calls: [
-      {
-        name: 'createQueue',
-        method: 'createQueue',
-        client: 'test-client',
-        request: {
-          parent: 'projects/scvo-net/locations/europe-west2',
-          queue: {
-            name: 'projects/scvo-net/locations/europe-west2/queues/' + queueName
-          }
-        }
-      },
-      {
-        name: 'pauseQueue',
-        method: 'pauseQueue',
-        client: 'test-client',
-        request: {
-          name: 'projects/scvo-net/locations/europe-west2/queues/' + queueName
-        }
-      },
-      {
-        name: 'getQueue',
-        method: 'getQueue',
-        client: 'test-client',
-        request: {
-          name: 'projects/scvo-net/locations/europe-west2/queues/' + queueName
-        }
-      },
-      {
-        name: 'createTask',
-        method: 'createTask',
-        client: 'test-client',
-        request: {
-          parent: 'projects/scvo-net/locations/europe-west2/queues/' + queueName,
-          task: {
-            name: 'projects/scvo-net/locations/europe-west2/queues/' + queueName + '/tasks/test-task',
-            payloadType: 'app_engine_http_request',
-            appEngineHttpRequest: {
-              relativeUri: '/',
-              httpMethod: 'GET',
-              body: null
-            }
-            //payloadType: 'http_request',
-            //httpRequest: {
-            //  httpMethod: 'POST',
-            //  headers: {
-            //    'Content-Type': 'application/json'
-            //  },
-            //  url: 'https://example.com/test',
-            //  body: '{ "test": "It worked!" }'
-            //}
-          }
-        }
-      },
-      {
-        name: 'getTask',
-        method: 'getTask',
-        client: 'test-client',
-        request: {
-          name: 'projects/scvo-net/locations/europe-west2/queues/' + queueName + '/tasks/test-task'
-        }
+  const task1 = getTaskConfig('task1', [
+    getCall('createQueue', 'createQueue', {
+      parent: locationPath,
+      queue: {
+        name: queuePath
       }
-    ]
-  });
-  const taskConfig2 = getTaskConfig('test2', {
-    calls: [
-      {
-        name: 'runTask',
-        method: 'runTask',
-        client: 'test-client',
-        request: {
-          name: 'projects/scvo-net/locations/europe-west2/queues/' + queueName + '/tasks/test-task'
-        }
-      },
-      {
-        name: 'deleteQueue',
-        method: 'deleteQueue',
-        client: 'test-client',
-        request: {
-          name: 'projects/scvo-net/locations/europe-west2/queues/' + queueName
-        }
+    }),
+    getCall('pauseQueue', 'pauseQueue', {
+      name: queuePath
+    }),
+    getCall('getQueue', 'getQueue', {
+      name: queuePath
+    }),
+    getCall('createTask', 'createTask', {
+      parent: queuePath,
+      task: {
+        name: taskPath,
+        payloadType: CLIENT_CONFIGS.payloadType,
+        appEngineHttpRequest: CLIENT_CONFIGS.payloadType === 'http_request' ? undefined : CLIENT_CONFIGS.payload,
+        httpRequest: CLIENT_CONFIGS.payloadType === 'app_engine_http_request' ? undefined : CLIENT_CONFIGS.payload
       }
-    ]
-  });
+    }),
+    getCall('getTask', 'getTask', {
+      name: taskPath
+    })
+  ]);
+  const task2 = getTaskConfig('task2', [
+    getCall('runTask', 'runTask', {
+      name: taskPath
+    }),
+    getCall('deleteQueue', 'deleteQueue', {
+      name: queuePath
+    })
+  ]);
 
-  await doer.execute(context, taskConfig1);
-  await new Promise((resolve) => { setTimeout(() => { resolve(); }, 10000); });
-  await doer.execute(context, taskConfig2);
+  await doer.execute(context, task1);
+  const task1Data = context.data.task1;
 
-  FS.writeFileSync(__dirname + '/context-data.json', JSON.stringify(context.data, null, 2));
+  expect(task1Data).toHaveProperty('createQueue');
+  expect(task1Data.createQueue[0].name).toBe(queuePath);
+  expect(task1Data.createQueue[0].state).toBe('RUNNING');
+  expect(task1Data.createQueue[1]).toBeUndefined();
+  expect(task1Data.createQueue[2]).toBeUndefined();
 
-  expect(context.data.test1).toHaveProperty('createQueue');
+  expect(task1Data).toHaveProperty('pauseQueue');
+  expect(task1Data.pauseQueue[0].name).toBe(queuePath);
+  expect(task1Data.pauseQueue[0].state).toBe('PAUSED');
+  expect(task1Data.pauseQueue[1]).toBeUndefined();
+  expect(task1Data.pauseQueue[2]).toBeUndefined();
+
+  expect(task1Data).toHaveProperty('getQueue');
+  expect(task1Data.getQueue[0].name).toBe(queuePath);
+  expect(task1Data.getQueue[0].state).toBe('PAUSED');
+  expect(task1Data.getQueue[1]).toBeUndefined();
+  expect(task1Data.getQueue[2]).toBeUndefined();
+
+  expect(task1Data).toHaveProperty('createTask');
+  expect(task1Data.createTask[0].name).toBe(taskPath);
+  if (CLIENT_CONFIGS.payloadType === 'http_request') {
+    expect(task1Data.createTask[0].payloadType).toBe('httpRequest');
+    expect(task1Data.createTask[0].httpRequest.url).toBe(CLIENT_CONFIGS.payload.url);
+  } else if (CLIENT_CONFIGS.payloadType === 'app_engine_http_request') {
+    expect(task1Data.createTask[0].payloadType).toBe('appEngineHttpRequest');
+    expect(task1Data.createTask[0].appEngineHttpRequest.relativeUri).toBe(CLIENT_CONFIGS.payload.relativeUri);
+  }
+  expect(task1Data.createTask[1]).toBeUndefined();
+  expect(task1Data.createTask[2]).toBeUndefined();
+
+  expect(task1Data).toHaveProperty('getTask');
+  expect(task1Data.getTask[0].name).toBe(taskPath);
+  if (CLIENT_CONFIGS.payloadType === 'http_request') {
+    expect(task1Data.getTask[0].payloadType).toBe('httpRequest');
+    expect(task1Data.getTask[0].httpRequest.url).toBe(CLIENT_CONFIGS.payload.url);
+  } else if (CLIENT_CONFIGS.payloadType === 'app_engine_http_request') {
+    expect(task1Data.getTask[0].payloadType).toBe('appEngineHttpRequest');
+    expect(task1Data.getTask[0].appEngineHttpRequest.relativeUri).toBe(CLIENT_CONFIGS.payload.relativeUri);
+  }
+  expect(task1Data.getTask[1]).toBeUndefined();
+  expect(task1Data.getTask[2]).toBeUndefined();
+
+  //Delay before executing task because sometimes it takes a wee while for a queue to be ready to run
+  await new Promise((resolve) => { setTimeout(() => { resolve(); }, 20000); });
+  await doer.execute(context, task2);
+  const task2Data = context.data.task2;
+
+  expect(task2Data).toHaveProperty('runTask');
+  expect(task2Data.runTask[0].name).toBe(taskPath);
+  if (CLIENT_CONFIGS.payloadType === 'http_request') {
+    expect(task2Data.runTask[0].payloadType).toBe('httpRequest');
+    expect(task2Data.runTask[0].httpRequest.url).toBe(CLIENT_CONFIGS.payload.url);
+  } else if (CLIENT_CONFIGS.payloadType === 'app_engine_http_request') {
+    expect(task2Data.runTask[0].payloadType).toBe('appEngineHttpRequest');
+    expect(task2Data.runTask[0].appEngineHttpRequest.relativeUri).toBe(CLIENT_CONFIGS.payload.relativeUri);
+  }
+  expect(task2Data.runTask[1]).toBeUndefined();
+  expect(task2Data.runTask[2]).toBeUndefined();
+
+  expect(task2Data).toHaveProperty('deleteQueue');
+  expect(task2Data.deleteQueue[0]).toEqual({})
+  expect(task2Data.deleteQueue[1]).toBeUndefined();
+  expect(task2Data.deleteQueue[2]).toBeUndefined();
 });
