@@ -27,12 +27,12 @@
   },
   "homepage": "https://github.com/low-systems/low#readme",
   "dependencies": {
-    "@low-systems/http-connector": "file:../../connectors/http-connector",
-    "@low-systems/request-doer": "file:../../doers/request-doer",
     "@low-systems/handlebars-renderer": "file:../../renderers/handlebars-renderer",
+    "@low-systems/http-connector": "file:../../connectors/http-connector",
     "@low-systems/json-i": "file:../../tools/json-i",
+    "@low-systems/request-doer": "file:../../doers/request-doer",
     "glob": "^7.1.5",
-    "low": "file:../../core/low",
+    "low": "file:../low",
     "source-map-support": "^0.5.16"
   },
   "jest": {

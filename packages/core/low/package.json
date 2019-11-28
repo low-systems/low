@@ -21,8 +21,5 @@
   "license": "GPL-3.0",
   "jest": {
     "preset": "ts-jest"
-  },
-  "devDependencies": {
-    "typescript": "^3.7.2"
   }
 }

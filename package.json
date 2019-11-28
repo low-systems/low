@@ -3,20 +3,24 @@
   "private": true,
   "scripts": {
     "refresh-modules": "npm run clean-modules && npm i && npm run update-all-dependencies && npm run share-global-cli",
-    "clean-modules": "./scripts/clean-modules.js",
-    "share-global-cli": "./scripts/share-global-cli.js",
-    "update-all-dependencies": "./scripts/update-all-dependencies.js",
+    "clean-modules": "node ./scripts/clean-modules.js",
+    "share-global-cli": "node ./scripts/share-global-cli.js",
+    "update-all-dependencies": "node ./scripts/update-all-dependencies.js",
     "test": "jest"
   },
   "devDependencies": {
-    "@low-systems/json-i": "file:packages/tools/json-i",
+    "@low-systems/json-i": "file:../../tools/json-i",
     "@low-systems/low-module-maker": "file:packages/tools/low-module-maker",
     "@types/cookie": "^0.3.3",
     "@types/dot-object": "^1.7.0",
     "@types/glob": "^7.1.1",
+    "@types/google-cloud__tasks": "^0.2.1",
     "@types/jest": "^24.0.19",
     "@types/node": "^12.11.6",
     "@types/pako": "^1.0.1",
+    "@types/readline-sync": "^1.4.3",
+    "@types/request": "^2.48.3",
+    "@types/request-promise-native": "^1.0.17",
     "colors": "^1.4.0",
     "glob": "^7.1.5",
     "jest": "^24.9.0",
@@ -25,13 +29,24 @@
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
     "typedoc": "^0.15.0",
-    "typescript": "^3.6.4"
+    "typescript": "^3.7.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@low-systems/cloud-tasks": "file:packages/doers/cloud-tasks-doer",
+    "@low-systems/example": "file:packages/core/example",
+    "@low-systems/handlebars-renderer": "file:packages/renderers/handlebars-renderer",
+    "@low-systems/http-connector": "file:packages/connectors/http-connector",
+    "@low-systems/json-i": "file:packages/tools/json-i",
+    "@low-systems/low-module-maker": "file:packages/tools/low-module-maker",
+    "@low-systems/request-doer": "file:packages/doers/request-doer",
+    "low": "file:packages/core/low"
+  },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "projects": [ "packages/*/*" ],
+    "projects": [
+      "packages/*/*"
+    ],
     "globals": {
       "tsConfig": {
         "target": "es6"

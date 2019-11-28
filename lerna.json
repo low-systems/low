@@ -1,12 +1,4 @@
 {
-  "packages": [
-    "packages/cache-managers/*",
-    "packages/connectors/*",
-    "packages/doers/*",
-    "packages/parsers/*",
-    "packages/renderers/*",
-    "packages/tools/*",
-    "packages/core/*"
-  ],
+  "packages": [ "packages/*/*" ],
   "version": "0.0.0"
 }

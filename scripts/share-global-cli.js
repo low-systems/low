@@ -11,7 +11,7 @@ const rootBinDir = Path.join(__dirname, '..', 'node_modules', '.bin', '*');
 const rootBinaryPaths = Glob.sync(rootBinDir, { absolute: true });
 const rootBinaries = rootBinaryPaths.map(Path.parse);
 
-//ExecSync('lerna bootstrap --hoist && lerna link convert');
+ExecSync('lerna bootstrap --hoist && lerna link convert');
 
 console.log(`\nRoot Binaries (${rootBinDir}):`.bgMagenta.black);
 console.log(' ├', rootBinaries.map(binary => binary.name).join('\n ├ '));
