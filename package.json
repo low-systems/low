@@ -5,7 +5,8 @@
     "refresh-modules": "npm run clean-modules && npm i && npm run update-all-dependencies && npm run share-global-cli",
     "clean-modules": "./scripts/clean-modules.js",
     "share-global-cli": "./scripts/share-global-cli.js",
-    "update-all-dependencies": "./scripts/update-all-dependencies.js"
+    "update-all-dependencies": "./scripts/update-all-dependencies.js",
+    "test": "jest"
   },
   "devDependencies": {
     "@low-systems/json-i": "file:packages/tools/json-i",
@@ -30,11 +31,10 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
+    "projects": [ "packages/*/*" ],
     "globals": {
-      "ts-jest": {
-        "tsConfig": {
-          "target": "es6"
-        }
+      "tsConfig": {
+        "target": "es6"
       }
     }
   }

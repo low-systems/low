@@ -2,7 +2,7 @@
   name: 'index',
   doer: 'MultiDoer',
   connectorConfigs: {
-    ConnectorHttp: {
+    HttpConnector: {
       patterns: ['/', '/index'],
       sites: ['default'],
       output: {

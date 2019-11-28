@@ -5,7 +5,7 @@ import * as Path from 'path';
 import { transpile } from '@low-systems/json-i';
 import { Environment } from 'low';
 
-import { ConnectorHttp } from './connector-http';
+import { HttpConnector } from './http-connector';
 
 let environment: Environment | undefined;
 beforeAll(async (done) => {
@@ -17,7 +17,7 @@ beforeAll(async (done) => {
   process.env.SECRETS = JSON.stringify(testData.secrets);
 
   environment = new Environment({
-    connectors: [new ConnectorHttp()]
+    connectors: [new HttpConnector()]
   }, testData.tasks, testData.environment);
 
   await environment.init();
@@ -36,7 +36,7 @@ afterAll(async (done) => {
 
 test('should be able to match routes', () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
-  const connector = environment.getConnector('ConnectorHttp') as ConnectorHttp;
+  const connector = environment.getConnector('HttpConnector') as HttpConnector;
   const site = connector.sites.default;
 
   expect(site.matchRoute('/', 'GET').route.task.name).toBe('index');

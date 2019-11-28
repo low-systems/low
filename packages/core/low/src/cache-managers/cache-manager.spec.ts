@@ -124,7 +124,7 @@ test('should have items expire', async () => {
   expect(cachedItem2).toBeNull();
 });
 
-test('should be able to bust partition', async () => {
+test('should be able to flush partition', async () => {
   const env = new Environment({}, [], {
     metadata: {
       test: 'It worked'
@@ -152,11 +152,11 @@ test('should be able to bust partition', async () => {
   await cacheManager.setItem(cacheKey, item, config.ttl);
 
   expect(cacheManager.CACHE).toHaveProperty(config.partition);
-  await cacheManager.bust(config.partition);
+  await cacheManager.flush(config.partition);
   expect(cacheManager.CACHE).not.toHaveProperty(config.partition);
 });
 
-test('should do nothing when busting a non-existent partition', async () => {
+test('should do nothing when flushing a non-existent partition', async () => {
   const env = new Environment({}, [], {
     metadata: {
       test: 'It worked'
@@ -184,7 +184,7 @@ test('should do nothing when busting a non-existent partition', async () => {
   await cacheManager.setItem(cacheKey, item, config.ttl);
 
   expect(cacheManager.CACHE).toHaveProperty(config.partition);
-  await cacheManager.bust(config.partition + '-nah');
+  await cacheManager.flush(config.partition + '-nah');
   expect(cacheManager.CACHE).toHaveProperty(config.partition);
 });
 

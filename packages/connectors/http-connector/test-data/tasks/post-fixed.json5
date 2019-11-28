@@ -2,7 +2,7 @@
   name: 'post-fixed',
   doer: 'Doer',
   connectorConfigs: {
-    ConnectorHttp: {
+    HttpConnector: {
       patterns: ['/post/fixed'],
       sites: ['default'],
       verbs: ['GET'],

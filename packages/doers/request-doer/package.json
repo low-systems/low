@@ -9,10 +9,7 @@
   },
   "license": "GPL-3.0",
   "jest": {
-    "preset": "ts-jest",
-    "ts-jest": {
-      "tsConfig": "tsconfig.json"
-    }
+    "preset": "ts-jest"
   },
   "dependencies": {
     "low": "../../core/low",

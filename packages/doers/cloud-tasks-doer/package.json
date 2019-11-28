@@ -10,10 +10,7 @@
   "license": "GPL-3.0",
   "jest": {
     "preset": "ts-jest",
-    "testEnvironment": "node",
-    "ts-jest": {
-      "tsConfig": "tsconfig.json"
-    }
+    "testEnvironment": "node"
   },
   "dependencies": {
     "@google-cloud/tasks": "^1.5.1",

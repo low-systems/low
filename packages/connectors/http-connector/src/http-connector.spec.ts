@@ -44,7 +44,7 @@ afterAll(async (done) => {
 
 test('should be able to handle valid and invalid a port numbers', () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
-  const connector = environment.getConnector('ConnectorHttp') as HttpConnector;
+  const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
   process.env.NAN = '12AB';
   process.env.PORT = '1234';
@@ -57,7 +57,7 @@ test('should be able to handle valid and invalid a port numbers', () => {
 
 test('should be able to get and cache a site from a hostname', () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
-  const connector = environment.getConnector('ConnectorHttp') as HttpConnector;
+  const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
   expect(connector.hostnameCache['localhost']).toBeUndefined();
   expect(connector.getSiteFromHostname('localhost').name).toBe('default');
@@ -67,7 +67,7 @@ test('should be able to get and cache a site from a hostname', () => {
 
 test('should be able to identify protocol from a request', () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
-  const connector = environment.getConnector('ConnectorHttp') as HttpConnector;
+  const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
   const unencryptedSocket = new Socket({});
   const encryptedSocket = new TLSSocket(unencryptedSocket, {});
@@ -89,7 +89,7 @@ test('should be able to identify protocol from a request', () => {
 
 test('should be able to construct a url from a request', () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
-  const connector = environment.getConnector('ConnectorHttp') as HttpConnector;
+  const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
   const unencryptedSocket = new Socket({});
   const encryptedSocket = new TLSSocket(unencryptedSocket, {});
@@ -114,7 +114,7 @@ test('should be able to construct a url from a request', () => {
 
 test('should be able to convert a querystring to an object', () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
-  const connector = environment.getConnector('ConnectorHttp') as HttpConnector;
+  const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
   let url = new Url.URL('https://scvo.org/test?query=string');
   expect(connector.getQuerystringObject(url)).toEqual({
@@ -130,7 +130,7 @@ test('should be able to convert a querystring to an object', () => {
 
 test('should be able to get a request\'s body as an object', async () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
-  const connector = environment.getConnector('ConnectorHttp') as HttpConnector;
+  const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
   const textRequest = new MockRequest('POST', '/test', {
     headers: { 'content-type': 'text/plain' },
@@ -150,19 +150,21 @@ test('should be able to get a request\'s body as an object', async () => {
 
 test('should be able to merge error handlers', () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
-  const connector = environment.getConnector('ConnectorHttp') as HttpConnector;
+  const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
   const site = connector.sites.default;
   const expected = [
-    ...environment.config.modules.ConnectorHttp.sites.default.errorHandlers,
-    ...environment.config.modules.ConnectorHttp.errorHandlers
+    ...environment.config.modules.HttpConnector
+.sites.default.errorHandlers,
+    ...environment.config.modules.HttpConnector
+.errorHandlers
   ];
   expect(connector.mergeErrorHandlers(site)).toEqual(expected);
 });
 
 test('should be able to match an appropriate error handler', () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
-  const connector = environment.getConnector('ConnectorHttp') as HttpConnector;
+  const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
   const body = '';
   const handlers = [
@@ -182,7 +184,7 @@ test('should be able to match an appropriate error handler', () => {
 
 test('should send an appropriate response', () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
-  const connector = environment.getConnector('ConnectorHttp') as HttpConnector;
+  const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
   const site = connector.sites['default'];
   const request = new MockRequest('GET', '/', {});
@@ -247,7 +249,7 @@ test('should send an appropriate response', () => {
 
 test('should be able to handle requests', async () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
-  const connector = environment.getConnector('ConnectorHttp') as HttpConnector;
+  const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
   const request = new MockRequest('GET', '/', {
     headers: { host: 'localhost' }

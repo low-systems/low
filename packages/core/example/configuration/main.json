@@ -13,11 +13,11 @@
       "HttpConnector": {
         "httpOptions": {
           "serverOptions": {},
-          "port": 8888
+          "port": 27374
         },
         "httpsOptions": {
           "serverOptions": {},
-          "port": 9999
+          "port": 27375
         },
         "sites": {
           "scvo": {

@@ -1,6 +1,6 @@
 {
   modules: {
-    ConnectorHttp: {
+    HttpConnector: {
       httpOptions: {
         serverOptions: {},
         port: 8888

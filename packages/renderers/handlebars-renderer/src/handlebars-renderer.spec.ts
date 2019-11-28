@@ -25,7 +25,7 @@ test('should be able to load partials and templates from module config', async (
   const modules = { renderers: [new HandlebarsRenderer()] };
   const config = {
     modules: {
-      RendererHandlebars: {
+      HandlebarsRenderer: {
         templates: { test: 'I am a test template {{>test}}' },
         partials: { test: 'I am a test partial' }
       }
@@ -34,7 +34,7 @@ test('should be able to load partials and templates from module config', async (
   const environment = new Environment(modules, [], config);
   await environment.init();
 
-  const renderer = environment.getRenderer('RendererHandlebars') as HandlebarsRenderer;
+  const renderer = environment.getRenderer('HandlebarsRenderer') as HandlebarsRenderer;
 
   expect(renderer.templates).toHaveProperty('test');
   expect(renderer.hbs.partials).toHaveProperty('test');
@@ -44,13 +44,13 @@ test('should be able to not load partials and templates from module config', asy
   const modules = { renderers: [new HandlebarsRenderer()] };
   const config = {
     modules: {
-      RendererHandlebars: { }
+      HandlebarsRenderer: { }
     }
   };
   const environment = new Environment(modules, [], config);
   await environment.init();
 
-  const renderer = environment.getRenderer('RendererHandlebars') as HandlebarsRenderer;
+  const renderer = environment.getRenderer('HandlebarsRenderer') as HandlebarsRenderer;
 
   expect(renderer.templates).toEqual({});
   expect(renderer.hbs.partials).toEqual({});
@@ -60,7 +60,7 @@ test('should be able to render templates', async () => {
   const modules = { renderers: [new HandlebarsRenderer()] };
   const config = {
     modules: {
-      RendererHandlebars: {
+      HandlebarsRenderer: {
         templates: { test: 'I am a test template {{>test}}' },
         partials: { test: 'I am a test partial' }
       }
@@ -69,14 +69,14 @@ test('should be able to render templates', async () => {
   const environment = new Environment(modules, [], config);
   await environment.init();
 
-  const renderer = environment.getRenderer('RendererHandlebars') as HandlebarsRenderer;
+  const renderer = environment.getRenderer('HandlebarsRenderer') as HandlebarsRenderer;
 
   const context: Context = {
     env: environment
   };
   const rendererConfig: RenderConfig = {
     __template: { name: 'test' },
-    __renderer: 'RendererHandlebars',
+    __renderer: 'HandlebarsRenderer',
     __parser: 'StringParser'
   };
   const pointerOutput = await renderer.render(rendererConfig, context);
