@@ -1,7 +1,7 @@
 {
   "version": "0.0.1",
-  "main": "lib/salesforce-renderer.js",
-  "types": "lib/salesforce-renderer.d.ts",
+  "main": "lib/salesforce-doer.js",
+  "types": "lib/salesforce-doer.d.ts",
   "scripts": {
     "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
     "test": "jest --coverage",
@@ -12,11 +12,12 @@
     "preset": "ts-jest"
   },
   "dependencies": {
+    "jsforce": "^1.9.3",
     "low": "file:../../core/low"
   },
-  "name": "@low-systems/javascript-renderer",
-  "description": "A Javascript Renderer for low",
-  "homepage": "https://github.com/low-systems/low",
+  "name": "@low-systems/salesforce-doer",
+  "description": "A Http Request doer for low",
+  "homepage": "https://github.com/low-systems/low#readme",
   "author": {
     "name": "Matthew Wilkes (@SCVO)",
     "url": "https://scvo.org"

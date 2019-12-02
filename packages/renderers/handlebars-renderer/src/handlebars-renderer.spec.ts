@@ -89,3 +89,54 @@ test('should be able to render templates', async () => {
   rendererConfig.__template = 'baloney';
   await expect(renderer.render(rendererConfig, context)).rejects.toThrow(/pre-registered template/i)
 });
+
+test('should be faster to cache functions', async () => {
+  jest.setTimeout(60000);
+
+  const environment = new Environment({ renderers: [ new HandlebarsRenderer() ] }, [], {});
+  await environment.init();
+
+  const renderer = environment.getRenderer('HandlebarsRenderer') as HandlebarsRenderer;
+  const context: Context = { env: environment };
+  const templateNamed: RenderConfig<HandlebarsTemplate> = {
+    __template: {
+      name: 'test',
+      code: `resolve('It worked!');`
+    },
+    __parser: 'StringParser',
+    __renderer: 'JavascriptRenderer'
+  };
+
+  const namedStart = +new Date();
+  console.time('Named Template');
+
+  for (let x = 0; x < 9999; x++) {
+    await renderer.render(templateNamed, context)
+  }
+
+  console.timeEnd('Named Template');
+  const namedEnd = +new Date();
+
+  const templateUnnamed: RenderConfig<HandlebarsTemplate> = {
+    __template: {
+      code: `resolve('It worked!');`
+    },
+    __parser: 'StringParser',
+    __renderer: 'JavascriptRenderer'
+  };
+
+  const unnamedStart = +new Date();
+  console.time('Unnamed Template');
+
+  for (let x = 0; x < 9999; x++) {
+    await renderer.render(templateUnnamed, context)
+  }
+
+  console.timeEnd('Unnamed Template');
+  const unnamedEnd = +new Date();
+
+  const namedDiff = namedEnd - namedStart;
+  const unnamedDiff = unnamedEnd - unnamedStart;
+
+  expect(namedDiff).toBeLessThan(unnamedDiff);
+});

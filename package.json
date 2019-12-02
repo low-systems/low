@@ -16,6 +16,7 @@
     "@types/glob": "^7.1.1",
     "@types/google-cloud__tasks": "^0.2.1",
     "@types/jest": "^24.0.19",
+    "@types/jsforce": "^1.9.12",
     "@types/node": "^12.11.6",
     "@types/pako": "^1.0.1",
     "@types/readline-sync": "^1.4.3",
@@ -40,6 +41,7 @@
     "@low-systems/json-i": "file:packages/tools/json-i",
     "@low-systems/low-module-maker": "file:packages/tools/low-module-maker",
     "@low-systems/request-doer": "file:packages/doers/request-doer",
+    "@low-systems/salesforce-doer": "file:packages/doers/salesforce-doer",
     "low": "file:packages/core/low"
   },
   "jest": {
