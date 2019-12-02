@@ -16,6 +16,13 @@ const connector_run_error_1 = require("./connector-run-error");
 //instances to communicate? What would that mean or involve? Probably way to
 //specialised but food for thought at least
 class Connector extends module_1.Module {
+    constructor() {
+        super(...arguments);
+        /**
+         * Should not really be used by any child Connector
+         */
+        this.accessor = {};
+    }
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.setupTasks();
@@ -32,16 +39,6 @@ class Connector extends module_1.Module {
     }
     setupTask(task, config) {
         return __awaiter(this, void 0, void 0, function* () {
-            //This is a hacky way of making a testable base Connector module
-            //that is accessible. `accessor` is not likely necessary in "real"
-            //Connector modules so I did not want it to be a real member.
-            //I did not want the base modules to be abstract classes for
-            //testing and usability reasons. Each base module is usable but
-            //usually useless
-            //TODO: Come up with a better way of doing this?
-            if (!this.hasOwnProperty('accessor')) {
-                this.accessor = {};
-            }
             this.accessor[task.name] = (input) => __awaiter(this, void 0, void 0, function* () {
                 const context = yield this.runTask(task, input, config);
                 const output = object_compiler_1.ObjectCompiler.compile(config, context);

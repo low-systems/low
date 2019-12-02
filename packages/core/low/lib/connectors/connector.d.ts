@@ -1,6 +1,13 @@
 import { Module } from '../module';
 import { Context, TaskConfig } from '../environment';
+import { IMap } from '..';
 export declare class Connector<C, S, I> extends Module<C, S> {
+    /**
+     * Should not really be used by any child Connector
+     */
+    accessor: IMap<{
+        (input: any): Promise<any>;
+    }>;
     setup(): Promise<void>;
     setupTasks(): Promise<void>;
     setupTask(task: TaskConfig, config: any): Promise<void>;

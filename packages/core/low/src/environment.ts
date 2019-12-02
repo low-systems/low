@@ -83,7 +83,7 @@ export class Environment {
    * [[ObjectCompiler]] to create dynamic bits of configuration to be
    * used by other modules
    */
-  private renderers: { [rendererName: string]: Renderer<any, any> } = {
+  private renderers: { [rendererName: string]: Renderer<any, any, any> } = {
     Renderer: new Renderer()
   };
 
@@ -260,7 +260,7 @@ export class Environment {
     return parser;
   }
 
-  getRenderer(name: string): Renderer<any, any> {
+  getRenderer(name: string): Renderer<any, any, any> {
     if (!this.renderers.hasOwnProperty(name)) {
       throw new Error(`No Renderer called '${name}' loaded`);
     }
@@ -320,7 +320,7 @@ export interface Modules {
   cacheManagers?: CacheManager<any, any>[];
   doers?: Doer<any, any>[];
   parsers?: Parser<any>[];
-  renderers?: Renderer<any, any>[];
+  renderers?: Renderer<any, any, any>[];
 }
 
 export interface Context {

@@ -161,6 +161,11 @@ class Environment {
                 throw new Error(`There are one or more task configuration problems\n${taskReport}`);
             }
             this.ready = true;
+            if (this.config.startupTask) {
+                const task = this.getTask(this.config.startupTask);
+                const connector = this.getConnector('Connector');
+                yield connector.runTask(task, {}, {});
+            }
         });
     }
     checkTasks() {

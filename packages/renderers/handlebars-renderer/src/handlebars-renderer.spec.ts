@@ -1,6 +1,6 @@
 import * as Handlebars from 'handlebars';
 
-import { HandlebarsRenderer } from './handlebars-renderer';
+import { HandlebarsRenderer, HandlebarsTemplate } from './handlebars-renderer';
 import { Environment, Context, RenderConfig } from 'low';
 
 process.env.SECRETS = '{}';
@@ -74,21 +74,18 @@ test('should be able to render templates', async () => {
   const context: Context = {
     env: environment
   };
-  const rendererConfig: RenderConfig = {
-    __template: { name: 'test' },
+  const rendererConfig: RenderConfig<HandlebarsTemplate> = {
+    __template: 'test',
     __renderer: 'HandlebarsRenderer',
     __parser: 'StringParser'
   };
   const pointerOutput = await renderer.render(rendererConfig, context);
   expect(pointerOutput).toBe('I am a test template I am a test partial');
 
-  rendererConfig.__template = 'I am another test template {{>test}}';
+  rendererConfig.__template = { code: 'I am another test template {{>test}}' };
   const stringOutput = await renderer.render(rendererConfig, context);
   expect(stringOutput).toBe('I am another test template I am a test partial');
 
-  rendererConfig.__template = { name: 'baloney' };
-  await expect(renderer.render(rendererConfig, context)).rejects.toThrow(/pre-compiled template/i)
-
-  rendererConfig.__template = 1234;
-  await expect(renderer.render(rendererConfig, context)).rejects.toThrow(/invalid handlebars template/i)
+  rendererConfig.__template = 'baloney';
+  await expect(renderer.render(rendererConfig, context)).rejects.toThrow(/pre-registered template/i)
 });

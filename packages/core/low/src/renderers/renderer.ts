@@ -3,8 +3,8 @@ import { ParserConfig } from '../parsers/parser';
 import { Context } from '../environment';
 import { CacheConfig, CacheManager, CacheKey } from '../cache-managers/cache-manager';
 
-export class Renderer<C, S> extends Module<C, S> {
-  async render(config: RenderConfig, context: Context): Promise<any> {
+export class Renderer<C, S, T> extends Module<C, S> {
+  async render(config: RenderConfig<T>, context: Context): Promise<any> {
     let cacheManager: CacheManager<any, any> | undefined;
     let cacheKey: CacheKey | undefined;
 
@@ -28,11 +28,11 @@ export class Renderer<C, S> extends Module<C, S> {
     return parsed;
   }
 
-  async getTemplate(config: RenderConfig, context: Context): Promise<any> {
+  async getTemplate(config: RenderConfig<T>, context: Context): Promise<any> {
     return config.__template;
   }
 
-  async parseRendered(rendered: any, config: RenderConfig): Promise<any> {
+  async parseRendered(rendered: any, config: RenderConfig<T>): Promise<any> {
     if (config.__parser) {
       const parser = this.env.getParser(config.__parser);
       const parsed = await parser.parse(rendered, config.__parserConfig || {});
@@ -47,9 +47,9 @@ export class Renderer<C, S> extends Module<C, S> {
   }
 }
 
-export interface RenderConfig {
+export interface RenderConfig<T> {
   __renderer: string;
-  __template: any;
+  __template: T;
   __parser?: string;
   __parserConfig?: ParserConfig<any>;
   __metaData?: any;

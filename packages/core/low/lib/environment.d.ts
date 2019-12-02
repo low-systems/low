@@ -69,13 +69,14 @@ export declare class Environment {
     getCacheManager(name: string): CacheManager<any, any>;
     getDoer(name: string): Doer<any, any>;
     getParser(name: string): Parser<any>;
-    getRenderer(name: string): Renderer<any, any>;
+    getRenderer(name: string): Renderer<any, any, any>;
     getTask(name: string): TaskConfig;
     destroy(): Promise<void>;
 }
 export interface EnvironmentConfig {
     metadata?: any;
     modules?: any;
+    startupTask?: string;
     [key: string]: any;
 }
 export interface Modules {
@@ -83,7 +84,7 @@ export interface Modules {
     cacheManagers?: CacheManager<any, any>[];
     doers?: Doer<any, any>[];
     parsers?: Parser<any>[];
-    renderers?: Renderer<any, any>[];
+    renderers?: Renderer<any, any, any>[];
 }
 export interface Context {
     env: Environment;

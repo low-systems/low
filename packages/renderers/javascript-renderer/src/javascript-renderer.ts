@@ -1,0 +1,68 @@
+import { Renderer, RenderConfig, Context, IMap } from 'low';
+
+export class JavascriptRenderer extends Renderer<JavascriptConfig, any, JavascriptTemplate> {
+  functions: IMap<Function> = {};
+
+  async setup() {
+    this.registerFunctions();
+  }
+
+  registerFunctions() {
+    if (this.config.functions) {
+      for (const [name, code] of Object.entries(this.config.functions)) {
+        const func = this.makeFunction(code);
+        this.functions[name] = func;
+      }
+    }
+  }
+
+  async core(func: Function, context: Context): Promise<any> {
+    try {
+      const output = await func.call(context);
+      return output;
+    } catch(err) {
+      throw err;
+    }
+  }
+
+  async getTemplate(config: RenderConfig<JavascriptTemplate>, context: Context): Promise<any> {
+    if (typeof config.__template === 'string') {
+      if (this.functions.hasOwnProperty(config.__template)) {
+        return this.functions[config.__template];
+      }
+      throw new Error(`Pre-registered function '${config.__template}' could not be found`);
+    } else if (typeof config.__template === 'object' && config.__template !== null) {
+      if (typeof config.__template.name === 'string' && this.functions.hasOwnProperty(config.__template.name)) {
+        return this.functions[config.__template.name];
+      }
+
+      const func = this.makeFunction(config.__template.code);
+
+      if (typeof config.__template.name === 'string') {
+        this.functions[config.__template.name] = func;
+      }
+
+      return func;
+    } else {
+      throw new Error(`Invalid Javascript template. Templates must either be the name of a pre-compiled template or contain an object with a 'code' property that`);
+    }
+  }
+
+  makeFunction(code: string): Function {
+    const promise = `
+      return new Promise((resolve, reject) => {
+        ${code}
+      });`;
+    const func = new Function(promise);
+    return func;
+  }
+}
+
+export interface JavascriptConfig {
+  functions?: IMap<string>;
+}
+
+export type JavascriptTemplate = string | {
+  name?: string;
+  code: string;
+};

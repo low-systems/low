@@ -5,7 +5,7 @@ test('should echo input with no parser', async () => {
   const env = new Environment({}, [], {});
   await env.init();
   const renderer = env.getRenderer('Renderer');
-  const config: RenderConfig = {
+  const config: RenderConfig<any> = {
     __renderer: 'Renderer',
     __template: {
       test: 'It worked'
@@ -24,7 +24,7 @@ test('should echo parsed input', async () => {
   const env = new Environment({}, [], {});
   await env.init();
   const renderer = env.getRenderer('Renderer');
-  const config: RenderConfig = {
+  const config: RenderConfig<any> = {
     __renderer: 'Renderer',
     __template: 42,
     __parser: 'StringParser'

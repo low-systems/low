@@ -36,6 +36,7 @@
     "@low-systems/example": "file:packages/core/example",
     "@low-systems/handlebars-renderer": "file:packages/renderers/handlebars-renderer",
     "@low-systems/http-connector": "file:packages/connectors/http-connector",
+    "@low-systems/javascript-renderer": "file:packages/renderers/javascript-renderer",
     "@low-systems/json-i": "file:packages/tools/json-i",
     "@low-systems/low-module-maker": "file:packages/tools/low-module-maker",
     "@low-systems/request-doer": "file:packages/doers/request-doer",

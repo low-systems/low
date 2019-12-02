@@ -136,7 +136,7 @@ test('should be able to pass in external Modules when creating an Environment', 
   class ExternalCacheManager extends CacheManager<any, any> {}
   class ExternalDoer extends Doer<any, any> {}
   class ExternalParser extends Parser<any> {}
-  class ExternalRenderer extends Renderer<any, any> {}
+  class ExternalRenderer extends Renderer<any, any, any> {}
 
   const externalConnector = new ExternalConnector();
   const externalCacheManager = new ExternalCacheManager();

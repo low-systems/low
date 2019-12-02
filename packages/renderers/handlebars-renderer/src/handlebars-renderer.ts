@@ -2,7 +2,7 @@ import * as Handlebars from 'handlebars';
 
 import { Renderer, RenderConfig, Context } from 'low';
 
-export class HandlebarsRenderer extends Renderer<HandlebarsConfig, any> {
+export class HandlebarsRenderer extends Renderer<HandlebarsConfig, any, HandlebarsTemplate> {
   templates: TemplateMap = {};
 
   constructor(public hbs: typeof Handlebars = Handlebars.create()) { super(); }
@@ -35,17 +35,26 @@ export class HandlebarsRenderer extends Renderer<HandlebarsConfig, any> {
     return output;
   }
 
-  async getTemplate(config: RenderConfig, context: Context): Promise<any> {
+  async getTemplate(config: RenderConfig<HandlebarsTemplate>, context: Context): Promise<any> {
     if (typeof config.__template === 'string') {
-      return this.hbs.compile(config.__template);
-    } else if (typeof config.__template === 'object' && config.__template !== null && typeof config.__template.name === 'string') {
-      if (this.templates.hasOwnProperty(config.__template.name)) {
-        return this.templates[config.__template.name];
-      } else {
-        throw new Error(`Pre-compiled template '${config.__template.name}' could not be found`);
+      if (this.templates.hasOwnProperty(config.__template)) {
+        return this.templates[config.__template];
       }
+      throw new Error(`Pre-registered template '${config.__template}' could not be found`);
+    } else if (typeof config.__template === 'object' && config.__template !== null) {
+      if (typeof config.__template.name === 'string' && this.templates.hasOwnProperty(config.__template.name)) {
+        return this.templates[config.__template.name];
+      }
+
+      const compiledTemplate = this.hbs.compile(config.__template.code);
+
+      if (typeof config.__template.name === 'string') {
+        this.templates[config.__template.name] = compiledTemplate;
+      }
+
+      return compiledTemplate;
     } else {
-      throw new Error('Invalid Handlebars template. Templates must either be a string or contain an object with a name property that points to a pre-compiled template');
+      throw new Error(`Invalid Handlebars template. Templates must either be the name of a pre-compiled template or contain an object with a 'code' property that`);
     }
   }
 }
@@ -62,3 +71,8 @@ export interface HandlebarsMap {
 export interface TemplateMap {
   [name: string]: Handlebars.TemplateDelegate;
 }
+
+export type HandlebarsTemplate = string | {
+  name?: string;
+  code: string;
+};
