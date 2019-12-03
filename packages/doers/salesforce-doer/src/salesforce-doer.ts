@@ -36,48 +36,31 @@ export class SalesforceDoer extends Doer<SalesforceConfig, SalesforceSecretsConf
   }
 
   async main(context: ConnectorContext<any>, taskConfig: TaskConfig, coreConfig: SalesforceTaskConfig): Promise<any> {
-    const responses: any[] = [];
+    const connection = this.connections[coreConfig.connection];
+    await this.login(coreConfig.connection);
 
-    for (const call of coreConfig.calls) {
-      const connection = this.connections[call.connection];
-      await this.login(call.connection);
-      let response: any = null;
-
-      try {
-        switch (call.method) {
-          case ('query'):
-            response = this.executeQuery(connection, call);
-            break;
-          case ('search'):
-            response = this.executeSearch(connection, call);
-            break;
-          case ('retrieve'):
-            response = this.executeRetrieve(connection, call);
-            break;
-          case ('create'):
-            response = this.executeCreate(connection, call);
-            break;
-          case ('update'):
-            response = this.executeUpdate(connection, call);
-            break;
-          case ('delete'):
-            response = this.executeDelete(connection, call);
-            break;
-          case ('upsert'):
-            response = this.executeUpsert(connection, call);
-            break;
-          case ('apex'):
-            response = this.executeApex(connection, call);
-            break;
-        }
-      } catch (err) {
-        response = err;
-      }
-
-      responses.push(response);
+    switch (coreConfig.method) {
+      case ('query'):
+        return await this.executeQuery(connection, coreConfig);
+      case ('search'):
+        return await this.executeSearch(connection, coreConfig);
+      case ('retrieve'):
+        return await this.executeRetrieve(connection, coreConfig);
+      case ('create'):
+        return await this.executeCreate(connection, coreConfig);
+      case ('update'):
+        return await this.executeUpdate(connection, coreConfig);
+      case ('delete'):
+        return await this.executeDelete(connection, coreConfig);
+      case ('upsert'):
+        return await this.executeUpsert(connection, coreConfig);
+      case ('apex'):
+        return await this.executeApex(connection, coreConfig);
+      case ('bulkCrud'):
+        return await this.executeBulkCrud(connection, coreConfig);
+      case ('bulkQuery'):
+        return await this.executeBulkQuery(connection, coreConfig);
     }
-
-    return responses;
   }
 
   async executeQuery(connection: Connection, call: SalesforceQueryCall) {
@@ -118,48 +101,65 @@ export class SalesforceDoer extends Doer<SalesforceConfig, SalesforceSecretsConf
 
   async executeApex(connection: Connection, call: SalesforceApexCall) {
     const restApiOptions = call.restApiOptions || {};
-    switch (call.verb) {
-      case ('DELETE'):
-        return await connection.apex.delete(call.path, restApiOptions);
-      case ('GET'):
-        return await connection.apex.get(call.path, restApiOptions);
-      case ('PATCH'):
-        return await connection.apex.patch(call.path, call.body || {}, restApiOptions);
-      case ('POST'):
-        return await connection.apex.post(call.path, call.body || {}, restApiOptions);
-      case ('PUT'):
-        return await connection.apex.put(call.path, call.body || {}, restApiOptions);
-      default:
-        throw new Error(`Invalid verb '${call.verb}' to '${call.path}'. Was expecting 'DELETE', 'GET', 'PATCH', 'POST', or 'PUT'`);
+    const verb = call.verb.toLowerCase();
+
+    if (verb === 'delete' || verb === 'get') {
+      return await connection.apex[verb](call.path, restApiOptions);
+    } else if (verb === 'patch' || verb === 'post' || verb === 'put') {
+      return await connection.apex[verb](call.path, call.body || {}, restApiOptions);
     }
+
+    throw new Error(`Invalid verb '${call.verb}' to '${call.path}'. Was expecting 'DELETE', 'GET', 'PATCH', 'POST', or 'PUT'`);
   }
 
-  executeBulkCrud(connection: Connection, call: SalesforceBulkCrudCall) {
-    // TODO: Does 'error' only get fired once when there is a terrible mishap or on each record that fails
-    // TODO: How does adding additional batches work?
-    //       Should I chunk call.objects and wait on multiple batches, or
-    //       Chunk call.objects and create multiple batches,
-    //       Keep it simple and just allow for single batches
+  async executeBulkCrud(connection: Connection, call: SalesforceBulkCrudCall) {
+    const job = connection.bulk.createJob(call.resource, call.operation, call.bulkOptions);
+    const batchesResults: any[] = [];
+
+    for (const records of call.batches) {
+      const results = await this.runCrudBatch(job, records, call.pollInterval, call.pollTimeout);
+      batchesResults.push(results);
+    }
+
+    return batchesResults;
+  }
+
+  runCrudBatch(job: JsForce.Job, records: any[], pollInterval: number = 5000, pollTimeout: number = 30000) {
     return new Promise((resolve, reject) => {
-      const job = connection.bulk.createJob(call.resource, call.operation, call.bulkOptions);
       const batch = job.createBatch();
+      batch.execute(records);
 
       batch.on('error', (batchInfo) => {
         console.error('Batch error', batchInfo);
+        reject(batchInfo);
       });
 
       batch.on('queue', (batchInfo) => {
         console.log('Batch queued', batchInfo);
+        batch.poll(pollInterval, pollTimeout);
       });
 
       batch.on('response', (results) => {
         resolve(results);
       });
-
-      batch.execute(call.objects);
     });
+  }
 
-    // TODO: Bulk query
+  executeBulkQuery(connection: Connection, call: SalesforceBulkQueryCall) {
+    return new Promise((resolve, reject) => {
+      const records: any[] = [];
+      const batch = connection.bulk.query(call.query);
+      batch.on('record', (record: any) => {
+        records.push(record);
+      });
+      batch.on('error', (err: any) => {
+        console.error(err);
+        reject(err);
+      });
+      batch.on('end', () => {
+        resolve(records);
+      });
+    });
   }
 }
 
@@ -176,19 +176,17 @@ export interface SalesforceCredential {
   password: string;
 }
 
-export interface SalesforceTaskConfig {
-  calls: (
-    SalesforceQueryCall |
-    SalesforceSearchCall |
-    SalesforceRetrieveCall |
-    SalesforceCreateCall |
-    SalesforceUpdateCall |
-    SalesforceDeleteCall |
-    SalesforceUpsertCall |
-    SalesforceApexCall |
-    SalesforceBulkCrudCall
-  )[];
-}
+export type SalesforceTaskConfig =
+  SalesforceQueryCall |
+  SalesforceSearchCall |
+  SalesforceRetrieveCall |
+  SalesforceCreateCall |
+  SalesforceUpdateCall |
+  SalesforceDeleteCall |
+  SalesforceUpsertCall |
+  SalesforceApexCall |
+  SalesforceBulkCrudCall |
+  SalesforceBulkQueryCall;
 
 export interface SalesforceCall {
   method: string;
@@ -254,9 +252,16 @@ export interface SalesforceApexCall extends SalesforceCall {
 export interface SalesforceBulkCrudCall extends SalesforceCall {
   method: 'bulkCrud';
   resource: string;
-  objects: any[];
+  batches: any[][];
   bulkOptions?: JsForce.BulkOptions;
   operation: 'retrieve' | 'create' | 'delete' | 'update' | 'upsert';
+  pollInterval?: number;
+  pollTimeout?: number;
+}
+
+export interface SalesforceBulkQueryCall extends SalesforceCall {
+  method: 'bulkQuery';
+  query: string;
 }
 
 export interface Connection extends JsForce.Connection {

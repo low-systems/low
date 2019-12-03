@@ -1,0 +1,11 @@
+{
+  "modules": {
+    "SalesforceDoer": {
+      "connections": {
+        "test": {
+          "loginUrl": "https://cs84.salesforce.com"
+        }
+      }
+    }
+  }
+}
