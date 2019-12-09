@@ -32,80 +32,50 @@ export class CloudTasksDoer extends Doer<CloudTasksDoerConfig, CloudTasksSecrets
   }
 
   async main(context: ConnectorContext<any>, taskConfig: TaskConfig, coreConfig: CloudTasksTaskConfig) {
-    const responses: any = {};
-
-    for (const call of coreConfig.calls) {
-      try {
-        if (!ALLOWED_CLOUD_TASKS_METHODS.includes(call.method)) {
-          throw new Error(`Invalid Cloud Tasks method '${call.method}'`);
-        }
-
-        const client = this.clients[call.client];
-
-        switch (call.method) {
-          case ('createQueue'):
-            responses[call.name] = await client.createQueue(call.request, call.options);
-            break;
-          case ('createTask'):
-            if (call.request.task.appEngineHttpRequest && call.request.task.appEngineHttpRequest.body) {
-              const inputBody: unknown = call.request.task.appEngineHttpRequest.body;
-              const body = typeof inputBody === 'string' ? inputBody : JSON.stringify(inputBody, null, 2);
-              call.request.task.appEngineHttpRequest.body = Buffer.from(body).toString('base64');
-            }
-            if (call.request.task.httpRequest && call.request.task.httpRequest.body) {
-              const inputBody: unknown = call.request.task.httpRequest.body;
-              const body = typeof inputBody === 'string' ? inputBody : JSON.stringify(inputBody, null, 2);
-              call.request.task.httpRequest.body = Buffer.from(body).toString('base64');
-            }
-            responses[call.name] = await client.createTask(call.request, call.options);
-            break;
-          case ('deleteQueue'):
-            responses[call.name] = await client.deleteQueue(call.request, call.options);
-            break;
-          case ('deleteTask'):
-            responses[call.name] = await client.deleteTask(call.request, call.options);
-            break;
-          case ('getQueue'):
-            responses[call.name] = await client.getQueue(call.request, call.options);
-            break;
-          case ('getTask'):
-            responses[call.name] = await client.getTask(call.request, call.options);
-            break;
-          case ('listQueues'):
-            responses[call.name] = await client.listQueues(call.request, call.options);
-            break;
-          case ('listTasks'):
-            responses[call.name] = await client.listTasks(call.request, call.options);
-            break;
-          case ('pauseQueue'):
-            responses[call.name] = await client.pauseQueue(call.request, call.options);
-            break;
-          case ('purgeQueue'):
-            responses[call.name] = await client.purgeQueue(call.request, call.options);
-            break;
-          case ('resumeQueue'):
-            responses[call.name] = await client.resumeQueue(call.request, call.options);
-            break;
-          case ('runTask'):
-            responses[call.name] = await client.runTask(call.request, call.options);
-            break;
-          case ('updateQueue'):
-            responses[call.name] = await client.updateQueue(call.request, call.options);
-            break;
-        }
-      } catch(err) {
-        const errorJson = JSON.stringify(err, Object.getOwnPropertyNames(err));
-        const error = JSON.parse(errorJson);
-        responses[call.name] = { error };
-        if (call.errorHandling === 'halt') {
-          break;
-        } else if (call.errorHandling === 'throw') {
-          throw err;
-        }
-      }
+    if (!ALLOWED_CLOUD_TASKS_METHODS.includes(coreConfig.method)) {
+      throw new Error(`Invalid Cloud Tasks method '${coreConfig.method}'`);
     }
 
-    return responses;
+    const client = this.clients[coreConfig.client];
+
+    switch (coreConfig.method) {
+      case ('createQueue'):
+        return await client.createQueue(coreConfig.request, coreConfig.options);
+      case ('createTask'):
+        if (coreConfig.request.task.appEngineHttpRequest && coreConfig.request.task.appEngineHttpRequest.body) {
+          const inputBody: unknown = coreConfig.request.task.appEngineHttpRequest.body;
+          const body = typeof inputBody === 'string' ? inputBody : JSON.stringify(inputBody, null, 2);
+          coreConfig.request.task.appEngineHttpRequest.body = Buffer.from(body).toString('base64');
+        }
+        if (coreConfig.request.task.httpRequest && coreConfig.request.task.httpRequest.body) {
+          const inputBody: unknown = coreConfig.request.task.httpRequest.body;
+          const body = typeof inputBody === 'string' ? inputBody : JSON.stringify(inputBody, null, 2);
+          coreConfig.request.task.httpRequest.body = Buffer.from(body).toString('base64');
+        }
+        return await client.createTask(coreConfig.request, coreConfig.options);
+      case ('deleteQueue'):
+        return await client.deleteQueue(coreConfig.request, coreConfig.options);
+      case ('deleteTask'):
+        return await client.deleteTask(coreConfig.request, coreConfig.options);
+      case ('getQueue'):
+        return await client.getQueue(coreConfig.request, coreConfig.options);
+      case ('getTask'):
+        return await client.getTask(coreConfig.request, coreConfig.options);
+      case ('listQueues'):
+        return await client.listQueues(coreConfig.request, coreConfig.options);
+      case ('listTasks'):
+        return await client.listTasks(coreConfig.request, coreConfig.options);
+      case ('pauseQueue'):
+        return await client.pauseQueue(coreConfig.request, coreConfig.options);
+      case ('purgeQueue'):
+        return await client.purgeQueue(coreConfig.request, coreConfig.options);
+      case ('resumeQueue'):
+        return await client.resumeQueue(coreConfig.request, coreConfig.options);
+      case ('runTask'):
+        return await client.runTask(coreConfig.request, coreConfig.options);
+      case ('updateQueue'):
+        return await client.updateQueue(coreConfig.request, coreConfig.options);
+    }
   }
 }
 
@@ -119,31 +89,25 @@ export interface CloudTasksSecrets {
 
 export type CloudTasksMethod = 'createQueue' | 'createTask' | 'deleteQueue' | 'deleteTask' | 'getQueue' | 'getTask' | 'listQueues' | 'listTasks' | 'pauseQueue' | 'purgeQueue' | 'resumeQueue' | 'runTask' | 'updateQueue';
 
-export interface CloudTasksTaskConfig {
-  calls: (
-    CloudTasksCreateQueueCall |
-    CloudTasksCreateTaskCall |
-    CloudTasksDeleteQueueCall |
-    CloudTasksDeleteTaskCall |
-    CloudTasksGetQueueCall |
-    CloudTasksGetTaskCall |
-    CloudTasksListQueuesCall |
-    CloudTasksListTasksCall |
-    CloudTasksPauseQueueCall |
-    CloudTasksPurgeQueueCall |
-    CloudTasksResumeQueueCall |
-    CloudTasksRunTaskCall |
-    CloudTasksUpdateQueueCall
-  )[];
-}
-
+export type CloudTasksTaskConfig =
+  CloudTasksCreateQueueCall |
+  CloudTasksCreateTaskCall |
+  CloudTasksDeleteQueueCall |
+  CloudTasksDeleteTaskCall |
+  CloudTasksGetQueueCall |
+  CloudTasksGetTaskCall |
+  CloudTasksListQueuesCall |
+  CloudTasksListTasksCall |
+  CloudTasksPauseQueueCall |
+  CloudTasksPurgeQueueCall |
+  CloudTasksResumeQueueCall |
+  CloudTasksRunTaskCall |
+  CloudTasksUpdateQueueCall;
 export interface CloudTasksMethodCall<M extends CloudTasksMethod, R, O extends CallOptions | CallOptionsWithPagination> {
-  name: string;
   client: string;
   method: M;
   request: R;
   options?: O;
-  errorHandling?: 'throw' | 'halt';
 }
 
 export interface CloudTasksCreateQueueCall extends CloudTasksMethodCall<'createQueue', CreateNamedRequest<'queue', Partial<Queue>>, CallOptions> { }
