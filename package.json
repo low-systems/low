@@ -35,6 +35,7 @@
   "dependencies": {
     "@low-systems/cloud-tasks": "file:packages/doers/cloud-tasks-doer",
     "@low-systems/example": "file:packages/core/example",
+    "@low-systems/google-apis-doer": "file:packages/doers/google-apis-doer",
     "@low-systems/handlebars-renderer": "file:packages/renderers/handlebars-renderer",
     "@low-systems/http-connector": "file:packages/connectors/http-connector",
     "@low-systems/javascript-renderer": "file:packages/renderers/javascript-renderer",

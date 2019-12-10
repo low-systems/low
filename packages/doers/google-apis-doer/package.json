@@ -1,0 +1,31 @@
+{
+  "version": "0.0.1",
+  "main": "lib/google-apis-doer.js",
+  "types": "lib/google-apis-doer.d.ts",
+  "scripts": {
+    "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
+    "test": "jest --coverage",
+    "build": "npm run clean && tsc && npm test && typedoc"
+  },
+  "license": "GPL-3.0",
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "dependencies": {
+    "google-auth-library": "^5.6.1",
+    "googleapis": "^45.0.0",
+    "googleapis-common": "^3.2.0",
+    "low": "file:../../core/low"
+  },
+  "name": "@low-systems/google-apis-doer",
+  "description": "A Google APIs doer for low",
+  "homepage": "https://github.com/low-systems/low#readme",
+  "author": {
+    "name": "Matthew Wilkes (@SCVO)",
+    "url": "https://scvo.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/low-systems/low"
+  }
+}
