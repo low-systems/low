@@ -48,10 +48,12 @@ export class Renderer<C, S, T> extends Module<C, S> {
 }
 
 export interface RenderConfig<T> {
-  __renderer: string;
+  __renderer?: string;
   __template: T;
   __parser?: string;
   __parserConfig?: ParserConfig<any>;
   __metaData?: any;
   __cacheConfig?: CacheConfig;
+  __spread?: true;
+  __key?: RenderConfig<any>
 }

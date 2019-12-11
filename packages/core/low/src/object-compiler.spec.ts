@@ -133,15 +133,126 @@ test('should understand templates in children', async() => {
   expect(output).toStrictEqual(expected);
 });
 
-test('should echo a non-object property when attempting to compile it', async() => {
+test('should echo a non-object property when attempting to compile it', async () => {
   const input = 'test';
   const output = await ObjectCompiler.compile(input, { env: env });
   expect(output).toBe(input);
 });
 
-test('should throw exception when passed a bad pointer', async() => {
+test('should throw exception when passed a bad pointer', async () => {
   const input = {
     __pointer: 'env.config.metadata.noSuchProperty'
   };
   expect(() => { ObjectCompiler.resolvePointer(input, { env: env }); }).toThrow(/Could not resolve pointer/);
+});
+
+test('should be able to spread rendered arrays into containing array', async () => {
+  await env.init();
+
+  const input = {
+    testArray: [
+      'Item 1',
+      {
+        __renderer: 'Renderer',
+        __template: [
+          'First Rendered Item 1',
+          'First Rendered Item 2'
+        ],
+        __spread: true
+      },
+      'Item 2',
+      {
+        __renderer: 'Renderer',
+        __template: [
+          'Second Rendered Item 1',
+          'Second Rendered Item 2'
+        ],
+        __spread: true
+      },
+      'Item 3'
+    ]
+  };
+  const expected = {
+    testArray: [
+      'Item 1',
+      'First Rendered Item 1',
+      'First Rendered Item 2',
+      'Item 2',
+      'Second Rendered Item 1',
+      'Second Rendered Item 2',
+      'Item 3'
+    ]
+  };
+
+  const output = await ObjectCompiler.compile(input, { env: env });
+  expect(output).toEqual(expected);
+});
+
+test('should be able to spread rendered objects into containing object', async () => {
+  await env.init();
+
+  const input = {
+    testObject: {
+      'key1': 'Value 1',
+      'keySpread1': {
+        __renderer: 'Renderer',
+        __template: {
+          'firstRenderedKey1': 'Value 1',
+          'firstRenderedKey2': 'Value 2',
+        },
+        __spread: true
+      },
+      'key2': 'Value 2',
+      'keySpread2': {
+        __renderer: 'Renderer',
+        __template: {
+          'secondRenderedKey1': 'Value 1',
+          'secondRenderedKey2': 'Value 2',
+        },
+        __spread: true
+      },
+      'key3': 'Value 3'
+    }
+  };
+  const expected = {
+    testObject: {
+      'key1': 'Value 1',
+      'firstRenderedKey1': 'Value 1',
+      'firstRenderedKey2': 'Value 2',
+      'key2': 'Value 2',
+      'secondRenderedKey1': 'Value 1',
+      'secondRenderedKey2': 'Value 2',
+      'key3': 'Value 3',
+    }
+  };
+
+  const output = await ObjectCompiler.compile(input, { env: env });
+  expect(output).toEqual(expected);
+});
+
+test('should be able to template keys', async () => {
+  await env.init();
+
+  const input = {
+    testObject: {
+      'key1': 'Value 1',
+      'templatedKey': {
+        __renderer: 'Renderer',
+        __template: 'Value 2',
+        __key: {
+          __renderer: 'Renderer',
+          __template: 'key2'
+        }
+      }
+    }
+  };
+  const expected = {
+    testObject: {
+      'key1': 'Value 1',
+      'key2': 'Value 2'
+    }
+  };
+
+  const output = await ObjectCompiler.compile(input, { env: env });
+  expect(output).toEqual(expected);
 });

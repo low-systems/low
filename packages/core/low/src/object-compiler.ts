@@ -1,5 +1,6 @@
 
 import { Context } from './environment';
+import { RenderConfig } from './renderers/renderer';
 
 export class ObjectCompiler {
   static isTemplate(property: any): boolean {
@@ -30,15 +31,21 @@ export class ObjectCompiler {
     const resolvedProperty = ObjectCompiler.resolvePointer(property, context);
 
     if (ObjectCompiler.isTemplate(resolvedProperty)) {
-      const renderer = context.env.getRenderer(resolvedProperty.__renderer);
+      const renderer = context.env.getRenderer(resolvedProperty.__renderer || 'Renderer');
       return await renderer.render(resolvedProperty, context);
     }
 
     if (Array.isArray(resolvedProperty)) {
       const compiled = [];
       for (const item of resolvedProperty) {
+        const spread = typeof item === 'object' && item !== null && item.hasOwnProperty('__spread');
         const resolved = await ObjectCompiler.compileProperty(item, context);
-        compiled.push(resolved);
+
+        if (spread && Array.isArray(resolved)) {
+          compiled.push(...resolved);
+        } else {
+          compiled.push(resolved);
+        }
       }
       return compiled;
     }
@@ -46,7 +53,26 @@ export class ObjectCompiler {
     if (typeof resolvedProperty === 'object' && resolvedProperty !== null && !resolvedProperty.hasOwnProperty('__doNotCompile')) {
       const output: any = {};
       for (const [key, value] of Object.entries(resolvedProperty)) {
-        output[key] = await ObjectCompiler.compileProperty(value, context);
+        const spread = typeof value === 'object' && value !== null && value.hasOwnProperty('__spread');
+        const resolved = await ObjectCompiler.compileProperty(value, context);
+
+        if (spread && typeof resolved === 'object' && resolved !== null) {
+          for (const [resolvedKey, resolvedValue] of Object.entries(resolved)) {
+            output[resolvedKey] = resolvedValue;
+          }
+        } else {
+          //Not sure why I need to cast value to any here. I'm already checking above that the key "__key" exists on it
+          const keyConfig = typeof value === 'object' && value !== null && value.hasOwnProperty('__key') && (value as any).__key as RenderConfig<any> || null;
+
+          if (keyConfig) {
+            keyConfig.__parser = 'StringParser';
+            const renderer = context.env.getRenderer(keyConfig.__renderer || 'Renderer');
+            const renderedKey = await renderer.render((value as any).__key, { ...context, resolvedValue: value });
+            output[renderedKey] = resolved;
+          } else {
+            output[key] = resolved;
+          }
+        }
       }
       return output;
     }

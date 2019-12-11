@@ -326,6 +326,7 @@ export interface Modules {
 export interface Context {
   env: Environment;
   debug?: boolean;
+  [key: string]: any;
 }
 
 export interface TaskConfig {
