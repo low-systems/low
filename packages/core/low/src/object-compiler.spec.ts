@@ -155,32 +155,20 @@ test('should be able to spread rendered arrays into containing array', async () 
       {
         __renderer: 'Renderer',
         __template: [
-          'First Rendered Item 1',
-          'First Rendered Item 2'
+          'Rendered Item 1',
+          'Rendered Item 2'
         ],
         __spread: true
       },
-      'Item 2',
-      {
-        __renderer: 'Renderer',
-        __template: [
-          'Second Rendered Item 1',
-          'Second Rendered Item 2'
-        ],
-        __spread: true
-      },
-      'Item 3'
+      'Item 2'
     ]
   };
   const expected = {
     testArray: [
       'Item 1',
-      'First Rendered Item 1',
-      'First Rendered Item 2',
-      'Item 2',
-      'Second Rendered Item 1',
-      'Second Rendered Item 2',
-      'Item 3'
+      'Rendered Item 1',
+      'Rendered Item 2',
+      'Item 2'
     ]
   };
 
@@ -193,36 +181,24 @@ test('should be able to spread rendered objects into containing object', async (
 
   const input = {
     testObject: {
-      'key1': 'Value 1',
-      'keySpread1': {
+      key1: 'Value 1',
+      keySpread1: {
         __renderer: 'Renderer',
         __template: {
-          'firstRenderedKey1': 'Value 1',
-          'firstRenderedKey2': 'Value 2',
+          renderedKey1: 'Value 1',
+          renderedKey2: 'Value 2',
         },
         __spread: true
       },
-      'key2': 'Value 2',
-      'keySpread2': {
-        __renderer: 'Renderer',
-        __template: {
-          'secondRenderedKey1': 'Value 1',
-          'secondRenderedKey2': 'Value 2',
-        },
-        __spread: true
-      },
-      'key3': 'Value 3'
+      key2: 'Value 2'
     }
   };
   const expected = {
     testObject: {
-      'key1': 'Value 1',
-      'firstRenderedKey1': 'Value 1',
-      'firstRenderedKey2': 'Value 2',
-      'key2': 'Value 2',
-      'secondRenderedKey1': 'Value 1',
-      'secondRenderedKey2': 'Value 2',
-      'key3': 'Value 3',
+      key1: 'Value 1',
+      renderedKey1: 'Value 1',
+      renderedKey2: 'Value 2',
+      key2: 'Value 2'
     }
   };
 
@@ -235,8 +211,8 @@ test('should be able to template keys', async () => {
 
   const input = {
     testObject: {
-      'key1': 'Value 1',
-      'templatedKey': {
+      key1: 'Value 1',
+      templatedKey: {
         __renderer: 'Renderer',
         __template: 'Value 2',
         __key: {
@@ -248,8 +224,8 @@ test('should be able to template keys', async () => {
   };
   const expected = {
     testObject: {
-      'key1': 'Value 1',
-      'key2': 'Value 2'
+      key1: 'Value 1',
+      key2: 'Value 2'
     }
   };
 
