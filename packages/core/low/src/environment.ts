@@ -11,6 +11,7 @@ import { UrlParser } from './parsers/url-parser';
 import { QuerystringParser } from './parsers/querystring-parser';
 import { Renderer } from './renderers/renderer';
 import { MultiDoer } from './doers/multi-doer';
+import { LogLevel } from './log';
 
 /**
  * The Environment class is the core of a `low` system.
@@ -39,6 +40,8 @@ export class Environment {
   get isReady(): boolean {
     return this.ready;
   }
+
+  logLevel: LogLevel = LogLevel.ERROR;
 
   /**
    * A collection of [[Connector]] modules. Connectors are gateways from
@@ -325,7 +328,7 @@ export interface Modules {
 
 export interface Context {
   env: Environment;
-  debug?: boolean;
+  logLevel?: LogLevel;
   [key: string]: any;
 }
 
