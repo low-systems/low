@@ -20,7 +20,7 @@
     "@types/node": "^12.11.6",
     "@types/pako": "^1.0.1",
     "@types/readline-sync": "^1.4.3",
-    "@types/request": "^2.48.3",
+    "@types/request": "^2.48.4",
     "@types/request-promise-native": "^1.0.17",
     "colors": "^1.4.0",
     "glob": "^7.1.5",
