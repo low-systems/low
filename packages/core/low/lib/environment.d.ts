@@ -3,6 +3,7 @@ import { CacheManager, CacheConfig } from './cache-managers/cache-manager';
 import { Doer } from './doers/doer';
 import { Parser } from './parsers/parser';
 import { Renderer } from './renderers/renderer';
+import { LogLevel } from './log';
 /**
  * The Environment class is the core of a `low` system.
  * If you are using `low` you should create an instance of this
@@ -29,6 +30,7 @@ export declare class Environment {
      * Determine if the `Environment` is ready to execute tasks
      */
     get isReady(): boolean;
+    logLevel: LogLevel;
     /**
      * A collection of [[Connector]] modules. Connectors are gateways from
      * your application or external sources to run tasks in the `low` Environment
@@ -88,7 +90,8 @@ export interface Modules {
 }
 export interface Context {
     env: Environment;
-    debug?: boolean;
+    logLevel?: LogLevel;
+    [key: string]: any;
 }
 export interface TaskConfig {
     name: string;

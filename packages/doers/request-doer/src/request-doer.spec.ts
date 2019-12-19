@@ -2,6 +2,8 @@ import { RequestDoer } from './request-doer';
 import { ConnectorContext, Environment, TaskConfig } from 'low';
 
 test('should be able to perform a Http request', async () => {
+  jest.setTimeout(30000);
+
   const environment = new Environment({ doers: [ new RequestDoer() ] }, [], {});
   await environment.init();
   const doer = environment.getDoer('RequestDoer') as RequestDoer;

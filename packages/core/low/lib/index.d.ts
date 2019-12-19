@@ -4,6 +4,7 @@ export * from './connectors/connector-run-error';
 export * from './doers/doer';
 export * from './doers/multi-doer';
 export * from './environment';
+export * from './log';
 export * from './module';
 export * from './object-compiler';
 export * from './parsers/boolean-parser';

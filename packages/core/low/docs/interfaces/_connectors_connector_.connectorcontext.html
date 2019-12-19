@@ -2385,13 +2385,13 @@ img {
 					<a href="_connectors_connector_.connectorcontext.html#data" class="tsd-kind-icon">data</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a href="_connectors_connector_.connectorcontext.html#debug" class="tsd-kind-icon">debug</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a href="_connectors_connector_.connectorcontext.html#env" class="tsd-kind-icon">env</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
 					<a href="_connectors_connector_.connectorcontext.html#errors" class="tsd-kind-icon">errors</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a href="_connectors_connector_.connectorcontext.html#loglevel" class="tsd-kind-icon">log<wbr>Level</a>
 				</li>
 			</ul>
 		</li>
@@ -2423,6 +2423,10 @@ img {
 				</li>
 			</ul>
 		</section>
+		<section class="tsd-panel tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
+			<h3 class="tsd-before-signature">Indexable</h3>
+			<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></div>
+		</section>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
@@ -2432,9 +2436,9 @@ img {
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_connectors_connector_.connectorcontext.html#connector" class="tsd-kind-icon">connector</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_connectors_connector_.connectorcontext.html#data" class="tsd-kind-icon">data</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_connectors_connector_.connectorcontext.html#debug" class="tsd-kind-icon">debug</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_connectors_connector_.connectorcontext.html#env" class="tsd-kind-icon">env</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_connectors_connector_.connectorcontext.html#errors" class="tsd-kind-icon">errors</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_connectors_connector_.connectorcontext.html#loglevel" class="tsd-kind-icon">log<wbr>Level</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2448,7 +2452,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">connector<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/tonicblue/low/blob/6c4d011/packages/core/low/src/connectors/connector.ts#L55">packages/core/low/src/connectors/connector.ts:55</a></li>
+						<li>Defined in <a href="https://github.com/tonicblue/low/blob/d9e31db/packages/core/low/src/connectors/connector.ts#L55">packages/core/low/src/connectors/connector.ts:55</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -2469,18 +2473,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/tonicblue/low/blob/6c4d011/packages/core/low/src/connectors/connector.ts#L59">packages/core/low/src/connectors/connector.ts:59</a></li>
-					</ul>
-				</aside>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-				<a name="debug" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagOptional">Optional</span> debug</h3>
-				<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
-				<aside class="tsd-sources">
-					<p>Inherited from <a href="_environment_.context.html">Context</a>.<a href="_environment_.context.html#debug">debug</a></p>
-					<ul>
-						<li>Defined in <a href="https://github.com/tonicblue/low/blob/6c4d011/packages/core/low/src/environment.ts#L328">packages/core/low/src/environment.ts:328</a></li>
+						<li>Defined in <a href="https://github.com/tonicblue/low/blob/d9e31db/packages/core/low/src/connectors/connector.ts#L59">packages/core/low/src/connectors/connector.ts:59</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2491,7 +2484,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="_environment_.context.html">Context</a>.<a href="_environment_.context.html#env">env</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/tonicblue/low/blob/6c4d011/packages/core/low/src/environment.ts#L327">packages/core/low/src/environment.ts:327</a></li>
+						<li>Defined in <a href="https://github.com/tonicblue/low/blob/d9e31db/packages/core/low/src/environment.ts#L330">packages/core/low/src/environment.ts:330</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2501,7 +2494,18 @@ img {
 				<div class="tsd-signature tsd-kind-icon">errors<span class="tsd-signature-symbol">:</span> <a href="_connectors_connector_.taskerrormap.html" class="tsd-signature-type">TaskErrorMap</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/tonicblue/low/blob/6c4d011/packages/core/low/src/connectors/connector.ts#L60">packages/core/low/src/connectors/connector.ts:60</a></li>
+						<li>Defined in <a href="https://github.com/tonicblue/low/blob/d9e31db/packages/core/low/src/connectors/connector.ts#L60">packages/core/low/src/connectors/connector.ts:60</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+				<a name="loglevel" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> log<wbr>Level</h3>
+				<div class="tsd-signature tsd-kind-icon">log<wbr>Level<span class="tsd-signature-symbol">:</span> <a href="../enums/_log_.loglevel.html" class="tsd-signature-type">LogLevel</a></div>
+				<aside class="tsd-sources">
+					<p>Inherited from <a href="_environment_.context.html">Context</a>.<a href="_environment_.context.html#loglevel">logLevel</a></p>
+					<ul>
+						<li>Defined in <a href="https://github.com/tonicblue/low/blob/d9e31db/packages/core/low/src/environment.ts#L331">packages/core/low/src/environment.ts:331</a></li>
 					</ul>
 				</aside>
 			</section>

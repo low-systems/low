@@ -9,6 +9,7 @@ __export(require("./connectors/connector-run-error"));
 __export(require("./doers/doer"));
 __export(require("./doers/multi-doer"));
 __export(require("./environment"));
+__export(require("./log"));
 __export(require("./module"));
 __export(require("./object-compiler"));
 __export(require("./parsers/boolean-parser"));

@@ -36,21 +36,46 @@ class ObjectCompiler {
         return __awaiter(this, void 0, void 0, function* () {
             const resolvedProperty = ObjectCompiler.resolvePointer(property, context);
             if (ObjectCompiler.isTemplate(resolvedProperty)) {
-                const renderer = context.env.getRenderer(resolvedProperty.__renderer);
+                const renderer = context.env.getRenderer(resolvedProperty.__renderer || 'Renderer');
                 return yield renderer.render(resolvedProperty, context);
             }
             if (Array.isArray(resolvedProperty)) {
                 const compiled = [];
                 for (const item of resolvedProperty) {
+                    const spread = typeof item === 'object' && item !== null && item.hasOwnProperty('__spread');
                     const resolved = yield ObjectCompiler.compileProperty(item, context);
-                    compiled.push(resolved);
+                    if (spread && Array.isArray(resolved)) {
+                        compiled.push(...resolved);
+                    }
+                    else {
+                        compiled.push(resolved);
+                    }
                 }
                 return compiled;
             }
             if (typeof resolvedProperty === 'object' && resolvedProperty !== null && !resolvedProperty.hasOwnProperty('__doNotCompile')) {
                 const output = {};
                 for (const [key, value] of Object.entries(resolvedProperty)) {
-                    output[key] = yield ObjectCompiler.compileProperty(value, context);
+                    const spread = typeof value === 'object' && value !== null && value.hasOwnProperty('__spread');
+                    const resolved = yield ObjectCompiler.compileProperty(value, context);
+                    if (spread && typeof resolved === 'object' && resolved !== null) {
+                        for (const [resolvedKey, resolvedValue] of Object.entries(resolved)) {
+                            output[resolvedKey] = resolvedValue;
+                        }
+                    }
+                    else {
+                        //Not sure why I need to cast value to any here. I'm already checking above that the key "__key" exists on it
+                        const keyConfig = typeof value === 'object' && value !== null && value.hasOwnProperty('__key') && value.__key || null;
+                        if (keyConfig) {
+                            keyConfig.__parser = 'StringParser';
+                            const renderer = context.env.getRenderer(keyConfig.__renderer || 'Renderer');
+                            const renderedKey = yield renderer.render(value.__key, Object.assign(Object.assign({}, context), { resolvedValue: value }));
+                            output[renderedKey] = resolved;
+                        }
+                        else {
+                            output[key] = resolved;
+                        }
+                    }
                 }
                 return output;
             }

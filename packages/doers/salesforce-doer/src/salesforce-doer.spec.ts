@@ -60,6 +60,8 @@ function chunk(arr: any[], size: number) {
 }
 
 test('should be able to connect to Salesforce', async () => {
+  jest.setTimeout(30000);
+
   if (!environment) { fail('Environment has not been setup properly'); return; }
   const doer = environment.getDoer('SalesforceDoer') as SalesforceDoer;
 

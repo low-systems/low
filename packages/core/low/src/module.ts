@@ -1,4 +1,5 @@
 import { Environment } from './environment';
+//import { Log } from './log';
 
 export class Module<C, S> {
   private _env: Environment | undefined;
@@ -35,15 +36,26 @@ export class Module<C, S> {
   }
 
   async init(env: Environment): Promise<void> {
+    //Log.log(env, this.moduleType, `Initialising`);
+
     if (this._ready) {
+      //Log.warn(env, this.moduleType, 'Module already initialised. Destroying and re-initialising');
       await this.destroy();
       this._ready = false;
     }
+
     this._env = env;
+
     this._config = env.config.modules && env.config.modules[this.moduleType] || {};
+    //Log.log(env, this.moduleType, `Set config:`, this.config);
+
     this._secrets = env.secrets.modules && env.secrets.modules[this.moduleType] || {};
+    //Log.log(env, this.moduleType, `Set secrets:`, this.secrets);
+
     await this.setup();
     this._ready = true;
+
+    //Log.log(env, this.moduleType, `Module ready`);
   }
 
   async setup(): Promise<void> { return; };

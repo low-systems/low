@@ -21,6 +21,7 @@ const url_parser_1 = require("./parsers/url-parser");
 const querystring_parser_1 = require("./parsers/querystring-parser");
 const renderer_1 = require("./renderers/renderer");
 const multi_doer_1 = require("./doers/multi-doer");
+const log_1 = require("./log");
 /**
  * The Environment class is the core of a `low` system.
  * If you are using `low` you should create an instance of this
@@ -49,6 +50,7 @@ class Environment {
          * Set to true once `Environment.init()` has completed
          */
         this.ready = false;
+        this.logLevel = log_1.LogLevel.ERROR;
         /**
          * A collection of [[Connector]] modules. Connectors are gateways from
          * your application or external sources to run tasks in the `low` Environment
