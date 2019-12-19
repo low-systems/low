@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "1.1.0",
   "main": "lib/cloud-tasks-doer.js",
   "types": "lib/cloud-tasks-doer.d.ts",
   "scripts": {
