@@ -3,26 +3,26 @@ import { TaskConfig } from '../environment';
 import { ConnectorContext } from '../connectors/connector';
 import { ObjectCompiler } from '../object-compiler';
 import { CacheManager, CacheConfig, CacheKey } from '../cache-managers/cache-manager';
-//import { Log } from '../log';
 
 export class Doer<C, S> extends Module<C, S> {
   async execute(context: ConnectorContext<any>, task: TaskConfig): Promise<void> {
     try {
-      //Log.info(context, this.moduleType, `Executing task ${task.name}`);
+      const env = context.env;
+      env.info(context, this.moduleType, `Executing task ${task.name}`);
 
       let cacheManager: CacheManager<any, any> | undefined;
       let cacheKey: CacheKey | undefined;
 
       if (task.cacheConfig) {
-        //Log.info(context, this.moduleType, `Loading cache manager '${task.cacheConfig.cacheManager}`);
+        env.info(context, this.moduleType, `Loading cache manager '${task.cacheConfig.cacheManager}`);
         cacheManager = this.env.getCacheManager(task.cacheConfig.cacheManager);
         cacheKey = await cacheManager.makeKey(task.cacheConfig, context);
 
         const cachedItem = await cacheManager.getItem(cacheKey);
 
         if (cachedItem) {
-          //Log.info(context, 'Found cached item');
-          //Log.log(context, 'Found cached item', cachedItem);
+          env.info(context, 'Found cached item');
+          env.debug(context, 'Found cached item', cachedItem);
           context.data[task.name] = cachedItem;
           return;
         }
@@ -44,6 +44,7 @@ export class Doer<C, S> extends Module<C, S> {
   }
 
   async main(context: ConnectorContext<any>, taskConfig: TaskConfig, coreConfig: any): Promise<any> {
+    this.env.debug(context, this.moduleType, 'Executing main(), returning', coreConfig);
     return coreConfig
   }
 }

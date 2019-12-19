@@ -1,5 +1,7 @@
 import { Environment, TaskConfig } from '../environment';
 
+process.env.SECRETS = '{}';
+
 const testTasks: TaskConfig[] = [
   {
     name: 'test-task-with-connector',

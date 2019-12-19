@@ -5,6 +5,8 @@ import { Doer } from './doers/doer';
 import { Parser } from './parsers/parser';
 import { Renderer } from './renderers/renderer';
 
+process.env.SECRETS = '{}';
+
 beforeAll(() => {
   process.env = Object.assign(process.env, {
     SECRETS_ALT: '{ "modules": { "Module": { "test": "It worked" } } }'

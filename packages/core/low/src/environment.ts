@@ -1,6 +1,9 @@
+import * as Crypto from 'crypto';
+
 import { Connector } from './connectors/connector';
 import { CacheManager, CacheConfig } from './cache-managers/cache-manager';
 import { Doer } from './doers/doer';
+import { Logger, LogLevel } from './loggers/logger';
 import { Parser } from './parsers/parser';
 import { BooleanParser } from './parsers/boolean-parser';
 import { IntegerParser } from './parsers/integer-parser';
@@ -11,7 +14,6 @@ import { UrlParser } from './parsers/url-parser';
 import { QuerystringParser } from './parsers/querystring-parser';
 import { Renderer } from './renderers/renderer';
 import { MultiDoer } from './doers/multi-doer';
-import { LogLevel } from './log';
 
 /**
  * The Environment class is the core of a `low` system.
@@ -67,6 +69,10 @@ export class Environment {
     MultiDoer: new MultiDoer()
   };
 
+  private loggers: { [loggerName: string]: Logger<any, any> } = {
+    Logger: new Logger()
+  };
+
   /**
    * A collection of [[Parser]] modules. Parsers ensure that any compiled
    * output from the [[ObjectCompiler]] is a specified type
@@ -116,6 +122,12 @@ export class Environment {
       }
     }
 
+    if (modules.loggers) {
+      for (const mod of modules.loggers) {
+        this.loggers[mod.moduleType] = mod;
+      }
+    }
+
     if (modules.parsers) {
       for (const mod of modules.parsers) {
         this.parsers[mod.moduleType] = mod;
@@ -161,6 +173,10 @@ export class Environment {
     }
 
     for (const mod of Object.values(this.doers)) {
+      await mod.init(this);
+    }
+
+    for (const mod of Object.values(this.loggers)) {
       await mod.init(this);
     }
 
@@ -284,6 +300,72 @@ export class Environment {
     return this.tasks[name];
   }
 
+  log(context: Context | null, level: LogLevel, ...args: any[]) {
+    try {
+      let contextLogLevel = this.logLevel;
+      if (typeof context === 'object' && context !== null && typeof context.logLevel === 'number') {
+        contextLogLevel = context.logLevel;
+      }
+
+      if (level < contextLogLevel) {
+        return false;
+      }
+
+      let label = 'ENVIRONMENT';
+      if (typeof context === 'object' && context !== null) {
+        if (typeof context.uid !== 'string') {
+          context.uid = Crypto.randomBytes(4).toString('hex');
+        }
+        label = context.uid;
+      }
+
+      for (const logger of Object.values(this.loggers)) {
+        switch (level) {
+          case (LogLevel.DEBUG):
+            logger.debug(label, ...args).then().catch(err => {
+              console.error(`Logger Error: '${logger.moduleType}.debug()`, err);
+            });
+            break;
+          case (LogLevel.INFO):
+            logger.info(label, ...args).then().catch(err => {
+              console.error(`Logger Error: '${logger.moduleType}.info()`, err);
+            });
+            break;
+          case (LogLevel.WARN):
+            logger.warn(label, ...args).then().catch(err => {
+              console.error(`Logger Error: '${logger.moduleType}.warn()`, err);
+            });
+            break;
+          default:
+            logger.error(label, ...args).then().catch(err => {
+              console.error(`Logger Error: '${logger.moduleType}.error()`, err);
+            });
+        }
+      }
+
+      return true;
+    } catch (err) {
+      console.error('Logger Error: Failed to initialise log', context, level, ...args);
+      return false;
+    }
+  }
+
+  debug(context: Context | null, ...args: any[]) {
+    this.log(context, LogLevel.DEBUG, ...args);
+  }
+
+  info(context: Context | null, ...args: any[]) {
+    this.log(context, LogLevel.INFO, ...args);
+  }
+
+  warn(context: Context | null, ...args: any[]) {
+    this.log(context, LogLevel.WARN, ...args);
+  }
+
+  error(context: Context | null, ...args: any[]) {
+    this.log(context, LogLevel.ERROR, ...args);
+  }
+
   async destroy() {
     if (!this.ready) {
       return;
@@ -298,6 +380,10 @@ export class Environment {
     }
 
     for (const mod of Object.values(this.doers)) {
+      await mod.destroy();
+    }
+
+    for (const mod of Object.values(this.loggers)) {
       await mod.destroy();
     }
 
@@ -322,6 +408,7 @@ export interface Modules {
   connectors?: Connector<any, any, any>[];
   cacheManagers?: CacheManager<any, any>[];
   doers?: Doer<any, any>[];
+  loggers?: Logger<any, any>[];
   parsers?: Parser<any>[];
   renderers?: Renderer<any, any, any>[];
 }
@@ -329,6 +416,7 @@ export interface Modules {
 export interface Context {
   env: Environment;
   logLevel?: LogLevel;
+  uid?: string;
   [key: string]: any;
 }
 

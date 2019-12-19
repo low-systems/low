@@ -1,6 +1,8 @@
 import { Environment, Context } from '../environment';
 import { RenderConfig } from './renderer';
 
+process.env.SECRETS = '{}';
+
 test('should echo input with no parser', async () => {
   const env = new Environment({}, [], {});
   await env.init();

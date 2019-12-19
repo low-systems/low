@@ -1,5 +1,8 @@
 import { TaskConfig, Environment } from '../environment';
 import { ConnectorContext } from '../connectors/connector';
+import { LogLevel } from '../loggers/logger';
+
+process.env.SECRETS = '{}';
 
 function taskFactory(name?: string, doer?: string): TaskConfig {
   return {
@@ -145,7 +148,7 @@ test('should throw an exception when given an invalid BranchConfig to branch to'
         task: task1,
         branch: {
           haltAfterExecution: false,
-          schmtaskName: 'no-such-task'
+          taskName: 'no-such-task'
         }
       }
     ],
@@ -165,13 +168,14 @@ test('should throw an exception when given an invalid BranchConfig to branch to'
 
   const context: ConnectorContext<any> = {
     env: env,
+    logLevel: LogLevel.DEBUG,
     connector: { config: {}, input: {} },
     data: {},
     errors: {}
   };
 
   await doer.execute(context, multiTask);
-  expect(context.errors['test-multi-doer'].message).toMatch(/Invalid BranchConfig/);
+  expect(context.errors['test-multi-doer'].message).toMatch(/No Task called/);
 });
 
 test('should throw an exception when given an invalid task name to branch to', async () => {

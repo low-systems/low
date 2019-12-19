@@ -2,6 +2,8 @@ import { TaskConfig, Environment } from '../environment';
 import { ConnectorContext } from '../connectors/connector';
 import { CacheConfig } from '../cache-managers/cache-manager';
 
+process.env.SECRETS = '{}';
+
 test('should be able to execute doer and have input echoed', async () => {
   const env = new Environment({}, [], {
     metadata: {

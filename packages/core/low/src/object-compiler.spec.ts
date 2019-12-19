@@ -1,6 +1,8 @@
 import { ObjectCompiler } from './object-compiler';
 import { Environment } from './environment';
 
+process.env.SECRETS = '{}';
+
 const env = new Environment({}, [], {
   metadata: {
     test: 'It worked',
