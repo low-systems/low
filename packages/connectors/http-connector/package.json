@@ -26,11 +26,12 @@
     "cookie": "^0.4.0",
     "get-body": "^1.0.3",
     "is-gzip": "^2.0.0",
-    "low": "file:../../core/low",
+    "low": "^0.1.0",
     "pako": "^1.0.10",
     "url-pattern": "^1.0.3"
   },
   "devDependencies": {
-    "@low-systems/json-i": "file:../../tools/json-i"
-  }
+    "@low-systems/json-i": "^0.1.0"
+  },
+  "gitHead": "5619c75a2b664f915f0f6ba995c05cb37391abd0"
 }

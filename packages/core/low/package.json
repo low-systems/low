@@ -1,6 +1,6 @@
 {
   "name": "low",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "description": "a templating driven low-code framework for rapid systems development",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -21,5 +21,6 @@
   "license": "GPL-3.0",
   "jest": {
     "preset": "ts-jest"
-  }
+  },
+  "gitHead": "5619c75a2b664f915f0f6ba995c05cb37391abd0"
 }

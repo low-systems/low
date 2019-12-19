@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "handlebars": "^4.5.1",
-    "low": "file:../../core/low"
+    "low": "^0.1.0"
   },
   "name": "@low-systems/handlebars-renderer",
   "description": "A Handlebars Renderer for low",
@@ -25,5 +25,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/low-systems/low"
-  }
+  },
+  "gitHead": "5619c75a2b664f915f0f6ba995c05cb37391abd0"
 }
