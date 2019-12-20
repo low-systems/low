@@ -17,7 +17,7 @@
     "google-gax": "^1.10.0",
     "low": "^0.1.0"
   },
-  "name": "@low-systems/cloud-tasks",
+  "name": "@low-systems/cloud-tasks-doer",
   "description": "A Google Cloud Tasks doer for low",
   "homepage": "https://github.com/low-systems/low#readme",
   "author": {
