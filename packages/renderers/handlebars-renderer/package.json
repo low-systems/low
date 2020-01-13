@@ -1,5 +1,5 @@
 {
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "lib/handlebars-renderer.js",
   "types": "lib/handlebars-renderer.d.ts",
   "scripts": {
