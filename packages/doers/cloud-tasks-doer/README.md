@@ -31,6 +31,7 @@ export default {
     "apiEndpoint": "my-awesome-app.com"
   }
 };
+
 ```
 
 ### `secrets.json`
