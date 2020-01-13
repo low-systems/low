@@ -15,7 +15,7 @@
   "dependencies": {
     "@google-cloud/tasks": "^1.5.1",
     "google-gax": "^1.10.0",
-    "low": "^0.1.0"
+    "low": "file:../../core/low"
   },
   "name": "@low-systems/cloud-tasks-doer",
   "description": "A Google Cloud Tasks doer for low",

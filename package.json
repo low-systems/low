@@ -33,7 +33,7 @@
     "typescript": "^3.7.2"
   },
   "dependencies": {
-    "@low-systems/cloud-tasks": "file:packages/doers/cloud-tasks-doer",
+    "@low-systems/cloud-tasks-doer": "file:packages/doers/cloud-tasks-doer",
     "@low-systems/example": "file:packages/core/example",
     "@low-systems/google-apis-doer": "file:packages/doers/google-apis-doer",
     "@low-systems/handlebars-renderer": "file:packages/renderers/handlebars-renderer",
