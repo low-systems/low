@@ -6,6 +6,7 @@
     "clean-modules": "node ./scripts/clean-modules.js",
     "share-global-cli": "node ./scripts/share-global-cli.js",
     "update-all-dependencies": "node ./scripts/update-all-dependencies.js",
+    "publish-all": "node ./scripts/publish-all.js",
     "test": "jest"
   },
   "devDependencies": {
