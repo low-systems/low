@@ -1,6 +1,6 @@
 {
   "name": "@low-systems/http-connector",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "A basic HTTP connector for low",
   "main": "lib/http-connector.js",
   "types": "lib/http-connector.d.ts",
@@ -26,12 +26,12 @@
     "cookie": "^0.4.0",
     "get-body": "^1.0.3",
     "is-gzip": "^2.0.0",
-    "low": "^1.1.5",
+    "low": "^1.1.6",
     "pako": "^1.0.10",
     "url-pattern": "^1.0.3"
   },
   "devDependencies": {
-    "@low-systems/json-i": "^1.1.5",
+    "@low-systems/json-i": "^1.1.6",
     "@types/cookie": "^0.3.3",
     "@types/jest": "^24.9.0",
     "@types/pako": "^1.0.1",
