@@ -9,6 +9,6 @@ export interface MultiDoerTask {
     branch?: any;
 }
 export interface BranchConfig {
-    taskName: string;
-    haltAfterExecution: boolean;
+    taskName?: string;
+    haltAfterExecution?: boolean;
 }

@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-//import { Log } from './log';
 class Module {
     constructor() {
         this._ready = false;
@@ -40,20 +39,20 @@ class Module {
     }
     init(env) {
         return __awaiter(this, void 0, void 0, function* () {
-            //Log.log(env, this.moduleType, `Initialising`);
+            env.debug(null, this.moduleType, `Initialising`);
             if (this._ready) {
-                //Log.warn(env, this.moduleType, 'Module already initialised. Destroying and re-initialising');
+                env.warn(null, this.moduleType, 'Module already initialised. Destroying and re-initialising');
                 yield this.destroy();
                 this._ready = false;
             }
             this._env = env;
             this._config = env.config.modules && env.config.modules[this.moduleType] || {};
-            //Log.log(env, this.moduleType, `Set config:`, this.config);
+            env.debug(null, this.moduleType, `Set config:`, this.config);
             this._secrets = env.secrets.modules && env.secrets.modules[this.moduleType] || {};
-            //Log.log(env, this.moduleType, `Set secrets:`, this.secrets);
+            env.debug(null, this.moduleType, `Set secrets:`, this.secrets);
             yield this.setup();
             this._ready = true;
-            //Log.log(env, this.moduleType, `Module ready`);
+            env.debug(null, this.moduleType, `Module ready`);
         });
     }
     setup() {

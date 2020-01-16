@@ -1,4 +1,4 @@
-import * as Request from 'request-promise-native';
+import Request = require('request-promise-native');
 
 import { Doer, TaskConfig, ConnectorContext } from 'low';
 

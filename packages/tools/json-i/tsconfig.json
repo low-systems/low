@@ -1,14 +1,7 @@
 {
+  "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "declaration": true,
-    "outDir": "lib",
-    "sourceMap": true,
-    "strict": true,
-    "target": "es2017",
-    "resolveJsonModule": true
+    "outDir": "lib"
   },
   "compileOnSave": true,
   "include": ["src"],

@@ -1,6 +1,6 @@
 import * as Handlebars from 'handlebars';
 import { Renderer, RenderConfig, Context } from 'low';
-export declare class HandlebarsRenderer extends Renderer<HandlebarsConfig, any> {
+export declare class HandlebarsRenderer extends Renderer<HandlebarsConfig, any, HandlebarsTemplate> {
     hbs: typeof Handlebars;
     templates: TemplateMap;
     constructor(hbs?: typeof Handlebars);
@@ -8,7 +8,7 @@ export declare class HandlebarsRenderer extends Renderer<HandlebarsConfig, any> 
     registerTemplates(): void;
     registerPartials(): void;
     core(template: Handlebars.TemplateDelegate, context: Context): Promise<any>;
-    getTemplate(config: RenderConfig, context: Context): Promise<any>;
+    getTemplate(config: RenderConfig<HandlebarsTemplate>, context: Context): Promise<any>;
 }
 export interface HandlebarsConfig {
     templates?: HandlebarsMap;
@@ -20,3 +20,7 @@ export interface HandlebarsMap {
 export interface TemplateMap {
     [name: string]: Handlebars.TemplateDelegate;
 }
+export declare type HandlebarsTemplate = string | {
+    name?: string;
+    code: string;
+};

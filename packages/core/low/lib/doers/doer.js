@@ -11,22 +11,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const module_1 = require("../module");
 const object_compiler_1 = require("../object-compiler");
-//import { Log } from '../log';
 class Doer extends module_1.Module {
     execute(context, task) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                //Log.info(context, this.moduleType, `Executing task ${task.name}`);
+                const env = context.env;
+                env.info(context, this.moduleType, `Executing task ${task.name}`);
                 let cacheManager;
                 let cacheKey;
                 if (task.cacheConfig) {
-                    //Log.info(context, this.moduleType, `Loading cache manager '${task.cacheConfig.cacheManager}`);
+                    env.info(context, this.moduleType, `Loading cache manager '${task.cacheConfig.cacheManager}`);
                     cacheManager = this.env.getCacheManager(task.cacheConfig.cacheManager);
                     cacheKey = yield cacheManager.makeKey(task.cacheConfig, context);
                     const cachedItem = yield cacheManager.getItem(cacheKey);
                     if (cachedItem) {
-                        //Log.info(context, 'Found cached item');
-                        //Log.log(context, 'Found cached item', cachedItem);
+                        env.info(context, 'Found cached item');
+                        env.debug(context, 'Found cached item', cachedItem);
                         context.data[task.name] = cachedItem;
                         return;
                     }
@@ -48,6 +48,7 @@ class Doer extends module_1.Module {
     }
     main(context, taskConfig, coreConfig) {
         return __awaiter(this, void 0, void 0, function* () {
+            this.env.debug(context, this.moduleType, 'Executing main(), returning', coreConfig);
             return coreConfig;
         });
     }

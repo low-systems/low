@@ -1,11 +1,21 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Path = require("path");
-const FS = require("fs");
-const Glob = require("glob");
-const Dot = require("dot-object");
-const Handlebars = require("handlebars");
-const DeepMerge = require("deepmerge");
+const Path = __importStar(require("path"));
+const FS = __importStar(require("fs"));
+const Glob = __importStar(require("glob"));
+const Dot = __importStar(require("dot-object"));
+const Handlebars = __importStar(require("handlebars"));
+const deepmerge_1 = __importDefault(require("deepmerge"));
 const JSON6 = require('json-6');
 // tslint:disable:no-parameter-reassignment
 function transpile(input, cwd) {
@@ -133,11 +143,11 @@ function doMerge(config, cwd) {
         }
         if (Array.isArray(resolved)) {
             for (const resolvedItem of resolved) {
-                output = DeepMerge(output, resolvedItem, mergeOptions);
+                output = deepmerge_1.default(output, resolvedItem, mergeOptions);
             }
         }
         else {
-            output = DeepMerge(output, resolved, mergeOptions);
+            output = deepmerge_1.default(output, resolved, mergeOptions);
         }
     }
     return output;

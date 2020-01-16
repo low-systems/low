@@ -4,7 +4,7 @@ import * as FS from 'fs';
 import * as Glob from 'glob';
 import * as Dot from 'dot-object';
 import * as Handlebars from 'handlebars';
-import * as DeepMerge from 'deepmerge';
+import DeepMerge from 'deepmerge';
 
 const JSON6 = require('json-6');
 

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const tasks_1 = require("@google-cloud/tasks");
+const v2beta3 = require('@google-cloud/tasks').v2beta3;
 const low_1 = require("low");
 exports.ALLOWED_CLOUD_TASKS_METHODS = ['createQueue', 'createTask', 'deleteQueue', 'deleteTask', 'getQueue', 'getTask', 'listQueues', 'listTasks', 'pauseQueue', 'purgeQueue', 'resumeQueue', 'runTask', 'updateQueue'];
 class CloudTasksDoer extends low_1.Doer {
@@ -27,152 +27,56 @@ class CloudTasksDoer extends low_1.Doer {
             if (this.secrets.clientCredentials && this.secrets.clientCredentials.hasOwnProperty(name)) {
                 config.credentials = this.secrets.clientCredentials[name];
             }
-            const client = new tasks_1.default(config);
+            const client = new v2beta3.CloudTasksClient(config);
             this.clients[name] = client;
         }
     }
-    createQueue(tasksQueueConfig, client) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let queue = yield client.getQueue({ name: tasksQueueConfig.name });
-            if (!Array.isArray(queue)) {
-                const parent = tasksQueueConfig.name.split('/').splice(0, 4).join('/');
-                queue = yield client.createQueue({
-                    parent: parent,
-                    queue: tasksQueueConfig
-                });
-            }
-            return queue[0];
-        });
-    }
     main(context, taskConfig, coreConfig) {
         return __awaiter(this, void 0, void 0, function* () {
-            const responses = {};
-            for (const call of coreConfig.calls) {
-                try {
-                    if (!exports.ALLOWED_CLOUD_TASKS_METHODS.includes(call.method)) {
-                        throw new Error(`Invalid Cloud Tasks method '${call.method}'`);
+            if (!exports.ALLOWED_CLOUD_TASKS_METHODS.includes(coreConfig.method)) {
+                throw new Error(`Invalid Cloud Tasks method '${coreConfig.method}'`);
+            }
+            const client = this.clients[coreConfig.client];
+            switch (coreConfig.method) {
+                case ('createQueue'):
+                    return yield client.createQueue(coreConfig.request, coreConfig.options);
+                case ('createTask'):
+                    if (coreConfig.request.task.appEngineHttpRequest && coreConfig.request.task.appEngineHttpRequest.body) {
+                        const inputBody = coreConfig.request.task.appEngineHttpRequest.body;
+                        const body = typeof inputBody === 'string' ? inputBody : JSON.stringify(inputBody, null, 2);
+                        coreConfig.request.task.appEngineHttpRequest.body = Buffer.from(body).toString('base64');
                     }
-                    const client = this.clients[call.client];
-                    switch (call.method) {
-                        case ('createQueue'):
-                            responses[call.name] = yield client.createQueue(call.request, call.options);
-                            break;
-                        case ('createTask'):
-                            responses[call.name] = yield client.createTask(call.request, call.options);
-                            break;
-                        case ('deleteQueue'):
-                            responses[call.name] = yield client.deleteQueue(call.request, call.options);
-                            break;
-                        case ('deleteTask'):
-                            responses[call.name] = yield client.deleteTask(call.request, call.options);
-                            break;
-                        case ('getQueue'):
-                            responses[call.name] = yield client.getQueue(call.request, call.options);
-                            break;
-                        case ('getTask'):
-                            responses[call.name] = yield client.getTask(call.request, call.options);
-                            break;
-                        case ('listQueues'):
-                            responses[call.name] = yield client.listQueues(call.request, call.options);
-                            break;
-                        case ('listTasks'):
-                            responses[call.name] = yield client.listTasks(call.request, call.options);
-                            break;
-                        case ('pauseQueue'):
-                            responses[call.name] = yield client.pauseQueue(call.request, call.options);
-                            break;
-                        case ('purgeQueue'):
-                            responses[call.name] = yield client.purgeQueue(call.request, call.options);
-                            break;
-                        case ('resumeQueue'):
-                            responses[call.name] = yield client.resumeQueue(call.request, call.options);
-                            break;
-                        case ('runTask'):
-                            responses[call.name] = yield client.runTask(call.request, call.options);
-                            break;
-                        case ('updateQueue'):
-                            responses[call.name] = yield client.updateQueue(call.request, call.options);
-                            break;
+                    if (coreConfig.request.task.httpRequest && coreConfig.request.task.httpRequest.body) {
+                        const inputBody = coreConfig.request.task.httpRequest.body;
+                        const body = typeof inputBody === 'string' ? inputBody : JSON.stringify(inputBody, null, 2);
+                        coreConfig.request.task.httpRequest.body = Buffer.from(body).toString('base64');
                     }
-                }
-                catch (err) {
-                    if (call.haltOnError) {
-                        break;
-                    }
-                }
-                return responses;
+                    return yield client.createTask(coreConfig.request, coreConfig.options);
+                case ('deleteQueue'):
+                    return yield client.deleteQueue(coreConfig.request, coreConfig.options);
+                case ('deleteTask'):
+                    return yield client.deleteTask(coreConfig.request, coreConfig.options);
+                case ('getQueue'):
+                    return yield client.getQueue(coreConfig.request, coreConfig.options);
+                case ('getTask'):
+                    return yield client.getTask(coreConfig.request, coreConfig.options);
+                case ('listQueues'):
+                    return yield client.listQueues(coreConfig.request, coreConfig.options);
+                case ('listTasks'):
+                    return yield client.listTasks(coreConfig.request, coreConfig.options);
+                case ('pauseQueue'):
+                    return yield client.pauseQueue(coreConfig.request, coreConfig.options);
+                case ('purgeQueue'):
+                    return yield client.purgeQueue(coreConfig.request, coreConfig.options);
+                case ('resumeQueue'):
+                    return yield client.resumeQueue(coreConfig.request, coreConfig.options);
+                case ('runTask'):
+                    return yield client.runTask(coreConfig.request, coreConfig.options);
+                case ('updateQueue'):
+                    return yield client.updateQueue(coreConfig.request, coreConfig.options);
             }
         });
     }
 }
 exports.CloudTasksDoer = CloudTasksDoer;
-/**
- * The old way
-export interface CloudTasksCreateQueueCall extends CloudTasksMethodCall {
-  method: 'createQueue';
-  request: CreateNamedRequest<'queue', Partial<Queue>>;
-}
-
-export interface CloudTasksCreateTaskCall extends CloudTasksMethodCall {
-  method: 'createTask';
-  request: CreateTaskRequest;
-}
-
-export interface CloudTasksDeleteQueueCall extends CloudTasksMethodCall {
-  method: 'deleteQueue';
-  request: NamedRequest;
-}
-
-export interface CloudTasksDeleteTaskCall extends CloudTasksMethodCall {
-  method: 'deleteTask';
-  request: NamedRequest;
-}
-
-export interface CloudTasksGetQueueCall extends CloudTasksMethodCall {
-  method: 'getQueue';
-  request: NamedRequest;
-}
-
-export interface CloudTasksGetTaskCall extends CloudTasksMethodCall {
-  method: 'getTask';
-  request: NamedRequest & RunTaskRequest;
-}
-
-export interface CloudTasksListQueuesCall extends CloudTasksMethodCall {
-  method: 'listQueues';
-  request: ListRequestObject;
-  options: CallOptionsWithPagination;
-}
-
-export interface CloudTasksListTasksCall extends CloudTasksMethodCall {
-  method: 'listTasks';
-  request: ListRequestObject;
-  options: CallOptionsWithPagination;
-}
-
-export interface CloudTasksPauseQueueCall extends CloudTasksMethodCall {
-  method: 'pauseQueue';
-  request: NamedRequest;
-}
-
-export interface CloudTasksPurgeQueueCall extends CloudTasksMethodCall {
-  method: 'purgeQueue';
-  request: NamedRequest;
-}
-
-export interface CloudTasksResumeQueueCall extends CloudTasksMethodCall {
-  method: 'resumeQueue';
-  request: NamedRequest;
-}
-
-export interface CloudTasksRunTaskCall extends CloudTasksMethodCall {
-  method: 'runTask';
-  request: NamedRequest & RunTaskRequest;
-}
-
-export interface CloudTasksUpdateQueueCall extends CloudTasksMethodCall {
-  method: 'updateQueue';
-  request: UpdateNamedRequest<"queue", EnhancedPick<Queue, 'name', 'appEngineHttpQueue' | 'rateLimits' | 'retryConfig'>>;
-}
- */ 
 //# sourceMappingURL=cloud-tasks-doer.js.map

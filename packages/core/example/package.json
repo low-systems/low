@@ -27,15 +27,20 @@
   },
   "homepage": "https://github.com/low-systems/low#readme",
   "dependencies": {
-    "@low-systems/handlebars-renderer": "file:../../renderers/handlebars-renderer",
-    "@low-systems/http-connector": "file:../../connectors/http-connector",
-    "@low-systems/request-doer": "file:../../doers/request-doer",
+    "@low-systems/handlebars-renderer": "^1.1.5",
+    "@low-systems/http-connector": "^1.1.5",
+    "@low-systems/request-doer": "^1.1.5",
     "glob": "^7.1.5",
-    "low": "file:../low",
+    "low": "^1.1.5",
     "source-map-support": "^0.5.16"
   },
   "devDependencies": {
-    "@low-systems/json-i": "file:../../tools/json-i"
+    "@low-systems/json-i": "^1.1.5",
+    "@types/jest": "^24.9.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.3.0",
+    "typedoc": "^0.16.6",
+    "typescript": "^3.7.4"
   },
   "jest": {
     "preset": "ts-jest"

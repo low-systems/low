@@ -8,10 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const Crypto = __importStar(require("crypto"));
 const connector_1 = require("./connectors/connector");
 const cache_manager_1 = require("./cache-managers/cache-manager");
 const doer_1 = require("./doers/doer");
+const logger_1 = require("./loggers/logger");
 const boolean_parser_1 = require("./parsers/boolean-parser");
 const integer_parser_1 = require("./parsers/integer-parser");
 const float_parser_1 = require("./parsers/float-parser");
@@ -21,7 +30,6 @@ const url_parser_1 = require("./parsers/url-parser");
 const querystring_parser_1 = require("./parsers/querystring-parser");
 const renderer_1 = require("./renderers/renderer");
 const multi_doer_1 = require("./doers/multi-doer");
-const log_1 = require("./log");
 /**
  * The Environment class is the core of a `low` system.
  * If you are using `low` you should create an instance of this
@@ -50,7 +58,7 @@ class Environment {
          * Set to true once `Environment.init()` has completed
          */
         this.ready = false;
-        this.logLevel = log_1.LogLevel.ERROR;
+        this.logLevel = logger_1.LogLevel.ERROR;
         /**
          * A collection of [[Connector]] modules. Connectors are gateways from
          * your application or external sources to run tasks in the `low` Environment
@@ -71,6 +79,9 @@ class Environment {
         this.doers = {
             Doer: new doer_1.Doer(),
             MultiDoer: new multi_doer_1.MultiDoer()
+        };
+        this.loggers = {
+            Logger: new logger_1.Logger()
         };
         /**
          * A collection of [[Parser]] modules. Parsers ensure that any compiled
@@ -106,6 +117,11 @@ class Environment {
         if (modules.doers) {
             for (const mod of modules.doers) {
                 this.doers[mod.moduleType] = mod;
+            }
+        }
+        if (modules.loggers) {
+            for (const mod of modules.loggers) {
+                this.loggers[mod.moduleType] = mod;
             }
         }
         if (modules.parsers) {
@@ -150,6 +166,9 @@ class Environment {
                 yield mod.init(this);
             }
             for (const mod of Object.values(this.doers)) {
+                yield mod.init(this);
+            }
+            for (const mod of Object.values(this.loggers)) {
                 yield mod.init(this);
             }
             for (const mod of Object.values(this.parsers)) {
@@ -255,6 +274,64 @@ class Environment {
         }
         return this.tasks[name];
     }
+    log(context, level, ...args) {
+        try {
+            let contextLogLevel = this.logLevel;
+            if (typeof context === 'object' && context !== null && typeof context.logLevel === 'number') {
+                contextLogLevel = context.logLevel;
+            }
+            if (level < contextLogLevel) {
+                return false;
+            }
+            let label = 'ENVIRONMENT';
+            if (typeof context === 'object' && context !== null) {
+                if (typeof context.uid !== 'string') {
+                    context.uid = Crypto.randomBytes(4).toString('hex');
+                }
+                label = context.uid;
+            }
+            for (const logger of Object.values(this.loggers)) {
+                switch (level) {
+                    case (logger_1.LogLevel.DEBUG):
+                        logger.debug(label, ...args).then().catch(err => {
+                            console.error(`Logger Error: '${logger.moduleType}.debug()`, err);
+                        });
+                        break;
+                    case (logger_1.LogLevel.INFO):
+                        logger.info(label, ...args).then().catch(err => {
+                            console.error(`Logger Error: '${logger.moduleType}.info()`, err);
+                        });
+                        break;
+                    case (logger_1.LogLevel.WARN):
+                        logger.warn(label, ...args).then().catch(err => {
+                            console.error(`Logger Error: '${logger.moduleType}.warn()`, err);
+                        });
+                        break;
+                    default:
+                        logger.error(label, ...args).then().catch(err => {
+                            console.error(`Logger Error: '${logger.moduleType}.error()`, err);
+                        });
+                }
+            }
+            return true;
+        }
+        catch (err) {
+            console.error('Logger Error: Failed to initialise log', context, level, ...args);
+            return false;
+        }
+    }
+    debug(context, ...args) {
+        this.log(context, logger_1.LogLevel.DEBUG, ...args);
+    }
+    info(context, ...args) {
+        this.log(context, logger_1.LogLevel.INFO, ...args);
+    }
+    warn(context, ...args) {
+        this.log(context, logger_1.LogLevel.WARN, ...args);
+    }
+    error(context, ...args) {
+        this.log(context, logger_1.LogLevel.ERROR, ...args);
+    }
     destroy() {
         return __awaiter(this, void 0, void 0, function* () {
             if (!this.ready) {
@@ -267,6 +344,9 @@ class Environment {
                 yield mod.destroy();
             }
             for (const mod of Object.values(this.doers)) {
+                yield mod.destroy();
+            }
+            for (const mod of Object.values(this.loggers)) {
                 yield mod.destroy();
             }
             for (const mod of Object.values(this.parsers)) {

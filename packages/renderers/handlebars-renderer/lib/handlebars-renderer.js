@@ -8,8 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Handlebars = require("handlebars");
+const Handlebars = __importStar(require("handlebars"));
 const low_1 = require("low");
 class HandlebarsRenderer extends low_1.Renderer {
     constructor(hbs = Handlebars.create()) {
@@ -48,18 +55,23 @@ class HandlebarsRenderer extends low_1.Renderer {
     getTemplate(config, context) {
         return __awaiter(this, void 0, void 0, function* () {
             if (typeof config.__template === 'string') {
-                return this.hbs.compile(config.__template);
+                if (this.templates.hasOwnProperty(config.__template)) {
+                    return this.templates[config.__template];
+                }
+                throw new Error(`Pre-registered template '${config.__template}' could not be found`);
             }
-            else if (typeof config.__template === 'object' && config.__template !== null && typeof config.__template.name === 'string') {
-                if (this.templates.hasOwnProperty(config.__template.name)) {
+            else if (typeof config.__template === 'object' && config.__template !== null) {
+                if (typeof config.__template.name === 'string' && this.templates.hasOwnProperty(config.__template.name)) {
                     return this.templates[config.__template.name];
                 }
-                else {
-                    throw new Error(`Pre-compiled template '${config.__template.name}' could not be found`);
+                const compiledTemplate = this.hbs.compile(config.__template.code);
+                if (typeof config.__template.name === 'string') {
+                    this.templates[config.__template.name] = compiledTemplate;
                 }
+                return compiledTemplate;
             }
             else {
-                throw new Error('Invalid Handlebars template. Templates must either be a string or contain an object with a name property that points to a pre-compiled template');
+                throw new Error(`Invalid Handlebars template. Templates must either be the name of a pre-compiled template or contain an object with a 'code' property that`);
             }
         });
     }

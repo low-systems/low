@@ -14,21 +14,34 @@ const object_compiler_1 = require("../object-compiler");
 class MultiDoer extends doer_1.Doer {
     main(context, taskConfig, multiDoerTasks) {
         return __awaiter(this, void 0, void 0, function* () {
+            this.env.debug(context, this.moduleType, 'Executing main(), returning');
             for (const multiDoerTask of multiDoerTasks) {
-                const task = typeof multiDoerTask.task === 'string' ?
-                    this.env.getTask(multiDoerTask.task) :
-                    multiDoerTask.task;
+                let task;
+                if (typeof multiDoerTask.task === 'string') {
+                    this.env.debug(context, this.moduleType, `Finding task '${multiDoerTask.task}'`);
+                    task = this.env.getTask(multiDoerTask.task);
+                }
+                else {
+                    task = multiDoerTask.task;
+                }
+                this.env.debug(context, this.moduleType, `Finding doer '${task.doer}'`);
                 const doer = this.env.getDoer(task.doer);
                 yield doer.execute(context, task);
                 if (multiDoerTask.branch) {
+                    this.env.debug(context, this.moduleType, 'Task executed with BranchConfig, compiling it');
                     const branchConfig = yield object_compiler_1.ObjectCompiler.compile(multiDoerTask.branch, context);
                     if (!branchConfig.taskName) {
-                        throw new Error(`Invalid BranchConfig for task '${task.name}'`);
+                        this.env.debug(context, this.moduleType, 'No branch task given so doing nothing');
                     }
-                    const branchTask = this.env.getTask(branchConfig.taskName);
-                    const branchDoer = this.env.getDoer(branchTask.doer);
-                    yield branchDoer.execute(context, branchTask);
+                    else {
+                        this.env.debug(context, this.moduleType, `Branching to task '${branchConfig.taskName}'`);
+                        const branchTask = this.env.getTask(branchConfig.taskName);
+                        this.env.debug(context, this.moduleType, `Loading branch Doer '${branchTask.doer}'`);
+                        const branchDoer = this.env.getDoer(branchTask.doer);
+                        yield branchDoer.execute(context, branchTask);
+                    }
                     if (branchConfig.haltAfterExecution) {
+                        this.env.debug(context, this.moduleType, 'Halting after execution of Branch task');
                         break;
                     }
                 }

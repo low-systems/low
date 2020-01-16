@@ -12,7 +12,7 @@
   "scripts": {
     "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
     "test": "jest --coverage",
-    "build": "npm run clean && tsc && npm test && typedoc"
+    "build": "npm run clean && tsc && npm test"
   },
   "author": {
     "name": "Matthew Parry-Wilkes (@SCVO)",
@@ -26,12 +26,20 @@
     "cookie": "^0.4.0",
     "get-body": "^1.0.3",
     "is-gzip": "^2.0.0",
-    "low": "file:../../core/low",
+    "low": "^1.1.5",
     "pako": "^1.0.10",
     "url-pattern": "^1.0.3"
   },
   "devDependencies": {
-    "@low-systems/json-i": "file:../../tools/json-i"
+    "@low-systems/json-i": "^1.1.5",
+    "@types/cookie": "^0.3.3",
+    "@types/jest": "^24.9.0",
+    "@types/pako": "^1.0.1",
+    "jest": "^24.9.0",
+    "readable-mock-req": "^0.2.2",
+    "ts-jest": "^24.3.0",
+    "typedoc": "^0.16.6",
+    "typescript": "^3.7.4"
   },
   "gitHead": "5619c75a2b664f915f0f6ba995c05cb37391abd0"
 }

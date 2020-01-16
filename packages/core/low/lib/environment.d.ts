@@ -1,9 +1,9 @@
 import { Connector } from './connectors/connector';
 import { CacheManager, CacheConfig } from './cache-managers/cache-manager';
 import { Doer } from './doers/doer';
+import { Logger, LogLevel } from './loggers/logger';
 import { Parser } from './parsers/parser';
 import { Renderer } from './renderers/renderer';
-import { LogLevel } from './log';
 /**
  * The Environment class is the core of a `low` system.
  * If you are using `low` you should create an instance of this
@@ -45,6 +45,7 @@ export declare class Environment {
      * A collection of [[Doer]] modules. Doers are used to execute tasks
      */
     private doers;
+    private loggers;
     /**
      * A collection of [[Parser]] modules. Parsers ensure that any compiled
      * output from the [[ObjectCompiler]] is a specified type
@@ -73,6 +74,11 @@ export declare class Environment {
     getParser(name: string): Parser<any>;
     getRenderer(name: string): Renderer<any, any, any>;
     getTask(name: string): TaskConfig;
+    log(context: Context | null, level: LogLevel, ...args: any[]): boolean;
+    debug(context: Context | null, ...args: any[]): void;
+    info(context: Context | null, ...args: any[]): void;
+    warn(context: Context | null, ...args: any[]): void;
+    error(context: Context | null, ...args: any[]): void;
     destroy(): Promise<void>;
 }
 export interface EnvironmentConfig {
@@ -85,12 +91,14 @@ export interface Modules {
     connectors?: Connector<any, any, any>[];
     cacheManagers?: CacheManager<any, any>[];
     doers?: Doer<any, any>[];
+    loggers?: Logger<any, any>[];
     parsers?: Parser<any>[];
     renderers?: Renderer<any, any, any>[];
 }
 export interface Context {
     env: Environment;
     logLevel?: LogLevel;
+    uid?: string;
     [key: string]: any;
 }
 export interface TaskConfig {
