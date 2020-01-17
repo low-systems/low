@@ -1,6 +1,6 @@
 {
   "name": "@low-systems/example",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "An example configuration mainly for testing low modules in a less unit-testy kinda way",
   "main": "lib/index.js",
   "scripts": {
