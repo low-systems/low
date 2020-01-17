@@ -8,7 +8,7 @@
       verbs: ['GET'],
       output: {
         body: {
-          __template: { name: 'goodmoves_index' },
+          __template: { name: '😁_index' },
           __renderer: 'HandlebarsRenderer',
           __parser: 'StringParser'
         },

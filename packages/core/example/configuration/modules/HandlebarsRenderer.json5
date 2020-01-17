@@ -6,7 +6,7 @@
         '+': 'include',
         __glob: '../sites/goodmoves/handlebars-templates/**/*.*',
         __dataType: 'string',
-        __keyTemplate: 'goodmoves_{{name}}'
+        __keyTemplate: '😁_{{name}}'
       },
       {
         '+': 'include',
