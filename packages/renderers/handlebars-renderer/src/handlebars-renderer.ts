@@ -30,8 +30,11 @@ export class HandlebarsRenderer extends Renderer<HandlebarsConfig, any, Handleba
     }
   }
 
-  async core(template: Handlebars.TemplateDelegate, context: Context): Promise<any> {
+  async core(template: Handlebars.TemplateDelegate, context: Context, metadata: any): Promise<any> {
+    context.templateMetadata = metadata;
     const output = template(context);
+    delete context.templateMetadata;
+
     return output;
   }
 

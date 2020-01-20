@@ -16,9 +16,9 @@ export class JavascriptRenderer extends Renderer<JavascriptConfig, any, Javascri
     }
   }
 
-  async core(func: Function, context: Context): Promise<any> {
+  async core(func: Function, context: Context, metadata: any): Promise<any> {
     try {
-      const output = await func.call(context);
+      const output = await func.call(context, metadata);
       return output;
     } catch(err) {
       throw err;
@@ -53,7 +53,7 @@ export class JavascriptRenderer extends Renderer<JavascriptConfig, any, Javascri
       return new Promise((resolve, reject) => {
         ${code}
       });`;
-    const func = new Function(promise);
+    const func = new Function('metadata', promise);
     return func;
   }
 }

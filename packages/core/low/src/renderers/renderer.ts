@@ -18,7 +18,7 @@ export class Renderer<C, S, T> extends Module<C, S> {
     }
 
     const template = await this.getTemplate(config, context);
-    const rendered = await this.core(template, context);
+    const rendered = await this.core(template, context, config.__metadata || {});
     const parsed = await this.parseRendered(rendered, config);
 
     if (cacheManager && cacheKey) {
@@ -42,7 +42,7 @@ export class Renderer<C, S, T> extends Module<C, S> {
     }
   }
 
-  async core(template: any, context: Context): Promise<any> {
+  async core(template: any, context: Context, metadata: any): Promise<any> {
     return template;
   }
 }
@@ -52,7 +52,7 @@ export interface RenderConfig<T> {
   __template: T;
   __parser?: string;
   __parserConfig?: ParserConfig<any>;
-  __metaData?: any;
+  __metadata?: any;
   __cacheConfig?: CacheConfig;
   __spread?: true;
   __key?: RenderConfig<any>

@@ -24,7 +24,7 @@ class Renderer extends module_1.Module {
                 }
             }
             const template = yield this.getTemplate(config, context);
-            const rendered = yield this.core(template, context);
+            const rendered = yield this.core(template, context, config.__metadata || {});
             const parsed = yield this.parseRendered(rendered, config);
             if (cacheManager && cacheKey) {
                 yield cacheManager.setItem(cacheKey, parsed, config.__cacheConfig.ttl);
@@ -49,7 +49,7 @@ class Renderer extends module_1.Module {
             }
         });
     }
-    core(template, context) {
+    core(template, context, metadata) {
         return __awaiter(this, void 0, void 0, function* () {
             return template;
         });

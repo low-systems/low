@@ -3,7 +3,7 @@ export declare class JavascriptRenderer extends Renderer<JavascriptConfig, any, 
     functions: IMap<Function>;
     setup(): Promise<void>;
     registerFunctions(): void;
-    core(func: Function, context: Context): Promise<any>;
+    core(func: Function, context: Context, metadata: any): Promise<any>;
     getTemplate(config: RenderConfig<JavascriptTemplate>, context: Context): Promise<any>;
     makeFunction(code: string): Function;
 }

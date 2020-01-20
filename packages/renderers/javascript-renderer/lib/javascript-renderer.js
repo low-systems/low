@@ -28,10 +28,10 @@ class JavascriptRenderer extends low_1.Renderer {
             }
         }
     }
-    core(func, context) {
+    core(func, context, metadata) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const output = yield func.call(context);
+                const output = yield func.call(context, metadata);
                 return output;
             }
             catch (err) {
@@ -67,7 +67,7 @@ class JavascriptRenderer extends low_1.Renderer {
       return new Promise((resolve, reject) => {
         ${code}
       });`;
-        const func = new Function(promise);
+        const func = new Function('metadata', promise);
         return func;
     }
 }

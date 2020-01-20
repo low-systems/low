@@ -7,7 +7,7 @@ export declare class HandlebarsRenderer extends Renderer<HandlebarsConfig, any, 
     setup(): Promise<void>;
     registerTemplates(): void;
     registerPartials(): void;
-    core(template: Handlebars.TemplateDelegate, context: Context): Promise<any>;
+    core(template: Handlebars.TemplateDelegate, context: Context, metadata: any): Promise<any>;
     getTemplate(config: RenderConfig<HandlebarsTemplate>, context: Context): Promise<any>;
 }
 export interface HandlebarsConfig {

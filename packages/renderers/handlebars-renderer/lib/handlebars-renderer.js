@@ -46,9 +46,11 @@ class HandlebarsRenderer extends low_1.Renderer {
             }
         }
     }
-    core(template, context) {
+    core(template, context, metadata) {
         return __awaiter(this, void 0, void 0, function* () {
+            context.templateMetadata = metadata;
             const output = template(context);
+            delete context.templateMetadata;
             return output;
         });
     }
