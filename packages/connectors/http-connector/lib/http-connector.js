@@ -15,6 +15,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const Http = __importStar(require("http"));
 const Https = __importStar(require("https"));
@@ -22,6 +25,7 @@ const Url = __importStar(require("url"));
 const GetBody = __importStar(require("get-body"));
 const CookieHelper = __importStar(require("cookie"));
 const Pako = __importStar(require("pako"));
+const fast_safe_stringify_1 = __importDefault(require("fast-safe-stringify"));
 const low_1 = require("low");
 const site_1 = require("./site");
 const http_error_1 = require("./http-error");
@@ -276,7 +280,7 @@ class HttpConnector extends low_1.Connector {
             bodyBuffer = body;
         }
         else if (bodyType === 'object') {
-            const bodyJson = JSON.stringify(body);
+            const bodyJson = fast_safe_stringify_1.default(body);
             bodyBuffer = Buffer.from(bodyJson);
         }
         else {

@@ -5,6 +5,7 @@ import * as Url from 'url';
 import * as GetBody from 'get-body';
 import * as CookieHelper from 'cookie';
 import * as Pako from 'pako';
+import SafeStringify from 'fast-safe-stringify';
 
 import { Connector, TaskErrorMap, TaskConfig, ConnectorRunError, ObjectCompiler } from 'low';
 
@@ -297,7 +298,7 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
     if (Buffer.isBuffer(body)) {
       bodyBuffer = body;
     } else if (bodyType === 'object') {
-      const bodyJson = JSON.stringify(body);
+      const bodyJson = SafeStringify(body);
       bodyBuffer = Buffer.from(bodyJson);
     } else {
       const bodyString = body.toString();

@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "cookie": "^0.4.0",
+    "fast-safe-stringify": "^2.0.7",
     "get-body": "^1.0.3",
     "is-gzip": "^2.0.0",
     "low": "^1.1.6",
