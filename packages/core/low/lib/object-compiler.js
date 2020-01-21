@@ -42,7 +42,7 @@ class ObjectCompiler {
             if (Array.isArray(resolvedProperty)) {
                 const compiled = [];
                 for (const item of resolvedProperty) {
-                    const spread = typeof item === 'object' && item !== null && item.hasOwnProperty('__spread');
+                    const spread = typeof item === 'object' && item !== null && '__spread' in item;
                     const resolved = yield ObjectCompiler.compileProperty(item, context);
                     if (spread && Array.isArray(resolved)) {
                         compiled.push(...resolved);
@@ -53,10 +53,10 @@ class ObjectCompiler {
                 }
                 return compiled;
             }
-            if (typeof resolvedProperty === 'object' && resolvedProperty !== null && !resolvedProperty.hasOwnProperty('__doNotCompile')) {
+            if (typeof resolvedProperty === 'object' && resolvedProperty !== null && !('__doNotCompile' in resolvedProperty)) {
                 const output = {};
                 for (const [key, value] of Object.entries(resolvedProperty)) {
-                    const spread = typeof value === 'object' && value !== null && value.hasOwnProperty('__spread');
+                    const spread = typeof value === 'object' && value !== null && '__spread' in value;
                     const resolved = yield ObjectCompiler.compileProperty(value, context);
                     if (spread && typeof resolved === 'object' && resolved !== null) {
                         for (const [resolvedKey, resolvedValue] of Object.entries(resolved)) {
@@ -65,7 +65,7 @@ class ObjectCompiler {
                     }
                     else {
                         //Not sure why I need to cast value to any here. I'm already checking above that the key "__key" exists on it
-                        const keyConfig = typeof value === 'object' && value !== null && value.hasOwnProperty('__key') && value.__key || null;
+                        const keyConfig = typeof value === 'object' && value !== null && '__key' in value && value.__key || null;
                         if (keyConfig) {
                             keyConfig.__parser = 'StringParser';
                             const renderer = context.env.getRenderer(keyConfig.__renderer || 'Renderer');

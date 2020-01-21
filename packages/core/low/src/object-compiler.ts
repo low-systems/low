@@ -38,7 +38,7 @@ export class ObjectCompiler {
     if (Array.isArray(resolvedProperty)) {
       const compiled = [];
       for (const item of resolvedProperty) {
-        const spread = typeof item === 'object' && item !== null && item.hasOwnProperty('__spread');
+        const spread = typeof item === 'object' && item !== null && '__spread' in item;
         const resolved = await ObjectCompiler.compileProperty(item, context);
 
         if (spread && Array.isArray(resolved)) {
@@ -50,10 +50,10 @@ export class ObjectCompiler {
       return compiled;
     }
 
-    if (typeof resolvedProperty === 'object' && resolvedProperty !== null && !resolvedProperty.hasOwnProperty('__doNotCompile')) {
+    if (typeof resolvedProperty === 'object' && resolvedProperty !== null && !('__doNotCompile' in resolvedProperty)) {
       const output: any = {};
       for (const [key, value] of Object.entries(resolvedProperty)) {
-        const spread = typeof value === 'object' && value !== null && value.hasOwnProperty('__spread');
+        const spread = typeof value === 'object' && value !== null && '__spread' in value;
         const resolved = await ObjectCompiler.compileProperty(value, context);
 
         if (spread && typeof resolved === 'object' && resolved !== null) {
@@ -62,7 +62,7 @@ export class ObjectCompiler {
           }
         } else {
           //Not sure why I need to cast value to any here. I'm already checking above that the key "__key" exists on it
-          const keyConfig = typeof value === 'object' && value !== null && value.hasOwnProperty('__key') && (value as any).__key as RenderConfig<any> || null;
+          const keyConfig = typeof value === 'object' && value !== null && '__key' in value && (value as any).__key as RenderConfig<any> || null;
 
           if (keyConfig) {
             keyConfig.__parser = 'StringParser';
