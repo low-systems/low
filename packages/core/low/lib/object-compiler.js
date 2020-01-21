@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 class ObjectCompiler {
     static isTemplate(property) {
-        return typeof property === 'object' && property !== null && property.hasOwnProperty('__template');
+        return typeof property === 'object' && property !== null && '__template' in property;
     }
     static compile(config, context, specialProperties) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -83,7 +83,7 @@ class ObjectCompiler {
         });
     }
     static resolvePointer(property, context) {
-        if (!property || !property.hasOwnProperty('__pointer'))
+        if (typeof property !== 'object' || property === null || !('__pointer' in property))
             return property;
         const value = ObjectCompiler.objectPath(context, property.__pointer);
         if (typeof value === 'undefined') {

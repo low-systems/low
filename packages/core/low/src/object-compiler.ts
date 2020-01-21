@@ -4,7 +4,7 @@ import { RenderConfig } from './renderers/renderer';
 
 export class ObjectCompiler {
   static isTemplate(property: any): boolean {
-    return typeof property === 'object' && property !== null && property.hasOwnProperty('__template');
+    return typeof property === 'object' && property !== null && '__template' in property;
   }
 
   static async compile(config: any, context: Context, specialProperties?: string[]): Promise<any> {
@@ -81,7 +81,8 @@ export class ObjectCompiler {
   }
 
   static resolvePointer(property: any, context: Context) {
-    if (!property || !property.hasOwnProperty('__pointer')) return property;
+    if (typeof property !== 'object' || property === null || !('__pointer' in property)) return property;
+
 
     const value = ObjectCompiler.objectPath(context, property.__pointer);
     if (typeof value === 'undefined') {
