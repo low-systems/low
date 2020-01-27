@@ -51,7 +51,11 @@ export class JavascriptRenderer extends Renderer<JavascriptConfig, any, Javascri
   makeFunction(code: string): Function {
     const promise = `
       return new Promise((resolve, reject) => {
-        ${code}
+        try {
+          ${code}
+        } catch (err) {
+          reject(err);
+        }
       });`;
     const func = new Function('metadata', promise);
     return func;

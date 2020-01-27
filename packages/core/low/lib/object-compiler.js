@@ -35,6 +35,9 @@ class ObjectCompiler {
     static compileProperty(property, context) {
         return __awaiter(this, void 0, void 0, function* () {
             const resolvedProperty = ObjectCompiler.resolvePointer(property, context);
+            if (typeof property === 'object' && property !== null && '__pointer' in property && '__doNotCompile' in property) {
+                return resolvedProperty;
+            }
             if (ObjectCompiler.isTemplate(resolvedProperty)) {
                 const renderer = context.env.getRenderer(resolvedProperty.__renderer || 'Renderer');
                 return yield renderer.render(resolvedProperty, context);
@@ -87,7 +90,12 @@ class ObjectCompiler {
             return property;
         const value = ObjectCompiler.objectPath(context, property.__pointer);
         if (typeof value === 'undefined') {
-            throw new Error(`Could not resolve pointer "${property.__pointer}"`);
+            if ('__default' in property) {
+                return property.__default;
+            }
+            else {
+                throw new Error(`Could not resolve pointer "${property.__pointer}"`);
+            }
         }
         return value;
     }

@@ -30,6 +30,10 @@ export class ObjectCompiler {
   static async compileProperty(property: any, context: Context): Promise<any> {
     const resolvedProperty = ObjectCompiler.resolvePointer(property, context);
 
+    if (typeof property === 'object' && property !== null && '__pointer' in property &&  '__doNotCompile' in property) {
+      return resolvedProperty;
+    }
+
     if (ObjectCompiler.isTemplate(resolvedProperty)) {
       const renderer = context.env.getRenderer(resolvedProperty.__renderer || 'Renderer');
       return await renderer.render(resolvedProperty, context);
@@ -74,6 +78,7 @@ export class ObjectCompiler {
           }
         }
       }
+
       return output;
     }
 
@@ -83,10 +88,13 @@ export class ObjectCompiler {
   static resolvePointer(property: any, context: Context) {
     if (typeof property !== 'object' || property === null || !('__pointer' in property)) return property;
 
-
     const value = ObjectCompiler.objectPath(context, property.__pointer);
     if (typeof value === 'undefined') {
-      throw new Error(`Could not resolve pointer "${property.__pointer}"`);
+      if ('__default' in property) {
+        return property.__default;
+      } else {
+        throw new Error(`Could not resolve pointer "${property.__pointer}"`);
+      }
     }
 
     return value;
