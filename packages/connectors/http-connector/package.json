@@ -12,7 +12,7 @@
   "scripts": {
     "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
     "test": "jest --coverage",
-    "build": "npm run clean && tsc && npm test"
+    "build": "npm run clean && tsc"
   },
   "author": {
     "name": "Matthew Parry-Wilkes (@SCVO)",
