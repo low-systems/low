@@ -37,6 +37,7 @@ export interface HttpConnectorConfig {
     sites: {
         [name: string]: SiteConfig;
     };
+    defaultSite?: string;
     errorHandlers?: ErrorHandler[];
     responseHeaders?: HeaderMap;
 }

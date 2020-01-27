@@ -112,7 +112,10 @@ class HttpConnector extends low_1.Connector {
         if (this.hostnameCache.hasOwnProperty(hostname)) {
             return this.hostnameCache[hostname];
         }
-        const foundSite = Object.values(this.sites).find(site => site.config.hostnames.includes(hostname));
+        let foundSite = Object.values(this.sites).find(site => site.config.hostnames.includes(hostname));
+        if (!foundSite && this.config.defaultSite && this.sites.hasOwnProperty(this.config.defaultSite)) {
+            foundSite = this.sites[this.config.defaultSite];
+        }
         if (!foundSite) {
             throw new http_error_1.HttpError('Invalid hostname', 400);
         }

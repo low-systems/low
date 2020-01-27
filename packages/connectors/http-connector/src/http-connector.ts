@@ -107,7 +107,11 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       return this.hostnameCache[hostname];
     }
 
-    const foundSite = Object.values(this.sites).find(site => site.config.hostnames.includes(hostname));
+    let foundSite = Object.values(this.sites).find(site => site.config.hostnames.includes(hostname));
+
+    if (!foundSite && this.config.defaultSite && this.sites.hasOwnProperty(this.config.defaultSite)) {
+      foundSite = this.sites[this.config.defaultSite];
+    }
 
     if (!foundSite) {
       throw new HttpError('Invalid hostname', 400);
@@ -340,6 +344,7 @@ export interface HttpConnectorConfig {
   httpOptions?: HttpOptions;
   httpsOptions?: HttpsOptions;
   sites: { [name: string]: SiteConfig };
+  defaultSite?: string;
   errorHandlers?: ErrorHandler[];
   responseHeaders?: HeaderMap;
 }
