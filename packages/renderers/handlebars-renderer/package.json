@@ -12,7 +12,7 @@
     "preset": "ts-jest"
   },
   "dependencies": {
-    "handlebars": "^4.5.1",
+    "handlebars": "^4.7.3",
     "low": "^1.1.12"
   },
   "name": "@low-systems/handlebars-renderer",

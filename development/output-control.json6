@@ -1,0 +1,78 @@
+//These are tasks that are executed by a hyperthetical HttpConnector
+//TODO: Work out a better example and decide finally on how branching is handled.
+//      Should writing data back to a Context be a command or should all output just go into a
+//        bucket of data for that task?
+//      Should the Context offer commands such as "Run next" or "Halt execution"?
+//      I suspect that the previous should really be the job of a Doer.
+//      I think a DynamicSubroutineDoer might be the answer here to have sub tasks within a list.
+//      A DynamicSubroutineDoer along side a DynamicTaskDoer and a InternalCallDoer would offer
+//        everything needed for branching although this doesn't cover Iterators or Loops
+//      Could an Iterator be type of Connector? Maybe it's better suited as it's own kind of Doer?
+//      Starting to think that Connector Commands should be its own Doer and that output is just
+//        added to a task's bucket of data within the Context
+//      Connector Commands are actually Context Commands! And perhaps one of those commands is
+//        "Send command to initiating Connector". This way we can issue HALT signals and such.
+//        We can also make it so Connector Commands are only sent to a compatible Connector.
+//      DON'T TRY TO GET EACH COMPONENT TO DO TOO MUCH.
+//        DECIDE ON THE PRIMITIVE COMPONENTS AND USE THEM.
+
+[
+  {
+    name: 'authenticate',
+    doer: 'FirebaseAuthCheckTokenDoer',
+    input: {
+      app: 'test-app',
+      token: {
+        __renderer: 'PointerRenderer',
+        __template: {
+          code: 'input.cookies.token'
+        }
+      }
+    },
+    output: {
+      data: {
+        __renderer: 'PointerRenderer',
+        __template: {
+          code: 'output.user'
+        },
+        __metadata: {
+          default: null
+        }
+      }
+    }
+  },
+  {
+    name: 'test-task',
+    doer: 'RequestDoer',
+    input: {
+      url: 'https://example.com/get-document?id=4'
+    },
+    output: {
+      commands: [
+        {
+          connector: 'HttpConnector',
+          command: 'setHeaders',
+          input: {
+            'content-type': 'application/json',
+            'content-disposition': {
+              __renderer: 'HandlebarsRenderer',
+              __template: {
+                code: `attachment: filename={{output.documentName}}.json`
+              }
+            }
+          }
+        },
+        {
+          connector: 'HttpConnector',
+          command: 'writeResponse',
+          input: {
+            __renderer: 'PointerRenderer',
+            __template: {
+              code: `output.documentContent`
+            }
+          }
+        }
+      ]
+    }
+  }
+]

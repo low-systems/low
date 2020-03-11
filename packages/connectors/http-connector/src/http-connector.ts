@@ -43,6 +43,26 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       this.httpsServer.listen(port);
     }
 
+    if (this.config.contentTypeHandlers) {
+      if (this.config.contentTypeHandlers.formTypes) {
+        for (const type of this.config.contentTypeHandlers.formTypes) {
+          GetBody.formTypes.push(type);
+        }
+      }
+
+      if (this.config.contentTypeHandlers.jsonTypes) {
+        for (const type of this.config.contentTypeHandlers.jsonTypes) {
+          GetBody.jsonTypes.push(type);
+        }
+      }
+
+      if (this.config.contentTypeHandlers.textTypes) {
+        for (const type of this.config.contentTypeHandlers.textTypes) {
+          GetBody.textTypes.push(type);
+        }
+      }
+    }
+
     for (const [siteName, siteConfig] of Object.entries(this.config.sites)) {
       const site = new Site(siteName, siteConfig);
       this.sites[siteName] = site;
@@ -90,6 +110,7 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       input.route = match.route;
       input.query = this.getQuerystringObject(input.url);
       input.cookies = CookieHelper.parse(request.headers.cookie || '');
+      input.headers = request.headers;
       input.body = await this.getRequestBody(request);
 
       const context = await this.runTask(match.route.task, input, match.route.config);
@@ -347,6 +368,11 @@ export interface HttpConnectorConfig {
   defaultSite?: string;
   errorHandlers?: ErrorHandler[];
   responseHeaders?: HeaderMap;
+  contentTypeHandlers?: {
+    formTypes?: string[];
+    jsonTypes?: string[];
+    textTypes?: string[];
+  };
 }
 
 export interface HttpOptions {

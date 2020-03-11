@@ -1,0 +1,104 @@
+//TODO: How do streams fit into this?
+//      Could loops fit into this?
+//      Perhaps we use a dynamic Doer instead of just pointing to some previously created JSON
+//
+//      Maybe contexts can have streams that are consumed by a Connector.
+//      Maybe subroutines can have multiple "lines" of code a Connector can call, we can call the
+//        default one `default`. These can be called depending on stream events. Come up with
+//        different scenareos to flesh this out. 3 basic examples could be a shell accepting
+//        inputs, A websocket chat client, and a web server accepting a multipart form submission
+//        to upload files.
+//      Instead of having flow control as a standard thing, I could come up with a syntax for
+//        handling what happens next after a Doer has finished executing. This could be to execute
+//        dynamic tasks or dynamic subroutines, yielding to the initialising connector, executing
+//        itself again (basic iteration).
+//      What happens if we have 2 Connectors that start a subroutine with conflicting kinds of
+//        inputs. It doesn't make sense to have a subroutine that can be initialised by and consume
+//        STDIN, STDOUT, and STDERR, and a basic web request. Unless in our handling of outputs
+//        from Doers we incorporate some kind of initiating Connector report back convention.
+//        Like commands that can do things in the connector, e.g. Write to stream, Set headers,
+//        Send response and close connection
+//      How does this work with authentication? I think there might need to be some abstract
+//        representation of "Credentials" or "Sessions" that can be created and managed. This
+//        should really be done through the connector. A single Subroutine execution context could
+//        run indefinitely like a shell
+//      I think module "Secrets" is a bad idea. We can keep credentials and keys as env vars and
+//        consume them in tasks and use them as inputs into Doers at the task level
+//      Sod it, keep tasks as arrays in subroutines and go with the process output/controller model,
+//        this can also be the bit that allows you to set what is stored in the context's data
+//        store. This way we would control branching and flow on subsequent tasks.
+//      In the Context level, we should make state more easily accessible with properties for things
+//        like the following:
+//          * Initiating Connector (and it's inputs)
+//          * An array of all outputs
+//          * An index of the current task (to find output from the previous task)
+
+{
+  connectors: [
+    {
+      connector: 'HttpConnector',
+      config: {
+        site: 'test-site',
+        patterns: [ '/test-page' ],
+        methods: [ 'GET' ],
+        output: {
+          headers: {
+            content-type: 'application/json'
+          },
+          body: {
+            response: {
+              __renderer: 'PointerRenderer',
+              __template: { code: 'outputs.test_task[0]' }
+            }
+          }
+        }
+      }
+    },
+    {
+      connector: 'InternalConnector',
+      config: {
+        name: 'test_subroutine',
+      }
+    }
+  ],
+  tasks: [
+    {
+      name: 'test_task',
+      doer: 'RequestDoer',
+      config: {
+        url: 'https://test.com'
+      },
+      next: {
+        branch: {
+          __renderer: 'JavascriptRenderer',
+          __template: {
+            code: `resolve(output.statusCode < 200 || output.statusCode > 299 ? 'no_response' : 'got_response')`
+          }
+        },
+        branches: {
+          got_response: [
+            {
+              name: 'rendered_response',
+              doer: 'RequestDoer',
+              config: {
+                url: 'https://logs.site.com/logger',
+                body: {
+                  response: {
+                    __renderer: 'PointerRenderer',
+                    __template: { code: 'outputs.test_task[0]' }
+                  }
+                }
+              }
+            }
+          ],
+          no_response: [
+            {
+              doer: 'InternalDoer',
+              config: 'error_page'
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
