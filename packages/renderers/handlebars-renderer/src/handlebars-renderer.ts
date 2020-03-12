@@ -32,7 +32,8 @@ export class HandlebarsRenderer extends Renderer<HandlebarsConfig, any, Handleba
 
   async core(template: Handlebars.TemplateDelegate, context: Context, metadata: any): Promise<any> {
     context.templateMetadata = metadata;
-    const output = template(context, { allowProtoPropertiesByDefault: true });
+    const handlebarsOptions = metadata?.handlebarsOptions || {};
+    const output = template(context, handlebarsOptions);
     delete context.templateMetadata;
 
     return output;

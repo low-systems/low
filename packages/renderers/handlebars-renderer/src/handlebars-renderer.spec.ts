@@ -21,6 +21,26 @@ test('should be able to initialise a Handlebars renderer without existing Handle
   expect(renderer.hbs.partials).toEqual({});
 });
 
+test('should be able to specify Handlebars render options', async () => {
+  const renderer = new HandlebarsRenderer();
+  const template = renderer.hbs.compile(`{{#if data.url.search}}{{{data.url.search}}}{{else}}Cannot access property{{/if}}`);
+  const context: Context = {
+    env: new Environment({}, [], {}),
+    data: {
+      url: new URL('https://example.com/some/path?test=querystring&hope=this+works')
+    }
+  };
+  const output1 = await renderer.core(template, context, {});
+  expect(output1).toBe('Cannot access property');
+  const metadata = {
+    handlebarsOptions: {
+      allowProtoPropertiesByDefault: true
+    }
+  };
+  const output2 = await renderer.core(template, context, metadata);
+  expect(output2).toBe('?test=querystring&hope=this+works');
+});
+
 test('should be able to load partials and templates from module config', async () => {
   const modules = { renderers: [new HandlebarsRenderer()] };
   const config = {
