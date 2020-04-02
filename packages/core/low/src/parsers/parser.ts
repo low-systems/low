@@ -5,13 +5,13 @@ import { Module } from '../module';
  * when the input is `null` or `undefined`. It is here to merely to
  * act as a base Parser for all other parsers
  */
-export class Parser<T> extends Module<any, any> {
+export class Parser<T> extends Module {
   async parse(input: any, config: ParserConfig<T>): Promise<T|null> {
     if (typeof input === 'undefined' || input === null) {
       if (typeof config.defaultValue === 'undefined' || config.defaultValue === null) {
         return null;
       } else {
-        return config.defaultValue as T;
+        return config.defaultValue;
       }
     } else {
       return input as T;

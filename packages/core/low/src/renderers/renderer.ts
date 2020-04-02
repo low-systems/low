@@ -1,15 +1,15 @@
 import { Module } from '../module';
-import { ParserConfig } from '../parsers/parser';
+import { ParserConfig, Parser } from '../parsers/parser';
 import { Context } from '../environment';
 import { CacheConfig, CacheManager, CacheKey } from '../cache-managers/cache-manager';
 
-export class Renderer<C, S, T> extends Module<C, S> {
+export class Renderer<T> extends Module {
   async render(config: RenderConfig<T>, context: Context): Promise<any> {
-    let cacheManager: CacheManager<any, any> | undefined;
+    let cacheManager: CacheManager | undefined;
     let cacheKey: CacheKey | undefined;
 
     if (config.__cacheConfig) {
-      cacheManager = this.env.getCacheManager(config.__cacheConfig.cacheManager);
+      cacheManager = this.env.moduleManager.getModule<CacheManager>(config.__cacheConfig.cacheManager);
       cacheKey = await cacheManager.makeKey(config.__cacheConfig, context);
       const cachedItem = await cacheManager.getItem(cacheKey);
       if (cachedItem !== null) {
@@ -34,7 +34,7 @@ export class Renderer<C, S, T> extends Module<C, S> {
 
   async parseRendered(rendered: any, config: RenderConfig<T>): Promise<any> {
     if (config.__parser) {
-      const parser = this.env.getParser(config.__parser);
+      const parser = this.env.moduleManager.getModule<Parser<any>>(config.__parser);
       const parsed = await parser.parse(rendered, config.__parserConfig || {});
       return parsed;
     } else {

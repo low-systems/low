@@ -3,7 +3,7 @@ import { ConnectorContext } from '../connectors/connector';
 import { TaskConfig } from '../environment';
 import { ObjectCompiler } from '../object-compiler';
 
-export class MultiDoer<C, S> extends Doer<C, S> {
+export class MultiDoer extends Doer {
   async main(context: ConnectorContext<any>, taskConfig: TaskConfig, multiDoerTasks: MultiDoerTask[]): Promise<any> {
     this.env.debug(context, this.moduleType, 'Executing main(), returning');
 
@@ -12,13 +12,13 @@ export class MultiDoer<C, S> extends Doer<C, S> {
 
       if (typeof multiDoerTask.task === 'string') {
         this.env.debug(context, this.moduleType, `Finding task '${multiDoerTask.task}'`);
-        task = this.env.getTask(multiDoerTask.task);
+        task = this.env.getTask(multiDoerTask.task.namespaces, multiDoerTask.task.name);
       } else {
         task = multiDoerTask.task;
       }
 
       this.env.debug(context, this.moduleType, `Finding doer '${task.doer}'`);
-      const doer = this.env.getDoer(task.doer);
+      const doer = this.env.getModule('Doer', task.doer);
       await doer.execute(context, task);
 
       if (multiDoerTask.branch) {

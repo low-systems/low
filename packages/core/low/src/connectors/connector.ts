@@ -1,48 +1,60 @@
+import { EventAndListener } from 'eventemitter2';
+
 import { Module } from '../module';
-import { Context, TaskConfig } from '../environment';
+import { Context } from '../environment';
 import { ObjectCompiler } from '../object-compiler';
 import { ConnectorRunError } from './connector-run-error';
 import { IMap } from '..';
+import { Doer } from '../doers/doer';
+import { RegisterTaskReport, TaskConfig } from '../task-manager';
 
-//TODO: Question: Should this Connector be used to allow different Environment
-//instances to communicate? What would that mean or involve? Probably way to
-//specialised but food for thought at least
+//TODO: The connector will create execution contexts that listen for commands that can bubble up from
+//      Sub tasks
 
-export class Connector<C, S, I> extends Module<C, S> {
-  /**
-   * Should not really be used by any child Connector
-   */
-  accessor: IMap<{ (input: any): Promise<any> }> = {}
+export class Connector extends Module {
+
 
   async setup() {
     await this.setupTasks();
   }
 
   async setupTasks() {
-    for (const task of Object.values(this.env.tasks)) {
-      if (task.connectorConfigs && task.connectorConfigs[this.moduleType]) {
-        await this.setupTask(task, task.connectorConfigs[this.moduleType]);
-      }
+    this.env.on(`TaskManager.RegisterTask`, this.registerTaskHandler.bind(this));
+  }
+
+  protected async registerTaskHandler(event: EventAndListener, report: RegisterTaskReport) {
+    const task = report.task;
+
+    if (!task.connectorConfigs || !(this.moduleType in Object.keys(task.connectorConfigs))) {
+      //No matching ConnectorConfigs on TaskConfig
+      return;
     }
+
+    if (report.registered.length === 0 && report.overwritten.length === 0) {
+      //No task actually registered
+      return;
+    }
+
+    await this.setupTask(task, task.connectorConfigs[this.moduleType]);
   }
 
   async setupTask(task: TaskConfig, config: any) {
-    this.accessor[task.name] = async (input: any) => {
-      const context = await this.runTask(task, input, config);
-      const output = ObjectCompiler.compile(config, context);
-      return output;
-    };
+    //TODO: This is going to be the intercommunication connector! Setup event monitoring for each
+    //      task (one per namespace)
+    this.env.on(`Connector.Run.`, )
   }
 
-  async runTask(task: TaskConfig, input: I, config: any, data: any = {}, errors: TaskErrorMap = {}): Promise<ConnectorContext<I>> {
-    const context: ConnectorContext<I> = {
+  //TODO: This needs to be passed a namespace and an optional context (it creates an empty one if
+  //      one does not exist)
+  async runTask(task: TaskConfig, input: any, config: any, data: any = {}, errors: TaskErrorMap = {}): Promise<ConnectorContext<any>> {
+    const context: ConnectorContext<any> = {
       data,
       errors,
       connector: { input, config },
       env: this.env
     };
     try {
-      const doer = this.env.getDoer(task.doer);
+      const doer = this.env.moduleManager.getModule<Doer>(task.doer);
       await doer.execute(context, task);
     } catch(err) {
       throw new ConnectorRunError(err.message, context);

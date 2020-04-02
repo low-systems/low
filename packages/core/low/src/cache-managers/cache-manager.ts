@@ -4,7 +4,7 @@ import { Module } from '../module';
 import { Context } from '../environment';
 import { ObjectCompiler } from '../object-compiler';
 
-export class CacheManager<C, S> extends Module<C, S> {
+export class CacheManager extends Module {
   private _CACHE: MemoryCache = {};
   get CACHE(): MemoryCache {
     return this._CACHE;

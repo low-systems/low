@@ -7,7 +7,7 @@ export enum LogLevel {
   ERROR = 3
 }
 
-export class Logger<C, S> extends Module<C, S> /* implements LogMethods */ {
+export class Logger extends Module /* implements LogMethods */ {
   async debug(label: string, ...args: any[]) {
     console.log.apply(console, [label, ...args]);
   }

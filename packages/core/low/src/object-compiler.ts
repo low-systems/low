@@ -1,6 +1,6 @@
 
 import { Context } from './environment';
-import { RenderConfig } from './renderers/renderer';
+import { RenderConfig, Renderer } from './renderers/renderer';
 
 export class ObjectCompiler {
   static isTemplate(property: any): boolean {
@@ -35,7 +35,7 @@ export class ObjectCompiler {
     }
 
     if (ObjectCompiler.isTemplate(resolvedProperty)) {
-      const renderer = context.env.getRenderer(resolvedProperty.__renderer || 'Renderer');
+      const renderer = context.env.moduleManager.getModule<Renderer<any>>(resolvedProperty.__renderer || 'Renderer');
       return await renderer.render(resolvedProperty, context);
     }
 
@@ -70,7 +70,7 @@ export class ObjectCompiler {
 
           if (keyConfig) {
             keyConfig.__parser = 'StringParser';
-            const renderer = context.env.getRenderer(keyConfig.__renderer || 'Renderer');
+            const renderer = context.env.moduleManager.getModule<Renderer<any>>(keyConfig.__renderer || 'Renderer');
             const renderedKey = await renderer.render((value as any).__key, { ...context, resolvedValue: value });
             output[renderedKey] = resolved;
           } else {
