@@ -39,7 +39,7 @@ class Doer extends module_1.Module {
                 }
             }
             catch (err) {
-                context.errors[task.name] = err;
+                context.errors[task.name] = this.serialiseError(err);
                 if (task.throwError) {
                     throw err;
                 }
@@ -51,6 +51,11 @@ class Doer extends module_1.Module {
             this.env.debug(context, this.moduleType, 'Executing main(), returning', coreConfig);
             return coreConfig;
         });
+    }
+    serialiseError(err) {
+        const jsonErr = {};
+        Object.getOwnPropertyNames(err).forEach((key) => { jsonErr[key] = err[key]; });
+        return jsonErr;
     }
 }
 exports.Doer = Doer;

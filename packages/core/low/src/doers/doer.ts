@@ -36,7 +36,7 @@ export class Doer<C, S> extends Module<C, S> {
         await cacheManager.setItem(cacheKey, output, (task.cacheConfig as CacheConfig).ttl);
       }
     } catch(err) {
-      context.errors[task.name] = err;
+      context.errors[task.name] = this.serialiseError(err);
       if (task.throwError) {
         throw err;
       }
@@ -46,5 +46,11 @@ export class Doer<C, S> extends Module<C, S> {
   async main(context: ConnectorContext<any>, taskConfig: TaskConfig, coreConfig: any): Promise<any> {
     this.env.debug(context, this.moduleType, 'Executing main(), returning', coreConfig);
     return coreConfig
+  }
+
+  serialiseError(err: Error) {
+    const jsonErr: any = {};
+    Object.getOwnPropertyNames(err).forEach((key: any) => { jsonErr[key] = (err as any)[key]; } );
+    return jsonErr;
   }
 }
