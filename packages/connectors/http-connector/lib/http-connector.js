@@ -57,6 +57,23 @@ class HttpConnector extends low_1.Connector {
                 const port = this.getPort(this.config.httpsOptions.port);
                 this.httpsServer.listen(port);
             }
+            if (this.config.contentTypeHandlers) {
+                if (this.config.contentTypeHandlers.formTypes) {
+                    for (const type of this.config.contentTypeHandlers.formTypes) {
+                        GetBody.formTypes.push(type);
+                    }
+                }
+                if (this.config.contentTypeHandlers.jsonTypes) {
+                    for (const type of this.config.contentTypeHandlers.jsonTypes) {
+                        GetBody.jsonTypes.push(type);
+                    }
+                }
+                if (this.config.contentTypeHandlers.textTypes) {
+                    for (const type of this.config.contentTypeHandlers.textTypes) {
+                        GetBody.textTypes.push(type);
+                    }
+                }
+            }
             for (const [siteName, siteConfig] of Object.entries(this.config.sites)) {
                 const site = new site_1.Site(siteName, siteConfig);
                 this.sites[siteName] = site;
@@ -98,6 +115,12 @@ class HttpConnector extends low_1.Connector {
                 input.route = match.route;
                 input.query = this.getQuerystringObject(input.url);
                 input.cookies = CookieHelper.parse(request.headers.cookie || '');
+                input.headers = request.headers;
+                input.client = {
+                    address: request.connection.remoteAddress,
+                    port: request.connection.remotePort,
+                    family: request.connection.remoteFamily
+                };
                 input.body = yield this.getRequestBody(request);
                 const context = yield this.runTask(match.route.task, input, match.route.config);
                 const output = yield low_1.ObjectCompiler.compile(match.route.config.output, context);

@@ -40,6 +40,11 @@ export interface HttpConnectorConfig {
     defaultSite?: string;
     errorHandlers?: ErrorHandler[];
     responseHeaders?: HeaderMap;
+    contentTypeHandlers?: {
+        formTypes?: string[];
+        jsonTypes?: string[];
+        textTypes?: string[];
+    };
 }
 export interface HttpOptions {
     serverOptions: Http.ServerOptions;
@@ -68,6 +73,11 @@ export interface HttpInput {
     site?: Site;
     headers?: any;
     params?: any;
+    client?: {
+        address?: string;
+        port?: number;
+        family?: string;
+    };
     route?: Route;
 }
 export interface HttpOutput {

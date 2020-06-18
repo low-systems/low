@@ -111,6 +111,11 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       input.query = this.getQuerystringObject(input.url);
       input.cookies = CookieHelper.parse(request.headers.cookie || '');
       input.headers = request.headers;
+      input.client = {
+        address: request.connection.remoteAddress,
+        port: request.connection.remotePort,
+        family: request.connection.remoteFamily
+      };
       input.body = await this.getRequestBody(request);
 
       const context = await this.runTask(match.route.task, input, match.route.config);
@@ -406,6 +411,11 @@ export interface HttpInput {
   site?: Site;
   headers?: any;
   params?: any;
+  client?: {
+    address?: string;
+    port?: number;
+    family?: string;
+  };
   route?: Route;
 }
 

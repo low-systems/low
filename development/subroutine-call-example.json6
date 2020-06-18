@@ -1,0 +1,112 @@
+{
+  name: 'account_settings_page',
+  namespaces: ['scvo_website'],
+  connectors: {
+    HttpConnector: {
+      site: 'scvo',
+      methods: ['GET'],
+      patterns: ['/account']
+    }
+  },
+  tasks: [
+    {
+      name: 'validate_user',
+      doer: 'FirebaseAuthValidator',
+      input: {
+        __renderer: 'Pointer',
+        __template: 'connector.input.cookies.auth_token',
+        __input: { default: '' }
+      },
+      output: {
+        error: [
+          {
+            command: 'HttpConnector.SetStatusCode',
+            status_code: '500'
+          },
+          {
+            command: 'HttpConnector.WriteResponse',
+            data: {
+              __renderer: 'Handlebars',
+              __template_name: 'error_page'
+            }
+          },
+          { command: 'Halt' }
+        ],
+        end: {
+          __renderer: 'Javascript',
+          __template: `
+            if (output.user) {
+              return [
+                {
+                  command: 'Set',
+                  variable: 'user',
+                  value: {
+                    __renderer: 'Pointer',
+                    __template: 'output.user'
+                  }
+                }
+              ]
+            } else {
+              return [
+                {
+                  command: 'HttpConnector.SetStatusCode',
+                  status_code: '403'
+                },
+                {
+                  command: 'HttpConnector.WriteResponse',
+                  data: {
+                    __renderer: 'Handlebars',
+                    __template_name: 'error_page'
+                  }
+                },
+                { command: 'Halt' }
+              ]
+            }
+          `
+        }
+      }
+    },
+    {
+      name: 'get_user_profile',
+      doer: 'FirebaseRtdbGet',
+      input: {
+        __renderer: 'Javascript',
+        __template: `
+          return {
+            credentials: env.secrets.scvo_firebase_credentials,
+            path: '/users/' + data.user.uid
+          }
+        `
+      },
+      output: {
+        error: [
+          {
+            command: 'HttpConnector.SetStatusCode',
+            status_code: '500'
+          },
+          {
+            command: 'HttpConnector.WriteResponse',
+            data: {
+              __renderer: 'Handlebars',
+              __template_name: 'error_page'
+            }
+          },
+          { command: 'Halt' }
+        ],
+        end: [
+          {
+            command: 'HttpConnector.SetStatusCode',
+            status_code: '200'
+          },
+          {
+            command: 'HttpConnector.WriteResponse',
+            data: {
+              __renderer: 'Handlebars',
+              __template_name: 'account_settings_page'
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
