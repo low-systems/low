@@ -35,7 +35,7 @@ export class Module<C, S> {
   }
 
   async init(env: Environment): Promise<void> {
-    env.debug(null, this.moduleType, `Initialising`);
+    env.info(null, this.moduleType, `Initialising`);
 
     if (this._ready) {
       env.warn(null, this.moduleType, 'Module already initialised. Destroying and re-initialising');
@@ -54,7 +54,7 @@ export class Module<C, S> {
     await this.setup();
     this._ready = true;
 
-    env.debug(null, this.moduleType, `Module ready`);
+    env.info(null, this.moduleType, `Module ready`);
   }
 
   async setup(): Promise<void> { return; };

@@ -39,7 +39,7 @@ class Module {
     }
     init(env) {
         return __awaiter(this, void 0, void 0, function* () {
-            env.debug(null, this.moduleType, `Initialising`);
+            env.info(null, this.moduleType, `Initialising`);
             if (this._ready) {
                 env.warn(null, this.moduleType, 'Module already initialised. Destroying and re-initialising');
                 yield this.destroy();
@@ -52,7 +52,7 @@ class Module {
             env.debug(null, this.moduleType, `Set secrets:`, this.secrets);
             yield this.setup();
             this._ready = true;
-            env.debug(null, this.moduleType, `Module ready`);
+            env.info(null, this.moduleType, `Module ready`);
         });
     }
     setup() {
