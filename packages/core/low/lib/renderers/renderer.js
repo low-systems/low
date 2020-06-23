@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const module_1 = require("../module");
+const object_compiler_1 = require("../object-compiler");
 class Renderer extends module_1.Module {
     render(config, context) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -24,7 +25,8 @@ class Renderer extends module_1.Module {
                 }
             }
             const template = yield this.getTemplate(config, context);
-            const rendered = yield this.core(template, context, config.__metadata || {});
+            const metadata = yield object_compiler_1.ObjectCompiler.compile(config.__metadata || {}, context);
+            const rendered = yield this.core(template, context, metadata);
             const parsed = yield this.parseRendered(rendered, config);
             if (cacheManager && cacheKey) {
                 yield cacheManager.setItem(cacheKey, parsed, config.__cacheConfig.ttl);

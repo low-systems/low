@@ -2,6 +2,7 @@ import { Module } from '../module';
 import { ParserConfig } from '../parsers/parser';
 import { Context } from '../environment';
 import { CacheConfig, CacheManager, CacheKey } from '../cache-managers/cache-manager';
+import { ObjectCompiler } from '../object-compiler';
 
 export class Renderer<C, S, T> extends Module<C, S> {
   async render(config: RenderConfig<T>, context: Context): Promise<any> {
@@ -18,7 +19,8 @@ export class Renderer<C, S, T> extends Module<C, S> {
     }
 
     const template = await this.getTemplate(config, context);
-    const rendered = await this.core(template, context, config.__metadata || {});
+    const metadata = await ObjectCompiler.compile(config.__metadata || {}, context);
+    const rendered = await this.core(template, context, metadata);
     const parsed = await this.parseRendered(rendered, config);
 
     if (cacheManager && cacheKey) {
