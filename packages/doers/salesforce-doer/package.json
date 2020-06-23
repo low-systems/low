@@ -1,5 +1,5 @@
 {
-  "version": "1.1.19",
+  "version": "1.1.20",
   "main": "lib/salesforce-doer.js",
   "types": "lib/salesforce-doer.d.ts",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "jsforce": "^1.9.3",
-    "low": "^1.1.19"
+    "low": "^1.1.20"
   },
   "name": "@low-systems/salesforce-doer",
   "description": "A Http Request doer for low",
