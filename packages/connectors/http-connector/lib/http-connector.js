@@ -109,7 +109,7 @@ class HttpConnector extends low_1.Connector {
                 verb: request.method || 'GET'
             };
             try {
-                if (this.config.forceSecure && this.config.httpsOptions && input.url.protocol === 'http') {
+                if (this.config.forceSecure && this.config.httpsOptions && input.url.protocol === 'http:') {
                     input.url.protocol = 'https';
                     input.url.port = '' + this.config.httpsOptions.port;
                     response.setHeader('location', input.url.toString());

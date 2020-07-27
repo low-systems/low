@@ -102,7 +102,7 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
     };
 
     try {
-      if (this.config.forceSecure && this.config.httpsOptions && input.url.protocol === 'http') {
+      if (this.config.forceSecure && this.config.httpsOptions && input.url.protocol === 'http:') {
         input.url.protocol = 'https';
         input.url.port = '' + this.config.httpsOptions.port;
         response.setHeader('location', input.url.toString());
