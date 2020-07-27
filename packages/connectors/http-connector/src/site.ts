@@ -19,8 +19,8 @@ export class Site {
         config,
         verbs,
         urlPattern: new UrlPattern(pattern, {
-          segmentNameCharset: 'a-zA-Z0-9_-.',
-          segmentValueCharset: 'a-zA-Z0-9-_~%.'
+          segmentNameCharset: 'a-zA-Z0-9_-\\.',
+          segmentValueCharset: 'a-zA-Z0-9-_~%\\.'
         })
       };
       this.routes.push(route);
