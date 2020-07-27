@@ -38,6 +38,7 @@ export interface HttpConnectorConfig {
         [name: string]: SiteConfig;
     };
     defaultSite?: string;
+    forceSecure?: boolean;
     errorHandlers?: ErrorHandler[];
     responseHeaders?: HeaderMap;
     contentTypeHandlers?: {

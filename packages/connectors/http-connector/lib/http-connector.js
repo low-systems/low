@@ -49,13 +49,13 @@ class HttpConnector extends low_1.Connector {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.config.httpOptions) {
                 this.httpServer = Http.createServer(this.config.httpOptions.serverOptions, this.requestHandler.bind(this));
-                const port = this.getPort(this.config.httpOptions.port);
-                this.httpServer.listen(port);
+                this.config.httpOptions.port = this.getPort(this.config.httpOptions.port);
+                this.httpServer.listen(this.config.httpOptions.port);
             }
             if (this.config.httpsOptions) {
                 this.httpsServer = Https.createServer(this.config.httpsOptions.serverOptions, this.requestHandler.bind(this));
-                const port = this.getPort(this.config.httpsOptions.port);
-                this.httpsServer.listen(port);
+                this.config.httpsOptions.port = this.getPort(this.config.httpsOptions.port);
+                this.httpsServer.listen(this.config.httpsOptions.port);
             }
             if (this.config.contentTypeHandlers) {
                 if (this.config.contentTypeHandlers.formTypes) {
@@ -109,6 +109,14 @@ class HttpConnector extends low_1.Connector {
                 verb: request.method || 'GET'
             };
             try {
+                if (this.config.forceSecure && this.config.httpsOptions && input.url.protocol === 'http') {
+                    input.url.protocol = 'https';
+                    input.url.port = '' + this.config.httpsOptions.port;
+                    response.setHeader('location', input.url.toString());
+                    response.statusCode = 301;
+                    response.end();
+                    return;
+                }
                 input.site = this.getSiteFromHostname(input.url.hostname);
                 const match = input.site.matchRoute(input.url.pathname, input.verb);
                 input.params = match.params;
