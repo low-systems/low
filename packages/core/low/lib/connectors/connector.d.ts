@@ -20,6 +20,7 @@ export interface ConnectorContext<I> extends Context {
     };
     data: any;
     errors: TaskErrorMap;
+    calls: any;
 }
 export interface TaskErrorMap {
     [taskName: string]: Error;

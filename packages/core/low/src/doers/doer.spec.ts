@@ -27,7 +27,8 @@ test('should be able to execute doer and have input echoed', async () => {
     env: env,
     connector: { config: {}, input: {} },
     data: {},
-    errors: {}
+    errors: {},
+    calls: {}
   };
 
   await doer.execute(context, task);
@@ -67,7 +68,8 @@ test('should be able to execute doer and have input cached and returned', async 
     env: env,
     connector: { config: {}, input: {} },
     data: {},
-    errors: {}
+    errors: {},
+    calls: {}
   };
 
   const cacheKey = await cacheManager.makeKey(cacheConfig, context);

@@ -42,7 +42,8 @@ test('should be able to execute MultiDoer and have inputs echoed', async () => {
     env: env,
     connector: { config: {}, input: {} },
     data: {},
-    errors: {}
+    errors: {},
+    calls: {}
   };
 
   await doer.execute(context, multiTask);
@@ -85,7 +86,8 @@ test('should execute branched task and continue running', async () => {
     env: env,
     connector: { config: {}, input: {} },
     data: {},
-    errors: {}
+    errors: {},
+    calls: {}
   };
 
   await doer.execute(context, multiTask);
@@ -129,7 +131,8 @@ test('should execute branched task and not continue running', async () => {
     env: env,
     connector: { config: {}, input: {} },
     data: {},
-    errors: {}
+    errors: {},
+    calls: {}
   };
 
   await doer.execute(context, multiTask);
@@ -171,7 +174,8 @@ test('should throw an exception when given an invalid BranchConfig to branch to'
     logLevel: LogLevel.DEBUG,
     connector: { config: {}, input: {} },
     data: {},
-    errors: {}
+    errors: {},
+    calls: {}
   };
 
   await doer.execute(context, multiTask);
@@ -209,7 +213,8 @@ test('should throw an exception when given an invalid task name to branch to', a
     env: env,
     connector: { config: {}, input: {} },
     data: {},
-    errors: {}
+    errors: {},
+    calls: {}
   };
 
   await doer.execute(context, multiTask);

@@ -52,7 +52,8 @@ class Connector extends module_1.Module {
                 data,
                 errors,
                 connector: { input, config },
-                env: this.env
+                env: this.env,
+                calls: {}
             };
             try {
                 const doer = this.env.getDoer(task.doer);

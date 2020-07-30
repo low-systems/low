@@ -39,7 +39,8 @@ export class Connector<C, S, I> extends Module<C, S> {
       data,
       errors,
       connector: { input, config },
-      env: this.env
+      env: this.env,
+      calls: {}
     };
     try {
       const doer = this.env.getDoer(task.doer);
@@ -58,6 +59,7 @@ export interface ConnectorContext<I> extends Context {
   };
   data: any;
   errors: TaskErrorMap;
+  calls: any;
 }
 
 export interface TaskErrorMap {

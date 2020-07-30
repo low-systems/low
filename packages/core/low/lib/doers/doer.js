@@ -27,11 +27,13 @@ class Doer extends module_1.Module {
                     if (cachedItem) {
                         env.info(context, 'Found cached item');
                         env.debug(context, 'Found cached item', cachedItem);
+                        context.calls[task.name] = 'Loaded from cache';
                         context.data[task.name] = cachedItem;
                         return;
                     }
                 }
                 const coreConfig = yield object_compiler_1.ObjectCompiler.compile(task.config, context);
+                context.calls[task.name] = coreConfig;
                 const output = yield this.main(context, task, coreConfig);
                 context.data[task.name] = output;
                 if (cacheManager && cacheKey) {
