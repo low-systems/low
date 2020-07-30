@@ -23,7 +23,7 @@ class JavascriptRenderer extends low_1.Renderer {
     registerFunctions() {
         if (this.config.functions) {
             for (const [name, code] of Object.entries(this.config.functions)) {
-                const func = this.makeFunction(code);
+                const func = this.makeFunction(code, name);
                 this.functions[name] = func;
             }
         }
@@ -51,7 +51,7 @@ class JavascriptRenderer extends low_1.Renderer {
                 if (typeof config.__template.name === 'string' && this.functions.hasOwnProperty(config.__template.name)) {
                     return this.functions[config.__template.name];
                 }
-                const func = this.makeFunction(config.__template.code);
+                const func = this.makeFunction(config.__template.code, config.__template.name);
                 if (typeof config.__template.name === 'string') {
                     this.functions[config.__template.name] = func;
                 }
@@ -62,11 +62,17 @@ class JavascriptRenderer extends low_1.Renderer {
             }
         });
     }
-    makeFunction(code) {
-        const promise = `
-      return new Promise((resolve, reject) => {
-        ${code}
+    makeFunction(code, name) {
+        let promise = `return new Promise((resolve, reject) => {
+        try {
+          ${code}
+        } catch (err) {
+          reject(err);
+        }
       });`;
+        if (name) {
+            promise = `//# sourceURL=${name}\n${promise}`;
+        }
         const func = new Function('metadata', promise);
         return func;
     }

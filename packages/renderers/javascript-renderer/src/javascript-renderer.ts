@@ -10,7 +10,7 @@ export class JavascriptRenderer extends Renderer<JavascriptConfig, any, Javascri
   registerFunctions() {
     if (this.config.functions) {
       for (const [name, code] of Object.entries(this.config.functions)) {
-        const func = this.makeFunction(code);
+        const func = this.makeFunction(code, name);
         this.functions[name] = func;
       }
     }
@@ -36,7 +36,7 @@ export class JavascriptRenderer extends Renderer<JavascriptConfig, any, Javascri
         return this.functions[config.__template.name];
       }
 
-      const func = this.makeFunction(config.__template.code);
+      const func = this.makeFunction(config.__template.code, config.__template.name);
 
       if (typeof config.__template.name === 'string') {
         this.functions[config.__template.name] = func;
@@ -48,15 +48,18 @@ export class JavascriptRenderer extends Renderer<JavascriptConfig, any, Javascri
     }
   }
 
-  makeFunction(code: string): Function {
-    const promise = `
-      return new Promise((resolve, reject) => {
+  makeFunction(code: string, name?: string): Function {
+    let promise = `return new Promise((resolve, reject) => {
         try {
           ${code}
         } catch (err) {
           reject(err);
         }
       });`;
+    if (name) {
+      promise = `//# sourceURL=${name}\n${promise}`;
+    }
+
     const func = new Function('metadata', promise);
     return func;
   }
