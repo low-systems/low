@@ -14,6 +14,7 @@ import { UrlParser } from './parsers/url-parser';
 import { QuerystringParser } from './parsers/querystring-parser';
 import { Renderer } from './renderers/renderer';
 import { MultiDoer } from './doers/multi-doer';
+import { BranchDoer } from './doers/branch-doer';
 
 /**
  * The Environment class is the core of a `low` system.
@@ -66,7 +67,8 @@ export class Environment {
    */
   private doers: { [doerName: string]: Doer<any, any> } = {
     Doer: new Doer(),
-    MultiDoer: new MultiDoer()
+    MultiDoer: new MultiDoer(),
+    BranchDoer: new BranchDoer(),
   };
 
   private loggers: { [loggerName: string]: Logger<any, any> } = {
