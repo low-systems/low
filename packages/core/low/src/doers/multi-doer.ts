@@ -17,6 +17,12 @@ export class MultiDoer<C, S> extends Doer<C, S> {
         task = multiDoerTask.task;
       }
 
+      task = await ObjectCompiler.compile(task, context);
+      if (!task) {
+        this.env.debug(context, this.moduleType, `After compiling task there's nothing to do`);
+        continue;
+      }
+
       this.env.debug(context, this.moduleType, `Finding doer '${task.doer}'`);
       const doer = this.env.getDoer(task.doer);
       await doer.execute(context, task);
