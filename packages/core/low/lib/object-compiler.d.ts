@@ -8,4 +8,5 @@ export declare class ObjectCompiler {
         [path: string]: Function;
     };
     static objectPath(obj: any, path: string): any;
+    static isObject(obj: any): boolean;
 }

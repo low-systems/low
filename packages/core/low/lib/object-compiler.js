@@ -35,7 +35,7 @@ class ObjectCompiler {
     static compileProperty(property, context) {
         return __awaiter(this, void 0, void 0, function* () {
             const resolvedProperty = ObjectCompiler.resolvePointer(property, context);
-            if (typeof property === 'object' && property !== null && '__pointer' in property && '__doNotCompile' in property) {
+            if ((ObjectCompiler.isObject(property) && '__pointer' in property && '__doNotCompile' in property) || (ObjectCompiler.isObject(resolvedProperty) && '__doNotCompile' in property)) {
                 return resolvedProperty;
             }
             if (ObjectCompiler.isTemplate(resolvedProperty)) {
@@ -106,6 +106,9 @@ class ObjectCompiler {
         }
         const resolved = ObjectCompiler.objectPathCache[path](obj);
         return resolved;
+    }
+    static isObject(obj) {
+        return typeof obj === 'object' && obj !== null && !Array.isArray(obj);
     }
 }
 exports.ObjectCompiler = ObjectCompiler;

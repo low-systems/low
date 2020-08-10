@@ -30,7 +30,7 @@ export class ObjectCompiler {
   static async compileProperty(property: any, context: Context): Promise<any> {
     const resolvedProperty = ObjectCompiler.resolvePointer(property, context);
 
-    if (typeof property === 'object' && property !== null && '__pointer' in property &&  '__doNotCompile' in property) {
+    if ((ObjectCompiler.isObject(property) && '__pointer' in property &&  '__doNotCompile' in property) || (ObjectCompiler.isObject(resolvedProperty) && '__doNotCompile' in property)) {
       return resolvedProperty;
     }
 
@@ -108,5 +108,9 @@ export class ObjectCompiler {
     }
     const resolved = ObjectCompiler.objectPathCache[path](obj);
     return resolved;
+  }
+
+  static isObject(obj: any) {
+    return typeof obj === 'object' && obj !== null && !Array.isArray(obj);
   }
 }
