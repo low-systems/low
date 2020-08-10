@@ -30,6 +30,11 @@ export class MultiDoer<C, S> extends Doer<C, S> {
       const doer = this.env.getDoer(task.doer);
       await doer.execute(context, task);
 
+      context.lastTask = {
+        task,
+        output: context.data[task.name] || null
+      };
+
       if (multiDoerTask.branch) {
         this.env.debug(context, this.moduleType, 'Task executed with BranchConfig, compiling it');
         const branchConfig = await ObjectCompiler.compile(multiDoerTask.branch, context) as BranchConfig;
@@ -50,6 +55,8 @@ export class MultiDoer<C, S> extends Doer<C, S> {
           break;
         }
       }
+
+      delete context.lastTask;
     }
   }
 }

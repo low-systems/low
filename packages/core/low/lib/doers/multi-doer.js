@@ -34,6 +34,10 @@ class MultiDoer extends doer_1.Doer {
                 this.env.debug(context, this.moduleType, `Finding doer '${task.doer}'`);
                 const doer = this.env.getDoer(task.doer);
                 yield doer.execute(context, task);
+                context.lastTask = {
+                    task,
+                    output: context.data[task.name] || null
+                };
                 if (multiDoerTask.branch) {
                     this.env.debug(context, this.moduleType, 'Task executed with BranchConfig, compiling it');
                     const branchConfig = yield object_compiler_1.ObjectCompiler.compile(multiDoerTask.branch, context);
@@ -52,6 +56,7 @@ class MultiDoer extends doer_1.Doer {
                         break;
                     }
                 }
+                delete context.lastTask;
             }
         });
     }

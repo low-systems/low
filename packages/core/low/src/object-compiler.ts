@@ -34,10 +34,6 @@ export class ObjectCompiler {
       return resolvedProperty;
     }
 
-    if (ObjectCompiler.isObject(resolvedProperty) && '__doNotCompile' in property) {
-      return resolvedProperty;
-    }
-
     if (ObjectCompiler.isTemplate(resolvedProperty)) {
       const renderer = context.env.getRenderer(resolvedProperty.__renderer || 'Renderer');
       return await renderer.render(resolvedProperty, context);

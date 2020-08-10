@@ -38,9 +38,6 @@ class ObjectCompiler {
             if (ObjectCompiler.isObject(property) && '__pointer' in property && '__doNotCompile' in property) {
                 return resolvedProperty;
             }
-            if (ObjectCompiler.isObject(resolvedProperty) && '__doNotCompile' in property) {
-                return resolvedProperty;
-            }
             if (ObjectCompiler.isTemplate(resolvedProperty)) {
                 const renderer = context.env.getRenderer(resolvedProperty.__renderer || 'Renderer');
                 return yield renderer.render(resolvedProperty, context);
