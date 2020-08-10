@@ -36,7 +36,8 @@ class MultiDoer extends doer_1.Doer {
                 yield doer.execute(context, task);
                 context.lastTask = {
                     task,
-                    output: context.data[task.name] || null
+                    output: context.data[task.name] || null,
+                    error: context.errors[task.name] || null
                 };
                 if (multiDoerTask.branch) {
                     this.env.debug(context, this.moduleType, 'Task executed with BranchConfig, compiling it');

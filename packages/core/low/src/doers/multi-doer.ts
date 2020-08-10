@@ -32,7 +32,8 @@ export class MultiDoer<C, S> extends Doer<C, S> {
 
       context.lastTask = {
         task,
-        output: context.data[task.name] || null
+        output: context.data[task.name] || null,
+        error: context.errors[task.name] || null
       };
 
       if (multiDoerTask.branch) {
