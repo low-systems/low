@@ -1,6 +1,6 @@
 {
   "name": "low",
-  "version": "1.1.31",
+  "version": "1.1.32",
   "description": "a templating driven low-code framework for rapid systems development",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
