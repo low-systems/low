@@ -24,7 +24,9 @@ class MultiDoer extends doer_1.Doer {
                 else {
                     task = multiDoerTask.task;
                 }
-                task = yield object_compiler_1.ObjectCompiler.compile(task, context);
+                if (multiDoerTask.compileTask) {
+                    task = yield object_compiler_1.ObjectCompiler.compile(task, context);
+                }
                 if (!task) {
                     this.env.debug(context, this.moduleType, `After compiling task there's nothing to do`);
                     continue;

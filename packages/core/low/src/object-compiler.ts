@@ -30,7 +30,7 @@ export class ObjectCompiler {
   static async compileProperty(property: any, context: Context): Promise<any> {
     const resolvedProperty = ObjectCompiler.resolvePointer(property, context);
 
-    if ((ObjectCompiler.isObject(property) && '__pointer' in property &&  '__doNotCompile' in property) || (ObjectCompiler.isObject(resolvedProperty) && '__doNotCompile' in property)) {
+    if (ObjectCompiler.isObject(property) && '__pointer' in property &&  '__doNotCompile' in property) {
       return resolvedProperty;
     }
 
@@ -42,7 +42,7 @@ export class ObjectCompiler {
     if (Array.isArray(resolvedProperty)) {
       const compiled = [];
       for (const item of resolvedProperty) {
-        const spread = typeof item === 'object' && item !== null && '__spread' in item;
+        const spread = ObjectCompiler.isObject(item) && '__spread' in item;
         const resolved = await ObjectCompiler.compileProperty(item, context);
 
         if (spread && Array.isArray(resolved)) {

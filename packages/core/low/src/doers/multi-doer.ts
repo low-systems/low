@@ -17,7 +17,10 @@ export class MultiDoer<C, S> extends Doer<C, S> {
         task = multiDoerTask.task;
       }
 
-      task = await ObjectCompiler.compile(task, context);
+      if (multiDoerTask.compileTask) {
+        task = await ObjectCompiler.compile(task, context);
+      }
+
       if (!task) {
         this.env.debug(context, this.moduleType, `After compiling task there's nothing to do`);
         continue;
@@ -52,6 +55,7 @@ export class MultiDoer<C, S> extends Doer<C, S> {
 }
 
 export interface MultiDoerTask {
+  compileTask?: boolean;
   task: TaskConfig | string;
   branch?: any;
 }
