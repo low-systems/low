@@ -1,6 +1,6 @@
 import Firebase from 'firebase-admin';
 import { Doer, TaskConfig, ConnectorContext, IMap } from 'low';
-export declare class FirebaseAuthDoer extends Doer<any, IMap<Firebase.AppOptions>> {
+export declare class FirebaseAuthDoer extends Doer<any, IMap<Firebase.ServiceAccount>> {
     setup(): Promise<void>;
     main(context: ConnectorContext<any>, taskConfig: TaskConfig, coreConfig: FirebaseAuthConfig): Promise<any>;
 }

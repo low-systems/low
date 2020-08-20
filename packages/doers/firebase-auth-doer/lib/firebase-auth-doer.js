@@ -18,8 +18,10 @@ const low_1 = require("low");
 class FirebaseAuthDoer extends low_1.Doer {
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
-            for (const [name, config] of Object.entries(this.secrets)) {
-                firebase_admin_1.default.initializeApp(config, name);
+            for (const [name, serviceAccount] of Object.entries(this.secrets)) {
+                firebase_admin_1.default.initializeApp({
+                    credential: firebase_admin_1.default.credential.cert(serviceAccount)
+                }, name);
             }
         });
     }

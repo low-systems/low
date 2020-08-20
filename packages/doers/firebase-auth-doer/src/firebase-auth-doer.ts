@@ -2,10 +2,12 @@ import Firebase from 'firebase-admin';
 
 import { Doer, TaskConfig, ConnectorContext, IMap } from 'low';
 
-export class FirebaseAuthDoer extends Doer<any, IMap<Firebase.AppOptions>> {
+export class FirebaseAuthDoer extends Doer<any, IMap<Firebase.ServiceAccount>> {
   async setup() {
-    for (const [name, config] of Object.entries(this.secrets)) {
-      Firebase.initializeApp(config, name);
+    for (const [name, serviceAccount] of Object.entries(this.secrets)) {
+      Firebase.initializeApp({
+        credential: Firebase.credential.cert(serviceAccount)
+      }, name);
     }
   }
 

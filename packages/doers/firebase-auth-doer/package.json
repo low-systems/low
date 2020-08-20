@@ -1,4 +1,5 @@
 {
+  "private": false,
   "version": "1.1.38",
   "main": "lib/firebase-auth-doer.js",
   "types": "lib/firebase-auth-doer.d.ts",
@@ -26,7 +27,7 @@
     "type": "git",
     "url": "https://github.com/low-systems/low"
   },
-  "gitHead": "4aedc413083b2b9c916f04e0d0a46f75bcdd9a55",
+  "gitHead": "ce5db24ba79e9ca396232a276026871bf05d3b8b",
   "devDependencies": {
     "@types/jest": "^24.9.0",
     "jest": "^24.9.0",
