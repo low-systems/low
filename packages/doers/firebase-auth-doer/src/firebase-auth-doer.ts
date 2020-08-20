@@ -5,9 +5,12 @@ import { Doer, TaskConfig, ConnectorContext, IMap } from 'low';
 export class FirebaseAuthDoer extends Doer<any, IMap<Firebase.ServiceAccount>> {
   async setup() {
     for (const [name, serviceAccount] of Object.entries(this.secrets)) {
-      Firebase.initializeApp({
-        credential: Firebase.credential.cert(serviceAccount)
-      }, name);
+      const exists = !!Firebase.apps.find((app) => app?.name === name);
+      if (!exists) {
+        Firebase.initializeApp({
+          credential: Firebase.credential.cert(serviceAccount)
+        }, name);
+      }
     }
   }
 

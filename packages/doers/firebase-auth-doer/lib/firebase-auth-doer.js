@@ -19,9 +19,12 @@ class FirebaseAuthDoer extends low_1.Doer {
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
             for (const [name, serviceAccount] of Object.entries(this.secrets)) {
-                firebase_admin_1.default.initializeApp({
-                    credential: firebase_admin_1.default.credential.cert(serviceAccount)
-                }, name);
+                const exists = !!firebase_admin_1.default.apps.find((app) => (app === null || app === void 0 ? void 0 : app.name) === name);
+                if (!exists) {
+                    firebase_admin_1.default.initializeApp({
+                        credential: firebase_admin_1.default.credential.cert(serviceAccount)
+                    }, name);
+                }
             }
         });
     }
