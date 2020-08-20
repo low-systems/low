@@ -1,6 +1,6 @@
 {
   "private": false,
-  "version": "1.1.38",
+  "version": "1.1.39",
   "main": "lib/firebase-auth-doer.js",
   "types": "lib/firebase-auth-doer.d.ts",
   "scripts": {
