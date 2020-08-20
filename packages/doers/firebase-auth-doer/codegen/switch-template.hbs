@@ -1,0 +1,12 @@
+switch (coreConfig.method) {
+{{#each this}}
+  case ('{{method}}'):
+  {{#if void}}
+    await Firebase.auth().{{method}}({{#each args}}coreConfig.{{name}}{{#unless @last}}, {{/unless}}{{/each}});
+    return true;
+  {{else}}
+    const {{method}}Result = await Firebase.auth().{{method}}({{#each args}}coreConfig.{{name}}{{#unless @last}}, {{/unless}}{{/each}});
+    return {{method}}Result;
+  {{/if}}
+{{/each}}
+}

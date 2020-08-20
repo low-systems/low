@@ -1,0 +1,162 @@
+[
+  {
+    method: 'createCustomToken',
+    args: [
+      { name: 'uid', type: 'string' },
+      { name: 'developerClaims', type: 'object', optional: true }
+    ]
+  },
+  {
+    method: 'createUser',
+    args:[
+      { name: 'properties', type: 'Firebase.auth.CreateRequest' }
+    ]
+  },
+  {
+    method: 'deleteUser',
+    args:[
+      { name: 'uid', type: 'string' }
+    ],
+    void: true
+  },
+  {
+    method: 'deleteUsers',
+    args:[
+      { name: 'uids', type: 'string[]' }
+    ]
+  },
+  {
+    method: 'getUser',
+    args:[
+      { name: 'uid', type: 'string' }
+    ]
+  },
+  {
+    method: 'getUserByEmail',
+    args:[
+      { name: 'email', type: 'string' }
+    ]
+  },
+  {
+    method: 'getUserByPhoneNumber',
+    args:[
+      { name: 'phoneNumber', type: 'string' }
+    ]
+  },
+  {
+    method: 'getUsers',
+    args:[
+      { name: 'identifiers', type: 'UserIdentifier[]' }
+    ]
+  },
+  {
+    method: 'listUsers',
+    args:[
+      { name: 'maxResults', type: 'number', optional: true },
+      { name: 'pageToken', type: 'string', optional: true }
+    ]
+  },
+  {
+    method: 'updateUser',
+    args:[
+      { name: 'uid', type: 'string' },
+      { name: 'properties', type: 'Firebase.auth.UpdateRequest' }
+    ]
+  },
+  {
+    method: 'verifyIdToken',
+    args:[
+      { name: 'idToken', type: 'string' },
+      { name: 'checkRevoked', type: 'boolean', optional: true }
+    ]
+  },
+  {
+    method: 'setCustomUserClaims',
+    args:[
+      { name: 'uid', type: 'string' },
+      { name: 'customUserClaims', type: 'object | null' }
+    ],
+    void: true
+  },
+  {
+    method: 'revokeRefreshTokens',
+    args:[
+      { name: 'uid', type: 'string' }
+    ],
+    void: true
+  },
+  {
+    method: 'importUsers',
+    args:[
+      { name: 'users', type: 'Firebase.auth.UserImportRecord[]' },
+      { name: 'options', type: 'Firebase.auth.UserImportOptions', optional: true }
+    ]
+  },
+  {
+    method: 'createSessionCookie',
+    args:[
+      { name: 'idToken', type: 'string' },
+      { name: 'sessionCookieOptions', type: 'Firebase.auth.SessionCookieOptions' }
+    ]
+  },
+  {
+    method: 'verifySessionCookie',
+    args:[
+      { name: 'sessionCookie', type: 'string' },
+      { name: 'checkForRevocation', type: 'boolean', optional: true }
+    ]
+  },
+  {
+    method: 'generatePasswordResetLink',
+    args:[
+      { name: 'email', type: 'string' },
+      { name: 'actionCodeSettings', type: 'Firebase.auth.ActionCodeSettings', optional: true }
+    ]
+  },
+  {
+    method: 'generateEmailVerificationLink',
+    args:[
+      { name: 'email', type: 'string' },
+      { name: 'actionCodeSettings', type: 'Firebase.auth.ActionCodeSettings', optional: true }
+    ]
+  },
+  {
+    method: 'generateSignInWithEmailLink',
+    args:[
+      { name: 'email', type: 'string' },
+      { name: 'actionCodeSettings', type: 'Firebase.auth.ActionCodeSettings' }
+    ]
+  },
+  {
+    method: 'listProviderConfigs',
+    args:[
+      { name: 'options', type: 'Firebase.auth.AuthProviderConfigFilter' }
+    ]
+  },
+  {
+    method: 'getProviderConfig',
+    args:[
+      { name: 'providerId', type: 'string' }
+    ]
+  },
+  {
+    method: 'deleteProviderConfig',
+    args:[
+      { name: 'providerId', type: 'string' }
+    ],
+    void: true
+  },
+  {
+    method: 'updateProviderConfig',
+    args:[
+      { name: 'providerId', type: 'string' },
+      { name: 'updateConfig', type: 'Firebase.auth.UpdateAuthProviderRequest' }
+    ]
+  },
+  {
+    method: 'createProviderConfig',
+    args:[
+      { name: 'config', type: 'Firebase.auth.AuthProviderConfig' }
+    ]
+  }
+]

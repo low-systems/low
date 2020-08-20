@@ -1,0 +1,29 @@
+{{#each this}}
+export interface FirebaseAuth{{capitalize method}}Call extends FirebaseAuthCall {
+  method: '{{method}}';
+  {{#each args}}
+  {{name}}{{#if optional}}?{{/if}}: {{type}};
+  {{/each}}
+}
+
+{{/each}}
+export type FirebaseAuthConfig = {{#each this}}FirebaseAuth{{capitalize method}}Call{{#unless @last}} | {{/unless}}{{/each}};
+
+interface UidIdentifier {
+  uid: string;
+}
+
+interface EmailIdentifier {
+  email: string;
+}
+
+interface PhoneIdentifier {
+  phoneNumber: string;
+}
+
+interface ProviderIdentifier {
+  providerId: string;
+  providerUid: string;
+}
+
+type UserIdentifier = UidIdentifier | EmailIdentifier | PhoneIdentifier | ProviderIdentifier;
