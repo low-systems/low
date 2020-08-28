@@ -177,6 +177,7 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
     const host = request.headers.host || 'localhost';
     const path = request.url || '/';
     const url = new Url.URL(path, `${protocol}://${host}`);
+    url.pathname = url.pathname.replace(/\/{2,}/g, '/');
     return url;
   }
 

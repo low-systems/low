@@ -172,6 +172,7 @@ class HttpConnector extends low_1.Connector {
         const host = request.headers.host || 'localhost';
         const path = request.url || '/';
         const url = new Url.URL(path, `${protocol}://${host}`);
+        url.pathname = url.pathname.replace(/\/{2,}/g, '/');
         return url;
     }
     getQuerystringObject(url) {

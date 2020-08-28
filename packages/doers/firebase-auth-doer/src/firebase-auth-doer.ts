@@ -6,6 +6,7 @@ export class FirebaseAuthDoer extends Doer<any, IMap<Firebase.ServiceAccount>> {
   async setup() {
     for (const [name, serviceAccount] of Object.entries(this.secrets)) {
       const exists = !!Firebase.apps.find((app) => app?.name === name);
+      //TODO Instead of skipping initialisation, we need to delete and reinitialise the app
       if (!exists) {
         Firebase.initializeApp({
           credential: Firebase.credential.cert(serviceAccount)
