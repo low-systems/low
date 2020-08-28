@@ -173,12 +173,15 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
   }
 
   getRequestUrl(request: Http.IncomingMessage) {
-    const protocol = this.getRequestProtocol(request);
-    const host = request.headers.host || 'localhost';
-    const path = request.url || '/';
-    const url = new Url.URL(path, `${protocol}://${host}`);
-    url.pathname = url.pathname.replace(/\/{2,}/g, '/');
-    return url;
+    try {
+      const protocol = this.getRequestProtocol(request);
+      const host = request.headers.host || 'localhost';
+      const path = (request.url || '/').replace(/\/{2,}/g, '/');
+      const url = new Url.URL(path, `${protocol}://${host}`);
+      return url;
+    } catch(err) {
+      return new Url.URL('https://localhost/');
+    }
   }
 
   getQuerystringObject(url: Url.URL) {
