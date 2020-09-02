@@ -16,17 +16,22 @@ export class RedisCacheManager extends CacheManager<Redis.ClientOpts, Redis.Clie
   client?: RedisClient;
 
   async setup() {
-    const options: RedisClientOpts = Object.assign(this.config, this.secrets || {});
+    let options: RedisClientOpts = {};
+    try {
+      options = Object.assign(this.config, this.secrets || {});
 
-    Object.entries(options).forEach(([key, value]) => {
-      if (typeof value === 'string' && value.startsWith('ENV_')) {
-        const envKey = value.substring(4);
-        const envVal = process.env[envKey] || undefined;
-        options[key] = envVal;
-      }
-    });
+      Object.entries(options).forEach(([key, value]) => {
+        if (typeof value === 'string' && value.startsWith('ENV_')) {
+          const envKey = value.substring(4);
+          const envVal = process.env[envKey] || undefined;
+          options[key] = envVal;
+        }
+      });
 
-    this.client = new RedisClient(options);
+      this.client = new RedisClient(options);
+    } catch(err) {
+      this.env.error(null, `Failed to setup Redis client: ${err.message}`, options);
+    }
   }
 
   async getItem(cacheKey: CacheKey): Promise<any> {
