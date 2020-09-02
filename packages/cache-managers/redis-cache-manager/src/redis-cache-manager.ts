@@ -3,15 +3,13 @@ import {promisify as Promisify} from 'util';
 import * as Redis from 'redis';
 
 export class RedisClient {
-  client: Redis.RedisClient;
+  client: Redis.RedisClient = new Redis.RedisClient(this.options);
   GET = Promisify(this.client.GET).bind(this.client);
   SETEX = Promisify(this.client.SETEX).bind(this.client);
   KEYS = Promisify(this.client.KEYS).bind(this.client);
-  DEL = this.client.DEL;
+  DEL = this.client.DEL.bind(this.client);
 
-  constructor(options: Redis.ClientOpts) {
-    this.client = new Redis.RedisClient(options);
-  }
+  constructor(public options: Redis.ClientOpts) { }
 }
 
 export class RedisCacheManager extends CacheManager<Redis.ClientOpts, Redis.ClientOpts> {

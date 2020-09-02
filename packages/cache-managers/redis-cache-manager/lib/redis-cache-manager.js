@@ -34,11 +34,12 @@ const util_1 = require("util");
 const Redis = __importStar(require("redis"));
 class RedisClient {
     constructor(options) {
+        this.options = options;
+        this.client = new Redis.RedisClient(this.options);
         this.GET = util_1.promisify(this.client.GET).bind(this.client);
         this.SETEX = util_1.promisify(this.client.SETEX).bind(this.client);
         this.KEYS = util_1.promisify(this.client.KEYS).bind(this.client);
-        this.DEL = this.client.DEL;
-        this.client = new Redis.RedisClient(options);
+        this.DEL = this.client.DEL.bind(this.client);
     }
 }
 exports.RedisClient = RedisClient;

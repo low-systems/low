@@ -1,6 +1,7 @@
 import { CacheManager, CacheKey } from 'low';
 import * as Redis from 'redis';
 export declare class RedisClient {
+    options: Redis.ClientOpts;
     client: Redis.RedisClient;
     GET: (arg1: string) => Promise<string | null>;
     SETEX: (arg1: string, arg2: number, arg3: string) => Promise<string>;
