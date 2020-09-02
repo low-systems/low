@@ -27,7 +27,7 @@
     "type": "git",
     "url": "https://github.com/low-systems/low"
   },
-  "gitHead": "ce5db24ba79e9ca396232a276026871bf05d3b8b",
+  "gitHead": "11f8f1efb302e520ff0145a8af367d8f0096cf5e",
   "devDependencies": {
     "@types/jest": "^24.9.0",
     "jest": "^24.9.0",
