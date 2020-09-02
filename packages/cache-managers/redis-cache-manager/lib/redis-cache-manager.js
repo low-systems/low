@@ -46,15 +46,21 @@ exports.RedisClient = RedisClient;
 class RedisCacheManager extends low_1.CacheManager {
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
-            const options = Object.assign(this.config, this.secrets || {});
-            Object.entries(options).forEach(([key, value]) => {
-                if (typeof value === 'string' && value.startsWith('ENV_')) {
-                    const envKey = value.substring(4);
-                    const envVal = process.env[envKey] || undefined;
-                    options[key] = envVal;
-                }
-            });
-            this.client = new RedisClient(options);
+            let options = {};
+            try {
+                options = Object.assign(this.config, this.secrets || {});
+                Object.entries(options).forEach(([key, value]) => {
+                    if (typeof value === 'string' && value.startsWith('ENV_')) {
+                        const envKey = value.substring(4);
+                        const envVal = process.env[envKey] || undefined;
+                        options[key] = envVal;
+                    }
+                });
+                this.client = new RedisClient(options);
+            }
+            catch (err) {
+                this.env.error(null, `Failed to setup Redis client: ${err.message}`, options);
+            }
         });
     }
     getItem(cacheKey) {
