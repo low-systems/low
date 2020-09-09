@@ -43,6 +43,12 @@ class MySqlDoer extends low_1.Doer {
                             reject(error);
                         }
                         else {
+                            if (config.convertBitsToBools) {
+                                const fieldNames = Array.isArray(config.convertBitsToBools) ? config.convertBitsToBools :
+                                    typeof config.convertBitsToBools === 'string' ? [config.convertBitsToBools] :
+                                        fields && fields.map((field) => field.name) || []; //TODO: Check that this will never be field.orgName
+                                this.convertBitsToBools(results, fieldNames);
+                            }
                             resolve({ results, fields });
                         }
                     });
@@ -53,6 +59,22 @@ class MySqlDoer extends low_1.Doer {
             });
             return response;
         });
+    }
+    //TODO: Make this work for multiple record sets
+    convertBitsToBools(results, fieldNames) {
+        //As these results sets may be huge, I'm using while loops for maximum performance.
+        //Apologies for this not being as syntactically sweet as a for-of or forEach
+        let r = 0;
+        while (r < results.length) {
+            let f = 0;
+            while (f < fieldNames.length) {
+                if (Buffer.isBuffer(results[r][f])) {
+                    results[r][f] = !!results[r][f][0];
+                }
+                f++;
+            }
+            r++;
+        }
     }
 }
 exports.MySqlDoer = MySqlDoer;
