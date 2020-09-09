@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
     "test": "jest --coverage",
-    "build": "npm run clean && tsc"
+    "build": "npm run clean && tsc && npm test"
   },
   "license": "GPL-3.0",
   "jest": {

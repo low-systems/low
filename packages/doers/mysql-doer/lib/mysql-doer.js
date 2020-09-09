@@ -39,17 +39,20 @@ class MySqlDoer extends low_1.Doer {
             const response = yield new Promise((resolve, reject) => {
                 try {
                     pool.query(config.query, config.parameters || [], (error, results, fields) => {
-                        if (error) {
-                            reject(error);
-                        }
-                        else {
-                            if (config.convertBitsToBools) {
-                                const fieldNames = Array.isArray(config.convertBitsToBools) ? config.convertBitsToBools :
-                                    typeof config.convertBitsToBools === 'string' ? [config.convertBitsToBools] :
-                                        fields && fields.map((field) => field.name) || []; //TODO: Check that this will never be field.orgName
-                                this.convertBitsToBools(results, fieldNames);
+                        try {
+                            if (error) {
+                                throw error;
+                            }
+                            if (config.convertBitsToBools && fields) {
+                                if (Array.isArray(fields[0])) {
+                                    throw new Error('Cannot convert bits to bools on multiple record sets yet, sorry!');
+                                }
+                                this.bitsToBools(results, config.convertBitsToBools);
                             }
                             resolve({ results, fields });
+                        }
+                        catch (err) {
+                            reject(err);
                         }
                     });
                 }
@@ -60,22 +63,23 @@ class MySqlDoer extends low_1.Doer {
             return response;
         });
     }
-    //TODO: Make this work for multiple record sets
-    convertBitsToBools(results, fieldNames) {
+    bitsToBools(results, fieldNames) {
         //As these results sets may be huge, I'm using while loops for maximum performance.
         //Apologies for this not being as syntactically sweet as a for-of or forEach
-        let r = 0;
-        const resultsLength = results.length;
-        const fieldNamesLength = fieldNames.length;
-        while (r < resultsLength) {
-            let f = 0;
-            while (f < fieldNamesLength) {
-                if (Buffer.isBuffer(results[r][fieldNames[f]])) {
-                    results[r][fieldNames[f]] = !!results[r][fieldNames[f]][0];
+        if (fieldNames.length) {
+            let r = 0;
+            const resultsLength = results.length;
+            const fieldNamesLength = fieldNames.length;
+            while (r < resultsLength) {
+                let f = 0;
+                while (f < fieldNamesLength) {
+                    if (Buffer.isBuffer(results[r][fieldNames[f]])) {
+                        results[r][fieldNames[f]] = !!results[r][fieldNames[f]][0];
+                    }
+                    f++;
                 }
-                f++;
+                r++;
             }
-            r++;
         }
     }
 }
