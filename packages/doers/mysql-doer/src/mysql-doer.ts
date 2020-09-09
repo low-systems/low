@@ -49,11 +49,13 @@ export class MySqlDoer extends Doer<IMap<MySql.PoolConfig>, IMap<string>> {
     //As these results sets may be huge, I'm using while loops for maximum performance.
     //Apologies for this not being as syntactically sweet as a for-of or forEach
     let r = 0;
-    while (r < results.length) {
+    const resultsLength = results.length;
+    const fieldNamesLength = fieldNames.length;
+    while (r < resultsLength) {
       let f = 0;
-      while (f < fieldNames.length) {
-        if (Buffer.isBuffer(results[r][f])) {
-          results[r][f] = !!results[r][f][0]
+      while (f < fieldNamesLength) {
+        if (Buffer.isBuffer(results[r][fieldNames[f]])) {
+          results[r][f] = !!results[r][fieldNames[f]][0];
         }
         f++;
       }
