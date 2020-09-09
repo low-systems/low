@@ -71,7 +71,7 @@ class MySqlDoer extends low_1.Doer {
             let f = 0;
             while (f < fieldNamesLength) {
                 if (Buffer.isBuffer(results[r][fieldNames[f]])) {
-                    results[r][f] = !!results[r][fieldNames[f]][0];
+                    results[r][fieldNames[f]] = !!results[r][fieldNames[f]][0];
                 }
                 f++;
             }
