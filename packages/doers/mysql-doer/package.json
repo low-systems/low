@@ -1,5 +1,5 @@
 {
-  "version": "1.1.47",
+  "version": "1.1.48",
   "main": "lib/mysql-doer.js",
   "types": "lib/mysql-doer.d.ts",
   "scripts": {
