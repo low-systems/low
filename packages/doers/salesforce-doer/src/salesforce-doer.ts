@@ -12,7 +12,11 @@ export class SalesforceDoer extends Doer<SalesforceConfig, SalesforceSecretsConf
   async setupConnections() {
     for (const [name, config] of Object.entries(this.config.connections)) {
       this.connections[name] = new JsForce.Connection(config) as Connection;
-      await this.login(name);
+      try {
+        await this.login(name);
+      } catch (err) {
+        this.env.error(null, `Problem logging in to Salesforce connection '${name}': ${err.message}`)
+      }
     }
   }
 

@@ -32,7 +32,12 @@ class SalesforceDoer extends low_1.Doer {
         return __awaiter(this, void 0, void 0, function* () {
             for (const [name, config] of Object.entries(this.config.connections)) {
                 this.connections[name] = new JsForce.Connection(config);
-                yield this.login(name);
+                try {
+                    yield this.login(name);
+                }
+                catch (err) {
+                    this.env.error(null, `Problem logging in to Salesforce connection '${name}': ${err.message}`);
+                }
             }
         });
     }
