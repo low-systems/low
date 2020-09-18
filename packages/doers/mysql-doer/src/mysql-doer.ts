@@ -2,15 +2,22 @@ import MySql from 'mysql';
 
 import { Doer, IMap, TaskConfig, ConnectorContext } from 'low';
 
+export class BitsToBoolsConversionError extends Error {
+  constructor(message: string, public config: BitsToBoolsConfig, results: any[]) {
+    super(message);
+    Object.setPrototypeOf(this, BitsToBoolsConversionError);
+  }
+}
+
 export class ScalarCastError extends Error {
-  constructor(message: string, public value: any, public type: ScalarType) {
+  constructor(message: string, public value: any, public config: ScalarConfig) {
     super(message);
     Object.setPrototypeOf(this, ScalarCastError.prototype);
   }
 }
 
 export class ScalarResolutionError extends Error {
-  constructor(message: string, public results: any[], public type: ScalarType) {
+  constructor(message: string, public results: any[], public config: ScalarConfig) {
     super(message);
     Object.setPrototypeOf(this, ScalarResolutionError.prototype);
   }
@@ -46,72 +53,84 @@ export class MySqlDoer extends Doer<IMap<MySql.PoolConfig>, IMap<string>> {
     });
   }
 
-  handleResults(config: MySqlTaskConfig, error: MySql.MysqlError | null, results: any[], fields?: MySql.FieldInfo[] | MySql.FieldInfo[][]) {
+  handleResults(config: MySqlTaskConfig, error: MySql.MysqlError | null, results: any[], fields?: MySql.FieldInfo[]) {
     if (error) throw error;
 
-    if (config.convertBitsToBools) {
-      this.bitsToBools(results, config.convertBitsToBools, fields);
+    if (config.scalarConfig) {
+      const scalar = this.resolveScalar(results, config.scalarConfig);
+      return scalar;
     }
 
-    if (config.scalarType) {
-      const scalar = this.resolveScalar(results, config.scalarType, fields);
-      return scalar;
-    } else {
-      return { results, fields };
+    if (config.bitsToBoolsConfigs) {
+      this.bitsToBools(results, config.bitsToBoolsConfigs);
     }
+
+    return { results, fields };
   }
 
-  bitsToBools(results: any[], fieldNames: string[], fields?: MySql.FieldInfo[] | MySql.FieldInfo[][]) {
-    if (!fields) {
-      throw new Error('Cannot convert bits to bools as there appears to be no Field info');
-    }
+  bitsToBools(results: any[], config: BitsToBoolsConfig | BitsToBoolsConfig[]) {
+    const configs = Array.isArray(config) ? config : [config];
 
-    if (Array.isArray(fields[0])) {
-      throw new Error('Cannot convert bits to bools on multiple record sets yet, sorry!');
-    }
+    let configIndex = 0;
+    const configsLength = configs.length;
 
     //As these results sets may be huge, I'm using while loops for maximum performance.
     //Apologies for this not being as syntactically sweet as a for-of or forEach
+    while (configIndex < configsLength) {
+      const {fields, recordSetIndex} = configs[configIndex];
 
-    if (fieldNames.length) {
-      let r = 0;
-      const resultsLength = results.length;
-      const fieldNamesLength = fieldNames.length;
-      while (r < resultsLength) {
-        let f = 0;
-        while (f < fieldNamesLength) {
-          if (Buffer.isBuffer(results[r][fieldNames[f]])) {
-            results[r][fieldNames[f]] = !!results[r][fieldNames[f]][0];
-          }
-          f++;
-        }
-        r++;
+      //We might have one record set with all results in `results` or many record sets each with
+      //their results in separate arrays within `results`
+      const records = typeof recordSetIndex !== 'undefined' ? results[recordSetIndex] : results;
+
+      if (!Array.isArray(records)) {
+        throw new BitsToBoolsConversionError('Record set does not contain results ', configs[configIndex], results);
       }
+
+      let recordIndex = 0;
+      const recordsLength = records.length;
+      const fieldsLength = fields.length;
+
+      while (recordIndex < recordsLength) {
+        let fieldIndex = 0;
+
+        while (fieldIndex < fieldsLength) {
+          if (Buffer.isBuffer(records[recordIndex][fields[fieldIndex]]) && records[recordIndex][fields[fieldIndex]].length === 1) {
+            records[recordIndex][fields[fieldIndex]] = !!records[recordIndex][fields[fieldIndex]][0];
+          }
+
+          fieldIndex++;
+        }
+
+        recordIndex++;
+      }
+
+      configIndex++;
     }
   }
 
-  resolveScalar(results: any[], type: ScalarType, fields?: MySql.FieldInfo[] | MySql.FieldInfo[][]) {
-    if (!fields) {
-      throw new ScalarResolutionError('Cannot resolve scalar value as there appears to be no Field info', results, type);
+  resolveScalar(results: any[], config: ScalarConfig) {
+    //We might have one record set with all results in `results` or many record sets each with
+    //their results in separate arrays within `results`
+    const recordSet = typeof config.recordSetIndex !== 'undefined' ? results[config.recordSetIndex] : results;
+
+    if (!Array.isArray(recordSet)) {
+      throw new ScalarResolutionError('Record set does not contain results', results, config);
     }
 
-    if (Array.isArray(fields[0])) {
-      throw new ScalarResolutionError('Cannot treat multiple record sets as a scalar result', results, type);
+    if (recordSet.length !== 1) {
+      throw new ScalarResolutionError('Record set contains more or less than one row', results, config);
     }
 
-    if (results.length !== 1) {
-      throw new ScalarResolutionError('Cannot treat results with more or less than 1 row as a scalar result', results, type);
-    }
-
-    const columns = Object.keys(results[0]);
+    const columns = Object.keys(recordSet[0]);
     if (columns.length !== 1) {
-      throw new ScalarResolutionError('Cannot treat results with more or less than 1 column as a scalar results', results, type);
+      throw new ScalarResolutionError('Cannot treat results with more or less than 1 column as a scalar results', results, config);
     }
 
-    const value = results[0][columns[0]];
+    const value = recordSet[0][columns[0]];
 
     try {
-      switch (type) {
+      switch (config.type) {
         case ('boolean'):
           if (Buffer.isBuffer(value)) {
             return !!value[0];
@@ -130,7 +149,7 @@ export class MySqlDoer extends Doer<IMap<MySql.PoolConfig>, IMap<string>> {
           return value;
       }
     } catch (err) {
-      throw new ScalarCastError(err.message, value, type);
+      throw new ScalarCastError(err.message, value, config);
     }
   }
 }
@@ -140,8 +159,18 @@ export interface MySqlTaskConfig {
   query: string | MySql.QueryOptions;
   parameters?: any[];
   stringifyObjects?: boolean;
-  convertBitsToBools?: string[];
-  scalarType?: ScalarType;
+  bitsToBoolsConfigs?: BitsToBoolsConfig | BitsToBoolsConfig[];
+  scalarConfig?: ScalarConfig;
+}
+
+export interface BitsToBoolsConfig {
+  recordSetIndex?: number;
+  fields: string[];
+}
+
+export interface ScalarConfig {
+  recordSetIndex?: number;
+  type: ScalarType;
 }
 
 export type ScalarType = 'boolean' | 'date' | 'json' | 'number' | 'string' | 'any';
