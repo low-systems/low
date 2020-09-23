@@ -106,8 +106,12 @@ export class ObjectCompiler {
       //TODO: How could this be exploited? Do I need to do any sanitising of `path`?
       ObjectCompiler.objectPathCache[path] = new Function("obj", "return obj." + path + ";");
     }
-    const resolved = ObjectCompiler.objectPathCache[path](obj);
-    return resolved;
+    try {
+      const resolved = ObjectCompiler.objectPathCache[path](obj);
+      return resolved;
+    } catch (err) {
+      return;
+    }
   }
 
   static isObject(obj: any) {
