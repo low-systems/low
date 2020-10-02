@@ -95,11 +95,18 @@ class RedisCacheManager extends low_1.CacheManager {
     }
     flush(partition) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!this.client) {
-                return;
+            try {
+                if (!this.client) {
+                    return;
+                }
+                const keys = yield this.client.KEYS(partition + ':*');
+                if (Array.isArray(keys) && keys.length > 0) {
+                    yield this.client.DEL(keys);
+                }
             }
-            const keys = yield this.client.KEYS(partition + ':*');
-            yield this.client.DEL(keys);
+            catch (err) {
+                console.error(`CACHE MANAGER: Failed to flush cache for partition '${partition}': ${err.message}`);
+            }
         });
     }
 }

@@ -66,12 +66,18 @@ export class RedisCacheManager extends CacheManager<Redis.ClientOpts, Redis.Clie
   }
 
   async flush(partition: string): Promise<void> {
-    if (!this.client) {
-      return;
-    }
+    try {
+      if (!this.client) {
+        return;
+      }
 
-    const keys = await this.client.KEYS(partition + ':*');
-    await this.client.DEL(keys);
+      const keys = await this.client.KEYS(partition + ':*');
+      if (Array.isArray(keys) && keys.length > 0) {
+        await this.client.DEL(keys);
+      }
+    } catch (err) {
+      console.error(`CACHE MANAGER: Failed to flush cache for partition '${partition}': ${err.message}`);
+    }
   }
 }
 
