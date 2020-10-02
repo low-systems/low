@@ -31,6 +31,7 @@ const querystring_parser_1 = require("./parsers/querystring-parser");
 const renderer_1 = require("./renderers/renderer");
 const multi_doer_1 = require("./doers/multi-doer");
 const branch_doer_1 = require("./doers/branch-doer");
+const flush_cache_doer_1 = require("./doers/flush-cache-doer");
 /**
  * The Environment class is the core of a `low` system.
  * If you are using `low` you should create an instance of this
@@ -81,6 +82,7 @@ class Environment {
             Doer: new doer_1.Doer(),
             MultiDoer: new multi_doer_1.MultiDoer(),
             BranchDoer: new branch_doer_1.BranchDoer(),
+            FlushCacheDoer: new flush_cache_doer_1.FlushCacheDoer(),
         };
         this.loggers = {
             Logger: new logger_1.Logger()

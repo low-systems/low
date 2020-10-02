@@ -15,6 +15,7 @@ import { QuerystringParser } from './parsers/querystring-parser';
 import { Renderer } from './renderers/renderer';
 import { MultiDoer } from './doers/multi-doer';
 import { BranchDoer } from './doers/branch-doer';
+import { FlushCacheDoer } from './doers/flush-cache-doer';
 
 /**
  * The Environment class is the core of a `low` system.
@@ -69,6 +70,7 @@ export class Environment {
     Doer: new Doer(),
     MultiDoer: new MultiDoer(),
     BranchDoer: new BranchDoer(),
+    FlushCacheDoer: new FlushCacheDoer(),
   };
 
   private loggers: { [loggerName: string]: Logger<any, any> } = {
