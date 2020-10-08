@@ -12,15 +12,19 @@ export class Profiler implements ProfilerConfig {
 
   profile(task: string, doer: string, hasError: boolean, fromCache: boolean, start: Date, end: Date, requestId: string = 'ENV') {
     if (!this.enabled) return;
-    this._items.push({
-      requestId, task, doer, hasError, fromCache,
-      start: start.toISOString(),
-      end: end.toISOString(),
-      executionTimeMs: end.getTime() - start.getTime()
-    });
-    if (this._items.length > this.size) {
-      const toRemove = this._items.length - this.size;
-      this._items.splice(0, toRemove);
+    try {
+      this._items.push({
+        requestId, task, doer, hasError, fromCache,
+        start: start.toISOString(),
+        end: end.toISOString(),
+        executionTimeMs: end.getTime() - start.getTime()
+      });
+      if (this._items.length > this.size) {
+        const toRemove = this._items.length - this.size;
+        this._items.splice(0, toRemove);
+      }
+    } catch (err) {
+      console.error(`Profiler failed: ${err.message}`);
     }
   }
 }

@@ -33,7 +33,7 @@ class Doer extends module_1.Module {
                         env.debug(context, 'Found cached item', cachedItem);
                         context.data[task.name] = cachedItem;
                         context.calls[task.name].finished = new Date();
-                        env.profiler.profile(task.name, task.doer, false, true, context.calls[task.name].start, context.calls[task.name].end, context.uid);
+                        env.profiler.profile(task.name, task.doer, false, true, context.calls[task.name].started, context.calls[task.name].finished, context.uid);
                         return;
                     }
                 }
@@ -46,12 +46,12 @@ class Doer extends module_1.Module {
                     yield cacheManager.setItem(cacheKey, output, task.cacheConfig.ttl);
                 }
                 context.calls[task.name].finished = new Date();
-                env.profiler.profile(task.name, task.doer, false, false, context.calls[task.name].start, context.calls[task.name].end, context.uid);
+                env.profiler.profile(task.name, task.doer, false, false, context.calls[task.name].started, context.calls[task.name].finished, context.uid);
             }
             catch (err) {
                 context.errors[task.name] = this.serialiseError(err);
                 context.calls[task.name].finished = new Date();
-                context.env.profiler.profile(task.name, task.doer, true, false, context.calls[task.name].start, context.calls[task.name].end, context.uid);
+                context.env.profiler.profile(task.name, task.doer, true, false, context.calls[task.name].started, context.calls[task.name].finished, context.uid);
                 if (task.throwError) {
                     throw err;
                 }

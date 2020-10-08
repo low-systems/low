@@ -13,15 +13,20 @@ class Profiler {
     profile(task, doer, hasError, fromCache, start, end, requestId = 'ENV') {
         if (!this.enabled)
             return;
-        this._items.push({
-            requestId, task, doer, hasError, fromCache,
-            start: start.toISOString(),
-            end: end.toISOString(),
-            executionTimeMs: end.getTime() - start.getTime()
-        });
-        if (this._items.length > this.size) {
-            const toRemove = this._items.length - this.size;
-            this._items.splice(0, toRemove);
+        try {
+            this._items.push({
+                requestId, task, doer, hasError, fromCache,
+                start: start.toISOString(),
+                end: end.toISOString(),
+                executionTimeMs: end.getTime() - start.getTime()
+            });
+            if (this._items.length > this.size) {
+                const toRemove = this._items.length - this.size;
+                this._items.splice(0, toRemove);
+            }
+        }
+        catch (err) {
+            console.error(`Profiler failed: ${err.message}`);
         }
     }
 }
