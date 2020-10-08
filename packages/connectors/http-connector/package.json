@@ -1,6 +1,6 @@
 {
   "name": "@low-systems/http-connector",
-  "version": "1.1.54",
+  "version": "1.1.56",
   "description": "A basic HTTP connector for low",
   "main": "lib/http-connector.js",
   "types": "lib/http-connector.d.ts",
@@ -27,7 +27,7 @@
     "fast-safe-stringify": "^2.0.7",
     "get-body": "^1.0.3",
     "is-gzip": "^2.0.0",
-    "low": "^1.1.54",
+    "low": "^1.1.56",
     "pako": "^1.0.10",
     "url-pattern": "^1.0.3"
   },
