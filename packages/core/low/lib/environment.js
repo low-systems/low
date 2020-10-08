@@ -32,6 +32,7 @@ const renderer_1 = require("./renderers/renderer");
 const multi_doer_1 = require("./doers/multi-doer");
 const branch_doer_1 = require("./doers/branch-doer");
 const flush_cache_doer_1 = require("./doers/flush-cache-doer");
+const profiler_1 = require("./profiler");
 /**
  * The Environment class is the core of a `low` system.
  * If you are using `low` you should create an instance of this
@@ -108,6 +109,7 @@ class Environment {
         this.renderers = {
             Renderer: new renderer_1.Renderer()
         };
+        this.profiler = new profiler_1.Profiler();
         if (modules.connectors) {
             for (const mod of modules.connectors) {
                 this.connectors[mod.moduleType] = mod;

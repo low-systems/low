@@ -13,7 +13,7 @@ export class CacheManager<C, S> extends Module<C, S> {
   async makeKey(config: CacheConfig, context: Context): Promise<CacheKey> {
     let data = '';
     for (const path of config.keyProperties) {
-      const part = ObjectCompiler.objectPath(context, path);
+      const part = path.startsWith('$$') ? path.substring(2) : ObjectCompiler.objectPath(context, path);
       data += JSON.stringify(part);
     }
     const hash = createHash('sha1')

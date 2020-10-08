@@ -33,6 +33,7 @@ export class Doer<C, S> extends Module<C, S> {
           env.debug(context, 'Found cached item', cachedItem);
           context.data[task.name] = cachedItem;
           context.calls[task.name].finished = new Date();
+          env.profiler.profile(task.name, task.doer, false, true, context.calls[task.name].start, context.calls[task.name].end, context.uid);
           return;
         }
       }
@@ -46,13 +47,16 @@ export class Doer<C, S> extends Module<C, S> {
         context.calls[task.name].cacheSet = `${cacheKey} - TTL: ${(task.cacheConfig as CacheConfig).ttl}`;
         await cacheManager.setItem(cacheKey, output, (task.cacheConfig as CacheConfig).ttl);
       }
+
+      context.calls[task.name].finished = new Date();
+      env.profiler.profile(task.name, task.doer, false, false, context.calls[task.name].start, context.calls[task.name].end, context.uid);
     } catch(err) {
       context.errors[task.name] = this.serialiseError(err);
+      context.calls[task.name].finished = new Date();
+      context.env.profiler.profile(task.name, task.doer, true, false, context.calls[task.name].start, context.calls[task.name].end, context.uid);
       if (task.throwError) {
         throw err;
       }
-    } finally {
-      context.calls[task.name].finished = new Date();
     }
   }
 

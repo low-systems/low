@@ -4,6 +4,7 @@ import { Doer } from './doers/doer';
 import { Logger, LogLevel } from './loggers/logger';
 import { Parser } from './parsers/parser';
 import { Renderer } from './renderers/renderer';
+import { Profiler } from './profiler';
 /**
  * The Environment class is the core of a `low` system.
  * If you are using `low` you should create an instance of this
@@ -57,6 +58,7 @@ export declare class Environment {
      * used by other modules
      */
     private renderers;
+    profiler: Profiler;
     /**
      * Create a new `Environment` instance
      * @param modules       A collection of instances of all external modules to be made available in the Environment

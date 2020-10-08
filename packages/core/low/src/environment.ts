@@ -17,6 +17,8 @@ import { MultiDoer } from './doers/multi-doer';
 import { BranchDoer } from './doers/branch-doer';
 import { FlushCacheDoer } from './doers/flush-cache-doer';
 
+import { Profiler } from './profiler';
+
 /**
  * The Environment class is the core of a `low` system.
  * If you are using `low` you should create an instance of this
@@ -99,6 +101,8 @@ export class Environment {
   private renderers: { [rendererName: string]: Renderer<any, any, any> } = {
     Renderer: new Renderer()
   };
+
+  profiler = new Profiler();
 
   /**
    * Create a new `Environment` instance

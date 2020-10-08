@@ -24,7 +24,7 @@ class CacheManager extends module_1.Module {
         return __awaiter(this, void 0, void 0, function* () {
             let data = '';
             for (const path of config.keyProperties) {
-                const part = object_compiler_1.ObjectCompiler.objectPath(context, path);
+                const part = path.startsWith('$$') ? path.substring(2) : object_compiler_1.ObjectCompiler.objectPath(context, path);
                 data += JSON.stringify(part);
             }
             const hash = crypto_1.createHash('sha1')
