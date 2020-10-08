@@ -1,5 +1,5 @@
 {
-  "version": "1.1.56",
+  "version": "1.1.57",
   "main": "lib/google-apis-doer.js",
   "types": "lib/google-apis-doer.d.ts",
   "scripts": {
@@ -15,7 +15,7 @@
     "google-auth-library": "^5.6.1",
     "googleapis": "^45.0.0",
     "googleapis-common": "^3.2.0",
-    "low": "^1.1.56"
+    "low": "^1.1.57"
   },
   "name": "@low-systems/google-apis-doer",
   "description": "A Google APIs doer for low",
