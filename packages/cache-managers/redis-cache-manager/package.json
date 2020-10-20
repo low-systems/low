@@ -1,5 +1,5 @@
 {
-  "version": "1.1.57",
+  "version": "1.1.58",
   "main": "lib/redis-cache-manager.js",
   "types": "lib/redis-cache-manager.d.ts",
   "scripts": {
@@ -12,7 +12,7 @@
     "preset": "ts-jest"
   },
   "dependencies": {
-    "low": "^1.1.57",
+    "low": "^1.1.58",
     "redis": "^3.0.2"
   },
   "name": "@low-systems/redis-cache-manager",
