@@ -8,8 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const low_1 = require("low");
+const Crypto = __importStar(require("crypto"));
+const FS = __importStar(require("fs"));
+const Path = __importStar(require("path"));
+const Querystring = __importStar(require("querystring"));
+const Url = __importStar(require("url"));
 class JavascriptRenderer extends low_1.Renderer {
     constructor() {
         super(...arguments);
@@ -31,7 +43,19 @@ class JavascriptRenderer extends low_1.Renderer {
     core(func, context, metadata) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const output = yield func.call(context, metadata);
+                const imports = {
+                    crypto: Crypto,
+                    fs: FS,
+                    path: Path,
+                    querystring: Querystring,
+                    url: Url
+                };
+                if (metadata && Array.isArray(metadata.imports)) {
+                    metadata.imports.forEach((importName) => {
+                        imports[importName] = require(importName);
+                    });
+                }
+                const output = yield func.call(context, metadata, this.functions, imports);
                 return output;
             }
             catch (err) {
@@ -73,7 +97,7 @@ class JavascriptRenderer extends low_1.Renderer {
         if (name) {
             promise = `//# sourceURL=${name}\n${promise}`;
         }
-        const func = new Function('metadata', promise);
+        const func = new Function('metadata', 'functions', 'imports', promise);
         return func;
     }
 }

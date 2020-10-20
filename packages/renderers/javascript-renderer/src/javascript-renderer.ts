@@ -1,5 +1,11 @@
 import { Renderer, RenderConfig, Context, IMap } from 'low';
 
+import * as Crypto from 'crypto';
+import * as FS from 'fs';
+import * as Path from 'path';
+import * as Querystring from 'querystring';
+import * as Url from 'url';
+
 export class JavascriptRenderer extends Renderer<JavascriptConfig, any, JavascriptTemplate> {
   functions: IMap<Function> = {};
 
@@ -18,7 +24,21 @@ export class JavascriptRenderer extends Renderer<JavascriptConfig, any, Javascri
 
   async core(func: Function, context: Context, metadata: any): Promise<any> {
     try {
-      const output = await func.call(context, metadata);
+      const imports: { [name: string]: any } = {
+        crypto: Crypto,
+        fs: FS,
+        path: Path,
+        querystring: Querystring,
+        url: Url
+      };
+
+      if (metadata && Array.isArray(metadata.imports)) {
+        metadata.imports.forEach((importName: string) => {
+          imports[importName] = require(importName);
+        });
+      }
+
+      const output = await func.call(context, metadata, this.functions, imports);
       return output;
     } catch(err) {
       throw err;
@@ -60,7 +80,7 @@ export class JavascriptRenderer extends Renderer<JavascriptConfig, any, Javascri
       promise = `//# sourceURL=${name}\n${promise}`;
     }
 
-    const func = new Function('metadata', promise);
+    const func = new Function('metadata', 'functions', 'imports', promise);
     return func;
   }
 }

@@ -42,7 +42,7 @@ class Doer extends module_1.Module {
                 const output = yield this.main(context, task, coreConfig);
                 context.data[task.name] = output;
                 if (cacheManager && cacheKey) {
-                    context.calls[task.name].cacheSet = `${cacheKey} - TTL: ${task.cacheConfig.ttl}`;
+                    context.calls[task.name].cacheSet = `${cacheKey.partition}:${cacheKey.key} - TTL: ${task.cacheConfig.ttl}`;
                     yield cacheManager.setItem(cacheKey, output, task.cacheConfig.ttl);
                 }
                 context.calls[task.name].finished = new Date();

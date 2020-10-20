@@ -44,7 +44,7 @@ export class Doer<C, S> extends Module<C, S> {
       context.data[task.name] = output;
 
       if (cacheManager && cacheKey) {
-        context.calls[task.name].cacheSet = `${cacheKey} - TTL: ${(task.cacheConfig as CacheConfig).ttl}`;
+        context.calls[task.name].cacheSet = `${cacheKey.partition}:${cacheKey.key} - TTL: ${(task.cacheConfig as CacheConfig).ttl}`;
         await cacheManager.setItem(cacheKey, output, (task.cacheConfig as CacheConfig).ttl);
       }
 
