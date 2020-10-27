@@ -1,5 +1,5 @@
 {
-  "version": "1.1.58",
+  "version": "1.1.59",
   "main": "lib/async-javascript-renderer.js",
   "types": "lib/async-javascript-renderer.d.ts",
   "scripts": {
