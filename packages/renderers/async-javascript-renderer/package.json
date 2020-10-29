@@ -1,5 +1,5 @@
 {
-  "version": "1.1.59",
+  "version": "1.1.60",
   "main": "lib/async-javascript-renderer.js",
   "types": "lib/async-javascript-renderer.d.ts",
   "scripts": {
@@ -12,7 +12,7 @@
     "preset": "ts-jest"
   },
   "dependencies": {
-    "@low-systems/javascript-renderer": "^1.1.58",
+    "@low-systems/javascript-renderer": "^1.1.60",
     "low": "^1.1.58"
   },
   "name": "@low-systems/async-javascript-renderer",
