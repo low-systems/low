@@ -75,7 +75,7 @@ test('should report error when making function with syntax error', async() => {
   const renderer = new JavascriptRenderer();
   const func = renderer.makeFunction('if({;', 'broken_function');
 
-  await expect(func()).rejects.toThrow(/as it is broken/i);
+  await expect(func()).rejects.toThrow(/as it contains a syntax error/i);
 });
 
 test('should be able to run async Javascript code', async () => {

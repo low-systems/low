@@ -56,7 +56,7 @@ class SyncJavascriptRenderer extends javascript_renderer_1.JavascriptRenderer {
             console.error(`Failed to make sync function '${name || 'without a name'}': ${err.message}`);
             console.error(err.stack);
             console.error(syncCode);
-            const errorCode = `throw new Error('Cannot call sync function ${name || 'without a name'} as it is broken');\nreturn null;`;
+            const errorCode = `throw new Error('Cannot call sync function ${name || 'without a name'} as it contains a syntax error');\nreturn null;`;
             const wrappedErrorCode = this.wrapCode(errorCode, name);
             const func = new Function('context', 'metadata', 'functions', 'imports', wrappedErrorCode);
             return func;

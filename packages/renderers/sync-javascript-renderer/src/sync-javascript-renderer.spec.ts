@@ -88,5 +88,5 @@ test('should report error when making function with syntax error', async() => {
   const renderer = new SyncJavascriptRenderer();
   const func = renderer.makeFunction('if({;', 'broken_function');
 
-  expect(() => { func(); }).toThrow(/as it is broken/i);
+  expect(() => { func(); }).toThrow(/as it contains a syntax error/i);
 });

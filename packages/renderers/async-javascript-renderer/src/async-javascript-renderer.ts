@@ -40,7 +40,7 @@ export class AsyncJavascriptRenderer extends JavascriptRenderer {
       console.error(`Failed to make async function '${name || 'without a name'}': ${err.message}`);
       console.error(err.stack);
       console.error(asyncCode);
-      const errorCode = `throw new Error('Cannot call async function ${name || 'without a name'} as it is broken');`;
+      const errorCode = `throw new Error('Cannot call async function ${name || 'without a name'} as it contains a syntax error');`;
       const wrappedErrorCode = this.wrapCode(errorCode, name);
       const func = new Function(wrappedErrorCode)();
       return func;

@@ -78,7 +78,7 @@ export class JavascriptRenderer extends Renderer<JavascriptConfig, any, Javascri
       console.error(`Failed to make function '${name || 'without a name'}': ${err.message}`);
       console.error(err.stack);
       console.error(promiseCode);
-      const errorCode = `throw new Error("Cannot call function ${name || 'without a name'} as it is broken");`;
+      const errorCode = `throw new Error("Cannot call function ${name || 'without a name'} as it contains a syntax error");`;
       const wrappedErrorCode = this.wrapCode(errorCode, name);
       const func = new Function('metadata', 'functions', 'imports', wrappedErrorCode);
       return func;
