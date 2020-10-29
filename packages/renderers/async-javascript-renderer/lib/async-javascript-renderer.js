@@ -47,15 +47,30 @@ class AsyncJavascriptRenderer extends javascript_renderer_1.JavascriptRenderer {
         });
     }
     makeFunction(code, name) {
+        const asyncCode = this.wrapCode(code, name);
+        try {
+            const func = new Function(asyncCode)();
+            return func;
+        }
+        catch (err) {
+            console.error(`Failed to make async function '${name || 'without a name'}': ${err.message}`);
+            console.error(err.stack);
+            console.error(asyncCode);
+            const errorCode = `throw new Error('Cannot call async function ${name || 'without a name'} as it is broken');`;
+            const wrappedErrorCode = this.wrapCode(errorCode, name);
+            const func = new Function(wrappedErrorCode)();
+            return func;
+        }
+    }
+    wrapCode(code, name) {
         const sourceMap = name ? `//# sourceURL=${name}` : '';
-        const asyncCode = `
+        const wrappedCode = `
       return async (context, metadata, functions, imports) => {
         ${sourceMap};
         ${code}
       };
     `;
-        const func = new Function(asyncCode)();
-        return func;
+        return wrappedCode;
     }
 }
 exports.AsyncJavascriptRenderer = AsyncJavascriptRenderer;

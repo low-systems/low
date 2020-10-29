@@ -107,3 +107,10 @@ test('should be able to handle bad async Javascript code', async () => {
   }
   await expect(renderer.render(template, context)).rejects.toThrow(/it broke again/i);
 });
+
+test('should report error when making function with syntax error', async() => {
+  const renderer = new AsyncJavascriptRenderer();
+  const func = renderer.makeFunction('if({;', 'broken_function');
+
+  await expect(func()).rejects.toThrow(/as it is broken/i);
+});

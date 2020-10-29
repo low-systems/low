@@ -50,6 +50,34 @@ test('should be able to cache a Javascript function', async () => {
   await expect(renderer.render(template, context)).resolves.toBe('It worked!');
 });
 
+test('should be able to cache with no name a Javascript function', async () => {
+  const environment = new Environment({ renderers: [ new JavascriptRenderer() ] }, [], {});
+  await environment.init();
+
+  const renderer = environment.getRenderer('JavascriptRenderer') as JavascriptRenderer;
+  const context: Context = { env: environment };
+  const template: RenderConfig<JavascriptTemplate> = {
+    __template: 'test',
+    __renderer: 'JavascriptRenderer'
+  };
+  await expect(renderer.render(template, context)).rejects.toThrow(/could not be found/i);
+
+  template.__template = {
+    code: `resolve('It worked!');` //7f87acad311948e4f4ee73f4c455225e5c44ccfc
+  };
+  await expect(renderer.render(template, context)).resolves.toBe('It worked!');
+
+  template.__template = '7f87acad311948e4f4ee73f4c455225e5c44ccfc';
+  await expect(renderer.render(template, context)).resolves.toBe('It worked!');
+});
+
+test('should report error when making function with syntax error', async() => {
+  const renderer = new JavascriptRenderer();
+  const func = renderer.makeFunction('if({;', 'broken_function');
+
+  await expect(func()).rejects.toThrow(/as it is broken/i);
+});
+
 test('should be able to run async Javascript code', async () => {
   const environment = new Environment({ renderers: [ new JavascriptRenderer() ] }, [], {});
   await environment.init();

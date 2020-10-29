@@ -56,11 +56,12 @@ export class JavascriptRenderer extends Renderer<JavascriptConfig, any, Javascri
         return this.functions[config.__template.name];
       }
 
-      const func = this.makeFunction(config.__template.code, config.__template.name);
-
-      if (typeof config.__template.name === 'string') {
-        this.functions[config.__template.name] = func;
+      if (typeof config.__template.name !== 'string') {
+        config.__template.name = Crypto.createHash('sha1').update(config.__template.code).digest('hex');
       }
+
+      const func = this.makeFunction(config.__template.code, config.__template.name);
+      this.functions[config.__template.name] = func;
 
       return func;
     } else {
@@ -69,19 +70,31 @@ export class JavascriptRenderer extends Renderer<JavascriptConfig, any, Javascri
   }
 
   makeFunction(code: string, name?: string): Function {
-    let promise = `return new Promise((resolve, reject) => {
-        try {
-          ${code}
-        } catch (err) {
-          reject(err);
-        }
-      });`;
-    if (name) {
-      promise = `//# sourceURL=${name}\n${promise}`;
+    const promiseCode = this.wrapCode(code, name);
+    try {
+      const func = new Function('metadata', 'functions', 'imports', promiseCode);
+      return func;
+    } catch (err) {
+      console.error(`Failed to make function '${name || 'without a name'}': ${err.message}`);
+      console.error(err.stack);
+      console.error(promiseCode);
+      const errorCode = `throw new Error("Cannot call function ${name || 'without a name'} as it is broken");`;
+      const wrappedErrorCode = this.wrapCode(errorCode, name);
+      const func = new Function('metadata', 'functions', 'imports', wrappedErrorCode);
+      return func;
     }
+  }
 
-    const func = new Function('metadata', 'functions', 'imports', promise);
-    return func;
+  wrapCode(code: string, name?: string) {
+    const sourceUrl = name ? `//# sourceURL=${name}\n` : '';
+    const wrappedCode = `return new Promise((resolve, reject) => {
+      try {
+        ${sourceUrl}${code}
+      } catch (err) {
+        reject(err);
+      }
+    });`;
+    return wrappedCode;
   }
 }
 

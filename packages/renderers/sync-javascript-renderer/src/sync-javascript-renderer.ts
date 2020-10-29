@@ -32,9 +32,30 @@ export class SyncJavascriptRenderer extends JavascriptRenderer {
   }
 
   makeFunction(code: string, name?: string): Function {
+    const syncCode = this.wrapCode(code, name);
+    try {
+      const func = new Function('context', 'metadata', 'functions', 'imports', syncCode);
+      return func;
+    } catch (err) {
+      console.error(`Failed to make sync function '${name || 'without a name'}': ${err.message}`);
+      console.error(err.stack);
+      console.error(syncCode);
+      const errorCode = `throw new Error('Cannot call sync function ${name || 'without a name'} as it is broken');\nreturn null;`;
+      const wrappedErrorCode = this.wrapCode(errorCode, name);
+      const func = new Function('context', 'metadata', 'functions', 'imports', wrappedErrorCode);
+      return func;
+    }
+  }
+
+  wrapCode(code: string, name?: string) {
     const sourceMap = name ? `//# sourceURL=${name}` : '';
-    let syncCode = !code.match(/(return)|\r\n/g) ? `${sourceMap}\nreturn (${code})` : `${sourceMap}\n${code}`;
-    const func = new Function('context', 'metadata', 'functions', 'imports', syncCode);
-    return func;
+    let wrappedCode = code;
+    if (code.replace(/"'`/g, '').includes('return')) {
+      wrappedCode = `${sourceMap}\n${code}`;
+    } else {
+      wrappedCode = wrappedCode.trim().replace(/;$/g, '');
+      wrappedCode = `${sourceMap}\nreturn(${code})`;
+    }
+    return wrappedCode;
   }
 }

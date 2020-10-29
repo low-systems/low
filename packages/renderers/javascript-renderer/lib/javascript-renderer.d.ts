@@ -6,6 +6,7 @@ export declare class JavascriptRenderer extends Renderer<JavascriptConfig, any, 
     core(func: Function, context: Context, metadata: any): Promise<any>;
     getTemplate(config: RenderConfig<JavascriptTemplate>, context: Context): Promise<any>;
     makeFunction(code: string, name?: string): Function;
+    wrapCode(code: string, name?: string): string;
 }
 export interface JavascriptConfig {
     functions?: IMap<string>;

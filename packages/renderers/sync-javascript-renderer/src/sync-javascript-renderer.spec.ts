@@ -83,3 +83,10 @@ test('should be able to handle bad sync Javascript code', async () => {
 
   await expect(renderer.render(template, context)).rejects.toThrow(/it broke/i);
 });
+
+test('should report error when making function with syntax error', async() => {
+  const renderer = new SyncJavascriptRenderer();
+  const func = renderer.makeFunction('if({;', 'broken_function');
+
+  expect(() => { func(); }).toThrow(/as it is broken/i);
+});
