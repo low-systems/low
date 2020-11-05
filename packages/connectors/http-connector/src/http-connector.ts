@@ -32,15 +32,23 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
 
   async setup() {
     if (this.config.httpOptions) {
-      this.httpServer = Http.createServer(this.config.httpOptions.serverOptions, this.requestHandler.bind(this));
-      this.config.httpOptions.port = this.getPort(this.config.httpOptions.port);
-      this.httpServer.listen(this.config.httpOptions.port);
+      try {
+        this.httpServer = Http.createServer(this.config.httpOptions.serverOptions, this.requestHandler.bind(this));
+        this.config.httpOptions.port = this.getPort(this.config.httpOptions.port);
+        this.httpServer.listen(this.config.httpOptions.port);
+      } catch (err) {
+        this.env.error(null, this.moduleType, `Error starting HTTP server: ${err.message}`);
+      }
     }
 
     if (this.config.httpsOptions) {
-      this.httpsServer = Https.createServer(this.config.httpsOptions.serverOptions, this.requestHandler.bind(this));
-      this.config.httpsOptions.port = this.getPort(this.config.httpsOptions.port);
-      this.httpsServer.listen(this.config.httpsOptions.port);
+      try {
+        this.httpsServer = Https.createServer(this.config.httpsOptions.serverOptions, this.requestHandler.bind(this));
+        this.config.httpsOptions.port = this.getPort(this.config.httpsOptions.port);
+        this.httpsServer.listen(this.config.httpsOptions.port);
+      } catch (err) {
+        this.env.error(null, this.moduleType, `Error starting HTTPS server: ${err.message}`);
+      }
     }
 
     if (this.config.contentTypeHandlers) {
