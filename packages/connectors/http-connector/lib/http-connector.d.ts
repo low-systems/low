@@ -31,6 +31,7 @@ export declare class HttpConnector extends Connector<HttpConnectorConfig, any, H
     getContentType(response: Http.ServerResponse, body: any): string;
     setResponseBody(response: Http.ServerResponse, body: any, gzip?: boolean): void;
     destroy(): Promise<void>;
+    closeServer(server: Http.Server): Promise<void>;
 }
 export interface HttpConnectorConfig {
     httpOptions?: HttpOptions;

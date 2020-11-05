@@ -363,11 +363,33 @@ class HttpConnector extends low_1.Connector {
     destroy() {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.httpServer) {
-                this.httpServer.close();
+                yield this.closeServer(this.httpServer);
             }
             if (this.httpsServer) {
-                this.httpsServer.close();
+                yield this.closeServer(this.httpsServer);
             }
+        });
+    }
+    closeServer(server) {
+        return new Promise((resolve, reject) => {
+            const address = server.address;
+            this.env.debug(null, this.moduleType, `Closing down server on address ${address}`);
+            let closed = false;
+            server.on('close', () => {
+                if (closed)
+                    return;
+                this.env.debug(null, this.moduleType, `Successfully down server on address ${address}`);
+                closed = true;
+                resolve();
+            });
+            server.close();
+            setTimeout(() => {
+                if (closed)
+                    return;
+                this.env.debug(null, this.moduleType, `Server close timeout reached for server on ${address}`);
+                closed = true;
+                resolve();
+            }, 10000);
         });
     }
 }
