@@ -12,6 +12,7 @@ export declare class HttpConnector extends Connector<HttpConnectorConfig, any, H
     httpsServer?: Https.Server;
     sites: SiteMap;
     setup(): Promise<void>;
+    startListening(server: Http.Server, port: number): Promise<void>;
     getPort(portOrVar: number | string): number;
     setupTask(task: TaskConfig, config: HttpTaskConfig): Promise<void>;
     requestHandler(request: Http.IncomingMessage, response: Http.ServerResponse): Promise<void>;

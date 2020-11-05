@@ -35,10 +35,7 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       try {
         this.httpServer = Http.createServer(this.config.httpOptions.serverOptions, this.requestHandler.bind(this));
         this.config.httpOptions.port = this.getPort(this.config.httpOptions.port);
-        this.httpServer.listen(this.config.httpOptions.port)
-          .on('error', (err) => {
-            this.env.error(null, this.moduleType, `Error starting HTTP server: ${err.message}`);
-          });
+        await this.startListening(this.httpServer, this.config.httpOptions.port);
       } catch (err) {
         this.env.error(null, this.moduleType, `Error starting HTTP server: ${err.message}`);
       }
@@ -48,10 +45,7 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       try {
         this.httpsServer = Https.createServer(this.config.httpsOptions.serverOptions, this.requestHandler.bind(this));
         this.config.httpsOptions.port = this.getPort(this.config.httpsOptions.port);
-        this.httpsServer.listen(this.config.httpsOptions.port)
-        .on('error', (err) => {
-          this.env.error(null, this.moduleType, `Error starting HTTPS server: ${err.message}`);
-        });
+        await this.startListening(this.httpsServer, this.config.httpsOptions.port);
       } catch (err) {
         this.env.error(null, this.moduleType, `Error starting HTTPS server: ${err.message}`);
       }
@@ -83,6 +77,14 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
     }
 
     await this.setupTasks();
+  }
+
+  startListening(server: Http.Server, port: number) {
+    return new Promise<void>((resolve, reject) => {
+      server.listen(port)
+        .on('error', (err) => reject(err))
+        .on('listening', () => resolve());
+    });
   }
 
   getPort(portOrVar: number | string) {
