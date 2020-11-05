@@ -38,6 +38,7 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
         await this.startListening(this.httpServer, this.config.httpOptions.port);
       } catch (err) {
         this.env.error(null, this.moduleType, `Error starting HTTP server: ${err.message}`);
+        throw err;
       }
     }
 
@@ -48,6 +49,7 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
         await this.startListening(this.httpsServer, this.config.httpsOptions.port);
       } catch (err) {
         this.env.error(null, this.moduleType, `Error starting HTTPS server: ${err.message}`);
+        throw err;
       }
     }
 

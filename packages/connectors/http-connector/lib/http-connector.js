@@ -55,6 +55,7 @@ class HttpConnector extends low_1.Connector {
                 }
                 catch (err) {
                     this.env.error(null, this.moduleType, `Error starting HTTP server: ${err.message}`);
+                    throw err;
                 }
             }
             if (this.config.httpsOptions) {
@@ -65,6 +66,7 @@ class HttpConnector extends low_1.Connector {
                 }
                 catch (err) {
                     this.env.error(null, this.moduleType, `Error starting HTTPS server: ${err.message}`);
+                    throw err;
                 }
             }
             if (this.config.contentTypeHandlers) {
