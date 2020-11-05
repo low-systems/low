@@ -51,7 +51,10 @@ class HttpConnector extends low_1.Connector {
                 try {
                     this.httpServer = Http.createServer(this.config.httpOptions.serverOptions, this.requestHandler.bind(this));
                     this.config.httpOptions.port = this.getPort(this.config.httpOptions.port);
-                    this.httpServer.listen(this.config.httpOptions.port);
+                    this.httpServer.listen(this.config.httpOptions.port)
+                        .on('error', (err) => {
+                        this.env.error(null, this.moduleType, `Error starting HTTP server: ${err.message}`);
+                    });
                 }
                 catch (err) {
                     this.env.error(null, this.moduleType, `Error starting HTTP server: ${err.message}`);
@@ -61,7 +64,10 @@ class HttpConnector extends low_1.Connector {
                 try {
                     this.httpsServer = Https.createServer(this.config.httpsOptions.serverOptions, this.requestHandler.bind(this));
                     this.config.httpsOptions.port = this.getPort(this.config.httpsOptions.port);
-                    this.httpsServer.listen(this.config.httpsOptions.port);
+                    this.httpsServer.listen(this.config.httpsOptions.port)
+                        .on('error', (err) => {
+                        this.env.error(null, this.moduleType, `Error starting HTTPS server: ${err.message}`);
+                    });
                 }
                 catch (err) {
                     this.env.error(null, this.moduleType, `Error starting HTTPS server: ${err.message}`);
