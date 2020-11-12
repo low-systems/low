@@ -82,6 +82,8 @@ class SalesforceDoer extends low_1.Doer {
                     return yield this.executeBulkCrud(connection, coreConfig);
                 case ('bulkQuery'):
                     return yield this.executeBulkQuery(connection, coreConfig);
+                case ('executeAnonymous'):
+                    return yield this.executeAnonymous(connection, coreConfig);
             }
         });
     }
@@ -150,6 +152,11 @@ class SalesforceDoer extends low_1.Doer {
                 batchesResults.push(results);
             }
             return batchesResults;
+        });
+    }
+    executeAnonymous(connection, call) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield connection.tooling.executeAnonymous(call.body);
         });
     }
     runCrudBatch(job, records, pollInterval = 5000, pollTimeout = 30000) {

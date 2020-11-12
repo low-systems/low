@@ -64,6 +64,8 @@ export class SalesforceDoer extends Doer<SalesforceConfig, SalesforceSecretsConf
         return await this.executeBulkCrud(connection, coreConfig);
       case ('bulkQuery'):
         return await this.executeBulkQuery(connection, coreConfig);
+      case ('executeAnonymous'):
+        return await this.executeAnonymous(connection, coreConfig);
     }
   }
 
@@ -128,6 +130,10 @@ export class SalesforceDoer extends Doer<SalesforceConfig, SalesforceSecretsConf
     return batchesResults;
   }
 
+  async executeAnonymous(connection: Connection, call: SalesforceExecuteAnonymousCall) {
+    return await connection.tooling.executeAnonymous(call.body);
+  }
+
   runCrudBatch(job: JsForce.Job, records: any[], pollInterval: number = 5000, pollTimeout: number = 30000) {
     return new Promise((resolve, reject) => {
       const batch = job.createBatch();
@@ -190,7 +196,8 @@ export type SalesforceTaskConfig =
   SalesforceUpsertCall |
   SalesforceApexCall |
   SalesforceBulkCrudCall |
-  SalesforceBulkQueryCall;
+  SalesforceBulkQueryCall |
+  SalesforceExecuteAnonymousCall;
 
 export interface SalesforceCall {
   method: string;
@@ -266,6 +273,11 @@ export interface SalesforceBulkCrudCall extends SalesforceCall {
 export interface SalesforceBulkQueryCall extends SalesforceCall {
   method: 'bulkQuery';
   query: string;
+}
+
+export interface SalesforceExecuteAnonymousCall extends SalesforceCall {
+  method: 'executeAnonymous',
+  body: string;
 }
 
 export interface Connection extends JsForce.Connection {

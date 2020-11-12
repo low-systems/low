@@ -15,6 +15,7 @@ export declare class SalesforceDoer extends Doer<SalesforceConfig, SalesforceSec
     executeUpsert(connection: Connection, call: SalesforceUpsertCall): Promise<JsForce.RecordResult>;
     executeApex(connection: Connection, call: SalesforceApexCall): Promise<unknown>;
     executeBulkCrud(connection: Connection, call: SalesforceBulkCrudCall): Promise<any[]>;
+    executeAnonymous(connection: Connection, call: SalesforceExecuteAnonymousCall): Promise<JsForce.ExecuteAnonymousResult>;
     runCrudBatch(job: JsForce.Job, records: any[], pollInterval?: number, pollTimeout?: number): Promise<unknown>;
     executeBulkQuery(connection: Connection, call: SalesforceBulkQueryCall): Promise<unknown>;
 }
@@ -28,7 +29,7 @@ export interface SalesforceCredential {
     username: string;
     password: string;
 }
-export declare type SalesforceTaskConfig = SalesforceQueryCall | SalesforceSearchCall | SalesforceRetrieveCall | SalesforceCreateCall | SalesforceUpdateCall | SalesforceDeleteCall | SalesforceUpsertCall | SalesforceApexCall | SalesforceBulkCrudCall | SalesforceBulkQueryCall;
+export declare type SalesforceTaskConfig = SalesforceQueryCall | SalesforceSearchCall | SalesforceRetrieveCall | SalesforceCreateCall | SalesforceUpdateCall | SalesforceDeleteCall | SalesforceUpsertCall | SalesforceApexCall | SalesforceBulkCrudCall | SalesforceBulkQueryCall | SalesforceExecuteAnonymousCall;
 export interface SalesforceCall {
     method: string;
     connection: string;
@@ -93,6 +94,10 @@ export interface SalesforceBulkCrudCall extends SalesforceCall {
 export interface SalesforceBulkQueryCall extends SalesforceCall {
     method: 'bulkQuery';
     query: string;
+}
+export interface SalesforceExecuteAnonymousCall extends SalesforceCall {
+    method: 'executeAnonymous';
+    body: string;
 }
 export interface Connection extends JsForce.Connection {
     search(sosl: string, callback?: (err: Error, result: JsForce.RecordResult[]) => void): Promise<JsForce.RecordResult[]>;
