@@ -1,5 +1,5 @@
 {
-  "version": "1.1.58",
+  "version": "1.1.67",
   "main": "lib/pdf-doer.js",
   "types": "lib/pdf-doer.d.ts",
   "scripts": {
