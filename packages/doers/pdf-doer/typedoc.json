@@ -1,0 +1,6 @@
+{
+  "theme": "minimal",
+  "mode": "modules",
+  "out": "docs",
+  "json": "docs/docs.json"
+}
