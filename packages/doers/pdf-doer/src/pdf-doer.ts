@@ -53,7 +53,7 @@ export class PdfDoer extends Doer<PdfDoerConfig, any> {
       coreConfig.definition.header = this.makeDynamicSectionFunction(context, coreConfig.headerFunction) as DynamicContent;
     }
 
-    if (coreConfig.footerFunction === 'string') {
+    if (typeof coreConfig.footerFunction === 'string') {
       coreConfig.definition.footer = this.makeDynamicSectionFunction(context, coreConfig.footerFunction) as DynamicContent;
     }
 

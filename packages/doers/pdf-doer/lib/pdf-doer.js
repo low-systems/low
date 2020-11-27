@@ -67,7 +67,7 @@ class PdfDoer extends low_1.Doer {
             if (typeof coreConfig.headerFunction === 'string') {
                 coreConfig.definition.header = this.makeDynamicSectionFunction(context, coreConfig.headerFunction);
             }
-            if (coreConfig.footerFunction === 'string') {
+            if (typeof coreConfig.footerFunction === 'string') {
                 coreConfig.definition.footer = this.makeDynamicSectionFunction(context, coreConfig.footerFunction);
             }
             const pdfData = this.generatePdf(context, coreConfig.definition);
