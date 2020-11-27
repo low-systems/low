@@ -2,7 +2,7 @@ import PdfMake from 'pdfmake';
 import Axios from 'axios';
 
 import { Doer, TaskConfig, ConnectorContext, IMap } from 'low';
-import { TFontDictionary, TDocumentDefinitions, ContextPageSize } from 'pdfmake/interfaces';
+import { TFontDictionary, TDocumentDefinitions, ContextPageSize, Content, DynamicContent } from 'pdfmake/interfaces';
 
 export class PdfDoer extends Doer<PdfDoerConfig, any> {
   _printer?: PdfMake;
@@ -48,12 +48,12 @@ export class PdfDoer extends Doer<PdfDoerConfig, any> {
   async main(context: ConnectorContext<any>, taskConfig: TaskConfig, coreConfig: PdfTaskConfig): Promise<Buffer> {
     coreConfig.definition.images = await this.fetchImages(context, coreConfig.images);
 
-    if ('dynamicHeader' in coreConfig) {
-      coreConfig.definition.header = this.makeDynamicSectionFunction(context, coreConfig.dynamicHeader);
+    if (typeof coreConfig.headerFunction === 'string') {
+      coreConfig.definition.header = this.makeDynamicSectionFunction(context, coreConfig.headerFunction) as DynamicContent;
     }
 
-    if ('dynamicFooter' in coreConfig) {
-      coreConfig.definition.footer = this.makeDynamicSectionFunction(context, coreConfig.dynamicFooter);
+    if (coreConfig.footerFunction === 'string') {
+      coreConfig.definition.footer = this.makeDynamicSectionFunction(context, coreConfig.footerFunction) as DynamicContent;
     }
 
     const pdfData = this.generatePdf(context, coreConfig.definition);
@@ -98,14 +98,13 @@ export class PdfDoer extends Doer<PdfDoerConfig, any> {
     return imageDictionary;
   }
 
-  makeDynamicSectionFunction(context: ConnectorContext<any>, definition: any) {
+  functionCache: IMap<DynamicContentWithContext> = {};
+  makeDynamicSectionFunction(context: ConnectorContext<any>, code: string): any {
     return (currentPage: number, pageCount: number, pageSize: ContextPageSize) => {
-      const definitionJson = JSON.stringify(definition);
-      const replacedDefinition = definitionJson
-        .replace(/{{current_page}}/ig, currentPage.toString())
-        .replace(/{{page_count}}/ig, pageCount.toString());
-      const compiledDefinition = JSON.parse(replacedDefinition);
-      return compiledDefinition;
+      if (!(code in this.functionCache)) {
+        this.functionCache[code] = new Function('context', 'currentPage', 'pageCount', 'pageSize', code) as DynamicContentWithContext;
+      }
+      return this.functionCache[code](context, currentPage, pageCount, pageSize);
     }
   }
 
@@ -134,8 +133,8 @@ export interface PdfDoerConfig {
 export interface PdfTaskConfig {
   definition: TDocumentDefinitions;
   images?: (ImageItem | string)[];
-  dynamicHeader?: any;
-  dynamicFooter?: any;
+  headerFunction?: string;
+  footerFunction?: string;
 }
 
 export interface ImageItem {
@@ -149,3 +148,5 @@ export interface ImageCacheItem extends ImageItem {
   cached: Number;
   expires: Number;
 }
+
+export type DynamicContentWithContext = (context: ConnectorContext<any>, pageNumber: number, pageCount: number, pageSize: ContextPageSize) => Content | null | undefined;

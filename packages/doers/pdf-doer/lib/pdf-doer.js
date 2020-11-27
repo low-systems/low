@@ -20,6 +20,7 @@ class PdfDoer extends low_1.Doer {
     constructor() {
         super(...arguments);
         this.imageCache = {};
+        this.functionCache = {};
     }
     get printer() {
         if (!this._printer) {
@@ -62,11 +63,11 @@ class PdfDoer extends low_1.Doer {
     main(context, taskConfig, coreConfig) {
         return __awaiter(this, void 0, void 0, function* () {
             coreConfig.definition.images = yield this.fetchImages(context, coreConfig.images);
-            if ('dynamicHeader' in coreConfig) {
-                coreConfig.definition.header = this.makeDynamicSectionFunction(context, coreConfig.dynamicHeader);
+            if (typeof coreConfig.headerFunction === 'string') {
+                coreConfig.definition.header = this.makeDynamicSectionFunction(context, coreConfig.headerFunction);
             }
-            if ('dynamicFooter' in coreConfig) {
-                coreConfig.definition.footer = this.makeDynamicSectionFunction(context, coreConfig.dynamicFooter);
+            if (coreConfig.footerFunction === 'string') {
+                coreConfig.definition.footer = this.makeDynamicSectionFunction(context, coreConfig.footerFunction);
             }
             const pdfData = this.generatePdf(context, coreConfig.definition);
             return pdfData;
@@ -104,14 +105,12 @@ class PdfDoer extends low_1.Doer {
             return imageDictionary;
         });
     }
-    makeDynamicSectionFunction(context, definition) {
+    makeDynamicSectionFunction(context, code) {
         return (currentPage, pageCount, pageSize) => {
-            const definitionJson = JSON.stringify(definition);
-            const replacedDefinition = definitionJson
-                .replace(/{{current_page}}/ig, currentPage.toString())
-                .replace(/{{page_count}}/ig, pageCount.toString());
-            const compiledDefinition = JSON.parse(replacedDefinition);
-            return compiledDefinition;
+            if (!(code in this.functionCache)) {
+                this.functionCache[code] = new Function('context', 'currentPage', 'pageCount', 'pageSize', code);
+            }
+            return this.functionCache[code](context, currentPage, pageCount, pageSize);
         };
     }
     generatePdf(context, definition) {

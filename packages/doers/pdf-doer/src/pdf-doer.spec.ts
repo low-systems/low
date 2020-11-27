@@ -25,12 +25,8 @@ test('should be true', async () => {
       ],
       defaultStyle: { font: 'Helvetica' }
     },
-    dynamicHeader: [
-      { text: 'Header - page {{current_page}} of {{page_count}}' }
-    ],
-    dynamicFooter: [
-      { text: 'Footer - page {{current_page}} of {{page_count}}' }
-    ]
+    headerFunction: 'return [ { text: `Header - page ${currentPage} of ${pageCount}` } ]',
+    footerFunction: 'return [ { text: `Footer - page ${currentPage} of ${pageCount}` } ]'
   }
 
   const pdfBuffer = await doer.main(context, wrapCoreConfig(config), config);
