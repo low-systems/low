@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PdfDoer = void 0;
 const pdfmake_1 = __importDefault(require("pdfmake"));
 const axios_1 = __importDefault(require("axios"));
+const crypto_1 = __importDefault(require("crypto"));
 const low_1 = require("low");
 class PdfDoer extends low_1.Doer {
     constructor() {
@@ -106,11 +107,12 @@ class PdfDoer extends low_1.Doer {
         });
     }
     makeDynamicSectionFunction(context, code) {
+        const hash = crypto_1.default.createHash('sha1').update(code).digest('base64');
         return (currentPage, pageCount, pageSize) => {
-            if (!(code in this.functionCache)) {
-                this.functionCache[code] = new Function('context', 'currentPage', 'pageCount', 'pageSize', code);
+            if (!(hash in this.functionCache)) {
+                this.functionCache[hash] = new Function('context', 'currentPage', 'pageCount', 'pageSize', code);
             }
-            return this.functionCache[code](context, currentPage, pageCount, pageSize);
+            return this.functionCache[hash](context, currentPage, pageCount, pageSize);
         };
     }
     generatePdf(context, definition) {

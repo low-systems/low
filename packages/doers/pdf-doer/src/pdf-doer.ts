@@ -1,5 +1,6 @@
 import PdfMake from 'pdfmake';
 import Axios from 'axios';
+import Crypto from 'crypto';
 
 import { Doer, TaskConfig, ConnectorContext, IMap } from 'low';
 import { TFontDictionary, TDocumentDefinitions, ContextPageSize, Content, DynamicContent } from 'pdfmake/interfaces';
@@ -100,11 +101,12 @@ export class PdfDoer extends Doer<PdfDoerConfig, any> {
 
   functionCache: IMap<DynamicContentWithContext> = {};
   makeDynamicSectionFunction(context: ConnectorContext<any>, code: string): any {
+    const hash = Crypto.createHash('sha1').update(code).digest('base64');
     return (currentPage: number, pageCount: number, pageSize: ContextPageSize) => {
-      if (!(code in this.functionCache)) {
-        this.functionCache[code] = new Function('context', 'currentPage', 'pageCount', 'pageSize', code) as DynamicContentWithContext;
+      if (!(hash in this.functionCache)) {
+        this.functionCache[hash] = new Function('context', 'currentPage', 'pageCount', 'pageSize', code) as DynamicContentWithContext;
       }
-      return this.functionCache[code](context, currentPage, pageCount, pageSize);
+      return this.functionCache[hash](context, currentPage, pageCount, pageSize);
     }
   }
 
