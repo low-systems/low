@@ -65,10 +65,10 @@ class PdfDoer extends low_1.Doer {
         return __awaiter(this, void 0, void 0, function* () {
             coreConfig.definition.images = yield this.fetchImages(context, coreConfig.images);
             if (typeof coreConfig.headerFunction === 'string') {
-                coreConfig.definition.header = this.makeDynamicSectionFunction(context, coreConfig.headerFunction);
+                coreConfig.definition.header = this.makeDynamicSectionFunction(context, coreConfig.headerFunction, coreConfig.metadata);
             }
             if (typeof coreConfig.footerFunction === 'string') {
-                coreConfig.definition.footer = this.makeDynamicSectionFunction(context, coreConfig.footerFunction);
+                coreConfig.definition.footer = this.makeDynamicSectionFunction(context, coreConfig.footerFunction, coreConfig.metadata);
             }
             const pdfData = this.generatePdf(context, coreConfig.definition);
             return pdfData;
@@ -106,13 +106,13 @@ class PdfDoer extends low_1.Doer {
             return imageDictionary;
         });
     }
-    makeDynamicSectionFunction(context, code) {
+    makeDynamicSectionFunction(context, code, metadata = {}) {
         const hash = crypto_1.default.createHash('sha1').update(code).digest('base64');
         return (currentPage, pageCount, pageSize) => {
             if (!(hash in this.functionCache)) {
-                this.functionCache[hash] = new Function('context', 'currentPage', 'pageCount', 'pageSize', code);
+                this.functionCache[hash] = new Function('context', 'metadata', 'currentPage', 'pageCount', 'pageSize', code);
             }
-            return this.functionCache[hash](context, currentPage, pageCount, pageSize);
+            return this.functionCache[hash](context, metadata, currentPage, pageCount, pageSize);
         };
     }
     generatePdf(context, definition) {

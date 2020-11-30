@@ -10,7 +10,7 @@ export declare class PdfDoer extends Doer<PdfDoerConfig, any> {
     imageCache: IMap<ImageCacheItem>;
     fetchImages(context: ConnectorContext<any>, images?: (ImageItem | string)[]): Promise<IMap<string>>;
     functionCache: IMap<DynamicContentWithContext>;
-    makeDynamicSectionFunction(context: ConnectorContext<any>, code: string): any;
+    makeDynamicSectionFunction(context: ConnectorContext<any>, code: string, metadata?: any): any;
     generatePdf(context: ConnectorContext<any>, definition: TDocumentDefinitions): Promise<Buffer>;
 }
 export interface PdfDoerConfig {
@@ -21,6 +21,7 @@ export interface PdfTaskConfig {
     images?: (ImageItem | string)[];
     headerFunction?: string;
     footerFunction?: string;
+    metadata?: any;
 }
 export interface ImageItem {
     url: string;
@@ -32,4 +33,4 @@ export interface ImageCacheItem extends ImageItem {
     cached: Number;
     expires: Number;
 }
-export declare type DynamicContentWithContext = (context: ConnectorContext<any>, pageNumber: number, pageCount: number, pageSize: ContextPageSize) => Content | null | undefined;
+export declare type DynamicContentWithContext = (context: ConnectorContext<any>, metadata: any, pageNumber: number, pageCount: number, pageSize: ContextPageSize) => Content | null | undefined;

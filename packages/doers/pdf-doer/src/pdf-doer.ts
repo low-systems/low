@@ -50,11 +50,11 @@ export class PdfDoer extends Doer<PdfDoerConfig, any> {
     coreConfig.definition.images = await this.fetchImages(context, coreConfig.images);
 
     if (typeof coreConfig.headerFunction === 'string') {
-      coreConfig.definition.header = this.makeDynamicSectionFunction(context, coreConfig.headerFunction) as DynamicContent;
+      coreConfig.definition.header = this.makeDynamicSectionFunction(context, coreConfig.headerFunction, coreConfig.metadata) as DynamicContent;
     }
 
     if (typeof coreConfig.footerFunction === 'string') {
-      coreConfig.definition.footer = this.makeDynamicSectionFunction(context, coreConfig.footerFunction) as DynamicContent;
+      coreConfig.definition.footer = this.makeDynamicSectionFunction(context, coreConfig.footerFunction, coreConfig.metadata) as DynamicContent;
     }
 
     const pdfData = this.generatePdf(context, coreConfig.definition);
@@ -100,13 +100,13 @@ export class PdfDoer extends Doer<PdfDoerConfig, any> {
   }
 
   functionCache: IMap<DynamicContentWithContext> = {};
-  makeDynamicSectionFunction(context: ConnectorContext<any>, code: string): any {
+  makeDynamicSectionFunction(context: ConnectorContext<any>, code: string, metadata: any = {}): any {
     const hash = Crypto.createHash('sha1').update(code).digest('base64');
     return (currentPage: number, pageCount: number, pageSize: ContextPageSize) => {
       if (!(hash in this.functionCache)) {
-        this.functionCache[hash] = new Function('context', 'currentPage', 'pageCount', 'pageSize', code) as DynamicContentWithContext;
+        this.functionCache[hash] = new Function('context', 'metadata', 'currentPage', 'pageCount', 'pageSize', code) as DynamicContentWithContext;
       }
-      return this.functionCache[hash](context, currentPage, pageCount, pageSize);
+      return this.functionCache[hash](context, metadata, currentPage, pageCount, pageSize);
     }
   }
 
@@ -137,6 +137,7 @@ export interface PdfTaskConfig {
   images?: (ImageItem | string)[];
   headerFunction?: string;
   footerFunction?: string;
+  metadata?: any;
 }
 
 export interface ImageItem {
@@ -151,4 +152,4 @@ export interface ImageCacheItem extends ImageItem {
   expires: Number;
 }
 
-export type DynamicContentWithContext = (context: ConnectorContext<any>, pageNumber: number, pageCount: number, pageSize: ContextPageSize) => Content | null | undefined;
+export type DynamicContentWithContext = (context: ConnectorContext<any>, metadata: any, pageNumber: number, pageCount: number, pageSize: ContextPageSize) => Content | null | undefined;
