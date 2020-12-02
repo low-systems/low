@@ -10,6 +10,15 @@ export class CacheManager<C, S> extends Module<C, S> {
     return this._CACHE;
   }
 
+  compilePartition(partition: string | string[], context: Context) {
+    if (!Array.isArray(partition)) return partition;
+    const compiledPartition: string[] = [];
+    for (const part of partition) {
+      compiledPartition.push(part.startsWith('$$') ? part.substring(2) : ''+ObjectCompiler.objectPath(context, part));
+    }
+    return compiledPartition.join(':');
+  }
+
   async makeKey(config: CacheConfig, context: Context): Promise<CacheKey> {
     let data = '';
     for (const path of config.keyProperties) {
@@ -20,7 +29,7 @@ export class CacheManager<C, S> extends Module<C, S> {
       .update(data)
       .digest('hex');
     return {
-      partition: config.partition,
+      partition: this.compilePartition(config.partition, context),
       key: hash
     };
   }
@@ -75,7 +84,7 @@ export class CacheManager<C, S> extends Module<C, S> {
 export interface CacheConfig {
   cacheManager: string;
   keyProperties: string[];
-  partition: string;
+  partition: string | string[];
   ttl: number;
 }
 

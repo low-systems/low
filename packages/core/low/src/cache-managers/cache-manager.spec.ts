@@ -154,7 +154,7 @@ test('should be able to flush partition', async () => {
   await cacheManager.setItem(cacheKey, item, config.ttl);
 
   expect(cacheManager.CACHE).toHaveProperty(config.partition);
-  await cacheManager.flush(config.partition);
+  await cacheManager.flush(''+config.partition);
   expect(cacheManager.CACHE).not.toHaveProperty(config.partition);
 });
 

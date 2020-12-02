@@ -20,6 +20,15 @@ class CacheManager extends module_1.Module {
     get CACHE() {
         return this._CACHE;
     }
+    compilePartition(partition, context) {
+        if (!Array.isArray(partition))
+            return partition;
+        const compiledPartition = [];
+        for (const part of partition) {
+            compiledPartition.push(part.startsWith('$$') ? part.substring(2) : '' + object_compiler_1.ObjectCompiler.objectPath(context, part));
+        }
+        return compiledPartition.join(':');
+    }
     makeKey(config, context) {
         return __awaiter(this, void 0, void 0, function* () {
             let data = '';
@@ -31,7 +40,7 @@ class CacheManager extends module_1.Module {
                 .update(data)
                 .digest('hex');
             return {
-                partition: config.partition,
+                partition: this.compilePartition(config.partition, context),
                 key: hash
             };
         });

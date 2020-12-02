@@ -3,6 +3,7 @@ import { Context } from '../environment';
 export declare class CacheManager<C, S> extends Module<C, S> {
     private _CACHE;
     get CACHE(): MemoryCache;
+    compilePartition(partition: string | string[], context: Context): string;
     makeKey(config: CacheConfig, context: Context): Promise<CacheKey>;
     getItem(cacheKey: CacheKey): Promise<any>;
     setItem(cacheKey: CacheKey, item: any, ttl: number): Promise<void>;
@@ -11,7 +12,7 @@ export declare class CacheManager<C, S> extends Module<C, S> {
 export interface CacheConfig {
     cacheManager: string;
     keyProperties: string[];
-    partition: string;
+    partition: string | string[];
     ttl: number;
 }
 export interface CacheKey {
