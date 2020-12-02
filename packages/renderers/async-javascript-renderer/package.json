@@ -1,5 +1,5 @@
 {
-  "version": "1.1.60",
+  "version": "1.1.72",
   "main": "lib/async-javascript-renderer.js",
   "types": "lib/async-javascript-renderer.d.ts",
   "scripts": {
@@ -12,8 +12,8 @@
     "preset": "ts-jest"
   },
   "dependencies": {
-    "@low-systems/javascript-renderer": "^1.1.60",
-    "low": "^1.1.58"
+    "@low-systems/javascript-renderer": "^1.1.72",
+    "low": "^1.1.72"
   },
   "name": "@low-systems/async-javascript-renderer",
   "description": "An Asynchronous Javascript Renderer for low",
