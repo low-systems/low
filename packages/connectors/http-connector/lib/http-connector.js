@@ -157,6 +157,12 @@ class HttpConnector extends low_1.Connector {
             catch (err) {
                 yield this.handleError(response, err, input);
             }
+            try {
+                if (!response.finished) {
+                    response.end('');
+                }
+            }
+            catch (err) { }
         });
     }
     getSiteFromHostname(hostname) {
@@ -241,7 +247,7 @@ class HttpConnector extends low_1.Connector {
                 const task = this.env.getTask(handler.taskName);
                 const config = input.route && input.route.config || {};
                 let data = {};
-                let errors = {};
+                let errors = { error };
                 if (error instanceof low_1.ConnectorRunError) {
                     data = error.context.data;
                     errors = error.context.errors;

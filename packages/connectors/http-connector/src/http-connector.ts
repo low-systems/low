@@ -153,6 +153,12 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
     } catch(err) {
       await this.handleError(response, err, input);
     }
+
+    try {
+      if (!response.finished) {
+        response.end('');
+      }
+    } catch (err) {}
   }
 
   hostnameCache: HostnameCache = {};
@@ -248,7 +254,7 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       const task = this.env.getTask(handler.taskName);
       const config = input.route && input.route.config || {};
       let data: any = {};
-      let errors: TaskErrorMap = {};
+      let errors: TaskErrorMap = { error };
 
       if (error instanceof ConnectorRunError) {
         data = error.context.data;
