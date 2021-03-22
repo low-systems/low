@@ -159,6 +159,7 @@ class HttpConnector extends low_1.Connector {
             }
             try {
                 if (!response.finished) {
+                    console.error('Some how at the end of handling a response with a response unfinished');
                     response.end('');
                 }
             }
@@ -238,7 +239,7 @@ class HttpConnector extends low_1.Connector {
     }
     handleError(response, error, input) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.error(`Handling error response: ${error.message}`);
+            console.error(`Handling error response: ${error.message} - ${input.url.href}`);
             let statusCode = 500;
             try {
                 statusCode = error instanceof http_error_1.HttpError ? error.statusCode : 500;
@@ -257,12 +258,13 @@ class HttpConnector extends low_1.Connector {
                 this.sendResponse(response, output, input.site);
             }
             catch (err) {
-                console.error(`Error handling error response: ${err.message}`);
+                console.error(`Error handling error response (${statusCode}): ${err.message}`);
                 this.sendResponse(response, {
                     body: error.message,
                     statusCode: statusCode,
                     statusMessage: error.message
                 });
+                console.error(`Error handling error response sent`);
             }
         });
     }
@@ -279,7 +281,12 @@ class HttpConnector extends low_1.Connector {
                 return handler;
             }
         }
-        throw new Error('No error handler found');
+        try {
+            console.error(`No error handler found for status code: ${statusCode}. Had ${handlers.length} to check`);
+            console.error(JSON.stringify(handlers));
+        }
+        catch (err) { }
+        throw new Error(`No error handler found for status code: ${statusCode}. Had ${handlers.length} to check`);
     }
     sendResponse(response, output, site) {
         try {

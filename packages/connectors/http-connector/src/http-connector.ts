@@ -156,6 +156,7 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
 
     try {
       if (!response.finished) {
+        console.error('Some how at the end of handling a response with a response unfinished');
         response.end('');
       }
     } catch (err) {}
@@ -244,8 +245,9 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
   }
 
   async handleError(response: Http.ServerResponse, error: Error | HttpError | ConnectorRunError, input: HttpInput) {
-    console.error(`Handling error response: ${error.message}`);
+    console.error(`Handling error response: ${error.message} - ${input.url.href}`);
     let statusCode = 500;
+
     try {
       statusCode = error instanceof HttpError ? error.statusCode : 500;
       const handlers = this.mergeErrorHandlers(input.site);
@@ -266,12 +268,13 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
 
       this.sendResponse(response, output, input.site);
     } catch (err) {
-      console.error(`Error handling error response: ${err.message}`);
+      console.error(`Error handling error response (${statusCode}): ${err.message}`);
       this.sendResponse(response, {
         body: error.message,
         statusCode: statusCode,
         statusMessage: error.message
       });
+      console.error(`Error handling error response sent`);
     }
   }
 
@@ -291,7 +294,11 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       }
     }
 
-    throw new Error('No error handler found');
+    try {
+      console.error(`No error handler found for status code: ${statusCode}. Had ${handlers.length} to check`);
+      console.error(JSON.stringify(handlers));
+    } catch (err) { }
+    throw new Error(`No error handler found for status code: ${statusCode}. Had ${handlers.length} to check`);
   }
 
   sendResponse(response: Http.ServerResponse, output: HttpOutput, site?: Site) {
