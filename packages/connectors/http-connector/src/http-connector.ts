@@ -264,6 +264,7 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
         statusMessage: error.message
       });
     }
+    response.end();
   }
 
   mergeErrorHandlers(site?: Site) {

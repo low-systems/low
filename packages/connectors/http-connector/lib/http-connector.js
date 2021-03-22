@@ -255,6 +255,7 @@ class HttpConnector extends low_1.Connector {
                     statusMessage: error.message
                 });
             }
+            response.end();
         });
     }
     mergeErrorHandlers(site) {
