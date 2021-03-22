@@ -238,8 +238,10 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
   }
 
   async handleError(response: Http.ServerResponse, error: Error | HttpError | ConnectorRunError, input: HttpInput) {
-    const statusCode = error instanceof HttpError ? error.statusCode : 500;
+    console.error(`Handling error response: ${error.message}`);
+    let statusCode = 500;
     try {
+      statusCode = error instanceof HttpError ? error.statusCode : 500;
       const handlers = this.mergeErrorHandlers(input.site);
       const handler = this.findErrorHandler(handlers, statusCode);
 
@@ -258,13 +260,13 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
 
       this.sendResponse(response, output, input.site);
     } catch (err) {
+      console.error(`Error handling error response: ${err.message}`);
       this.sendResponse(response, {
         body: error.message,
         statusCode: statusCode,
         statusMessage: error.message
       });
     }
-    response.end();
   }
 
   mergeErrorHandlers(site?: Site) {
@@ -294,7 +296,7 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       this.setResponseCookies(response, output.cookies);
       this.setResponseBody(response, output.body, output.gzip);
     } catch (err) {
-      console.error(err);
+      console.error(`Error sending response: ${err.message}`);
       response.setHeader('response-error', err.message);
       response.statusCode = 500;
     }
@@ -356,42 +358,47 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
   }
 
   setResponseBody(response: Http.ServerResponse, body: any, gzip: boolean = false) {
-    const bodyType = typeof body;
-    if (bodyType === 'undefined' || body === null) {
-      return;
-    }
-
-    let contentType = this.getContentType(response, body);
-    let bodyBuffer = Buffer.from([]);
-
-    if (Buffer.isBuffer(body)) {
-      bodyBuffer = body;
-    } else if (bodyType === 'object') {
-      const bodyJson = SafeStringify(body);
-      bodyBuffer = Buffer.from(bodyJson);
-    } else {
-      const bodyString = body.toString();
-      bodyBuffer = Buffer.from(bodyString);
-    }
-
-    if (gzip) {
-      const zipped = Pako.gzip(bodyBuffer);
-      bodyBuffer = Buffer.from(zipped);
-
-      response.setHeader('content-encoding', 'gzip');
-      response.setHeader('content-length', bodyBuffer.length);
-
-      // Clean up unnecessary stuff from the content type
-      if (contentType.indexOf('charset') > -1) {
-        contentType = contentType.substr(0, contentType.indexOf(';'));
+    try {
+      const bodyType = typeof body;
+      if (bodyType === 'undefined' || body === null) {
+        return;
       }
-      contentType += '; charset=x-user-defined-binary';
+
+      let contentType = this.getContentType(response, body);
+      let bodyBuffer = Buffer.from([]);
+
+      if (Buffer.isBuffer(body)) {
+        bodyBuffer = body;
+      } else if (bodyType === 'object') {
+        const bodyJson = SafeStringify(body);
+        bodyBuffer = Buffer.from(bodyJson);
+      } else {
+        const bodyString = body.toString();
+        bodyBuffer = Buffer.from(bodyString);
+      }
+
+      if (gzip) {
+        const zipped = Pako.gzip(bodyBuffer);
+        bodyBuffer = Buffer.from(zipped);
+
+        response.setHeader('content-encoding', 'gzip');
+        response.setHeader('content-length', bodyBuffer.length);
+
+        // Clean up unnecessary stuff from the content type
+        if (contentType.indexOf('charset') > -1) {
+          contentType = contentType.substr(0, contentType.indexOf(';'));
+        }
+        contentType += '; charset=x-user-defined-binary';
+      }
+
+      response.removeHeader('content-type');
+      response.setHeader('content-type', contentType);
+
+      response.write(bodyBuffer);
+    } catch(err) {
+      console.error(`Error setting response body: ${err.message}`);
+      throw err;
     }
-
-    response.removeHeader('content-type');
-    response.setHeader('content-type', contentType);
-
-    response.write(bodyBuffer);
   }
 
   async destroy() {

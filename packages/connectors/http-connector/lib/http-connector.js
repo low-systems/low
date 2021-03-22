@@ -232,8 +232,10 @@ class HttpConnector extends low_1.Connector {
     }
     handleError(response, error, input) {
         return __awaiter(this, void 0, void 0, function* () {
-            const statusCode = error instanceof http_error_1.HttpError ? error.statusCode : 500;
+            console.error(`Handling error response: ${error.message}`);
+            let statusCode = 500;
             try {
+                statusCode = error instanceof http_error_1.HttpError ? error.statusCode : 500;
                 const handlers = this.mergeErrorHandlers(input.site);
                 const handler = this.findErrorHandler(handlers, statusCode);
                 const task = this.env.getTask(handler.taskName);
@@ -249,13 +251,13 @@ class HttpConnector extends low_1.Connector {
                 this.sendResponse(response, output, input.site);
             }
             catch (err) {
+                console.error(`Error handling error response: ${err.message}`);
                 this.sendResponse(response, {
                     body: error.message,
                     statusCode: statusCode,
                     statusMessage: error.message
                 });
             }
-            response.end();
         });
     }
     mergeErrorHandlers(site) {
@@ -282,7 +284,7 @@ class HttpConnector extends low_1.Connector {
             this.setResponseBody(response, output.body, output.gzip);
         }
         catch (err) {
-            console.error(err);
+            console.error(`Error sending response: ${err.message}`);
             response.setHeader('response-error', err.message);
             response.statusCode = 500;
         }
@@ -337,37 +339,43 @@ class HttpConnector extends low_1.Connector {
         }
     }
     setResponseBody(response, body, gzip = false) {
-        const bodyType = typeof body;
-        if (bodyType === 'undefined' || body === null) {
-            return;
-        }
-        let contentType = this.getContentType(response, body);
-        let bodyBuffer = Buffer.from([]);
-        if (Buffer.isBuffer(body)) {
-            bodyBuffer = body;
-        }
-        else if (bodyType === 'object') {
-            const bodyJson = fast_safe_stringify_1.default(body);
-            bodyBuffer = Buffer.from(bodyJson);
-        }
-        else {
-            const bodyString = body.toString();
-            bodyBuffer = Buffer.from(bodyString);
-        }
-        if (gzip) {
-            const zipped = Pako.gzip(bodyBuffer);
-            bodyBuffer = Buffer.from(zipped);
-            response.setHeader('content-encoding', 'gzip');
-            response.setHeader('content-length', bodyBuffer.length);
-            // Clean up unnecessary stuff from the content type
-            if (contentType.indexOf('charset') > -1) {
-                contentType = contentType.substr(0, contentType.indexOf(';'));
+        try {
+            const bodyType = typeof body;
+            if (bodyType === 'undefined' || body === null) {
+                return;
             }
-            contentType += '; charset=x-user-defined-binary';
+            let contentType = this.getContentType(response, body);
+            let bodyBuffer = Buffer.from([]);
+            if (Buffer.isBuffer(body)) {
+                bodyBuffer = body;
+            }
+            else if (bodyType === 'object') {
+                const bodyJson = fast_safe_stringify_1.default(body);
+                bodyBuffer = Buffer.from(bodyJson);
+            }
+            else {
+                const bodyString = body.toString();
+                bodyBuffer = Buffer.from(bodyString);
+            }
+            if (gzip) {
+                const zipped = Pako.gzip(bodyBuffer);
+                bodyBuffer = Buffer.from(zipped);
+                response.setHeader('content-encoding', 'gzip');
+                response.setHeader('content-length', bodyBuffer.length);
+                // Clean up unnecessary stuff from the content type
+                if (contentType.indexOf('charset') > -1) {
+                    contentType = contentType.substr(0, contentType.indexOf(';'));
+                }
+                contentType += '; charset=x-user-defined-binary';
+            }
+            response.removeHeader('content-type');
+            response.setHeader('content-type', contentType);
+            response.write(bodyBuffer);
         }
-        response.removeHeader('content-type');
-        response.setHeader('content-type', contentType);
-        response.write(bodyBuffer);
+        catch (err) {
+            console.error(`Error setting response body: ${err.message}`);
+            throw err;
+        }
     }
     destroy() {
         return __awaiter(this, void 0, void 0, function* () {
