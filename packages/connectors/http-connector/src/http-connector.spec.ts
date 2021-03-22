@@ -42,7 +42,7 @@ afterAll(async (done) => {
   done();
 });
 
-test('should be able to handle valid and invalid a port numbers', () => {
+test('should be able to handle valid and invalid a port numbers', async () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
   const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
@@ -53,9 +53,11 @@ test('should be able to handle valid and invalid a port numbers', () => {
   expect(connector.getPort('PORT')).toBe(1234);
   expect(() => { connector.getPort('NAN') }).toThrow(/is not a number/);
   expect(() => { connector.getPort('UNDEFINED') }).toThrow(/Cannot load port/);
+
+  await connector.destroy();
 });
 
-test('should be able to get and cache a site from a hostname', () => {
+test('should be able to get and cache a site from a hostname', async () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
   const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
@@ -63,9 +65,11 @@ test('should be able to get and cache a site from a hostname', () => {
   expect(connector.getSiteFromHostname('localhost').name).toBe('default');
   expect(connector.hostnameCache['localhost'].name).toBe('default');
   expect(() => { connector.getSiteFromHostname('baloney') }).toThrow(/Invalid hostname/);
+
+  await connector.destroy();
 });
 
-test('should be able to identify protocol from a request', () => {
+test('should be able to identify protocol from a request', async () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
   const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
@@ -85,9 +89,11 @@ test('should be able to identify protocol from a request', () => {
 
   unencryptedRequest.headers = { 'x-arr-ssl': 'baloney' };
   expect(connector.getRequestProtocol(unencryptedRequest)).toBe('https');
+
+  await connector.destroy();
 });
 
-test('should be able to construct a url from a request', () => {
+test('should be able to construct a url from a request', async () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
   const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
@@ -110,9 +116,11 @@ test('should be able to construct a url from a request', () => {
 
   expect(connector.getRequestUrl(unencryptedRequest).toString()).toBe('http://scvo.org/test?query=string');
   expect(connector.getRequestUrl(encryptedRequest).toString()).toBe('https://scvo.org/test?query=string');
+
+  await connector.destroy();
 });
 
-test('should be able to convert a querystring to an object', () => {
+test('should be able to convert a querystring to an object', async () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
   const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
@@ -126,6 +134,8 @@ test('should be able to convert a querystring to an object', () => {
     query: ['string', 'params'],
     another: ['test']
   });
+
+  await connector.destroy();
 });
 
 test('should be able to get a request\'s body as an object', async () => {
@@ -146,9 +156,11 @@ test('should be able to get a request\'s body as an object', async () => {
 
   const getRequest = new MockRequest('GET', '/test', { });
   expect(await connector.getRequestBody(getRequest)).toEqual({});
+
+  await connector.destroy();
 });
 
-test('should be able to merge error handlers', () => {
+test('should be able to merge error handlers', async () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
   const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
@@ -160,9 +172,11 @@ test('should be able to merge error handlers', () => {
 .errorHandlers
   ];
   expect(connector.mergeErrorHandlers(site)).toEqual(expected);
+
+  await connector.destroy();
 });
 
-test('should be able to match an appropriate error handler', () => {
+test('should be able to match an appropriate error handler', async () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
   const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
@@ -180,9 +194,11 @@ test('should be able to match an appropriate error handler', () => {
   expect(connector.findErrorHandler(handlers, 495).taskName).toBe('490-510');
   expect(connector.findErrorHandler(handlers, 489).taskName).toBe('405-499');
   expect(() => {connector.findErrorHandler(handlers, 600) }).toThrow(/No error handler/);
+
+  await connector.destroy();
 });
 
-test('should send an appropriate response', () => {
+test('should send an appropriate response', async () => {
   if (!environment) { fail('Environment has not been setup properly'); return; }
   const connector = environment.getConnector('HttpConnector') as HttpConnector;
 
@@ -245,6 +261,8 @@ test('should send an appropriate response', () => {
     gzip: true
   };
   connector.sendResponse(bufferResponse, bufferOutput);
+
+  await connector.destroy();
 });
 
 test('should be able to handle requests', async () => {
@@ -287,4 +305,6 @@ test('should be able to handle requests', async () => {
 
   expect(invalidPathResponse.statusCode).toBe(404);
   expect(invalidPathResponse.statusMessage).toBe('Invalid path');
+
+  await connector.destroy();
 });

@@ -132,17 +132,18 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       input.site = this.getSiteFromHostname(input.url.hostname);
 
       const match = input.site.matchRoute(input.url.pathname, input.verb);
+      const connection = request.connection || request.socket || { }
 
       input.params = match.params;
       input.route = match.route;
       input.query = this.getQuerystringObject(input.url);
       input.cookies = CookieHelper.parse(request.headers.cookie || '');
       input.headers = request.headers;
-      input.client = {
-        address: request.connection.remoteAddress,
-        port: request.connection.remotePort,
-        family: request.connection.remoteFamily
-      };
+      input.client = connection ? {
+        address: connection.remoteAddress,
+        port: connection.remotePort,
+        family: connection.remoteFamily
+      } : undefined;
       input.body = await this.getRequestBody(request);
 
       const context = await this.runTask(match.route.task, input, match.route.config);
@@ -285,11 +286,17 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
   }
 
   sendResponse(response: Http.ServerResponse, output: HttpOutput, site?: Site) {
-    response.statusCode = output.statusCode || 200;
-    response.statusMessage = output.statusMessage || 'OK';
-    this.setResponseHeaders(response, output.headers, site);
-    this.setResponseCookies(response, output.cookies);
-    this.setResponseBody(response, output.body, output.gzip);
+    try {
+      response.statusCode = output.statusCode || 200;
+      response.statusMessage = output.statusMessage || 'OK';
+      this.setResponseHeaders(response, output.headers, site);
+      this.setResponseCookies(response, output.cookies);
+      this.setResponseBody(response, output.body, output.gzip);
+    } catch (err) {
+      console.error(err);
+      response.setHeader('response-error', err.message);
+      response.statusCode = 500;
+    }
     response.end();
   }
 
