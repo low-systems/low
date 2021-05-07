@@ -1,4 +1,5 @@
 /// <reference types="node" />
+import { Socket } from 'net';
 import * as Http from 'http';
 import * as Https from 'https';
 import * as Url from 'url';
@@ -14,6 +15,10 @@ export declare class HttpConnector extends Connector<HttpConnectorConfig, any, H
     setup(): Promise<void>;
     startListening(server: Http.Server, port: number): Promise<void>;
     getPort(portOrVar: number | string): number;
+    getProxyIp(headers: Http.IncomingHttpHeaders): string | undefined;
+    getClientInfo(headers: Http.IncomingHttpHeaders, connection?: Socket): {
+        address: string;
+    };
     setupTask(task: TaskConfig, config: HttpTaskConfig): Promise<void>;
     requestHandler(request: Http.IncomingMessage, response: Http.ServerResponse): Promise<void>;
     hostnameCache: HostnameCache;

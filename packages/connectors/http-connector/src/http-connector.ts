@@ -1,3 +1,4 @@
+import { Socket } from 'net';
 import * as Http from 'http';
 import * as Https from 'https';
 import * as Url from 'url';
@@ -107,6 +108,34 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
     return port;
   }
 
+  getProxyIp(headers: Http.IncomingHttpHeaders) {
+    const proxyIp = (
+      headers['x-forwarded-for'] ||
+      headers['x-proxyuser-ip'] ||
+      headers['x-client-ip'] ||
+      headers['x-real-ip'] ||
+      headers['x-remote-ip'] ||
+      headers['client-ip'] ||
+      headers['clientip'] ||
+      headers['user-ip'] ||
+      undefined
+    );
+
+    if (!proxyIp) return;
+    if (Array.isArray(proxyIp)) return proxyIp[0];
+    return proxyIp;
+  }
+
+  getClientInfo(headers: Http.IncomingHttpHeaders, connection?: Socket) {
+    const proxyIp = this.getProxyIp(headers);
+
+    if (proxyIp) {
+      return { address: proxyIp.split(',')[0] }
+    }
+
+    return { address: connection?.remoteAddress || 'unknown' }
+  }
+
   async setupTask(task: TaskConfig, config: HttpTaskConfig) {
     for (const site of config.sites) {
       this.sites[site].registerRoutes(task, config);
@@ -132,18 +161,14 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       input.site = this.getSiteFromHostname(input.url.hostname);
 
       const match = input.site.matchRoute(input.url.pathname, input.verb);
-      const connection = request.connection || request.socket || { }
+      const connection = request.connection || request.socket || { };
 
       input.params = match.params;
       input.route = match.route;
       input.query = this.getQuerystringObject(input.url);
       input.cookies = CookieHelper.parse(request.headers.cookie || '');
       input.headers = request.headers;
-      input.client = connection ? {
-        address: connection.remoteAddress,
-        port: connection.remotePort,
-        family: connection.remoteFamily
-      } : undefined;
+      input.client = this.getClientInfo(input.headers, connection);
       input.body = await this.getRequestBody(request);
 
       const context = await this.runTask(match.route.task, input, match.route.config);

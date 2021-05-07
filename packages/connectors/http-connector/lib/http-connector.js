@@ -114,6 +114,30 @@ class HttpConnector extends low_1.Connector {
         }
         return port;
     }
+    getProxyIp(headers) {
+        const proxyIp = (headers['x-forwarded-for'] ||
+            headers['x-proxyuser-ip'] ||
+            headers['x-client-ip'] ||
+            headers['x-real-ip'] ||
+            headers['x-remote-ip'] ||
+            headers['client-ip'] ||
+            headers['clientip'] ||
+            headers['user-ip'] ||
+            undefined);
+        if (!proxyIp)
+            return;
+        if (Array.isArray(proxyIp))
+            return proxyIp[0];
+        return proxyIp;
+    }
+    getClientInfo(headers, connection) {
+        var _a;
+        const proxyIp = this.getProxyIp(headers);
+        if (proxyIp) {
+            return { address: proxyIp.split(',')[0] };
+        }
+        return { address: ((_a = connection) === null || _a === void 0 ? void 0 : _a.remoteAddress) || 'unknown' };
+    }
     setupTask(task, config) {
         return __awaiter(this, void 0, void 0, function* () {
             for (const site of config.sites) {
@@ -144,11 +168,7 @@ class HttpConnector extends low_1.Connector {
                 input.query = this.getQuerystringObject(input.url);
                 input.cookies = CookieHelper.parse(request.headers.cookie || '');
                 input.headers = request.headers;
-                input.client = connection ? {
-                    address: connection.remoteAddress,
-                    port: connection.remotePort,
-                    family: connection.remoteFamily
-                } : undefined;
+                input.client = this.getClientInfo(input.headers, connection);
                 input.body = yield this.getRequestBody(request);
                 const context = yield this.runTask(match.route.task, input, match.route.config);
                 const output = yield low_1.ObjectCompiler.compile(match.route.config.output, context);
