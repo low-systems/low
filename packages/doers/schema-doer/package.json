@@ -1,0 +1,41 @@
+{
+  "version": "1.1.72",
+  "main": "lib/schema-doer.js",
+  "types": "lib/schema-doer.d.ts",
+  "scripts": {
+    "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
+    "test": "jest --coverage",
+    "build": "npm run clean && tsc && npm test"
+  },
+  "license": "GPL-3.0",
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "dependencies": {
+    "ajv": "^8.4.0",
+    "ajv-errors": "^3.0.0",
+    "ajv-keywords": "^5.0.0",
+    "deepmerge": "^4.2.2",
+    "low": "^1.1.72"
+  },
+  "name": "@low-systems/schema-doer",
+  "description": "A JSON Schema doer for low",
+  "homepage": "https://github.com/low-systems/low#readme",
+  "author": {
+    "name": "Matthew Wilkes (@SCVO)",
+    "url": "https://scvo.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/low-systems/low"
+  },
+  "gitHead": "11f8f1efb302e520ff0145a8af367d8f0096cf5e",
+  "devDependencies": {
+    "@types/jest": "^24.9.0",
+    "@types/json-schema": "^7.0.7",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.3.0",
+    "typedoc": "^0.16.6",
+    "typescript": "^3.7.4"
+  }
+}
