@@ -1,0 +1,37 @@
+{
+  "version": "1.1.72",
+  "main": "lib/stripe-doer.js",
+  "types": "lib/stripe-doer.d.ts",
+  "scripts": {
+    "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
+    "test": "jest --coverage",
+    "build": "npm run clean && tsc && npm test"
+  },
+  "license": "GPL-3.0",
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "dependencies": {
+    "low": "^1.1.72",
+    "stripe": "^8.156.0"
+  },
+  "name": "@low-systems/stripe-doer",
+  "description": "A Stripe doer for low",
+  "homepage": "https://github.com/low-systems/low#readme",
+  "author": {
+    "name": "Matthew Wilkes (@SCVO)",
+    "url": "https://scvo.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/low-systems/low"
+  },
+  "gitHead": "11f8f1efb302e520ff0145a8af367d8f0096cf5e",
+  "devDependencies": {
+    "@types/jest": "^24.9.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.3.0",
+    "typedoc": "^0.16.6",
+    "typescript": "^3.7.4"
+  }
+}
