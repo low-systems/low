@@ -32,9 +32,9 @@ export class StripeDoer extends Doer<IMap<Stripe.StripeConfig>, IMap<StripeKeyPa
     const isAsync = typeof config.isAsync === 'boolean' ? config.isAsync : method.constructor.name === 'AsyncFunction';
 
     if (isAsync) {
-      return await method(...args);
+      return await method.apply(stripe, args);
     } else {
-      return method(...args);
+      return method.apply(this, args);
     }
   }
 }
