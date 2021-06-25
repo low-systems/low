@@ -31,11 +31,29 @@ export class StripeDoer extends Doer<IMap<Stripe.StripeConfig>, IMap<StripeKeyPa
     const args = config.args || [];
     const isAsync = typeof config.isAsync === 'boolean' ? config.isAsync : method.constructor.name === 'AsyncFunction';
 
+    context = this.getContext(stripe, config.path, config.context);
+
     if (isAsync) {
-      return await method.apply(stripe, args);
+      return await method.apply(context, args);
     } else {
-      return method.apply(this, args);
+      return method.apply(context, args);
     }
+  }
+
+  getContext(stripe: Stripe, path: string, contextPath?: string) {
+    if (!contextPath) {
+      if (path.indexOf('.') === -1) {
+        return stripe;
+      }
+      contextPath = path.substring(0, path.lastIndexOf('.'));
+    }
+
+    const context = Dot.pick(contextPath, stripe);
+    if (!context) {
+      throw new Error(`Could not find context for Stripe call at path '${contextPath}'`);
+    }
+
+    return context;
   }
 }
 
@@ -50,4 +68,5 @@ export interface StripeMethodCall {
   args?: any[];
   isAsync?: boolean;
   justReturn?: boolean;
+  context?: string;
 }
