@@ -12,6 +12,7 @@
     "preset": "ts-jest"
   },
   "dependencies": {
+    "dot-object": "^2.1.4",
     "low": "^1.1.72",
     "stripe": "^8.156.0"
   },
@@ -28,6 +29,7 @@
   },
   "gitHead": "fd0e3d8a97424071cc3966c393fa7fd1ec4e035c",
   "devDependencies": {
+    "@types/dot-object": "^2.1.2",
     "@types/jest": "^24.9.0",
     "jest": "^24.9.0",
     "ts-jest": "^24.3.0",

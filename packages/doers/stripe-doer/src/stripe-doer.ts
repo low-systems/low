@@ -1,4 +1,5 @@
 import { Stripe } from 'stripe';
+import * as Dot from 'dot-object';
 
 import { Doer, TaskConfig, ConnectorContext, IMap } from 'low';
 
@@ -17,7 +18,7 @@ export class StripeDoer extends Doer<IMap<Stripe.StripeConfig>, IMap<StripeKeyPa
     }
 
     const stripe = this.clients[config.client];
-    const method = dot.pick(config.path, stripe);
+    const method = Dot.pick(config.path, stripe);
 
     if (typeof method !== 'function') {
       if (!config.justReturn) {
