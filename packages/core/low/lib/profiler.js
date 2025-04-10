@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Profiler = void 0;
 class Profiler {
+    get items() { return this._items; }
     constructor(config) {
         this.enabled = false;
         this.size = 10000;
@@ -9,7 +11,6 @@ class Profiler {
             Object.assign(this, config);
         }
     }
-    get items() { return this._items; }
     profile(task, doer, hasError, fromCache, start, end, requestId = 'ENV') {
         if (!this.enabled)
             return;

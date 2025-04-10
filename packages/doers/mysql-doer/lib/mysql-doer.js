@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MySqlDoer = exports.ScalarResolutionError = exports.ScalarCastError = exports.BitsToBoolsConversionError = void 0;
-const mysql_1 = __importDefault(require("mysql"));
+const mysql_1 = __importDefault(require("@vlasky/mysql"));
 const low_1 = require("low");
 class BitsToBoolsConversionError extends Error {
     constructor(message, config, results) {

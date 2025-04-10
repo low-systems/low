@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FlushCacheDoer = void 0;
 const doer_1 = require("./doer");
 class FlushCacheDoer extends doer_1.Doer {
     main(context, taskConfig, config) {

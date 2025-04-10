@@ -322,6 +322,22 @@ async function setupEnvironment(): Promise<[MySqlDoer, Environment]> {
       MySqlDoer: {
         test1: { host: '127.0.0.1', database: 'test1', port: 3306, password: 't35t' },
         test2: { host: '127.0.0.1', database: 'test2', port: 3306 }
+      },
+      JsDoer: {
+        code: `
+          /** @module Basic **/
+          exports = {
+            Basic: {
+              /** @type {import('../src').JSModuleFunction} **/
+              async main(env, context, parameters) {
+                const test1 = 'TEST';
+                const test2 = '<div id="TEST"></div>';
+
+                return [test1, test2];
+              }
+            }
+          }
+        `
       }
     }
   });
@@ -329,7 +345,6 @@ async function setupEnvironment(): Promise<[MySqlDoer, Environment]> {
 
   return [doer, env];
 }
-
 
 function createEmptyContext(env: Environment): ConnectorContext<any> {
   return {

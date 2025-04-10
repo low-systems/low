@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Logger = exports.LogLevel = void 0;
 const module_1 = require("../module");
 var LogLevel;
 (function (LogLevel) {
@@ -16,7 +17,7 @@ var LogLevel;
     LogLevel[LogLevel["INFO"] = 1] = "INFO";
     LogLevel[LogLevel["WARN"] = 2] = "WARN";
     LogLevel[LogLevel["ERROR"] = 3] = "ERROR";
-})(LogLevel = exports.LogLevel || (exports.LogLevel = {}));
+})(LogLevel || (exports.LogLevel = LogLevel = {}));
 class Logger extends module_1.Module /* implements LogMethods */ {
     debug(label, ...args) {
         return __awaiter(this, void 0, void 0, function* () {

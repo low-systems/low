@@ -1,4 +1,4 @@
-import MySql from 'mysql';
+import MySql from '@vlasky/mysql';
 
 import { Doer, IMap, TaskConfig, ConnectorContext } from 'low';
 

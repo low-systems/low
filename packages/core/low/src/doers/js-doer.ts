@@ -15,42 +15,46 @@ export class JSDoer extends Doer<JSDoerConfig, any> {
   }
 
   async loadCode (code) {
-    this.moduleContext = VM.createContext({
-      require: (filename) => {
-        const module = require(filename);
-        return module;
-      },
-      exports: {}
-    });
-
-    this.module = new (VM as any).SourceTextModule(code, {
-      context: this.moduleContext,
-      initializeImportMeta(meta) {
-        meta.url = __dirname
-      }
-    });
-
-    await this.module.link(async (specifier, referencingModule) => {
-      return new Promise(async (resolve, reject) => {
-        const module = await import(specifier);
-        const exportNames = Object.keys(module);
-
-        const syntheticModule = new (VM as any).SyntheticModule(
-          exportNames,
-          function () {
-            exportNames.forEach(key => {
-              (this as any).setExport(key, module[key]);
-            });
-          }, { context: this.moduleContext }
-        );
-
-        resolve(syntheticModule);
+    try {
+      this.moduleContext = VM.createContext({
+        require: (filename) => {
+          const module = require(filename);
+          return module;
+        },
+        exports: {}
       });
-    });
 
-    await this.module.evaluate();
+      this.module = new (VM as any).SourceTextModule(code, {
+        context: this.moduleContext,
+        initializeImportMeta(meta) {
+          meta.url = __dirname
+        }
+      });
 
-    this.modules = this.moduleContext.exports;
+      await this.module.link(async (specifier, referencingModule) => {
+        return new Promise(async (resolve, reject) => {
+          const module = await import(specifier);
+          const exportNames = Object.keys(module);
+
+          const syntheticModule = new (VM as any).SyntheticModule(
+            exportNames,
+            function () {
+              exportNames.forEach(key => {
+                (this as any).setExport(key, module[key]);
+              });
+            }, { context: this.moduleContext }
+          );
+
+          resolve(syntheticModule);
+        });
+      });
+
+      await this.module.evaluate();
+
+      this.modules = this.moduleContext.exports;
+    } catch (err) {
+      console.error(`FAILED TO LOAD CODE:`, err.message);
+    }
   }
 
   async main(context, taskConfig, config) {

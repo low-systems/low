@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Parser = void 0;
 const module_1 = require("../module");
 /**
  * This parser does naff all except return an optional `defaultValue`

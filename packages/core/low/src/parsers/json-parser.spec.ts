@@ -41,9 +41,9 @@ test('should parse properly formed array strings to arrays', async () => {
 test('should handle or throw errors when parsing improperly formed array strings', async () => {
     const parser = new JsonParser();
 
-    await expect(parser.parse('[1, 2, 3,]', {})).rejects.toThrow(/Unexpected token \]/);
-    await expect(parser.parse('[1, , 2, 3]', {})).rejects.toThrow(/Unexpected token ,/);
-    await expect(parser.parse('[1 2, 3]', {})).rejects.toThrow(/Unexpected number in JSON/);
+    await expect(parser.parse('[1, 2, 3,]', {})).rejects.toThrow(/Unexpected token '\]/);
+    await expect(parser.parse('[1, , 2, 3]', {})).rejects.toThrow(/Unexpected token ',/);
+    await expect(parser.parse('[1 2, 3]', {})).rejects.toThrow(/Expected/i);
     expect(await parser.parse('[1, 2, 3,]', { defaultValue: [1, 2, 3] })).toStrictEqual([1, 2, 3]);
     expect(await parser.parse('[1, , 2, 3]', { defaultValue: [1, 2, 3] })).toStrictEqual([1, 2, 3]);
     expect(await parser.parse('[1 2, 3]', { defaultValue: [1, 2, 3] })).toStrictEqual([1, 2, 3]);
@@ -59,10 +59,10 @@ test('should parse properly formed object strings to objects', async () => {
 test('should handle or throw errors when parsing improperly formed object strings', async () => {
   const parser = new JsonParser();
 
-  await expect(parser.parse("{ 'test': 'It worked' }", {})).rejects.toThrow(/Unexpected token '/);
-  await expect(parser.parse('{ "test": "It worked" "arr": [1, 2, 3] }', {})).rejects.toThrow(/Unexpected string in JSON/);
-  await expect(parser.parse('{ "test" "It worked", "arr": [1, 2, 3] }', {})).rejects.toThrow(/Unexpected string in JSON/);
-  await expect(parser.parse('{ "test": "It worked", "arr": [1, 2, 3], 123 }', {})).rejects.toThrow(/Unexpected number in JSON/);
+  await expect(parser.parse("{ 'test': 'It worked' }", {})).rejects.toThrow(/Expected/i);
+  await expect(parser.parse('{ "test": "It worked" "arr": [1, 2, 3] }', {})).rejects.toThrow(/Expected/i);
+  await expect(parser.parse('{ "test" "It worked", "arr": [1, 2, 3] }', {})).rejects.toThrow(/Expected/i);
+  await expect(parser.parse('{ "test": "It worked", "arr": [1, 2, 3], 123 }', {})).rejects.toThrow(/Expected/i);
   expect(await parser.parse("{ 'test': 'It worked' }", { defaultValue: { test: 'It worked' } })).toStrictEqual({ test: 'It worked' });
   expect(await parser.parse('{ "test": "It worked" "arr": [1, 2, 3] }', { defaultValue: { test: 'It worked' } })).toStrictEqual({ test: 'It worked' });
   expect(await parser.parse('{ "test" "It worked", "arr": [1, 2, 3] }', { defaultValue: { test: 'It worked' } })).toStrictEqual({ test: 'It worked' });
@@ -79,7 +79,7 @@ test('should parse null strings as nulls or can default to nulls', async () => {
 test('should handle or throw errors when parsing undefined strings', async () => {
   const parser = new JsonParser();
 
-  await expect(parser.parse('undefined', {})).rejects.toThrow(/Unexpected token u/);
+  await expect(parser.parse('undefined', {})).rejects.toThrow(/is not valid JSON/);
   await expect(parser.parse('', {})).rejects.toThrow(/Unexpected end of JSON/);
   expect(await parser.parse('undefined', { defaultValue: undefined })).toBeUndefined();
 });

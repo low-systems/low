@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TypeChecker = void 0;
 class TypeChecker {
     static parseLogic(tree, level = 1) {
         if (!Array.isArray(tree))

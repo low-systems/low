@@ -8,7 +8,7 @@ export declare class JSDoer extends Doer<JSDoerConfig, any> {
     loadCode(code: any): Promise<void>;
     main(context: any, taskConfig: any, config: any): Promise<any>;
 }
-export declare type JSModuleFunction = (env: Environment, context: ConnectorContext<any>, parameters: any) => Promise<any>;
+export type JSModuleFunction = (env: Environment, context: ConnectorContext<any>, parameters: any) => Promise<any>;
 export interface JSDoerConfig {
     code: string;
 }

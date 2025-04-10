@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UrlParser = void 0;
 const url_1 = require("url");
 const parser_1 = require("./parser");
 class UrlParser extends parser_1.Parser {

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConnectorRunError = void 0;
 class ConnectorRunError extends Error {
     constructor(message, context) {
         super(message);

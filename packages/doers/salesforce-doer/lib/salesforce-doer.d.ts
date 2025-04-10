@@ -6,16 +6,16 @@ export declare class SalesforceDoer extends Doer<SalesforceConfig, SalesforceSec
     setupConnections(): Promise<void>;
     login(name: string): Promise<void>;
     main(context: ConnectorContext<any>, taskConfig: TaskConfig, coreConfig: SalesforceTaskConfig): Promise<any>;
-    executeQuery(connection: Connection, call: SalesforceQueryCall): Promise<JsForce.QueryResult<unknown>>;
-    executeSearch(connection: Connection, call: SalesforceSearchCall): Promise<JsForce.RecordResult[]>;
-    executeRetrieve(connection: Connection, call: SalesforceRetrieveCall): Promise<JsForce.Record<object>[]>;
-    executeCreate(connection: Connection, call: SalesforceCreateCall): Promise<JsForce.RecordResult>;
-    executeUpdate(connection: Connection, call: SalesforceUpdateCall): Promise<JsForce.RecordResult>;
-    executeDelete(connection: Connection, call: SalesforceDeleteCall): Promise<JsForce.RecordResult[]>;
-    executeUpsert(connection: Connection, call: SalesforceUpsertCall): Promise<JsForce.RecordResult>;
-    executeApex(connection: Connection, call: SalesforceApexCall): Promise<unknown>;
+    executeQuery(connection: Connection, call: SalesforceQueryCall): Promise<any>;
+    executeSearch(connection: Connection, call: SalesforceSearchCall): Promise<any[]>;
+    executeRetrieve(connection: Connection, call: SalesforceRetrieveCall): Promise<any>;
+    executeCreate(connection: Connection, call: SalesforceCreateCall): Promise<any>;
+    executeUpdate(connection: Connection, call: SalesforceUpdateCall): Promise<any>;
+    executeDelete(connection: Connection, call: SalesforceDeleteCall): Promise<any>;
+    executeUpsert(connection: Connection, call: SalesforceUpsertCall): Promise<any>;
+    executeApex(connection: Connection, call: SalesforceApexCall): Promise<any>;
     executeBulkCrud(connection: Connection, call: SalesforceBulkCrudCall): Promise<any[]>;
-    executeAnonymous(connection: Connection, call: SalesforceExecuteAnonymousCall): Promise<JsForce.ExecuteAnonymousResult>;
+    executeAnonymous(connection: Connection, call: SalesforceExecuteAnonymousCall): Promise<any>;
     runCrudBatch(job: JsForce.Job, records: any[], pollInterval?: number, pollTimeout?: number): Promise<unknown>;
     executeBulkQuery(connection: Connection, call: SalesforceBulkQueryCall): Promise<unknown>;
 }

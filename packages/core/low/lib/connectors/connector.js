@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Connector = void 0;
 const module_1 = require("../module");
 const object_compiler_1 = require("../object-compiler");
 const connector_run_error_1 = require("./connector-run-error");

@@ -1,4 +1,4 @@
-import MySql from 'mysql';
+import MySql from '@vlasky/mysql';
 import { Doer, IMap, TaskConfig, ConnectorContext } from 'low';
 export declare class BitsToBoolsConversionError extends Error {
     config: BitsToBoolsConfig;
@@ -38,7 +38,7 @@ export interface ScalarConfig {
     recordSetIndex?: number;
     type: ScalarType;
 }
-export declare type ScalarType = 'boolean' | 'date' | 'json' | 'number' | 'string' | 'any';
+export type ScalarType = 'boolean' | 'date' | 'json' | 'number' | 'string' | 'any';
 export interface MySqlResponse {
     results: any;
     fields?: MySql.FieldInfo[];

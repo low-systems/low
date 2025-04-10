@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CacheManager = void 0;
 const crypto_1 = require("crypto");
 const module_1 = require("../module");
 const object_compiler_1 = require("../object-compiler");
@@ -36,7 +37,7 @@ class CacheManager extends module_1.Module {
                 const part = path.startsWith('$$') ? path.substring(2) : object_compiler_1.ObjectCompiler.objectPath(context, path);
                 data += JSON.stringify(part);
             }
-            const hash = crypto_1.createHash('sha1')
+            const hash = (0, crypto_1.createHash)('sha1')
                 .update(data)
                 .digest('hex');
             return {

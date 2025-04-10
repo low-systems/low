@@ -12,8 +12,8 @@
     "preset": "ts-jest"
   },
   "dependencies": {
-    "low": "^1.1.91",
-    "mysql": "^2.18.1"
+    "@vlasky/mysql": "^2.18.6",
+    "low": "^1.1.91"
   },
   "name": "@low-systems/mysql-doer",
   "description": "A MySQL doer for low",
@@ -29,10 +29,10 @@
   "gitHead": "11f8f1efb302e520ff0145a8af367d8f0096cf5e",
   "devDependencies": {
     "@types/jest": "^24.9.0",
-    "@types/mysql": "^2.15.15",
+    "@types/mysql": "^2.15.27",
     "jest": "^24.9.0",
     "ts-jest": "^24.3.0",
     "typedoc": "^0.16.6",
-    "typescript": "^3.7.4"
+    "typescript": "^5.3.3"
   }
 }

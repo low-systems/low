@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MultiDoer = void 0;
 const doer_1 = require("./doer");
 const object_compiler_1 = require("../object-compiler");
 class MultiDoer extends doer_1.Doer {

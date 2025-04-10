@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BooleanParser = void 0;
 const parser_1 = require("./parser");
 class BooleanParser extends parser_1.Parser {
     constructor() {

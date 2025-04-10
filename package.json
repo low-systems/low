@@ -11,9 +11,8 @@
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
     "typedoc": "^0.15.0",
-    "typescript": "^3.7.2"
+    "typescript": "^5.3.3"
   },
-  "dependencies": { },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",

@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ObjectCompiler = void 0;
 class ObjectCompiler {
     static isTemplate(property) {
         return typeof property === 'object' && property !== null && '__template' in property;
