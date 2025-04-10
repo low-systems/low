@@ -323,7 +323,7 @@ async function setupEnvironment(): Promise<[MySqlDoer, Environment]> {
         test1: { host: '127.0.0.1', database: 'test1', port: 3306, password: 't35t' },
         test2: { host: '127.0.0.1', database: 'test2', port: 3306 }
       },
-      JsDoer: {
+      JSDoer: {
         code: `
           /** @module Basic **/
           exports = {
