@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "firebase-admin": "^9.1.0",
-    "low": "^1.1.91"
+    "low": "^1.1.92"
   },
   "name": "@low-systems/firebase-auth-doer",
   "description": "A Firebase Auth doer for low",

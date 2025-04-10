@@ -1,5 +1,5 @@
 {
-  "version": "1.1.91",
+  "version": "1.1.92",
   "main": "lib/stripe-doer.js",
   "types": "lib/stripe-doer.d.ts",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "dot-object": "^2.1.4",
-    "low": "^1.1.91",
+    "low": "^1.1.92",
     "stripe": "^8.156.0"
   },
   "name": "@low-systems/stripe-doer",

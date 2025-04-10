@@ -1,5 +1,5 @@
 {
-  "version": "1.1.91",
+  "version": "1.1.92",
   "main": "lib/mysql-doer.js",
   "types": "lib/mysql-doer.d.ts",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@vlasky/mysql": "^2.18.6",
-    "low": "^1.1.91"
+    "low": "^1.1.92"
   },
   "name": "@low-systems/mysql-doer",
   "description": "A MySQL doer for low",
