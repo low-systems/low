@@ -16,8 +16,10 @@ export declare class HttpConnector extends Connector<HttpConnectorConfig, any, H
     setup(): Promise<void>;
     startListening(server: Http.Server, port: number): Promise<void>;
     getPort(portOrVar: number | string): number;
-    getProxyIp(headers: Http.IncomingHttpHeaders): string | undefined;
-    getClientInfo(headers: Http.IncomingHttpHeaders, connection?: Socket): {
+    getProxyIp(headers: Http.IncomingHttpHeaders): string;
+    getClientInfo(headers: Http.IncomingHttpHeaders, connection?: Socket | {
+        remoteAddress: string;
+    }): {
         address: string;
     };
     setupTask(task: TaskConfig, config: HttpTaskConfig): Promise<void>;

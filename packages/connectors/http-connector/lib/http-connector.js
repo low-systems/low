@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,17 +27,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.HttpConnector = void 0;
 const Http = __importStar(require("http"));
 const Https = __importStar(require("https"));
 const Url = __importStar(require("url"));
@@ -130,13 +143,12 @@ class HttpConnector extends low_1.Connector {
             return proxyIp[0];
         return proxyIp;
     }
-    getClientInfo(headers, connection) {
-        var _a;
+    getClientInfo(headers, connection = { remoteAddress: 'unknown' }) {
         const proxyIp = this.getProxyIp(headers);
         if (proxyIp) {
             return { address: proxyIp.split(',')[0] };
         }
-        return { address: ((_a = connection) === null || _a === void 0 ? void 0 : _a.remoteAddress) || 'unknown' };
+        return { address: (connection === null || connection === void 0 ? void 0 : connection.remoteAddress) || 'unknown' };
     }
     setupTask(task, config) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -146,6 +158,7 @@ class HttpConnector extends low_1.Connector {
         });
     }
     requestHandler(request, response) {
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function* () {
             const input = {
                 url: this.getRequestUrl(request),
@@ -161,8 +174,11 @@ class HttpConnector extends low_1.Connector {
                     return;
                 }
                 input.site = this.getSiteFromHostname(input.url.hostname);
+                if (!input.site) {
+                    throw new http_error_1.HttpError('Invalid hostname', 400);
+                }
                 const match = input.site.matchRoute(input.url.pathname, input.verb);
-                const connection = request.connection || request.socket || {};
+                const connection = request.connection || request.socket;
                 input.params = match.params;
                 input.route = match.route;
                 input.query = this.getQuerystringObject(input.url);
@@ -170,8 +186,22 @@ class HttpConnector extends low_1.Connector {
                 input.headers = request.headers;
                 input.client = this.getClientInfo(input.headers, connection);
                 input.body = yield this.getRequestBody(request, input.site.config.getBodyOptions);
-                const context = yield this.runTask(match.route.task, input, match.route.config);
+                let data;
+                if (Array.isArray((_b = (_a = input.site) === null || _a === void 0 ? void 0 : _a.config) === null || _b === void 0 ? void 0 : _b.inputHandlers)) {
+                    for (const handler of input.site.config.inputHandlers) {
+                        const task = this.env.getTask(handler);
+                        const context = yield this.runTask(task, input, match.route.config);
+                        data = context.data;
+                    }
+                }
+                const context = yield this.runTask(match.route.task, input, match.route.config, data);
                 const output = yield low_1.ObjectCompiler.compile(match.route.config.output, context);
+                if (Array.isArray((_d = (_c = input.site) === null || _c === void 0 ? void 0 : _c.config) === null || _d === void 0 ? void 0 : _d.inputHandlers)) {
+                    for (const handler of input.site.config.inputHandlers) {
+                        const task = this.env.getTask(handler);
+                        yield this.runTask(task, input, match.route.config, { data, output });
+                    }
+                }
                 this.sendResponse(response, output, input.site);
             }
             catch (err) {

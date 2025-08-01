@@ -65,14 +65,19 @@ class JSDoer extends doer_1.Doer {
                 });
                 yield this.module.link((specifier, referencingModule) => __awaiter(this, void 0, void 0, function* () {
                     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-                        const module = yield Promise.resolve(`${specifier}`).then(s => __importStar(require(s)));
-                        const exportNames = Object.keys(module);
-                        const syntheticModule = new vm_1.default.SyntheticModule(exportNames, function () {
-                            exportNames.forEach(key => {
-                                this.setExport(key, module[key]);
-                            });
-                        }, { context: this.moduleContext });
-                        resolve(syntheticModule);
+                        try {
+                            const module = yield Promise.resolve(`${specifier}`).then(s => __importStar(require(s)));
+                            const exportNames = Object.keys(module);
+                            const syntheticModule = new vm_1.default.SyntheticModule(exportNames, function () {
+                                exportNames.forEach(key => {
+                                    this.setExport(key, module[key]);
+                                });
+                            }, { context: this.moduleContext });
+                            resolve(syntheticModule);
+                        }
+                        catch (error) {
+                            reject(error);
+                        }
                     }));
                 }));
                 yield this.module.evaluate();

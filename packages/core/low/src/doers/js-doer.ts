@@ -33,19 +33,23 @@ export class JSDoer extends Doer<JSDoerConfig, any> {
 
       await this.module.link(async (specifier, referencingModule) => {
         return new Promise(async (resolve, reject) => {
-          const module = await import(specifier);
-          const exportNames = Object.keys(module);
+          try {
+            const module = await import(specifier);
+            const exportNames = Object.keys(module);
 
-          const syntheticModule = new (VM as any).SyntheticModule(
-            exportNames,
-            function () {
-              exportNames.forEach(key => {
-                (this as any).setExport(key, module[key]);
-              });
-            }, { context: this.moduleContext }
-          );
+            const syntheticModule = new (VM as any).SyntheticModule(
+              exportNames,
+              function () {
+                exportNames.forEach(key => {
+                  (this as any).setExport(key, module[key]);
+                });
+              }, { context: this.moduleContext }
+            );
 
-          resolve(syntheticModule);
+            resolve(syntheticModule);
+          } catch (error) {
+            reject(error);
+          }
         });
       });
 

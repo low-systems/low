@@ -70,6 +70,8 @@ export class Site {
 export interface SiteConfig {
   hostnames: string[];
   errorHandlers?: ErrorHandler[];
+  inputHandlers?: string[];
+  outputHandlers?: string[];
   responseHeaders?: HeaderMap;
   stripTrailingSlash?: Boolean;
   getBodyOptions?: GetBody.Options;
