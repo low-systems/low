@@ -192,6 +192,8 @@ class HttpConnector extends low_1.Connector {
                         const task = this.env.getTask(handler);
                         const context = yield this.runTask(task, input, match.route.config);
                         data = context.data;
+                        if (context.data.https_response)
+                            return this.sendResponse(response, context.data.https_response, input.site);
                     }
                 }
                 const context = yield this.runTask(match.route.task, input, match.route.config, data);

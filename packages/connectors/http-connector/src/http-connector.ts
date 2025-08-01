@@ -182,6 +182,9 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
           const task = this.env.getTask(handler);
           const context = await this.runTask(task, input, match.route.config);
           data = context.data;
+
+          if (context.data.https_response)
+            return this.sendResponse(response, context.data.https_response, input.site);
         }
       }
 
