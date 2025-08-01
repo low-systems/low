@@ -188,8 +188,8 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       const context = await this.runTask(match.route.task, input, match.route.config, data);
       const output = await ObjectCompiler.compile(match.route.config.output, context);
 
-      if (Array.isArray(input.site?.config?.inputHandlers)) {
-        for (const handler of input.site.config.inputHandlers) {
+      if (Array.isArray(input.site?.config?.outputHandlers)) {
+        for (const handler of input.site.config.outputHandlers) {
           const task = this.env.getTask(handler);
           await this.runTask(task, input, match.route.config, { data, output });
         }

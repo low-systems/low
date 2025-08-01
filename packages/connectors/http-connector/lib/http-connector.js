@@ -196,8 +196,8 @@ class HttpConnector extends low_1.Connector {
                 }
                 const context = yield this.runTask(match.route.task, input, match.route.config, data);
                 const output = yield low_1.ObjectCompiler.compile(match.route.config.output, context);
-                if (Array.isArray((_d = (_c = input.site) === null || _c === void 0 ? void 0 : _c.config) === null || _d === void 0 ? void 0 : _d.inputHandlers)) {
-                    for (const handler of input.site.config.inputHandlers) {
+                if (Array.isArray((_d = (_c = input.site) === null || _c === void 0 ? void 0 : _c.config) === null || _d === void 0 ? void 0 : _d.outputHandlers)) {
+                    for (const handler of input.site.config.outputHandlers) {
                         const task = this.env.getTask(handler);
                         yield this.runTask(task, input, match.route.config, { data, output });
                     }
