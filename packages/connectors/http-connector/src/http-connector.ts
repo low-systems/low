@@ -315,6 +315,13 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       const context = await this.runTask(task, input, config, data, errors);
       const output = await ObjectCompiler.compile(handler.output, context);
 
+      if (Array.isArray(input.site?.config?.outputHandlers)) {
+        for (const handler of input.site.config.outputHandlers) {
+          const task = this.env.getTask(handler);
+          await this.runTask(task, input, config, { context, output });
+        }
+      }
+
       this.sendResponse(response, output, input.site);
     } catch (err) {
       console.error(`Error handling error response (${statusCode}): ${err.message}`);
@@ -465,29 +472,30 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
 
   async destroy() {
     if (this.httpServer) {
-      await this.closeServer(this.httpServer);
+      try {
+        await this.closeServer(this.httpServer);
+      } catch (error) { }
     }
 
     if (this.httpsServer) {
-      await this.closeServer(this.httpsServer);
+      try {
+        await this.closeServer(this.httpsServer);
+      } catch (error) { }
     }
   }
 
   closeServer(server: Http.Server) {
     return new Promise<void>((resolve, reject) => {
+      let closed = false;
       const address = server.address;
       this.env.debug(null, this.moduleType, `Closing down server on address ${address}`);
 
-      let closed = false;
-
-      server.on('close', () => {
-        if (closed) return;
-        this.env.debug(null, this.moduleType, `Successfully down server on address ${address}`);
+      server.closeAllConnections();
+      server.close((err) => {
+        if (err) reject(err);
         closed = true;
         resolve();
       });
-
-      server.close();
 
       setTimeout(() => {
         if (closed) return;

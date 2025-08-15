@@ -290,6 +290,7 @@ class HttpConnector extends low_1.Connector {
         });
     }
     handleError(response, error, input) {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             console.error(`Handling error response: ${error.message} - ${input.url.href}`);
             let statusCode = 500;
@@ -307,6 +308,12 @@ class HttpConnector extends low_1.Connector {
                 }
                 const context = yield this.runTask(task, input, config, data, errors);
                 const output = yield low_1.ObjectCompiler.compile(handler.output, context);
+                if (Array.isArray((_b = (_a = input.site) === null || _a === void 0 ? void 0 : _a.config) === null || _b === void 0 ? void 0 : _b.outputHandlers)) {
+                    for (const handler of input.site.config.outputHandlers) {
+                        const task = this.env.getTask(handler);
+                        yield this.runTask(task, input, config, { context, output });
+                    }
+                }
                 this.sendResponse(response, output, input.site);
             }
             catch (err) {
@@ -445,26 +452,31 @@ class HttpConnector extends low_1.Connector {
     destroy() {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.httpServer) {
-                yield this.closeServer(this.httpServer);
+                try {
+                    yield this.closeServer(this.httpServer);
+                }
+                catch (error) { }
             }
             if (this.httpsServer) {
-                yield this.closeServer(this.httpsServer);
+                try {
+                    yield this.closeServer(this.httpsServer);
+                }
+                catch (error) { }
             }
         });
     }
     closeServer(server) {
         return new Promise((resolve, reject) => {
+            let closed = false;
             const address = server.address;
             this.env.debug(null, this.moduleType, `Closing down server on address ${address}`);
-            let closed = false;
-            server.on('close', () => {
-                if (closed)
-                    return;
-                this.env.debug(null, this.moduleType, `Successfully down server on address ${address}`);
+            server.closeAllConnections();
+            server.close((err) => {
+                if (err)
+                    reject(err);
                 closed = true;
                 resolve();
             });
-            server.close();
             setTimeout(() => {
                 if (closed)
                     return;
