@@ -175,12 +175,13 @@ export class HttpConnector extends Connector<HttpConnectorConfig, any, HttpInput
       input.client = this.getClientInfo(input.headers, connection);
       input.body = await this.getRequestBody(request, input.site.config.getBodyOptions);
 
-      const data: any = {};
+      let data: any;
 
       if (Array.isArray(input.site?.config?.inputHandlers)) {
         for (const handler of input.site.config.inputHandlers) {
           const task = this.env.getTask(handler);
-          const context = await this.runTask(task, input, match.route.config, data);
+          const context = await this.runTask(task, input, match.route.config, {});
+          data = context.data;
 
           if (context.data.http_response) {
             return this.sendResponse(response, context.data.http_response, input.site);
