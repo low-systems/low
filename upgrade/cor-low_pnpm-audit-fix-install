@@ -1,0 +1,8 @@
+Progress: resolved 0, reused 1, downloaded 0, added 0
+ WARN  13 deprecated subdependencies found: abab@2.0.6, domexception@1.0.1, fsevents@1.2.13, glob@7.2.3, har-validator@5.1.5, inflight@1.0.6, left-pad@1.3.0, request-promise-native@1.0.9, request@2.88.2, rimraf@2.7.1, sane@4.1.0, uuid@3.4.0, w3c-hr-time@1.0.2
+Progress: resolved 476, reused 473, downloaded 1, added 0
+Packages: +18 -88
++++++++++++++-------------------------------------------------------------------
+Progress: resolved 476, reused 473, downloaded 2, added 18, done
+
+Done in 2.2s

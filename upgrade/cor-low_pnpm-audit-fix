@@ -1,0 +1,14 @@
+8 overrides were added to package.json to fix vulnerabilities.
+Run "pnpm install" to apply the fixes.
+
+The added overrides:
+{
+  "node-notifier@<8.0.1": ">=8.0.1",
+  "highlight.js@>=9.0.0 <10.4.1": ">=10.4.1",
+  "yargs-parser@>=6.0.0 <13.1.2": ">=13.1.2",
+  "marked@<4.0.10": ">=4.0.10",
+  "tough-cookie@<4.1.3": ">=4.1.3",
+  "braces@<3.0.3": ">=3.0.3",
+  "micromatch@<4.0.8": ">=4.0.8",
+  "form-data@<2.5.4": ">=2.5.4"
+}

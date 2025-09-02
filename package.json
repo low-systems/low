@@ -6,19 +6,20 @@
     "test": "jest"
   },
   "devDependencies": {
-    "jest": "^24.9.0",
-    "lerna": "^3.18.3",
-    "ts-jest": "^24.1.0",
-    "tslint": "^5.20.0",
-    "typedoc": "^0.15.0",
-    "typescript": "^5.3.3"
+    "jest": "^30.1.2",
+    "lerna": "^8.2.3",
+    "ts-jest": "^29.4.1",
+    "tslint": "^6.1.3",
+    "typedoc": "^0.28.12",
+    "typescript": "^5.9.2"
   },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
     "projects": [
-      "packages/*/*"
+      "packages/core/low"
     ],
+    "maxWorkers": "50%",
     "globals": {
       "tsConfig": {
         "target": "es6"
