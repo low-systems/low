@@ -18,7 +18,7 @@ __exportStar(require("./cache-managers/cache-manager"), exports);
 __exportStar(require("./connectors/connector"), exports);
 __exportStar(require("./connectors/connector-run-error"), exports);
 __exportStar(require("./doers/doer"), exports);
-__exportStar(require("./doers/js-doer.js"), exports);
+__exportStar(require("./doers/js-doer"), exports);
 __exportStar(require("./doers/multi-doer"), exports);
 __exportStar(require("./environment"), exports);
 __exportStar(require("./module"), exports);

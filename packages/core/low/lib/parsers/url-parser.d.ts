@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { URL } from 'url';
 import { Parser, ParserConfig } from './parser';
 export declare class UrlParser extends Parser<URL> {

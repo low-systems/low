@@ -1,0 +1,12 @@
+{
+  "modules": {
+    "SalesforceDoer": {
+      "connections": {
+        "test": {
+          "loginUrl": "https://login.salesforce.com",
+          "version": "61.0"
+        }
+      }
+    }
+  }
+}

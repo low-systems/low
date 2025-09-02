@@ -4,17 +4,17 @@
   "types": "lib/stripe-doer.d.ts",
   "scripts": {
     "clean": "rm -rf docs/; rm -rf lib/; rm -rf coverage/",
-    "test": "jest --coverage",
-    "build": "npm run clean && tsc && npm test"
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest --coverage",
+    "build": "npm run clean && tsc"
   },
   "license": "GPL-3.0",
   "jest": {
     "preset": "ts-jest"
   },
   "dependencies": {
-    "dot-object": "^2.1.4",
-    "low": "^1.1.92",
-    "stripe": "^8.156.0"
+    "dot-object": "^2.1.5",
+    "low": "workspace:^",
+    "stripe": "^18.5.0"
   },
   "name": "@low-systems/stripe-doer",
   "description": "A Stripe doer for low",
@@ -29,11 +29,11 @@
   },
   "gitHead": "fd0e3d8a97424071cc3966c393fa7fd1ec4e035c",
   "devDependencies": {
-    "@types/dot-object": "^2.1.2",
-    "@types/jest": "^24.9.0",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.3.0",
-    "typedoc": "^0.16.6",
-    "typescript": "^3.7.4"
+    "@types/dot-object": "^2.1.6",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.1.2",
+    "ts-jest": "^29.4.1",
+    "typedoc": "^0.28.12",
+    "typescript": "^5.9.2"
   }
 }

@@ -1,0 +1,17 @@
+import { Renderer, RenderConfig, Context, IMap } from '../../index';
+export declare class JavascriptRenderer extends Renderer<JavascriptConfig, any, JavascriptTemplate> {
+    functions: IMap<Function>;
+    setup(): Promise<void>;
+    registerFunctions(): void;
+    core(func: Function, context: Context, metadata: any): Promise<any>;
+    getTemplate(config: RenderConfig<JavascriptTemplate>, context: Context): Promise<any>;
+    makeFunction(code: string, name?: string): Function;
+    wrapCode(code: string, name?: string): string;
+}
+export interface JavascriptConfig {
+    functions?: IMap<string>;
+}
+export type JavascriptTemplate = string | {
+    name?: string;
+    code: string;
+};

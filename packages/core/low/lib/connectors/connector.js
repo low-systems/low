@@ -47,8 +47,8 @@ class Connector extends module_1.Module {
             });
         });
     }
-    runTask(task, input, config, data = {}, errors = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
+    runTask(task_1, input_1, config_1) {
+        return __awaiter(this, arguments, void 0, function* (task, input, config, data = {}, errors = {}) {
             const context = {
                 data,
                 errors,

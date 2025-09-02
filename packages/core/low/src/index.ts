@@ -2,7 +2,7 @@ export * from './cache-managers/cache-manager';
 export * from './connectors/connector';
 export * from './connectors/connector-run-error';
 export * from './doers/doer';
-export * from './doers/js-doer.js';
+export * from './doers/js-doer';
 export * from './doers/multi-doer';
 export * from './environment';
 export * from './module';
